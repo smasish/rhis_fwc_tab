@@ -54,9 +54,8 @@
 
     <Spinner
         android:id="@+id/spinner"
-
-        android:layout_marginLeft="40dp"
-        android:layout_width="250px"
+        android:layout_marginLeft="15dp"
+        android:layout_width="235px"
         android:layout_height="70px"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"/>
@@ -89,18 +88,11 @@
             android:ellipsize="start"
             android:src="@drawable/search"
             android:gravity="center"
-            android:layout_width="120px"
-            android:layout_height="80px"
+            android:layout_width="wrap_content"
+            android:layout_height="70px"
             android:layout_gravity="center"/>
-</LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:gravity="center">
         <Button
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="80px"
             android:id="@+id/nonregiser"
@@ -110,6 +102,14 @@
             android:layout_gravity="center"
             android:textAlignment="center"
             android:text="Non-Register Client ?"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="center">
 
     </LinearLayout>
 
