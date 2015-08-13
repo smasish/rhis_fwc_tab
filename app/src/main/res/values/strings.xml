@@ -1,8 +1,15 @@
 <resources>
-    <string name="app_name">RHIS</string>
-    <string name="dr_prompt">Select One</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_second">SecondActivity</string>
+    <string name = "app_name">RHIS</string>
+    <string name = "dr_prompt">Select One</string>
+    <string name = "action_settings">Settings</string>
+    <string name = "title_activity_second">SecondActivity</string>
+    <string name = "appTitle">"ইউনিয়ন স্বাস্থ্য ও পরিবার কল্যাণ তথ্য নিবন্ধন "</string>
+    <string name = "providerLabel">"সেবা  প্রদানকারীর আইডি :"</string>
+    <string name = "providerPassLabel">"সেবা প্রদানকারীর পাসওয়ার্ড  :"</string>
+    <string name = "providerHint">"ইউনিয়ন স্বাস্থ্য ও পরিবার কল্যাণ তথ্য নিবন্ধন "</string>
+    <string name = "providerPassHint">"ইউনিয়ন স্বাস্থ্য ও পরিবার কল্যাণ তথ্য নিবন্ধন "</string>
+
+
 
     <string-array name="Health_Id">
         <item>Health ID</item>
