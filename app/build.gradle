@@ -7,9 +7,9 @@ android {
     compileOptions.encoding = 'utf-8'
 
     defaultConfig {
-        applicationId "org.sc.alamin.rhis"
-        minSdkVersion 9
-        targetSdkVersion 22
+        applicationId "fwc.org.sci.rhis"
+        minSdkVersion 15
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
