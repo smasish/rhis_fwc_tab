@@ -60,7 +60,7 @@
         android:background="@drawable/edittextstyle"
         android:layout_width="440px"
         android:layout_height="70px"
-        android:id="@+id/ProviderId"  />
+        android:id="@+id/providerId"  />
        !-- android:hint="সেবা প্রদানকারীর আইডি প্রদান করুন"
 
 
@@ -81,7 +81,7 @@
         android:layout_centerVertical="true"
         android:ellipsize="start"
         android:background="@drawable/edittextstyle"
-        android:id="@+id/password"
+        android:id="@+id/providerPassword"
         android:layout_width="440px"
         android:layout_height="70px"
         android:inputType="textPassword"  />
