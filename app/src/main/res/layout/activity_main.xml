@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Welcome To FWC Module"
-        android:id="@+id/textView" />
+        android:id="@+id/textViewBanner" />
 
 
     <ImageView
@@ -40,7 +40,7 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:hint="Provider ID"
-        android:id="@+id/editText" />
+        android:id="@+id/editTextProviderId" />
 
     <!--TextView
         android:layout_width="wrap_content"
@@ -55,13 +55,32 @@
         android:hint="Password"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText2" />
+        android:id="@+id/editTextPassword" />
 
-    <Button
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login"
-        android:id="@+id/buttonLogin" />
+        android:id="@+id/buttonLogin"
+        android:onClick="startLogin"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forgot Password"
+            android:id="@+id/buttonForgot"/>
 
-
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=""
+        android:textColor="#ff0000"
+        android:id="@+id/forgotPassLabel" />
 </LinearLayout>
