@@ -1,4 +1,4 @@
-package org.sc.alamin.rhis;
+package org.sci.rhis.fwc;
 
 /**
  * Created by jamil.zaman on 14/08/2015.

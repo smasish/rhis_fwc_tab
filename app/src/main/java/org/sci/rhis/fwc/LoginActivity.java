@@ -1,4 +1,4 @@
-package org.sc.alamin.rhis;
+package org.sci.rhis.fwc;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+
+import org.sci.rhis.fwc.SecondActivity;
 
 public class LoginActivity extends Activity {
 

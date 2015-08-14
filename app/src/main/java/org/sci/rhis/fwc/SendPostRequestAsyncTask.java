@@ -1,4 +1,4 @@
-package org.sc.alamin.rhis;
+package org.sci.rhis.fwc;
 
 import android.content.Context;
 import android.os.AsyncTask;
