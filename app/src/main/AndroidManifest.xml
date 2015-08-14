@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.sc.alamin.rhis" >
+    package="org.sci.rhis.fwc" >
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".LoginActivity"
+            android:name="org.sci.rhis.fwc.LoginActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,12 +18,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SecondActivity"
+            android:name="org.sci.rhis.fwc.SecondActivity"
             android:label="@string/title_activity_second"
-            android:parentActivityName=".LoginActivity" >
+            android:parentActivityName=".org.sci.rhis.fwc.LoginActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.sc.alamin.rhis.LoginActivity" />
+                android:value="org.sci.rhis.fwc.LoginActivity" />
         </activity>
     </application>
 

@@ -1,7 +1,5 @@
-import android.support.v7.app.AppCompatActivity;
 
 package org.sci.rhis.fwc;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +8,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-
-import org.sci.rhis.fwc.LoginActivity;
-import org.sci.rhis.fwc.R;
 
 public class SecondActivity extends AppCompatActivity {
 

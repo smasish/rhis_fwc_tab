@@ -7,7 +7,7 @@ android {
     compileOptions.encoding = 'utf-8'
 
     defaultConfig {
-        applicationId "fwc.org.sci.rhis"
+        applicationId "org.sci.rhis.fwc"
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
