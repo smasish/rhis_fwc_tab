@@ -16,12 +16,12 @@
             android:id="@+id/logo_image"
             android:layout_gravity="center"
             android:layout_width="100dp"
-            android:src="@drawable/govtlogo"
+            android:src="@drawable/bdgovtogo"
             android:layout_height="100dp" />
 
         <TextView android:id="@+id/TextView1"
             android:layout_width="fill_parent"
-            android:text="ইউনিয়ন স্বাস্থ্য ও পরিবার কল্যাণ তথ্য নিবন্ধন "
+            android:text="@string/appTitle"
             android:textSize="20dp"
             android:textColor="#FF0000"
             android:layout_centerVertical="true"
