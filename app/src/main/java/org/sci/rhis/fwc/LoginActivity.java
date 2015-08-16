@@ -21,8 +21,9 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
         //addListenerOnButton();
         Typeface tf = Typeface.createFromAsset(getApplicationContext().getAssets(),"Nikosh.ttf");
-        TextView textview = (TextView)findViewById(R.id.providerId);
+        TextView textview = (TextView)findViewById(R.id.providerLabelId);
         textview.setTypeface(tf);
+
     }
 
     public void startLogin(View view) {
