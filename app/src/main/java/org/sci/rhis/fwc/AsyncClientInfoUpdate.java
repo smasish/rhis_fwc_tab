@@ -3,7 +3,7 @@ package org.sci.rhis.fwc;
 /**
  * Created by jamil.zaman on 14/08/2015.
  */
-public class ClientInfo {
+public class AsyncClientInfoUpdate {
     String mName;
 
     public void setmName(String mName) {

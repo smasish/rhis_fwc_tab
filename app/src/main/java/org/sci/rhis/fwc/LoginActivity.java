@@ -17,6 +17,7 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         //addListenerOnButton();
+        //Set deafult bang;a font
         Typeface tf = Typeface.createFromAsset(getApplicationContext().getAssets(),"Nikosh.ttf");
         TextView textview = (TextView)findViewById(R.id.providerLabelId);
         textview.setTypeface(tf);
@@ -42,7 +43,6 @@ public class LoginActivity extends Activity {
     }
 
     /*
-    public void addListenerOnButton() {
         final Context context = this;
         button = (Button) findViewById(R.id.loginbtn1);
         button.setOnClickListener(new OnClickListener() {
@@ -55,4 +55,3 @@ public class LoginActivity extends Activity {
         });
     }*/
 }
-
