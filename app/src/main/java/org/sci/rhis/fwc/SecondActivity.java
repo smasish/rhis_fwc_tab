@@ -67,11 +67,8 @@ public class SecondActivity extends AppCompatActivity {
             public void onClick(View arg0) {
 
                 Intent intent = new Intent(context, LoginActivity.class);
-
                 startActivity(intent);
-
             }
-
         });
 
     }

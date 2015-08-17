@@ -29,9 +29,9 @@ public class LoginActivity extends Activity {
         final EditText providerText = (EditText)findViewById(R.id.providerId);
         //Button loginButton = (Button)findViewById(R.id.buttonLogin);
         //final TextView loginBanner = (TextView)findViewById(R.id.textViewBanner);
-        ClientInfo client = new ClientInfo();
+        AsyncClientInfoUpdate client = new AsyncClientInfoUpdate(this);
         //SendPostRequestAsyncTask
-        SendPostRequestAsyncTask sendPostReqAsyncTask = new SendPostRequestAsyncTask(this);
+        AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(this);
         String queryString =   "{" +
                 "uid:" + providerText.getText().toString() + "," +
                 "upass:" + passwdText.getText().toString() + "," +
