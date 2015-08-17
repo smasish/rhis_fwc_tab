@@ -104,6 +104,7 @@
             android:text="Non-Register Client ?"/>
 
     </LinearLayout>
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -112,5 +113,12 @@
         android:gravity="center">
 
     </LinearLayout>
+
+    <fragment
+        android:layout_width="594dp"
+        android:layout_height="wrap_content"
+        android:name="org.sci.rhis.fwc.ClientIntroFragment"
+        tools:layout="@layout/fragment_clientinfo"
+        android:orientation="vertical"/>
 
 </LinearLayout>
