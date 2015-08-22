@@ -110,13 +110,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:gravity="center">
+        android:gravity="left">
 
     </LinearLayout>
 
     <fragment
         android:layout_width="594dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="left"
         android:name="org.sci.rhis.fwc.ClientIntroFragment"
         tools:layout="@layout/fragment_clientinfo"
         android:orientation="vertical"/>
