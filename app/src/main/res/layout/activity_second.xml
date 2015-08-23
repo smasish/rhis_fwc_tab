@@ -42,7 +42,7 @@
         android:gravity="center"
         android:layout_gravity="center"
         android:id="@+id/TextView2"
-        android:text="সেবা গ্রহণকারীর   আইডি :"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -53,12 +53,13 @@
         android:layout_gravity="center">
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/searchSpinner"
         android:layout_marginLeft="15dp"
         android:layout_width="235px"
         android:layout_height="70px"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"/>
+        <!--android:="onSelect"/-->
      <!--
     <Spinner
         android:id="@+id/dynamic_spinner"
@@ -80,7 +81,7 @@
         android:layout_width="180px"
         android:layout_height="70px"
         android:layout_gravity="center"
-        android:id="@+id/ProviderId"  />
+        android:id="@+id/searchableTextId"  />
 
         <ImageButton
             android:id="@+id/searchButton"
@@ -90,7 +91,8 @@
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="70px"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:onClick="startSearch"/>
         <Button
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
@@ -114,11 +116,17 @@
 
     </LinearLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView" >
     <fragment
         android:layout_width="594dp"
         android:layout_height="wrap_content"
         android:name="org.sci.rhis.fwc.ClientIntroFragment"
         tools:layout="@layout/fragment_clientinfo"
         android:orientation="vertical"/>
+
+    </ScrollView>
 
 </LinearLayout>
