@@ -1,5 +1,6 @@
 
 package org.sci.rhis.fwc;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 public class SecondActivity extends AppCompatActivity {
@@ -18,7 +20,7 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
-        Spinner staticSpinner = (Spinner) findViewById(R.id.spinner);
+        Spinner staticSpinner = (Spinner) findViewById(R.id.searchSpinner);
         // Create an ArrayAdapter using the string array and a default spinner
         ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
                 .createFromResource(this, R.array.Health_Id,
@@ -55,6 +57,30 @@ public class SecondActivity extends AppCompatActivity {
 
         addListenerOnButton();
     }
+
+    public void startSearch(View view) {
+        Spinner searchOptions = (Spinner)findViewById(R.id.searchSpinner);
+        EditText searchableId = (EditText)findViewById(R.id.searchableTextId);
+        //TODO - remove
+        long index = (searchOptions.getSelectedItemId() + 1);
+        long id = Long.valueOf(searchableId.getText().toString());
+
+        String queryString =   "{" +
+                "sOpt:" + index + "," +
+                "sStr:" + id + "," +
+                "providerid:" + ProviderInfo.getProvider().getProviderCode() +
+                "}";
+        String servlet = "client";
+        String jsonRootkey = "sClient";
+        AsyncClientInfoUpdate retrieveClient = new AsyncClientInfoUpdate(this);
+
+        retrieveClient.execute(queryString, servlet, jsonRootkey);
+
+        System.out.println("sOpt: " + index
+                             + /*Adding 1 to match HTML index where healthID starts from 1*/
+                           " text: " + id );
+    }
+
     public void addListenerOnButton() {
 
         final Context context = this;

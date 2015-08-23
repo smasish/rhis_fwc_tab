@@ -22,7 +22,12 @@ public class AsyncLoginTask extends SendPostRequestAsyncTask {
                 System.out.println("" + i.next());
             }
 
-            if(json.getBoolean("loginStatus")) {
+            if(json.getBoolean("loginStatus")) { //if successful login
+                //first create the provider object
+                ProviderInfo provider = ProviderInfo.getProvider();
+                provider.setProviderName(json.getString("ProvName"));
+                provider.setProviderCode(json.getString("ProvCode"));
+                provider.setProviderFacility(json.getString("FacilityName"));
                 Intent intent = new Intent(getContext(), SecondActivity.class);
                 getContext().startActivity(intent);
                 System.out.println("Post Response: " + result);

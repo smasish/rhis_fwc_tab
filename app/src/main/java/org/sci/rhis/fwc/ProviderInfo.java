@@ -28,7 +28,15 @@ public class ProviderInfo {
         this.mProviderFacility = mProviderFacility;
     }
 
+    static ProviderInfo getProvider() {
+        if ( provider == null ) {
+            provider = new ProviderInfo();
+        }
+        return provider;
+    }
+
     private String mProviderCode;
     private String mProviderName;
     private String mProviderFacility;
+    private static ProviderInfo provider;
 }

@@ -27,6 +27,7 @@ public class LoginActivity extends Activity {
     public void startLogin(View view) {
         final EditText passwdText = (EditText)findViewById(R.id.providerPassword);
         final EditText providerText = (EditText)findViewById(R.id.providerId);
+
         //Button loginButton = (Button)findViewById(R.id.buttonLogin);
         //final TextView loginBanner = (TextView)findViewById(R.id.textViewBanner);
         AsyncClientInfoUpdate client = new AsyncClientInfoUpdate(this);
@@ -41,17 +42,4 @@ public class LoginActivity extends Activity {
         String jsonRootkey = "loginInfo";
         sendPostReqAsyncTask.execute(queryString, servlet, jsonRootkey);
     }
-
-    /*
-        final Context context = this;
-        button = (Button) findViewById(R.id.loginbtn1);
-        button.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                Intent intent = new Intent(context, SecondActivity.class);
-                startActivity(intent);
-            }
-        });
-    }*/
 }
