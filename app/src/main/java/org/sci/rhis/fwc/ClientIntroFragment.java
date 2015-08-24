@@ -27,25 +27,20 @@ public class ClientIntroFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_client_intro,
                 container, false);
-        return view;
+        //return view;
 
 
-        String EditText output;
-        output = (EditText) output.findViewById(R.id.Client_name);
+        //String EditText = "output";
+        EditText output = (EditText) view.findViewById(R.id.Client_name);
+        output.setText("Alamin");
 
         String strJson = "{cBloodGroup:none, cAge:28, cVill:madhoppur bazar, cDist:Hobigonj, cHeight:0, cUpz:Madhoppur, cMobileNo:01711223344,cUnion:madhoppur, cName:MARUPA BEGUM, cMouza:010, cHusbandName:HATEM ALI}";
-        String data = "";
-        try {
-            JSONObject jsonObj = new JSONObject(strJson);
+
+        EditText output2 = (EditText) view.findViewById(R.id.Clients_Age);
+        output2.setText("28");
 
 
-            output.setText(data);
-
-        }
-
-        catch (JSONException e) {
-            e.printStackTrace();
-        }
+        return view;
 
     }
 }
