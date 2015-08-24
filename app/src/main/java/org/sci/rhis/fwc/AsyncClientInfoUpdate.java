@@ -1,6 +1,7 @@
 package org.sci.rhis.fwc;
 
-import android.content.Context;
+import android.app.Activity;
+import android.widget.EditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,7 +22,7 @@ public class AsyncClientInfoUpdate extends SendPostRequestAsyncTask{
         return mName;
     }
 
-    AsyncClientInfoUpdate(Context context) { super(context);}
+    AsyncClientInfoUpdate(Activity activity) { super(activity);}
 
     @Override
     protected void onPostExecute(String result) {
@@ -31,6 +32,19 @@ public class AsyncClientInfoUpdate extends SendPostRequestAsyncTask{
             for ( Iterator<String> i = json.keys(); i.hasNext(); ) {
                 key = i.next();
                 System.out.println("Key:" + key + " Value:" + json.get(key));
+            }
+
+            if(json.getBoolean("False") == false) {
+                //client does not exist
+            } else {
+                EditText cName = (EditText)getActivity().findViewById(R.id.Client_name);
+                EditText cAge = (EditText)getActivity().findViewById(R.id.Client_name);
+                EditText cMobileNo = (EditText)getActivity().findViewById(R.id.Client_name);
+                EditText cDist = (EditText)getActivity().findViewById(R.id.Client_name);
+                EditText cUpz = (EditText)getActivity().findViewById(R.id.Client_name);
+                EditText cUnion = (EditText)getActivity().findViewById(R.id.Client_name);
+                EditText cMouza = (EditText)getActivity().findViewById(R.id.Client_name);
+
             }
 
 //            if(json.getBoolean("loginStatus")) {
