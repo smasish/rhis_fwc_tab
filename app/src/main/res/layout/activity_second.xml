@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".LoginActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,7 +54,7 @@
         android:layout_gravity="center">
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/ClientsIdendityDropdown"
         android:layout_marginLeft="15dp"
         android:layout_width="235px"
         android:layout_height="70px"
@@ -113,12 +114,34 @@
         android:gravity="center">
 
     </LinearLayout>
+    <ScrollView android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
 
-    <fragment
-        android:layout_width="594dp"
-        android:layout_height="wrap_content"
-        android:name="org.sci.rhis.fwc.ClientIntroFragment"
-        tools:layout="@layout/fragment_clientinfo"
-        android:orientation="vertical"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center">
+
+        <fragment
+           android:layout_width="594dp"
+           android:layout_height="wrap_content"
+           android:name="org.sci.rhis.fwc.ClientIntroFragment"
+           tools:layout="@layout/fragment_client_intro"
+            android:orientation="vertical"/>
+
+        <fragment
+            android:layout_width="594dp"
+            android:layout_height="wrap_content"
+            android:name="org.sci.rhis.fwc.ClientInfoFragment"
+            tools:layout="@layout/fragment_client_info"
+            android:orientation="vertical"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+
 
 </LinearLayout>
+

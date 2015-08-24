@@ -15,7 +15,7 @@
         android:gravity="center"
         android:layout_centerVertical="true"
         android:id="@+id/TextViewClient_info_tab"
-        android:text="@string/ClientsInfoFragment"
+        android:text="@string/ClientsIntroFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <LinearLayout
@@ -29,10 +29,9 @@
 
 
         <TextView
-            android:layout_marginLeft="130dp"
+            android:layout_marginLeft="10dp"
             android:textSize="20dp"
             android:layout_marginTop="20dp"
-            android:layout_centerVertical="true"
             android:id="@+id/TextViewClient_name"
             android:text="@string/ClientsName"
             android:layout_width="wrap_content"

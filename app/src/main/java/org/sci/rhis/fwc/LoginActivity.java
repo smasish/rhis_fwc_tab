@@ -31,7 +31,7 @@ public class LoginActivity extends Activity {
         final EditText providerText = (EditText)findViewById(R.id.providerId);
         //Button loginButton = (Button)findViewById(R.id.buttonLogin);
         //final TextView loginBanner = (TextView)findViewById(R.id.textViewBanner);
-        ClientInfo client = new ClientInfo();
+        //ClientInfo client = new ClientInfo();
         //SendPostRequestAsyncTask
         SendPostRequestAsyncTask sendPostReqAsyncTask = new SendPostRequestAsyncTask(this);
         String queryString =   "{" +

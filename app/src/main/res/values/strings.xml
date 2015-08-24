@@ -12,7 +12,8 @@
     <string name = "providerHint">"ইউনিয়ন স্বাস্থ্য ও পরিবার কল্যাণ তথ্য নিবন্ধন "</string>
     <string name = "providerPassHint">"ইউনিয়ন স্বাস্থ্য ও পরিবার কল্যাণ তথ্য নিবন্ধন "</string>
     <string name = "ClientsName">"নাম: "</string>
-    <string name = "ClientsInfoFragment">"সেবাগ্রহীতার পরিচিতি"</string>
+    <string name = "ClientsIntroFragment">"সেবাগ্রহীতার পরিচিতি"</string>
+    <string name = "ClientsInfoFragment">"সেবাগ্রহীতার তথ্য"</string>
     <string name = "ClientsAge">"Client's Age"</string>
     <string name = "ClientsHusband">"Client's Husband Name"</string>
     <string name = "ClientsDist">"Client's District"</string>
@@ -25,6 +26,8 @@
     <string name = "ClientsCuppleNo">"Client's Cupple No."</string>
     <string name = "ClientsMobileNo">"Client's Mobile Number"</string>
 
+    <string name = "ClientsIntroJSON">{"cLastChildAge":0,"cHistoryComplicatedContent":"","cHistoryComplicated":2,"cBloodGroup":"none","chGRHNo":"","regSerialNo":8,"cNewMCHClient":"false","cMDate":"2015-08-11","cTT2":2,"cTT1":1,"cBoy":"","False":"","cTT5Date":"","cAge":"28","cLMP":"2015-01-01","cTT5":"","cVill":"\u0986\u09a6\u09bf\u09df\u09be\u09b0","cTT3":"","cDist":"\u09b9\u09ac\u09bf\u0997\u099e\u09cd\u099c","cLMPStatus":0,"cTT4":"","cHeight":0,"cUpz":"\u09ae\u09be\u09a7\u09ac\u09aa\u09c1\u09b0","cEDD":"2016-05-17","cGirl":"","cPregNo":5,"cTT1Date":"2013-01-01","cHealthID":"43366275025436","cGravida":"","cMobileNo":"","regDate":"2015-08-11","cPara":"","cUnion":"\u0986\u09a6\u09be\u0990\u09b0","cName":"MARUPA BEGUM","cMouza":"010","cHusbandName":"HATEM ALI","cTT2Date":"","cTT4Date":"","cTempLMP":"2015-01-01","cTT3Date":"","cElcoNo":"12"}</string>
+
     <string-array name="Health_Id">
         <item>Health ID</item>
         <item>Name</item>
@@ -32,6 +35,39 @@
         <item>Birth registration No</item>
         <item>Mobile No </item>
 
+    </string-array>
+
+    <string-array name="ClientsLMPDateDropdown">
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
     </string-array>
 
 <!-- TODO: Remove or change this placeholder text -->
