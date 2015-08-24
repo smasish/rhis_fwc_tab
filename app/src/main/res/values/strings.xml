@@ -9,6 +9,7 @@
     <string name = "appTitle">"ইউনিয়ন স্বাস্থ্য ও পরিবার কল্যাণ তথ্য নিবন্ধন "</string>
     <string name = "providerLabel">"সেবা  প্রদানকারীর আইডি :"</string>
     <string name = "providerPassLabel">"সেবা প্রদানকারীর পাসওয়ার্ড  :"</string>
+    <string name = "clientIdLabel">"সেবা  গ্রহণকারীর আইডি :"</string>
     <string name = "providerHint">"ইউনিয়ন স্বাস্থ্য ও পরিবার কল্যাণ তথ্য নিবন্ধন "</string>
     <string name = "providerPassHint">"ইউনিয়ন স্বাস্থ্য ও পরিবার কল্যাণ তথ্য নিবন্ধন "</string>
     <string name = "ClientsName">"নাম: "</string>
@@ -34,7 +35,6 @@
         <item>National ID</item>
         <item>Birth registration No</item>
         <item>Mobile No </item>
-
     </string-array>
 
     <string-array name="ClientsLMPDateDropdown">
