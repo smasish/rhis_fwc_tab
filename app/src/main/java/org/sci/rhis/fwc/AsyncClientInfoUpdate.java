@@ -34,17 +34,21 @@ public class AsyncClientInfoUpdate extends SendPostRequestAsyncTask{
                 System.out.println("Key:" + key + " Value:" + json.get(key));
             }
 
-            if(json.getBoolean("False") == false) {
-                //client does not exist
-            } else {
-                EditText cName = (EditText)getActivity().findViewById(R.id.Client_name);
+            if(json.getBoolean("False")) {
+                /*EditText cName = (EditText)getActivity().findViewById(R.id.Client_name);
                 EditText cAge = (EditText)getActivity().findViewById(R.id.Client_name);
                 EditText cMobileNo = (EditText)getActivity().findViewById(R.id.Client_name);
                 EditText cDist = (EditText)getActivity().findViewById(R.id.Client_name);
                 EditText cUpz = (EditText)getActivity().findViewById(R.id.Client_name);
-                EditText cUnion = (EditText)getActivity().findViewById(R.id.Client_name);
-                EditText cMouza = (EditText)getActivity().findViewById(R.id.Client_name);
-
+                EditText cUnion = (EditText)getActivity().findViewById(R.id.Client_name);*/
+                //EditText cMouza = (EditText)getActivity().findViewById(R.id.Client_name);
+                for (Iterator<String> i = json.keys(); i.hasNext(); ) {
+                    key = i.next();
+                    /*EditText currentField =*/
+                    if (DatabaseFieldMapping.CLIENT_INFO.get(key) != null) {
+                        ((EditText) getActivity().findViewById(DatabaseFieldMapping.CLIENT_INFO.get(key))).setText(json.get(key).toString());
+                    }
+                }
             }
 
 //            if(json.getBoolean("loginStatus")) {
