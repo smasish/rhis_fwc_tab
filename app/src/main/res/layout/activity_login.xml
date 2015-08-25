@@ -103,7 +103,7 @@
         android:ellipsize="start"
         android:gravity="center"
         android:layout_width="320px"
-        android:layout_height="60px"
+        android:layout_height="80px"
         android:layout_gravity="center"
         android:id="@+id/loginbtn1"
         android:textAlignment="center"
@@ -112,7 +112,7 @@
     <Button
         android:layout_marginLeft="15dp"
         android:layout_width="wrap_content"
-        android:layout_height="60px"
+        android:layout_height="80px"
         android:id="@+id/forgotpass"
         android:layout_centerVertical="true"
         android:ellipsize="start"
