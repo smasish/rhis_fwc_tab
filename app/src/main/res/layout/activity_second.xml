@@ -103,7 +103,7 @@
     <HorizontalScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollView" >
+        android:id="@+id/fragment_client_intro" >
 
     <fragment
        android:layout_width="match_parent"
@@ -113,6 +113,21 @@
        android:orientation="vertical"/>
 
     </HorizontalScrollView>
+
+    <HorizontalScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment_client_info" >
+
+        <fragment
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:name="org.sci.rhis.fwc.ClientInfoFragment"
+            tools:layout="@layout/fragment_client_info"
+            android:orientation="vertical"/>
+
+    </HorizontalScrollView>
+
 
 </LinearLayout>
 
