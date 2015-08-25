@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.sci.rhis.fwc.Clientinfo"
+    android:orientation="vertical">
+
+    <TextView
+
+        android:textSize="30dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:id="@+id/TextViewClient_info_tab"
+        android:text="@string/ClientsInfoFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <Spinner
+            android:id="@+id/ClientsLMPDateDropdown"
+            android:layout_marginLeft="15dp"
+            android:layout_width="235px"
+            android:layout_height="70px"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"/>
+        <Spinner
+            android:id="@+id/ClientsLMPMonthDropdown"
+            android:layout_marginLeft="15dp"
+            android:layout_width="235px"
+            android:layout_height="70px"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"/>
+        <Spinner
+            android:id="@+id/ClientsLMPYearDropdown"
+            android:layout_marginLeft="15dp"
+            android:layout_width="235px"
+            android:layout_height="70px"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

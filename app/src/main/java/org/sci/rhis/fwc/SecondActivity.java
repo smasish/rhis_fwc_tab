@@ -20,7 +20,7 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
-        Spinner staticSpinner = (Spinner) findViewById(R.id.searchSpinner);
+        Spinner staticSpinner = (Spinner) findViewById(R.id.ClientsIdendityDropdown);
         // Create an ArrayAdapter using the string array and a default spinner
         ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
                 .createFromResource(this, R.array.Health_Id,
@@ -59,7 +59,7 @@ public class SecondActivity extends AppCompatActivity {
     }
 
     public void startSearch(View view) {
-        Spinner searchOptions = (Spinner)findViewById(R.id.searchSpinner);
+        Spinner searchOptions = (Spinner)findViewById(R.id.ClientsIdendityDropdown);
         EditText searchableId = (EditText)findViewById(R.id.searchableTextId);
         //TODO - remove
         long index = (searchOptions.getSelectedItemId() + 1);
@@ -77,8 +77,8 @@ public class SecondActivity extends AppCompatActivity {
         retrieveClient.execute(queryString, servlet, jsonRootkey);
 
         System.out.println("sOpt: " + index
-                             + /*Adding 1 to match HTML index where healthID starts from 1*/
-                           " text: " + id );
+                + /*Adding 1 to match HTML index where healthID starts from 1*/
+                " text: " + id );
     }
 
     public void addListenerOnButton() {
