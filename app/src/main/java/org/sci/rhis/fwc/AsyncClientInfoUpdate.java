@@ -29,12 +29,12 @@ public class AsyncClientInfoUpdate extends SendPostRequestAsyncTask{
         try {
             JSONObject json = new JSONObject(result);
             String key = "";
-            for ( Iterator<String> i = json.keys(); i.hasNext(); ) {
-                key = i.next();
-                System.out.println("Key:" + key + " Value:" + json.get(key));
+            for ( Iterator<String> ii = json.keys(); ii.hasNext(); ) {
+                key = ii.next();
+                System.out.println("1.Key:" + key + " Value:\'" + json.get(key)+"\'");
             }
 
-            if(json.getBoolean("False")) {
+            if(json.get("False").toString().equals("")) {
                 /*EditText cName = (EditText)getActivity().findViewById(R.id.Client_name);
                 EditText cAge = (EditText)getActivity().findViewById(R.id.Client_name);
                 EditText cMobileNo = (EditText)getActivity().findViewById(R.id.Client_name);
@@ -44,9 +44,10 @@ public class AsyncClientInfoUpdate extends SendPostRequestAsyncTask{
                 //EditText cMouza = (EditText)getActivity().findViewById(R.id.Client_name);
                 for (Iterator<String> i = json.keys(); i.hasNext(); ) {
                     key = i.next();
+                    System.out.println("2.Key:" + key + " Value:\'" + json.get(key)+"\'");
                     /*EditText currentField =*/
-                    if (DatabaseFieldMapping.CLIENT_INFO.get(key) != null) {
-                        ((EditText) getActivity().findViewById(DatabaseFieldMapping.CLIENT_INFO.get(key))).setText(json.get(key).toString());
+                    if (DatabaseFieldMapping.CLIENT_INTRO.get(key) != null) {
+                        ((EditText) getActivity().findViewById(DatabaseFieldMapping.CLIENT_INTRO.get(key))).setText(json.get(key).toString());
                     }
                 }
             }
