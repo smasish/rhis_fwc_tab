@@ -19,6 +19,9 @@ public class DatabaseFieldMapping {
         CLIENT_INTRO.put("cUnion", R.id.Clients_Union);
         //CLIENT_INTRO.put("cMouza", R.id.Client_);
         CLIENT_INTRO.put("cVill", R.id.Clients_Village);
+        //CLIENT_INTRO.put("cHealthID", R.id.Clients_HealthId);
+        CLIENT_INTRO.put("cElcoNo", R.id.Clients_ElcoNo);
+        CLIENT_INTRO.put("cHusbandName", R.id.Clients_Husband);
     }
 
 

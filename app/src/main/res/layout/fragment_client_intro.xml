@@ -190,7 +190,7 @@
         android:background="@drawable/edittextstyle"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/ClientsCuppleNo"
-        android:id="@+id/Clients_Cuppol_No"
+        android:id="@+id/Clients_ElcoNo"
         android:inputType="number"
          />
 
