@@ -42,7 +42,7 @@
         android:id="@+id/ClientsIdendityDropdown"
         android:layout_marginLeft="10dp"
         android:layout_width="235px"
-        android:layout_height="50px"
+        android:layout_height="60px"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"/>
         <!--android:="onSelect"/-->
@@ -61,7 +61,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginRight="5dp"
         android:layout_width="170px"
-        android:layout_height="50px"
+        android:layout_height="60px"
         android:layout_centerVertical="true"
         android:gravity="center"
         android:ellipsize="start"
@@ -76,13 +76,13 @@
             android:ellipsize="start"
             android:src="@drawable/search"
             android:layout_width="wrap_content"
-            android:layout_height="50px"
+            android:layout_height="70px"
             android:layout_gravity="center"
             android:onClick="startSearch"/>
         <Button
             android:layout_marginLeft="5dp"
             android:layout_width="wrap_content"
-            android:layout_height="60px"
+            android:layout_height="80px"
             android:id="@+id/nonregiser"
             android:ellipsize="start"
             android:layout_gravity="center"
@@ -106,7 +106,7 @@
         android:id="@+id/scrollView" >
 
         <fragment
-           android:layout_width="wrap_content"
+           android:layout_width="fill_parent"
            android:layout_height="wrap_content"
            android:layout_gravity="left"
            android:name="org.sci.rhis.fwc.ClientIntroFragment"

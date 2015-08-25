@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     tools:context="org.sci.rhis.fwc.Clientinfo"
     android:orientation="vertical"
-    android:background="@drawable/fragmentborder">
+    android:background="@drawable/fragmentborder"
+    android:weightSum="1">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -52,37 +53,74 @@
             android:layout_height="50px"
             android:id="@+id/Client_name"
             android:hint="সেবাগ্রহীতার নাম:"/>
+
+          <TextView
+              android:layout_marginLeft="10dp"
+              android:textSize="20dp"
+              android:layout_marginTop="10dp"
+              android:id="@+id/TextViewClientsAge"
+              android:text="@string/ClientsAge"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" />
+
+          <EditText
+              android:layout_marginLeft="10dp"
+              android:layout_marginTop="10dp"
+              android:ellipsize="start"
+              android:textSize="20dp"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/edittextstyle"
+              android:textAppearance="?android:attr/textAppearanceLarge"
+              android:text="@string/ClientsAge"
+              android:id="@+id/Clients_Age"
+              android:inputType="number"
+              />
+
+          <TextView
+              android:layout_marginLeft="10dp"
+              android:textSize="20dp"
+              android:layout_marginTop="10dp"
+              android:id="@+id/TextViewClientsHusband"
+              android:text="@string/ClientsHusband"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" />
+
+
+          <EditText
+              android:layout_marginLeft="10dp"
+              android:layout_marginTop="10dp"
+              android:ellipsize="start"
+              android:inputType="text"
+              android:textSize="20dp"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/edittextstyle"
+              android:textAppearance="?android:attr/textAppearanceLarge"
+              android:text="@string/ClientsHusband"
+              android:id="@+id/Clients_Husband"
+              />
       </LinearLayout>
 
-      <EditText
+    <LinearLayout
+
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:ellipsize="start"
-        android:textSize="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/edittextstyle"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/ClientsAge"
-        android:id="@+id/Clients_Age"
-        android:inputType="number"
-         />
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-      <EditText
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:ellipsize="start"
-        android:inputType="text"
-        android:textSize="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/edittextstyle"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/ClientsHusband"
-        android:id="@+id/Clients_Husband"
-         />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TextViewClientsDist"
+            android:text="@string/ClientsDist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-      <EditText
+        <EditText
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:ellipsize="start"
@@ -94,9 +132,17 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/ClientsDist"
         android:id="@+id/Clients_District"
-         />
+        />
 
-      <EditText
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/ClientsUpozila"
+            android:text="@string/ClientsUpozila"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    <EditText
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:ellipsize="start"
@@ -108,9 +154,16 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/ClientsUpozila"
         android:id="@+id/Clients_Upozila"
-         />
-
-      <EditText
+        />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TextViewClientsUnion"
+            android:text="@string/ClientsUnion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    <EditText
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:ellipsize="start"
@@ -123,6 +176,25 @@
         android:text="@string/ClientsUnion"
         android:id="@+id/Clients_Union"
         />
+</LinearLayout>
+
+    <LinearLayout
+
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TextViewClientsVillage"
+            android:text="@string/ClientsVillage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
       <EditText
         android:layout_marginLeft="10dp"
@@ -138,6 +210,14 @@
         android:id="@+id/Clients_Village"
         />
 
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TextViewClientsWordNo"
+            android:text="@string/ClientsWordNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
       <EditText
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
@@ -152,11 +232,19 @@
         android:inputType="number"
        />
 
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TextViewClientsUniteNo"
+            android:text="@string/ClientsUniteNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
       <EditText
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:ellipsize="start"
-         android:textSize="20dp"
+        android:textSize="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/edittextstyle"
@@ -165,6 +253,25 @@
         android:id="@+id/Clients_Unite_No"
         android:inputType="number"
         />
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_width="676dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.09">
+
+    <TextView
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TextViewClientsHouseNo"
+            android:text="@string/ClientsHouseNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
       <EditText
         android:layout_marginLeft="10dp"
@@ -180,6 +287,14 @@
         android:background="@drawable/edittextstyle"
        />
 
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TextViewClientsCuppleNo"
+            android:text="@string/ClientsCuppleNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
       <EditText
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
@@ -194,6 +309,14 @@
         android:inputType="number"
          />
 
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TextViewClientsMobileNo"
+            android:text="@string/ClientsMobileNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
       <EditText
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
@@ -207,7 +330,7 @@
         android:id="@+id/Clients_Mobile_no"
         android:inputType="number"
        />
-
+    </LinearLayout>
 
 </LinearLayout>
 
