@@ -96,7 +96,9 @@ public class SecondActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
+    public void startANC(View view) {
+
+    }
 }

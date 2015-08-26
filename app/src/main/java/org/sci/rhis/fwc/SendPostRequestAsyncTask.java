@@ -1,5 +1,6 @@
 package org.sci.rhis.fwc;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
@@ -26,16 +27,18 @@ import java.util.List;
  */
 public class SendPostRequestAsyncTask extends AsyncTask<String, Void, String> {
 
-    private Context context;
-    protected Context getContext() {
-        return context;
-    }
+    private Activity activity;
+
+    protected Activity getActivity() { return activity; }
+    public void setActivity(Activity activity) {this.activity = activity;}
+
+    protected Context getContext() { return activity; }
 
     public SendPostRequestAsyncTask() {
-        this.context = null;
+        this.activity = null;
     }
-    public SendPostRequestAsyncTask(Context context) {
-            this.context = context;
+    public SendPostRequestAsyncTask(Activity activity) {
+            this.activity = activity;
         }
 
     @Override
@@ -111,9 +114,9 @@ public class SendPostRequestAsyncTask extends AsyncTask<String, Void, String> {
 
 
         if (result != null ) {
-            Toast.makeText(context, "HTTP POST is working...", Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, "HTTP POST is working...", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(context, "Invalid POST req...", Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, "Invalid POST req...", Toast.LENGTH_LONG).show();
         }
     }
 

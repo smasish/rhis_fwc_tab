@@ -131,6 +131,32 @@
 
     </HorizontalScrollView>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal">
+        <Button
+            android:text="ANC"
+            android:layout_width="wrap_content"
+            android:layout_height="80px"
+            android:id="@+id/ancButton"
+            android:onClick="startANC"/>
+
+        <Button
+            android:text="Delivery"
+            android:layout_width="wrap_content"
+            android:layout_height="80px"
+            android:id="@+id/deliveryButton" />
+
+        <Button
+            android:text="PNC"
+            android:layout_width="wrap_content"
+            android:layout_height="80px"
+            android:id="@+id/pncButton" />
+    </LinearLayout>
+
 
 </LinearLayout>
 

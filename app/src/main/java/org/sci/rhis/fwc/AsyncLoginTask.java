@@ -1,6 +1,6 @@
 package org.sci.rhis.fwc;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 
 import org.json.JSONException;
@@ -12,7 +12,7 @@ import java.util.Iterator;
  * Created by jamil.zaman on 16/08/2015.
  */
 public class AsyncLoginTask extends SendPostRequestAsyncTask {
-    AsyncLoginTask(Context context) { super(context);}
+    AsyncLoginTask(Activity activity) { super(activity);}
 
     @Override
     protected void onPostExecute(String result) {
