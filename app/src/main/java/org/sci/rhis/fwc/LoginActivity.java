@@ -21,6 +21,8 @@ public class LoginActivity extends Activity {
         Typeface tf = Typeface.createFromAsset(getApplicationContext().getAssets(),"Nikosh.ttf");
         TextView textview = (TextView)findViewById(R.id.providerLabelId);
         textview.setTypeface(tf);
+        DatabaseFieldMapping.InitializeClientIntroduction();
+        DatabaseFieldMapping.InitializeClientInformation();
 
     }
 

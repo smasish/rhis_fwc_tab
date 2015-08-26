@@ -12,29 +12,51 @@
     <string name = "clientIdLabel">"সেবা  গ্রহণকারীর আইডি :"</string>
     <string name = "providerHint">"ইউনিয়ন স্বাস্থ্য ও পরিবার কল্যাণ তথ্য নিবন্ধন "</string>
     <string name = "providerPassHint">"ইউনিয়ন স্বাস্থ্য ও পরিবার কল্যাণ তথ্য নিবন্ধন "</string>
+    <string name = "ClientsIntroFragment">"সেবাগ্রহীতার পরিচিতি"</string>
     <string name = "ClientsName">"নাম: "</string>
-    <string name = "ClientsInfoFragment">"সেবাগ্রহীতার পরিচিতি"</string>
-    <string name = "ClientsAge">"Client's Age"</string>
-    <string name = "ClientsHusband">"Client's Husband Name"</string>
-    <string name = "ClientsDist">"Client's District"</string>
-    <string name = "ClientsUpozila">"Client's Upozila"</string>
-    <string name = "ClientsUnion">"Client's Union"</string>
-    <string name = "ClientsVillage">"Client'sVillage"</string>
-    <string name = "ClientsWordNo">"Client's Word No."</string>
-    <string name = "ClientsUniteNo">"Client's Unite No."</string>
-    <string name = "ClientsHouseNo">"Client's House/Holding No."</string>
-    <string name = "ClientsCuppleNo">"Client's Cupple No."</string>
-    <string name = "ClientsMobileNo">"Client's Mobile Number"</string>
+    <string name = "ClientsNameHint">"সেবাগ্রহীতার নাম:"</string>
+    <string name = "ClientsAge">"বয়স:"</string>
+    <string name = "ClientsHusband">"স্বামীর নাম:"</string>
+    <string name = "ClientsDist">"জেলা:"</string>
+    <string name = "ClientsUpozila">"উপজেলা:"</string>
+    <string name = "ClientsUnion">"ইউনিয়ন:"</string>
+    <string name = "ClientsVillage">"গ্রাম / মহল্লা:"</string>
+    <string name = "ClientsWordNo">"ওয়ার্ড নম্বর:"</string>
+    <string name = "ClientsUniteNo">"ইউনিট নম্বর:"</string>
+    <string name = "ClientsHouseNo">"বাড়ি / জিআর / হোল্ডিং নম্বর:"</string>
+    <string name = "ClientsCuppleNo">"দম্পতি নম্বর:"</string>
+    <string name = "ClientsMobileNo">"মোবাইল নম্বর:"</string>
 
-    <string-array name="Health_Id">
+    <string name = "ClientsInfoFragment">"সেবাগ্রহীতার তথ্য"</string>
+    <string name = "DeliveryDate">"প্রসবের সম্ভাব্য তারিখ:"</string>
+    <string name = "TextViewLive_child_Num">"জীবিত সন্তান সংখ্যা:"</string>
+    <string name = "TextViewLast_child_Age">"শেষ সন্তানের বয়স:"</string>
+    <string name = "Clients_Hight">"উচ্চতা:"</string>
+    <string name = "Clients_Blood_Group">"রক্তের গ্রুপ:"</string>
+    <string name = "Clients_TT_Tika">"টিটি টিকা: (টিক দিন)	"</string>
+    <string name = "Privious_History">"পূর্বের ইতিহাস ঝুঁকিপূর্ণ কি না ?:"</string>
+
+    <string-array name="ClientsPrivious_History_Dropdown">
+        <item>No </item>
+        <item>Case:1</item>
+        <item>Case:2</item>
+        <item>Case:3</item>
+        <item>Case:4 </item>
+        <item>Case:5 </item>
+    </string-array>
+
+        <string-array name="Health_Id">
         <item>Health ID</item>
         <item>Name</item>
         <item>National ID</item>
-        <item>Birth registration No</item>
+        <item>Birth Reg. No</item>
         <item>Mobile No </item>
     </string-array>
 
+
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_anc">ANCActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

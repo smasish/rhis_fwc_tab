@@ -1,10 +1,12 @@
 package org.sci.rhis.fwc;
 
-import android.content.Context;
+import android.app.Activity;
+import android.widget.EditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.Iterator;
 
 /**
@@ -21,23 +23,42 @@ public class AsyncClientInfoUpdate extends SendPostRequestAsyncTask{
         return mName;
     }
 
-    AsyncClientInfoUpdate(Context context) { super(context);}
+    AsyncClientInfoUpdate(Activity activity) { super(activity);}
+
+    private void populateClientDetails(JSONObject json, HashMap<String, Integer> fieldMapping) {
+        Iterator<String> i = fieldMapping.keySet().iterator();
+        String key = "";
+
+        while(i.hasNext()) {
+            key = i.next();
+            if (fieldMapping.get(key) != null) { //If the field exist in the mapping table
+                try {
+                    ((EditText) getActivity().findViewById(fieldMapping.get(key))).setText(json.get(key).toString());
+                } catch (JSONException jse) {
+                    System.out.println("JSON Exception Thrown:\n " );
+                    jse.printStackTrace();
+                }
+            }
+        }
+    }
 
     @Override
     protected void onPostExecute(String result) {
         try {
             JSONObject json = new JSONObject(result);
             String key = "";
-            for ( Iterator<String> i = json.keys(); i.hasNext(); ) {
-                key = i.next();
-                System.out.println("Key:" + key + " Value:" + json.get(key));
+
+            //DEBUG
+            for ( Iterator<String> ii = json.keys(); ii.hasNext(); ) {
+                key = ii.next();
+                System.out.println("1.Key:" + key + " Value:\'" + json.get(key)+"\'");
             }
 
-//            if(json.getBoolean("loginStatus")) {
-//                Intent intent = new Intent(getContext(), SecondActivity.class);
-//                getContext().startActivity(intent);
-//                System.out.println("Post Response: " + result);
-//            };
+            if(json.get("False").toString().equals("")) {
+                populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
+                populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
+            }
+
         } catch (JSONException jse) {
             System.out.println("JSON Exception Thrown:\n " );
             jse.printStackTrace();
