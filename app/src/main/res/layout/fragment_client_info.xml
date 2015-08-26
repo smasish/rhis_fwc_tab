@@ -2,9 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.sci.rhis.fwc.Clientinfo"
-    android:orientation="vertical">
-
+    tools:context="org.sci.rhis.fwc.ClientInfoFragment"
+    android:orientation="vertical"
+    android:background="@drawable/fragmentborder"
+    android:weightSum="1">
     <TextView
 
         android:textSize="20dp"
@@ -26,6 +27,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <EditText
+            android:id="@+id/Set_Last_LMP_Date"
+            android:layout_width="250dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:background="@drawable/edittextstyle"/>
+
+        <ImageButton
+            android:id="@+id/Date_Picker_Button"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/selectdate"
+            android:src="@drawable/calendar_icon" />
+
 
         <TextView
             android:textSize="20dp"
@@ -42,7 +60,17 @@
             android:layout_height="wrap_content"
             android:background="@drawable/edittextstyle"
             android:id="@+id/DeliveryDate"
+            android:inputType="date"
             android:layout_weight="1" />
+
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TextViewClients_Para"
+            android:text="@string/Clients_Para"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <EditText
             android:layout_marginTop="10dp"
@@ -52,6 +80,15 @@
             android:background="@drawable/edittextstyle"
             android:id="@+id/Clients_Para"
             android:layout_weight="1" />
+
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TextViewClients_Gravida"
+            android:text="@string/Clients_Gravida"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <EditText
             android:layout_marginTop="10dp"
@@ -82,6 +119,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TextViewClient_Son_Num"
+            android:text="@string/Client_Son_Num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <EditText
             android:layout_marginTop="10dp"
@@ -91,13 +136,22 @@
             android:id="@+id/Client_Son_Num"
             android:layout_weight="1" />
 
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TextViewClient_Daughter_Num"
+            android:text="@string/Client_Daughter_Num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <EditText
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/edittextstyle"
-            android:id="@+id/Client_daughter_Num"
+            android:id="@+id/Client_Daughter_Num"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -122,11 +176,20 @@
         <EditText
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:background="@drawable/edittextstyle"
             android:id="@+id/Age_of_last_child_year"
             android:layout_weight="1" />
+
+            <TextView
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/TextViewAge_of_last_child_year"
+                android:text="@string/Age_of_last_child_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
         <EditText
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
@@ -135,6 +198,15 @@
             android:background="@drawable/edittextstyle"
             android:id="@+id/Age_of_last_child_month"
             android:layout_weight="1" />
+
+            <TextView
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/TextViewAge_of_last_child_mont"
+                android:text="@string/Age_of_last_child_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
 
 
@@ -164,6 +236,16 @@
             android:background="@drawable/edittextstyle"
             android:id="@+id/Clients_Hight_feet"
             android:layout_weight="1" />
+
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TextViewClients_Hight_feet"
+            android:text="@string/Clients_Hight_feet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
         <EditText
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
@@ -172,6 +254,16 @@
             android:background="@drawable/edittextstyle"
             android:id="@+id/Clients_Hight_Inch"
             android:layout_weight="1" />
+
+
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TextViewClients_Hight_Inch"
+            android:text="@string/Clients_Hight_Inch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:textSize="20dp"
