@@ -27,59 +27,77 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TextViewLMPDate"
+            android:text="@string/LMPDate"
+            android:layout_width="190dp"
+            android:layout_height="50px" />
+
         <EditText
             android:id="@+id/Set_Last_LMP_Date"
-            android:layout_width="250dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="5dp"
-            android:layout_height="wrap_content"
+            android:layout_width="130dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="50px"
             android:editable="false"
             android:background="@drawable/edittextstyle"/>
 
         <ImageButton
             android:id="@+id/Date_Picker_Button"
-            android:layout_marginTop="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="70px"
+            android:layout_height="50px"
             android:contentDescription="@string/selectdate"
             android:src="@drawable/calendar_icon" />
 
 
         <TextView
             android:textSize="20dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:id="@+id/TextViewDeliveryDate"
             android:text="@string/DeliveryDate"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content" />
 
 
         <EditText
+            android:layout_width="130dp"
             android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50px"
             android:background="@drawable/edittextstyle"
             android:id="@+id/DeliveryDate"
             android:inputType="date"
-            android:layout_weight="1" />
+            />
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
 
         <TextView
             android:textSize="20dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:id="@+id/TextViewClients_Para"
             android:text="@string/Clients_Para"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="60dp"
+            android:layout_height="50px" />
 
         <EditText
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="50px"
             android:background="@drawable/edittextstyle"
             android:id="@+id/Clients_Para"
-            android:layout_weight="1" />
+            />
 
         <TextView
             android:textSize="20dp"
@@ -87,17 +105,59 @@
             android:layout_marginTop="10dp"
             android:id="@+id/TextViewClients_Gravida"
             android:text="@string/Clients_Gravida"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content" />
 
         <EditText
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="50px"
             android:background="@drawable/edittextstyle"
             android:id="@+id/Clients_Gravida"
-            android:layout_weight="1" />
+            />
+
+            <TextView
+                android:layout_marginLeft="100dp"
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/TextViewLive_son_Num"
+                android:text="@string/TextViewLive_child_Num"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/TextViewClient_Son_Num"
+                android:text="@string/Client_Son_Num"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="40dp"
+                android:layout_height="50px"
+                android:background="@drawable/edittextstyle"
+                android:id="@+id/Client_Son_Num"
+                 />
+
+            <TextView
+                android:textSize="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/TextViewClient_Daughter_Num"
+                android:text="@string/Client_Daughter_Num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:layout_marginTop="10dp"
+                android:layout_width="40dp"
+                android:layout_height="50px"
+                android:background="@drawable/edittextstyle"
+                android:id="@+id/Client_Daughter_Num"
+                 />
 
     </LinearLayout>
 
@@ -110,61 +170,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-        <TextView
-            android:textSize="20dp"
-            android:layout_marginTop="10dp"
-            android:id="@+id/TextViewLive_son_Num"
-            android:text="@string/TextViewLive_child_Num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:textSize="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:id="@+id/TextViewClient_Son_Num"
-            android:text="@string/Client_Son_Num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <EditText
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edittextstyle"
-            android:id="@+id/Client_Son_Num"
-            android:layout_weight="1" />
-
-        <TextView
-            android:textSize="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:id="@+id/TextViewClient_Daughter_Num"
-            android:text="@string/Client_Daughter_Num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <EditText
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edittextstyle"
-            android:id="@+id/Client_Daughter_Num"
-            android:layout_weight="1" />
     </LinearLayout>
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_centerVertical="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <TextView
+    <TextView
             android:textSize="20dp"
             android:layout_marginTop="10dp"
             android:id="@+id/TextViewLast_Child_Age"
@@ -175,95 +191,92 @@
 
         <EditText
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_width="20dp"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="50px"
             android:background="@drawable/edittextstyle"
             android:id="@+id/Age_of_last_child_year"
-            android:layout_weight="1" />
+             />
 
             <TextView
                 android:textSize="20dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/TextViewAge_of_last_child_year"
                 android:text="@string/Age_of_last_child_year"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="40dp"
+                android:layout_height="50px" />
 
         <EditText
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="50px"
             android:background="@drawable/edittextstyle"
             android:id="@+id/Age_of_last_child_month"
-            android:layout_weight="1" />
+            />
 
             <TextView
                 android:textSize="20dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/TextViewAge_of_last_child_mont"
-                android:text="@string/Age_of_last_child_year"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:text="@string/Age_of_last_child_mont"
+                android:layout_width="60dp"
+                android:layout_height="50px"/>
+
+            <TextView
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="170dp"
+                android:id="@+id/TextViewClients_hight"
+                android:text="@string/Clients_Hight"
+                android:layout_width="70dp"
+                android:layout_height="50px" />
+
+
+            <EditText
+                android:layout_marginTop="10dp"
+                android:layout_width="40dp"
+                android:layout_height="50px"
+                android:inputType="number"
+                android:background="@drawable/edittextstyle"
+                android:id="@+id/Clients_Hight_feet"
+                />
+
+            <TextView
+                android:textSize="20dp"
+                android:id="@+id/TextViewClients_Hight_feet"
+                android:text="@string/Clients_Hight_feet"
+                android:layout_marginTop="10dp"
+                android:layout_width="40dp"
+                android:layout_height="50px" />
+
+
+            <EditText
+                android:layout_marginTop="10dp"
+                android:layout_width="40dp"
+                android:layout_height="50px"
+                android:inputType="numberDecimal"
+                android:background="@drawable/edittextstyle"
+                android:id="@+id/Clients_Hight_Inch"
+                />
+
+
+            <TextView
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/TextViewClients_Hight_Inch"
+                android:text="@string/Clients_Hight_Inch"
+                android:layout_width="60dp"
+                android:layout_height="50px" />
 
         </LinearLayout>
 
 
     <LinearLayout
-
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <TextView
-            android:textSize="20dp"
-            android:layout_marginTop="10dp"
-            android:id="@+id/TextViewClients_hight"
-            android:text="@string/Clients_Hight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-
-        <EditText
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edittextstyle"
-            android:id="@+id/Clients_Hight_feet"
-            android:layout_weight="1" />
-
-        <TextView
-            android:textSize="20dp"
-            android:layout_marginTop="10dp"
-            android:id="@+id/TextViewClients_Hight_feet"
-            android:text="@string/Clients_Hight_feet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-
-        <EditText
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edittextstyle"
-            android:id="@+id/Clients_Hight_Inch"
-            android:layout_weight="1" />
-
-
-        <TextView
-            android:textSize="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:id="@+id/TextViewClients_Hight_Inch"
-            android:text="@string/Clients_Hight_Inch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
         <TextView
             android:textSize="20dp"
@@ -271,37 +284,25 @@
             android:layout_marginTop="10dp"
             android:id="@+id/TextViewClients_Blood_group"
             android:text="@string/Clients_Blood_Group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="110dp"
+            android:layout_height="50px" />
 
 
         <EditText
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="50px"
             android:background="@drawable/edittextstyle"
             android:id="@+id/Clients_Blood_group"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <LinearLayout
-
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:layout_centerVertical="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+            />
         <TextView
             android:textSize="20dp"
+            android:layout_marginLeft="120dp"
             android:layout_marginTop="10dp"
             android:id="@+id/TextViewClients_TT_Tika"
             android:text="@string/Clients_TT_Tika"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="180dp"
+            android:layout_height="50px" />
 
         <CheckBox
             android:textSize="20dp"
@@ -342,10 +343,10 @@
             android:text="5 "
             android:id="@+id/Clients_TT_Tika5" />
 
+
     </LinearLayout>
 
     <LinearLayout
-
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
@@ -358,13 +359,13 @@
             android:layout_marginTop="10dp"
             android:id="@+id/TextViewPrivious_History"
             android:text="@string/Privious_History"
-            android:layout_width="wrap_content"
+            android:layout_width="280dp"
             android:layout_height="wrap_content" />
 
         <Spinner
             android:id="@+id/ClientsPrivious_History_Dropdown"
             android:layout_marginLeft="10dp"
-            android:layout_width="235px"
+            android:layout_width="250dp"
             android:layout_height="60px"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"/>

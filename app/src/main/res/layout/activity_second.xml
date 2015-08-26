@@ -92,7 +92,7 @@
 
     </LinearLayout>
 
-      <HorizontalScrollView
+      <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/fragment_client_intro" >
@@ -104,7 +104,7 @@
        tools:layout="@layout/fragment_client_intro"
        android:orientation="vertical"/>
 
-    </HorizontalScrollView>
+    </ScrollView>
 
     <LinearLayout
         android:orientation="horizontal"
