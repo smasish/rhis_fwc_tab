@@ -28,9 +28,19 @@
     <string name = "ClientsMobileNo">"মোবাইল নম্বর:"</string>
 
     <string name = "ClientsInfoFragment">"সেবাগ্রহীতার তথ্য"</string>
+    <string name="pick_time">Pick time</string>
+    <string name="selectdate">Pick time</string>
     <string name = "DeliveryDate">"প্রসবের সম্ভাব্য তারিখ:"</string>
-    <string name = "TextViewLive_child_Num">"জীবিত সন্তান সংখ্যা:"</string>
+    <string name = "Clients_Para">"প্যারা:"</string>
+    <string name = "Clients_Gravida">"গ্রাভিডা:"</string>
+    <string name = "Client_Son_Num">"ছেলে:"</string>
+    <string name = "Client_Daughter_Num">"মেয়ে:"</string>
+        <string name = "TextViewLive_child_Num">"জীবিত সন্তান সংখ্যা:"</string>
     <string name = "TextViewLast_child_Age">"শেষ সন্তানের বয়স:"</string>
+    <string name = "Age_of_last_child_year">"বছর "</string>
+    <string name = "Age_of_last_child_mont">"মাস "</string>
+    <string name = "Clients_Hight_feet">"ফুট "</string>
+    <string name = "Clients_Hight_Inch">"ইঞ্চি "</string>
     <string name = "Clients_Hight">"উচ্চতা:"</string>
     <string name = "Clients_Blood_Group">"রক্তের গ্রুপ:"</string>
     <string name = "Clients_TT_Tika">"টিটি টিকা: (টিক দিন)	"</string>
