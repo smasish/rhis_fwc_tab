@@ -6,17 +6,25 @@
     android:orientation="vertical"
     android:background="@drawable/fragmentborder"
     android:weightSum="1">
-    <TextView
 
-        android:textSize="20dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:layout_centerVertical="true"
-        android:id="@+id/TextViewClient_info_tab"
-        android:text="@string/ClientsInfoFragment"
-         android:layout_width="fill_parent"
+    <LinearLayout
+        android:paddingTop="10sp"
+        android:paddingBottom="10sp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        />
+        android:orientation="horizontal"
+        style="@style/rowHeading">
+
+        <TextView
+            android:id="@+id/TextViewClient_info_tab"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:text="@string/ClientsInfoFragment"
+            android:layout_width="fill_parent"
+            android:textColor="#FFFFFF"
+            android:layout_height="wrap_content"
+            android:textSize="20sp" />
+    </LinearLayout>
 
     <LinearLayout
 
@@ -290,7 +298,7 @@
 
 
         <Spinner
-            android:id="@+id/ClientsBlood_Group_Dropdown"
+            android:id="@+id/Blood_Group_Dropdown"
             android:layout_marginLeft="10dp"
             android:layout_width="50dp"
             android:layout_height="60px"
