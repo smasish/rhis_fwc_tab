@@ -220,4 +220,100 @@
             android:background="@drawable/edittextstyle"/>
     </LinearLayout>
 
+   <LinearLayout
+       android:layout_marginLeft="10dp"
+       android:layout_marginTop="10dp"
+       android:orientation="horizontal"
+       android:layout_centerVertical="true"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+  <TextView
+    android:textSize="20dp"
+    android:layout_marginTop="10dp"
+    android:id="@+id/taxtChildSex"
+    android:text="@string/child_sex"
+    android:layout_width="50dp"
+    android:layout_height="50px" />
+
+       <TextView
+           android:textSize="20dp"
+           android:layout_marginTop="10dp"
+           android:id="@+id/textSon"
+           android:text="@string/Client_Son_Num"
+           android:layout_width="50dp"
+           android:layout_height="50px" />
+
+       <EditText
+           android:id="@+id/son"
+           android:layout_width="40dp"
+           android:layout_marginTop="10dp"
+           android:layout_height="50px"
+           android:inputType="number"
+           android:background="@drawable/edittextstyle"/>
+       <TextView
+           android:textSize="20dp"
+           android:layout_marginTop="10dp"
+           android:id="@+id/textDaughter"
+           android:text="@string/Client_Daughter_Num"
+           android:layout_width="50dp"
+           android:layout_height="50px" />
+       <EditText
+           android:id="@+id/daughter"
+           android:layout_width="40dp"
+           android:layout_marginTop="10dp"
+           android:layout_height="50px"
+           android:inputType="number"
+           android:background="@drawable/edittextstyle"/>
+
+       <TextView
+           android:textSize="20dp"
+           android:layout_marginTop="10dp"
+           android:id="@+id/textNotDetected"
+           android:text="@string/not_detected"
+           android:layout_width="160dp"
+           android:layout_height="50px" />
+       <EditText
+           android:id="@+id/notDetected"
+           android:layout_width="40dp"
+           android:layout_marginTop="10dp"
+           android:layout_height="50px"
+           android:inputType="number"
+           android:background="@drawable/edittextstyle"/>
+   </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/textamtsl"
+            android:text="@string/amtsl"
+            android:layout_width="wrap_content"
+            android:layout_height="50px" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/oxytocin"
+            android:text="@string/oxytocin"
+            android:layout_width="wrap_content"
+            android:layout_height="50px" />
+    </LinearLayout>
+    
 </LinearLayout>
