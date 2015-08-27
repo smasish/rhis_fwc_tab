@@ -18,7 +18,7 @@ public class SecondActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
+        setContentView(R.layout.activity_delevery);
 
         Spinner staticSpinner = (Spinner) findViewById(R.id.ClientsIdendityDropdown);
         // Create an ArrayAdapter using the string array and a default spinner
