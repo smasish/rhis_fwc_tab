@@ -16,11 +16,11 @@ public class LoginActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        //addListenerOnButton();
+
         //Set deafult bang;a font
-        Typeface tf = Typeface.createFromAsset(getApplicationContext().getAssets(),"Nikosh.ttf");
-        TextView textview = (TextView)findViewById(R.id.providerLabelId);
-        textview.setTypeface(tf);
+        //Typeface tf = Typeface.createFromAsset(getApplicationContext().getAssets(),"Nikosh.ttf");
+        //TextView textview = (TextView)findViewById(R.id.providerLabelId);
+        //textview.setTypeface(tf);
         DatabaseFieldMapping.InitializeClientIntroduction();
         DatabaseFieldMapping.InitializeClientInformation();
 

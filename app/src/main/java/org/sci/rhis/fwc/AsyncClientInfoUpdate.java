@@ -56,7 +56,7 @@ public class AsyncClientInfoUpdate extends SendPostRequestAsyncTask{
 
             if(json.get("False").toString().equals("")) {
                 populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
-                populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
+                //populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
             }
 
         } catch (JSONException jse) {

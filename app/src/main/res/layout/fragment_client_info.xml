@@ -36,7 +36,7 @@
             android:layout_height="50px" />
 
         <EditText
-            android:id="@+id/Set_Last_LMP_Date"
+            android:id="@+id/lmpDate"
             android:layout_width="130dp"
             android:layout_marginTop="10dp"
             android:layout_height="50px"
@@ -68,7 +68,7 @@
             android:layout_marginTop="10dp"
             android:layout_height="50px"
             android:background="@drawable/edittextstyle"
-            android:id="@+id/DeliveryDate"
+            android:id="@+id/edd"
             android:inputType="date"
             />
 
@@ -113,7 +113,7 @@
             android:layout_width="40dp"
             android:layout_height="50px"
             android:background="@drawable/edittextstyle"
-            android:id="@+id/Clients_Gravida"
+            android:id="@+id/gravida"
             />
 
             <TextView
