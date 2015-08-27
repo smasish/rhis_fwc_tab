@@ -79,7 +79,7 @@
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:layout_centerVertical="true"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
 
@@ -224,7 +224,7 @@
             <TextView
                 android:textSize="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="170dp"
+                android:layout_marginLeft="180dp"
                 android:id="@+id/TextViewClients_hight"
                 android:text="@string/Clients_Hight"
                 android:layout_width="70dp"
@@ -245,7 +245,7 @@
                 android:id="@+id/TextViewClients_Hight_feet"
                 android:text="@string/Clients_Hight_feet"
                 android:layout_marginTop="10dp"
-                android:layout_width="40dp"
+                android:layout_width="50dp"
                 android:layout_height="50px" />
 
 
@@ -280,7 +280,6 @@
 
         <TextView
             android:textSize="20dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:id="@+id/TextViewClients_Blood_group"
             android:text="@string/Clients_Blood_Group"
@@ -288,16 +287,17 @@
             android:layout_height="50px" />
 
 
-        <EditText
-            android:layout_marginTop="10dp"
-            android:layout_width="40dp"
-            android:layout_height="50px"
-            android:background="@drawable/edittextstyle"
-            android:id="@+id/Clients_Blood_group"
+        <Spinner
+            android:id="@+id/ClientsBlood_Group_Dropdown"
+            android:layout_marginLeft="10dp"
+            android:layout_width="50dp"
+            android:layout_height="60px"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"/>
             />
         <TextView
             android:textSize="20dp"
-            android:layout_marginLeft="120dp"
+            android:layout_marginLeft="140dp"
             android:layout_marginTop="10dp"
             android:id="@+id/TextViewClients_TT_Tika"
             android:text="@string/Clients_TT_Tika"
