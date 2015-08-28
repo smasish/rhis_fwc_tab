@@ -1,5 +1,8 @@
 package org.sci.rhis.fwc;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by jamil.zaman on 24/08/2015.
  */
@@ -42,7 +45,18 @@ public class GeneralPerson {
         this.sex = sex;
     }
 
-    public GeneralPerson() {
+    public GeneralPerson(JSONObject clientInfo) {
+        try {
+            //client = new PregWoman(JSONObject jso );
+            name = clientInfo.getString("cName");
+            guardianName = clientInfo.getString("cHusbandName");
+            age = clientInfo.getInt("cAge");
+                  //sex = clientInfo.getString("cSex") //TODO: Currently does not work
+            sex = "F";
+        } catch (JSONException JSE) {
+            System.out.println("JSON Exception:");
+            JSE.printStackTrace();
+        }
     }
 
     public GeneralPerson(String name, String guardianName, int age, String sex) {
