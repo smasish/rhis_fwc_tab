@@ -39,7 +39,7 @@ public class ClientInfoFragment extends Fragment implements OnClickListener {
         day = cal.get(Calendar.DAY_OF_MONTH);
         month = cal.get(Calendar.MONTH);
         year = cal.get(Calendar.YEAR);
-        et = (EditText) view.findViewById(R.id.Set_Last_LMP_Date);
+        et = (EditText) view.findViewById(R.id.lmpDate);
         ib.setOnClickListener(this);
 
         Spinner staticSpinner = (Spinner)  view.findViewById(R.id.ClientsPrivious_History_Dropdown);
