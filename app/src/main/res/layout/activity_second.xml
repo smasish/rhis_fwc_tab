@@ -154,13 +154,15 @@
             android:text="Delivery"
             android:layout_width="wrap_content"
             android:layout_height="80px"
-            android:id="@+id/deliveryButton" />
+            android:id="@+id/deliveryButton"
+            android:onClick="startDelivery"/>
 
         <Button
             android:text="PNC"
             android:layout_width="wrap_content"
             android:layout_height="80px"
-            android:id="@+id/pncButton" />
+            android:id="@+id/pncButton"
+            android:onClick="startPNC"/>
     </LinearLayout>
 
 

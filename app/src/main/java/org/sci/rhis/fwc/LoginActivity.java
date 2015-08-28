@@ -1,14 +1,21 @@
 package org.sci.rhis.fwc;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class LoginActivity extends Activity {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Iterator;
+
+public class LoginActivity extends FWCServiceActivity {
 
     Button button;
 
@@ -43,5 +50,32 @@ public class LoginActivity extends Activity {
         String servlet = "login";
         String jsonRootkey = "loginInfo";
         sendPostReqAsyncTask.execute(queryString, servlet, jsonRootkey);
+    }
+
+    @Override
+    public void callbackAsyncTask(String result) {
+        try {
+            JSONObject json = new JSONObject(result);
+            for ( Iterator<String> i = json.keys(); i.hasNext(); ) {
+                System.out.println("" + i.next());
+            }
+
+            if(json.getBoolean("loginStatus")) { //if successful login
+                //first create the provider object
+                ProviderInfo provider = ProviderInfo.getProvider();
+                provider.setProviderName(json.getString("ProvName"));
+                provider.setProviderCode(json.getString("ProvCode"));
+                provider.setProviderFacility(json.getString("FacilityName"));
+                Intent intent = new Intent(this, SecondActivity.class);
+                startActivity(intent);
+                System.out.println("Post Response: " + result);
+            } else {
+                //todo: displaya red colored text view that log in failed.
+                Toast.makeText(this, "Login Failed ...", Toast.LENGTH_LONG).show();
+            }
+        } catch (JSONException jse) {
+            System.out.println("JSON Exception Thrown:\n " );
+            jse.printStackTrace();
+        }
     }
 }

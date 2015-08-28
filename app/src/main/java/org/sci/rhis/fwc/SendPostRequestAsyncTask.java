@@ -36,9 +36,9 @@ public class SendPostRequestAsyncTask extends AsyncTask<String, Void, String> {
     public SendPostRequestAsyncTask() {
         this.activity = null;
     }
-    public SendPostRequestAsyncTask(Activity activity) {
+    /*public SendPostRequestAsyncTask(Activity activity) {
         this.activity = activity;
-    }
+    }*/
 
     public SendPostRequestAsyncTask(AsyncCallback origin) {
         originalRequest = origin;
@@ -85,7 +85,7 @@ public class SendPostRequestAsyncTask extends AsyncTask<String, Void, String> {
                         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
                         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                         StringBuilder stringBuilder = new StringBuilder();
-                        String bufferedStrChunk = null;
+                        String bufferedStrChunk;
                         while ((bufferedStrChunk = bufferedReader.readLine()) != null) {
                     stringBuilder.append(bufferedStrChunk);
                 }
@@ -108,9 +108,9 @@ public class SendPostRequestAsyncTask extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         if (result != null ) {
-            Toast.makeText(activity, "HTTP POST is working...", Toast.LENGTH_LONG).show();
+//            Toast.makeText(activity, "HTTP POST is working...", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(activity, "Invalid POST req...", Toast.LENGTH_LONG).show();
+//            Toast.makeText(activity, "Invalid POST req...", Toast.LENGTH_LONG).show();
         }
         originalRequest.callbackAsyncTask(result);
     }

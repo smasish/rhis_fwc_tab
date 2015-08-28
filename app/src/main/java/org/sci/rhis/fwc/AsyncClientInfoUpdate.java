@@ -23,49 +23,13 @@ public class AsyncClientInfoUpdate extends SendPostRequestAsyncTask{
         return mName;
     }
 
-    AsyncClientInfoUpdate(Activity activity) { super(activity);}
-
-    private void populateClientDetails(JSONObject json, HashMap<String, Integer> fieldMapping) {
-        Iterator<String> i = fieldMapping.keySet().iterator();
-        String key = "";
-
-        while(i.hasNext()) {
-            key = i.next();
-            if (fieldMapping.get(key) != null) { //If the field exist in the mapping table
-                try {
-                    ((EditText) getActivity().findViewById(fieldMapping.get(key))).setText(json.get(key).toString());
-                } catch (JSONException jse) {
-                    System.out.println("JSON Exception Thrown:\n " );
-                    jse.printStackTrace();
-                }
-            }
-        }
+    //AsyncClientInfoUpdate(Activity activity) { super(activity);}
+    AsyncClientInfoUpdate(AsyncCallback cb) {
+        super(cb);
     }
 
     @Override
     protected void onPostExecute(String result) {
-        //super(result);
-        PregWoman woman;
-        try {
-            JSONObject json = new JSONObject(result);
-            String key = "";
-            woman = PregWoman.CreatePregWoman(json);
-
-            //DEBUG
-            for ( Iterator<String> ii = json.keys(); ii.hasNext(); ) {
-                key = ii.next();
-                System.out.println("1.Key:" + key + " Value:\'" + json.get(key)+"\'");
-            }
-
-            if(json.get("False").toString().equals("")) {
-                populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
-                woman.UpdateUIField(getActivity());
-                //populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
-            }
-
-        } catch (JSONException jse) {
-            System.out.println("JSON Exception Thrown:\n " );
-            jse.printStackTrace();
-        }
+        super.onPostExecute(result);
     }
 }

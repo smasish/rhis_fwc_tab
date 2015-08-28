@@ -12,11 +12,13 @@ import java.util.Iterator;
  * Created by jamil.zaman on 16/08/2015.
  */
 public class AsyncLoginTask extends SendPostRequestAsyncTask {
-    AsyncLoginTask(Activity activity) { super(activity);}
+    /*AsyncLoginTask(Activity activity) { super(activity);}*/
+    AsyncLoginTask(AsyncCallback cb) { super(cb);}
 
     @Override
     protected void onPostExecute(String result) {
-        try {
+        super.onPostExecute(result);
+        /*try {
             JSONObject json = new JSONObject(result);
             for ( Iterator<String> i = json.keys(); i.hasNext(); ) {
                 System.out.println("" + i.next());
@@ -31,10 +33,12 @@ public class AsyncLoginTask extends SendPostRequestAsyncTask {
                 Intent intent = new Intent(getContext(), SecondActivity.class);
                 getContext().startActivity(intent);
                 System.out.println("Post Response: " + result);
-            };
+            } else {
+                //todo: displaya red colored text view that log in failed.
+            }
         } catch (JSONException jse) {
             System.out.println("JSON Exception Thrown:\n " );
             jse.printStackTrace();
-        }
+        }*/
     }
 }

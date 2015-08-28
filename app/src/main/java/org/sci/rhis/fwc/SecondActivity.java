@@ -11,6 +11,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Iterator;
+
 public class SecondActivity extends ClinicalServiceActivity {
 
     Button button;
@@ -80,10 +86,47 @@ public class SecondActivity extends ClinicalServiceActivity {
                 + /*Adding 1 to match HTML index where healthID starts from 1*/
                 " text: " + id);
     }
+    private void populateClientDetails(JSONObject json, HashMap<String, Integer> fieldMapping) {
+        Iterator<String> i = fieldMapping.keySet().iterator();
+        String key;
+
+        while(i.hasNext()) {
+            key = i.next();
+            if (fieldMapping.get(key) != null) { //If the field exist in the mapping table
+                try {
+                    ((EditText) findViewById(fieldMapping.get(key))).setText(json.get(key).toString());
+                } catch (JSONException jse) {
+                    System.out.println("JSON Exception Thrown:\n " );
+                    jse.printStackTrace();
+                }
+            }
+        }
+    }
 
     @Override
     public void callbackAsyncTask(String result) {
+        PregWoman woman;
+        try {
+            JSONObject json = new JSONObject(result);
+            String key;
+            woman = PregWoman.CreatePregWoman(json);
 
+            //DEBUG
+            for ( Iterator<String> ii = json.keys(); ii.hasNext(); ) {
+                key = ii.next();
+                System.out.println("1.Key:" + key + " Value:\'" + json.get(key)+"\'");
+            }
+
+            if(json.get("False").toString().equals("")) {
+                populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
+                woman.UpdateUIField(this);
+                //populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
+            }
+
+        } catch (JSONException jse) {
+            System.out.println("JSON Exception Thrown:\n " );
+            jse.printStackTrace();
+        }
     }
 
     public void addListenerOnButton() {
@@ -104,6 +147,15 @@ public class SecondActivity extends ClinicalServiceActivity {
     }
 
     public void startANC(View view) {
-
+        Intent intent = new Intent(this, ANCActivity.class);
+        startActivity(intent);
+    }
+    public void startPNC(View view) {
+        //Intent intent = new Intent(this, LoginActivity.class);
+        //startActivity(intent);
+    }
+    public void startDelivery(View view) {
+        Intent intent = new Intent(this, DeleveryActivity.class);
+        startActivity(intent);
     }
 }
