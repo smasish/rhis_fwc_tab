@@ -42,7 +42,6 @@ public class ClientInfoFragment extends Fragment implements OnClickListener {
         et = (EditText) view.findViewById(R.id.Set_Last_LMP_Date);
         ib.setOnClickListener(this);
 
-
         Spinner staticSpinner = (Spinner)  view.findViewById(R.id.ClientsPrivious_History_Dropdown);
         // Create an ArrayAdapter using the string array and a default spinner
         ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter

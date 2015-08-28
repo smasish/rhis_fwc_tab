@@ -46,8 +46,7 @@
     <string name = "Clients_Blood_Group">"রক্তের গ্রুপ:"</string>
     <string name = "Clients_TT_Tika">"টিটি টিকা: (টিক দিন)	"</string>
     <string name = "Privious_History">"পূর্বের ইতিহাস ঝুঁকিপূর্ণ কি না ?:"</string>
-
-    <string-array name="ClientsBlood_Group_Dropdown">
+    <string-array name="Blood_Group_Dropdown">
         <item> A+ </item>
         <item> A- </item>
         <item> B+ </item>
@@ -75,10 +74,27 @@
         <item>Mobile No </item>
     </string-array>
 
+    <string name="delevery_service">"গর্ভকালীন সেবা"</string>
+    <string name="delevery_related_info">"প্রসব সংক্রান্ত তথ্য"</string>
+    <string name="delevery_place">"প্রসবের স্থান:"</string>
+    <string name="delevery_date">"প্রসবের তারিখ:"</string>
+    <string name="delevery_time">"সময়:"</string>
+    <string name="delevery_type">"প্রসবের ধরণ:"</string>
+    <string name="service_center_name">"সেবাকেন্দ্রের নাম:"</string>
+    <string name="delevery_result">"প্রসবের ফলাফল:"</string>
+    <string name="live_born">"জীবিত জন্ম:"</string>
+    <string name="dead_born">"মৃত জন্ম:"</string>
+    <string name="dead_born_fresh">"ফ্রেশ:"</string>
+    <string name="dead_born_macerated">"ম্যাসারেটেড:"</string>
+    <string name="child_sex">"লিঙ্গ:"</string>
+    <string name="not_detected">"সনাক্ত করা যাই নি:"</string>
+    <string name="amtsl">"প্রসবের তৃতীয় ধাপের সক্রিয় ব্যবস্থাপনায় (AMTSL) যা অনুসরণ করা হয়েছে:"</string>
+    <string name="oxytocin">"প্রসবের ১ মিনিটের মধ্যে অক্সিটোসিন প্রয়োগ"</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_anc">ANCActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_delevery">"গর্ভকালীন সেবা"</string>
 
 </resources>

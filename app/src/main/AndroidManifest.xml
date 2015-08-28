@@ -31,6 +31,10 @@
             android:name=".ANCActivity"
             android:label="@string/title_activity_anc" >
         </activity>
+        <activity
+            android:name=".DeleveryActivity"
+            android:label="@string/title_activity_delevery" >
+        </activity>
     </application>
 
 </manifest>

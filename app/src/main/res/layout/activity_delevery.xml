@@ -1,0 +1,319 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.sci.rhis.fwc.ClientInfoFragment"
+    android:orientation="vertical"
+    android:background="@drawable/fragmentborder"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:paddingTop="10sp"
+        android:paddingBottom="10sp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        style="@style/rowHeading">
+
+        <TextView
+            android:id="@+id/TextViewClient_info_tab"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:text="@string/ClientsInfoFragment"
+            android:layout_width="fill_parent"
+            android:textColor="#FFFFFF"
+            android:layout_height="wrap_content"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/delevery_place"
+            android:text="@string/LMPDate"
+            android:layout_width="190dp"
+            android:layout_height="50px" />
+
+        <Spinner
+            android:id="@+id/delevery_placeDropdown"
+            android:layout_marginLeft="10dp"
+            android:layout_width="150dp"
+            android:layout_height="60px"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/delevery_type"
+            android:text="@string/delevery_type"
+            android:layout_width="120dp"
+            android:layout_height="50px" />
+
+        <Spinner
+            android:id="@+id/delevery_typeDropdown"
+            android:layout_marginLeft="10dp"
+            android:layout_width="100dp"
+            android:layout_height="60px"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TaxtViewdelevery_date"
+            android:text="@string/delevery_date"
+            android:layout_width="140dp"
+            android:layout_height="50px" />
+
+        <EditText
+            android:id="@+id/delevery_date"
+            android:layout_width="130dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="50px"
+            android:inputType="date"
+            android:background="@drawable/edittextstyle"/>
+
+            <TextView
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/TaxtViewdelevery_time"
+                android:text="@string/delevery_time"
+                android:layout_width="50dp"
+                android:layout_height="50px" />
+
+            <EditText
+                android:id="@+id/delevery_time_hour"
+                android:layout_width="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="50px"
+                android:inputType="number"
+                android:background="@drawable/edittextstyle"/>
+            <TextView
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/TaxtViewdelevery_time_colon"
+                android:text=":"
+                android:layout_width="10dp"
+                android:layout_height="50px" />
+            <EditText
+                android:id="@+id/delevery_time_minute"
+                android:layout_width="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="50px"
+                android:inputType="number"
+                android:background="@drawable/edittextstyle"/>
+            <Spinner
+                android:id="@+id/delevery_time_Dropdown"
+                android:layout_marginLeft="10dp"
+                android:layout_width="50dp"
+                android:layout_height="60px"
+                android:layout_marginTop="10dp"/>
+   </LinearLayout>
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TaxtViewdscn"
+            android:text="@string/service_center_name"
+            android:layout_width="140dp"
+            android:layout_height="50px" />
+
+        <Spinner
+            android:id="@+id/dscn_Dropdown"
+            android:layout_marginLeft="10dp"
+            android:layout_width="250dp"
+            android:layout_height="60px"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TaxtViewdelevery_result"
+            android:text="@string/delevery_result"
+            android:layout_width="160dp"
+            android:layout_height="50px" />
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TaxtViewLive_born"
+            android:text="@string/live_born"
+            android:layout_width="110dp"
+            android:layout_height="50px" />
+
+        <EditText
+            android:id="@+id/Live_born"
+            android:layout_width="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="50px"
+            android:inputType="number"
+            android:background="@drawable/edittextstyle"/>
+
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TaxtViewDead_born"
+            android:text="@string/dead_born"
+            android:layout_width="80dp"
+            android:layout_height="50px" />
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TaxtViewDead_born_fresh"
+            android:text="@string/dead_born_fresh"
+            android:layout_width="60dp"
+            android:layout_height="50px" />
+
+        <EditText
+            android:id="@+id/Dead_born_fresh"
+            android:layout_width="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="50px"
+            android:inputType="number"
+            android:background="@drawable/edittextstyle"/>
+
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TaxtViewDead_born_macerated"
+            android:text="@string/dead_born_macerated"
+            android:layout_width="100dp"
+            android:layout_height="50px" />
+
+        <EditText
+            android:id="@+id/Dead_born_macerated"
+            android:layout_width="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="50px"
+            android:inputType="number"
+            android:background="@drawable/edittextstyle"/>
+    </LinearLayout>
+
+   <LinearLayout
+       android:layout_marginLeft="10dp"
+       android:layout_marginTop="10dp"
+       android:orientation="horizontal"
+       android:layout_centerVertical="true"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+  <TextView
+    android:textSize="20dp"
+    android:layout_marginTop="10dp"
+    android:id="@+id/taxtChildSex"
+    android:text="@string/child_sex"
+    android:layout_width="50dp"
+    android:layout_height="50px" />
+
+       <TextView
+           android:textSize="20dp"
+           android:layout_marginTop="10dp"
+           android:id="@+id/textSon"
+           android:text="@string/Client_Son_Num"
+           android:layout_width="50dp"
+           android:layout_height="50px" />
+
+       <EditText
+           android:id="@+id/son"
+           android:layout_width="40dp"
+           android:layout_marginTop="10dp"
+           android:layout_height="50px"
+           android:inputType="number"
+           android:background="@drawable/edittextstyle"/>
+       <TextView
+           android:textSize="20dp"
+           android:layout_marginTop="10dp"
+           android:id="@+id/textDaughter"
+           android:text="@string/Client_Daughter_Num"
+           android:layout_width="50dp"
+           android:layout_height="50px" />
+       <EditText
+           android:id="@+id/daughter"
+           android:layout_width="40dp"
+           android:layout_marginTop="10dp"
+           android:layout_height="50px"
+           android:inputType="number"
+           android:background="@drawable/edittextstyle"/>
+
+       <TextView
+           android:textSize="20dp"
+           android:layout_marginTop="10dp"
+           android:id="@+id/textNotDetected"
+           android:text="@string/not_detected"
+           android:layout_width="160dp"
+           android:layout_height="50px" />
+       <EditText
+           android:id="@+id/notDetected"
+           android:layout_width="40dp"
+           android:layout_marginTop="10dp"
+           android:layout_height="50px"
+           android:inputType="number"
+           android:background="@drawable/edittextstyle"/>
+   </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/textamtsl"
+            android:text="@string/amtsl"
+            android:layout_width="wrap_content"
+            android:layout_height="50px" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/oxytocin"
+            android:text="@string/oxytocin"
+            android:layout_width="wrap_content"
+            android:layout_height="50px" />
+    </LinearLayout>
+    
+</LinearLayout>

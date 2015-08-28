@@ -10,18 +10,24 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-
-     <TextView
-
-        android:textSize="20dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:layout_centerVertical="true"
-        android:id="@+id/TextViewClient_info_tab"
-        android:text="@string/ClientsIntroFragment"
+    <LinearLayout
+        android:paddingTop="10sp"
+        android:paddingBottom="10sp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        />
+        android:orientation="horizontal"
+        style="@style/rowHeading">
+
+        <TextView
+            android:id="@+id/TextViewClient_info_tab"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:text="@string/ClientsInfoFragment"
+            android:layout_width="fill_parent"
+            android:textColor="#FFFFFF"
+            android:layout_height="wrap_content"
+            android:textSize="20sp" />
+    </LinearLayout>
 
       <LinearLayout
 
