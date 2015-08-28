@@ -44,9 +44,12 @@ public class AsyncClientInfoUpdate extends SendPostRequestAsyncTask{
 
     @Override
     protected void onPostExecute(String result) {
+        //super(result);
+        PregWoman woman;
         try {
             JSONObject json = new JSONObject(result);
             String key = "";
+            woman = PregWoman.CreatePregWoman(json);
 
             //DEBUG
             for ( Iterator<String> ii = json.keys(); ii.hasNext(); ) {
@@ -56,6 +59,7 @@ public class AsyncClientInfoUpdate extends SendPostRequestAsyncTask{
 
             if(json.get("False").toString().equals("")) {
                 populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
+                woman.UpdateUIField(getActivity());
                 //populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
             }
 
