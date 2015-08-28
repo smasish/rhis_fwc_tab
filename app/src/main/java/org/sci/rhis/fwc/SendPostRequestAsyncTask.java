@@ -28,30 +28,27 @@ import java.util.List;
 public class SendPostRequestAsyncTask extends AsyncTask<String, Void, String> {
 
     private Activity activity;
-
+    private AsyncCallback originalRequest;
     protected Activity getActivity() { return activity; }
     public void setActivity(Activity activity) {this.activity = activity;}
 
     protected Context getContext() { return activity; }
-
     public SendPostRequestAsyncTask() {
         this.activity = null;
     }
     public SendPostRequestAsyncTask(Activity activity) {
-            this.activity = activity;
-        }
+        this.activity = activity;
+    }
+
+    public SendPostRequestAsyncTask(AsyncCallback origin) {
+        originalRequest = origin;
+    }
 
     @Override
     protected String doInBackground(String... params) {
 
         String paramUserDetails = params[0];
         String paramPassword = params[1];
-        /*String queryString = "{" +
-                "uid:" + params[0] + "," +
-                "upass:" + params[1] + "," +
-                "client:" + "android" +
-                "}";
-        */
         String queryString = params[0];
         String servlet = params[1];
         String jsonRootkey = params[2];
@@ -110,14 +107,12 @@ public class SendPostRequestAsyncTask extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-
-
-
         if (result != null ) {
             Toast.makeText(activity, "HTTP POST is working...", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(activity, "Invalid POST req...", Toast.LENGTH_LONG).show();
         }
+        originalRequest.callbackAsyncTask(result);
     }
 
 }

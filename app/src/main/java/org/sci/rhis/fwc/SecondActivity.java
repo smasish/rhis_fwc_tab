@@ -11,14 +11,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-public class SecondActivity extends AppCompatActivity {
+public class SecondActivity extends ClinicalServiceActivity {
 
     Button button;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_delevery);
+        setContentView(R.layout.activity_second);
 
         Spinner staticSpinner = (Spinner) findViewById(R.id.ClientsIdendityDropdown);
         // Create an ArrayAdapter using the string array and a default spinner
@@ -78,7 +78,12 @@ public class SecondActivity extends AppCompatActivity {
 
         System.out.println("sOpt: " + index
                 + /*Adding 1 to match HTML index where healthID starts from 1*/
-                " text: " + id );
+                " text: " + id);
+    }
+
+    @Override
+    public void callbackAsyncTask(String result) {
+
     }
 
     public void addListenerOnButton() {

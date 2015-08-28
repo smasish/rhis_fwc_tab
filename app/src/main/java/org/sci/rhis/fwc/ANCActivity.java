@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class ANCActivity extends AppCompatActivity {
+public class ANCActivity extends ClinicalServiceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +19,11 @@ public class ANCActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_anc, menu);
         return true;
+    }
+
+    @Override
+    public void callbackAsyncTask(String result) {
+
     }
 
     @Override
