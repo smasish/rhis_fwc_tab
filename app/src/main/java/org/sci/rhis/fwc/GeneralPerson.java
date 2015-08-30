@@ -12,6 +12,15 @@ public class GeneralPerson {
     private String guardianName;
     private int age;
     private String sex;
+    private long healthId;
+
+    public long getHealthId() {
+        return healthId;
+    }
+
+    public void setHealthId(long healthId) {
+        this.healthId = healthId;
+    }
 
     public String getName() {
         return name;
@@ -51,14 +60,16 @@ public class GeneralPerson {
             name = clientInfo.getString("cName");
             guardianName = clientInfo.getString("cHusbandName");
             age = clientInfo.getInt("cAge");
-                  //sex = clientInfo.getString("cSex") //TODO: Currently does not work
+            //sex = clientInfo.getString("cSex") //TODO: Currently does not work
             sex = "F";
+            healthId = clientInfo.getLong("cHealthID");
         } catch (JSONException JSE) {
             System.out.println("JSON Exception:");
             JSE.printStackTrace();
         }
     }
 
+    //@Deprecated
     public GeneralPerson(String name, String guardianName, int age, String sex) {
         this.name = name;
         this.guardianName = guardianName;

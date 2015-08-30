@@ -20,6 +20,7 @@ import java.util.Iterator;
 public class SecondActivity extends ClinicalServiceActivity {
 
     Button button;
+    PregWoman woman;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -105,7 +106,7 @@ public class SecondActivity extends ClinicalServiceActivity {
 
     @Override
     public void callbackAsyncTask(String result) {
-        PregWoman woman;
+
         try {
             JSONObject json = new JSONObject(result);
             String key;
@@ -148,6 +149,7 @@ public class SecondActivity extends ClinicalServiceActivity {
 
     public void startANC(View view) {
         Intent intent = new Intent(this, ANCActivity.class);
+        intent.putExtra("PregWoman", woman);
         startActivity(intent);
     }
     public void startPNC(View view) {

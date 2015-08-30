@@ -1,13 +1,17 @@
 package org.sci.rhis.fwc;
 
 import android.app.Activity;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.widget.EditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.text.FieldPosition;
 import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,7 +19,7 @@ import java.util.Date;
 /**
  * Created by jamil.zaman on 24/08/2015.
  */
-public class PregWoman extends GeneralPerson {
+public class PregWoman extends GeneralPerson implements Parcelable{
     private Date lmp;
     private Date edd;
     private String pregNo; //current pregnancy no
@@ -36,10 +40,63 @@ public class PregWoman extends GeneralPerson {
 
     private static PregWoman client;
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (df == null) {
+             df = new SimpleDateFormat("yyyy-MM-dd");
+        }
+
+        //Never ever change the order, if it absolutely necessary refelct the changes also in
+        //the constructor that takes in a Parcel.
+        dest.writeString(getName());
+        dest.writeString(getGuardianName());
+        dest.writeInt(getAge());
+        dest.writeString(getSex());
+        dest.writeLong(getHealthId());
+        dest.writeString(df.format(lmp));
+    }
+
     private static enum PREG_STATUS {NEW, ANC, DELIVERING, PNC, NOT_PREGNANT};
 
+    final static int PREG_PERIOD    = 280; //We are only considering 280 days now
+    final static int PNC_THRESHOLD  = 42;
+    final static int ANC_THRESHOLD  = 294; //  PREG_PERIOD +  (2*7); -> 42 weeks from LMP
 
-    final static int PREG_PERIOD = 280; //We are only considering 280 days now
+    public static final Parcelable.Creator<PregWoman> CREATOR= new Parcelable.Creator<PregWoman>() {
+
+        @Override
+        public PregWoman createFromParcel(Parcel source) {
+            // TODO Auto-generated method stub
+            return new PregWoman(source);  //using parcelable constructor
+        }
+
+        @Override
+        public PregWoman[] newArray(int size) {
+            // TODO Auto-generated method stub
+            return new PregWoman[size];
+        }
+    };
+
+    public PregWoman(Parcel data) {
+        //"IMPORTANT" ->Do not change the order by which the 'data' is accessed
+        super(data.readString(), data.readString(), data.readInt(), data.readString());
+        setHealthId(data.readLong());
+        if(df == null) {
+            df = new SimpleDateFormat("yyyy-MM-dd");
+        }
+        try {
+            lmp = df.parse(data.readString()); //"IMPORTANT" ->Do not change the order by which the 'data' is accessed
+        } catch (ParseException pe) {
+            System.out.println("Parsing Exception:");
+            pe.printStackTrace();
+        }
+        UpdateEdd();
+    }
 
     public static PregWoman CreatePregWoman(JSONObject clientInfo)  {
 
@@ -51,6 +108,28 @@ public class PregWoman extends GeneralPerson {
 
         return client;
     }
+
+    public static void DeletePregWoman()  {
+
+        client = null;
+    }
+
+    public static PregWoman GetPregWoman() {
+
+        if (client != null) {
+            return client;
+        }
+
+        client = new PregWoman();
+
+        return client;
+    }
+
+    public PregWoman() {
+        super("","",0,"F");
+    }
+
+
 
     public PregWoman(JSONObject clientInfo) {
         super(clientInfo);
@@ -78,9 +157,7 @@ public class PregWoman extends GeneralPerson {
     public PregWoman( String name,
                       String guardianName,
                       int age,
-                      String sex,
-                      String _lmp,
-                      int pregNo
+                      String sex
                       ) {
         super(name, guardianName, age, sex);
         //initialize(_lmp, "", pregNo);
@@ -103,15 +180,7 @@ public class PregWoman extends GeneralPerson {
         df = new SimpleDateFormat("yyyy-MM-dd");
         try {
             this.lmp = df.parse(_lmp);
-            if(!_edd.equals("")) {
-               edd = df.parse(_edd);
-            } else {
-                edd_cal = Calendar.getInstance();
-                edd_cal.setTime(this.lmp);
-
-                edd_cal.add(Calendar.DATE, PREG_PERIOD);
-                this.edd = edd_cal.getTime();
-            }
+            UpdateEdd();
         } catch (ParseException PE) {
             System.out.println("Parsing Exception:");
             PE.printStackTrace();
@@ -128,6 +197,29 @@ public class PregWoman extends GeneralPerson {
         historyContent = _historyContent;
 
         this.pregNo = pregNo;
+    }
+
+    private Date addDateOffset(Date given, int days) {
+        edd_cal = Calendar.getInstance();
+        edd_cal.setTime(given);
+
+        edd_cal.add(Calendar.DATE, days);
+        return edd_cal.getTime();
+    }
+
+    private void UpdateEdd() {
+        try{
+            if(edd == null) {
+                edd = addDateOffset(lmp, PREG_PERIOD);
+            }
+        } catch (Exception PE) {
+            System.out.println("Exception:");
+            PE.printStackTrace();
+        }
+    }
+
+    public Date getAncThreshold() {
+        return addDateOffset(lmp, ANC_THRESHOLD);
     }
 
     public void UpdateUIField(Activity activity) {
