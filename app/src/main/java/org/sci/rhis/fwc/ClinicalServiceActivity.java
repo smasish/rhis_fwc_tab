@@ -9,4 +9,20 @@ import android.support.v7.app.AppCompatActivity;
 public abstract class ClinicalServiceActivity extends FWCServiceActivity {
     @Override
     public abstract void callbackAsyncTask(String result);
+
+    public void RetriveHistory() {
+
+    }
+
+    public void DisplayHistory() {
+
+    }
+
+    public void Record() {
+
+    }
+
+    public void Update () {
+
+    }
 }
