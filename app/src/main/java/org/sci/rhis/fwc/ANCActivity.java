@@ -10,6 +10,7 @@ public class ANCActivity extends ClinicalServiceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_anc);
     }
 
