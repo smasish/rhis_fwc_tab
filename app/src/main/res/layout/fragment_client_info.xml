@@ -5,7 +5,8 @@
     tools:context="org.sci.rhis.fwc.ClientInfoFragment"
     android:orientation="vertical"
     android:background="@drawable/fragmentborder"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:id = "@+id/ClientInfoLayout">
 
     <LinearLayout
         android:paddingTop="10sp"

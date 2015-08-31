@@ -6,7 +6,8 @@
     tools:context="org.sci.rhis.fwc.ClientIntroFragment"
     android:orientation="vertical"
     android:background="@drawable/fragmentborder"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:id = "@+id/ClientIntroLayout">
 
     <!-- TODO: Update blank fragment layout -->
 
