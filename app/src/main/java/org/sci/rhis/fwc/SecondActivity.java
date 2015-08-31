@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -122,6 +123,8 @@ public class SecondActivity extends ClinicalServiceActivity {
                 populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
                 woman.UpdateUIField(this);
                 //populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
+                Utilities.DisableTextFields(this, R.id.fragment_client_intro_scroll);
+                Utilities.DisableTextFields(this, R.id.fragment_client_info_scroll);
             }
 
         } catch (JSONException jse) {

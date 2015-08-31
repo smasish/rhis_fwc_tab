@@ -40,6 +40,13 @@ public class PregWoman extends GeneralPerson implements Parcelable{
 
     private static PregWoman client;
 
+    //constants
+    private static enum PREG_STATUS {NEW, ANC, DELIVERING, PNC, NOT_PREGNANT};
+    final static int PREG_PERIOD    = 280; //We are only considering 280 days now
+    final static int PNC_THRESHOLD  = 42;
+    final static int ANC_THRESHOLD  = 294; //  PREG_PERIOD +  (2*7); -> 42 weeks from LMP
+
+    //Parcelable overrides
     @Override
     public int describeContents() {
         return 0;
@@ -61,12 +68,6 @@ public class PregWoman extends GeneralPerson implements Parcelable{
         dest.writeString(df.format(lmp));
     }
 
-    private static enum PREG_STATUS {NEW, ANC, DELIVERING, PNC, NOT_PREGNANT};
-
-    final static int PREG_PERIOD    = 280; //We are only considering 280 days now
-    final static int PNC_THRESHOLD  = 42;
-    final static int ANC_THRESHOLD  = 294; //  PREG_PERIOD +  (2*7); -> 42 weeks from LMP
-
     public static final Parcelable.Creator<PregWoman> CREATOR= new Parcelable.Creator<PregWoman>() {
 
         @Override
@@ -82,6 +83,7 @@ public class PregWoman extends GeneralPerson implements Parcelable{
         }
     };
 
+    //Parcel Constructor
     public PregWoman(Parcel data) {
         //"IMPORTANT" ->Do not change the order by which the 'data' is accessed
         super(data.readString(), data.readString(), data.readInt(), data.readString());
@@ -98,22 +100,28 @@ public class PregWoman extends GeneralPerson implements Parcelable{
         UpdateEdd();
     }
 
-    public static PregWoman CreatePregWoman(JSONObject clientInfo)  {
+    public static PregWoman CreatePregWoman(JSONObject clientInfo) throws JSONException {
 
         if (client != null) {
             return client;
         }
 
-        client = new PregWoman(clientInfo);
+        //Only create PregWOman when it is confirmed she is pregnant
+        //meaning pregnancy related information i s present
+        if(!clientInfo.getString("cNewMCHClient").equals("False")) {
+            client = new PregWoman(clientInfo);
+        }
 
         return client;
     }
 
+    @Deprecated
     public static void DeletePregWoman()  {
 
         client = null;
     }
 
+    @Deprecated
     public static PregWoman GetPregWoman() {
 
         if (client != null) {
@@ -125,12 +133,12 @@ public class PregWoman extends GeneralPerson implements Parcelable{
         return client;
     }
 
+    //default
     public PregWoman() {
         super("","",0,"F");
     }
 
-
-
+    //create from JSON
     public PregWoman(JSONObject clientInfo) {
         super(clientInfo);
         try {
