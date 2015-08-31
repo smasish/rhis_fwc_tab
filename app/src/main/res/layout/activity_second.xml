@@ -98,18 +98,17 @@
 
     </LinearLayout>
 
-      <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/fragment_client_intro" >
+    <ScrollView
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:id="@+id/fragment_client_intro_scroll" >
 
-    <fragment
-       android:layout_width="match_parent"
-       android:layout_height="206dp"
-        android:name="org.sci.rhis.fwc.ClientIntroFragment"
-       tools:layout="@layout/fragment_client_intro"
-       android:orientation="vertical"/>
-
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="206dp"
+            android:name="org.sci.rhis.fwc.ClientIntroFragment"
+            tools:layout="@layout/fragment_client_intro"
+            android:orientation="vertical"/>
     </ScrollView>
 
     <LinearLayout
@@ -125,7 +124,7 @@
     <HorizontalScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/fragment_client_info"
+        android:id="@+id/fragment_client_info_scroll"
         android:layout_weight="0.18">
 
         <fragment
