@@ -31,5 +31,30 @@
         android:id="@+id/ancLabel"
         android:layout_gravity="center_horizontal" />
 
+    <LinearLayout
+        android:id="@+id/ancText" android:layout_marginLeft="10dp" android:layout_marginTop="10dp" android:paddingBottom="20dp" android:orientation="vertical" android:layout_centerVertical="true" android:layout_width="330dp" android:layout_height="wrap_content" android:background="#FFFFFF">
+
+    <TextView android:id="@+id/ancVisit" android:text="@string/visit" android:textSize="20dp" android:layout_width="330dp" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+    <TextView android:id="@+id/ancServiceDate" android:text="@string/service_date" android:textSize="20dp" android:layout_width="330dp" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle" />
+    <TextView android:id="@+id/ancBloodPresser" android:text="@string/blood_presser" android:textSize="20dp" android:layout_width="330dp" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle" />
+    <TextView android:id="@+id/ancWeight" android:text="@string/weight" android:textSize="20dp" android:layout_width="330dp" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle" />
+    <TextView android:id="@+id/ancEdema" android:text="@string/edema" android:textSize="20dp" android:layout_width="330dp" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle" />
+    <TextView android:id="@+id/ancUterusHeight" android:text="@string/uterus_height" android:textSize="20dp" android:layout_width="330dp" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+    <TextView android:id="@+id/ancHeartSpeed" android:text="@string/heart_speed" android:textSize="20dp" android:layout_width="330dp" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+    <TextView android:id="@+id/ancFetalPresentation" android:text="@string/fetal_presentation" android:textSize="20dp" android:layout_width="330dp" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle" />
+    <TextView android:id="@+id/ancAnemiaHemoglobin" android:text="@string/anemia_hemoglobin" android:textSize="20dp" android:layout_width="330dp" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+    <TextView android:id="@+id/ancJaundice" android:text="@string/jaundice" android:textSize="20dp" android:layout_width="330dp" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+    <TextView android:id="@+id/ancUrineSugar" android:text="@string/urine_test_sugar" android:textSize="20dp" android:layout_width="330dp" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle" />
+    <TextView android:id="@+id/ancUrineAlbumin" android:text="@string/urine_test_albumin" android:textSize="20dp" android:layout_width="330dp" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle" />
+    <TextView android:id="@+id/ancDangerSigns" android:text="@string/danger_signs" android:textSize="20dp" android:layout_width="330dp" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle" />
+    <TextView android:id="@+id/ancDrawback" android:text="@string/drawback" android:textSize="20dp" android:layout_width="330dp" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+    <TextView android:id="@+id/ancDisease" android:text="@string/disease" android:textSize="20dp" android:layout_width="330dp" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+    <TextView android:id="@+id/ancTreatment" android:text="@string/treatment" android:textSize="20dp" android:layout_width="330dp" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+    <TextView android:id="@+id/ancAdvice" android:text="@string/advice" android:textSize="20dp" android:layout_width="330dp" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+    <TextView android:id="@+id/ancRefer" android:text="@string/refer" android:textSize="20dp" android:layout_width="330dp" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+    <TextView android:id="@+id/ancReferCenterName" android:text="@string/center_name" android:textSize="20dp" android:layout_width="330dp" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+    <TextView android:id="@+id/ancReason" android:text="@string/reason" android:textSize="20dp" android:layout_width="330dp" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle" />
+    </LinearLayout>
+
 </LinearLayout>
 </ScrollView>
