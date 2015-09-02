@@ -28,7 +28,7 @@
     <string name = "ClientsMobileNo">"মোবাইল নম্বর:"</string>
 
     <string name = "ClientsInfoFragment">"সেবাগ্রহীতার তথ্য"</string>
-   <string name = "LMPDate">"শেষ মাসিকের তারিখ:"</string>
+    <string name = "LMPDate">"শেষ মাসিকের তারিখ:"</string>
     <string name="pick_time">Pick time</string>
     <string name="selectdate">Pick time</string>
     <string name = "DeliveryDate">"প্রসবের সম্ভাব্য তারিখ:"</string>
@@ -36,7 +36,7 @@
     <string name = "Clients_Gravida">"গ্রাভিডা:"</string>
     <string name = "Client_Son_Num">"ছেলে:"</string>
     <string name = "Client_Daughter_Num">"মেয়ে:"</string>
-        <string name = "TextViewLive_child_Num">"জীবিত সন্তান সংখ্যা:"</string>
+    <string name = "TextViewLive_child_Num">"জীবিত সন্তান সংখ্যা:"</string>
     <string name = "TextViewLast_child_Age">"শেষ সন্তানের বয়স:"</string>
     <string name = "Age_of_last_child_year">"বছর "</string>
     <string name = "Age_of_last_child_mont">"মাস "</string>
@@ -115,7 +115,26 @@
 	<string name="onlyHead">"মাথা ছাড়া অন্য কোন অঙ্গ বের হওয়া"</string>
 	<string name="convulsion">"খিচুঁনি "</string>
 	<string name="deleiveryExtra">"অন্যান্য"</string>
-		
+
+    <string-array name="FacilityType_DropDown">
+        <item> ইউনিয়ন স্বাস্থ্য ও পরিবার কল্যান কেন্দ্র </item>
+        <item> কমিউনিটি ক্লিনিক </item>
+        <item> উপজেলা স্বাস্থ্য কমপ্লেক্স </item>
+        <item> জেলা সদর হাসপাতাল </item>
+        <item> প্রাইভেট ক্লিনিক</item>
+        <item> এনজিও হাসপাতাল/ সেবা কেন্দ্র</item>
+    </string-array>
+
+    <string-array name="FacilityPlace_DropDown">
+        <item> বাড়ি </item>
+        <item> সেবাকেন্দ্র </item>
+    </string-array>
+
+    <string-array name="DeliveryType_DropDown">
+        <item> স্বাভাবিক </item>
+        <item> সিজারিয়ান </item>
+        <item> গর্ভপাত </item>
+    </string-array>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
