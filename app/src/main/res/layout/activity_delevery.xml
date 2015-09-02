@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="@drawable/fragmentborder"
     android:weightSum="1">
@@ -24,8 +24,17 @@
             android:layout_height="wrap_content"
             android:textSize="20sp" />
     </LinearLayout>
-
-    <LinearLayout
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/id_deliveryDetails"
+        android:layout_weight="0.18">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <LinearLayout
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
@@ -37,16 +46,19 @@
             android:textSize="20dp"
             android:layout_marginTop="10dp"
             android:id="@+id/delevery_place"
-            android:text="@string/LMPDate"
+            android:text="@string/delevery_place"
             android:layout_width="190dp"
             android:layout_height="50px" />
 
         <Spinner
+            android:textSize="20dp"
             android:id="@+id/delevery_placeDropdown"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:layout_width="150dp"
             android:layout_height="60px"
-            android:layout_marginTop="10dp"/>
+            android:entries="@array/FacilityPlace_DropDown"
+            />
 
         <TextView
             android:textSize="20dp"
@@ -61,7 +73,8 @@
             android:layout_marginLeft="10dp"
             android:layout_width="100dp"
             android:layout_height="60px"
-            android:layout_marginTop="10dp"/>
+            android:entries="@array/DeliveryType_DropDown"
+            />
 
     </LinearLayout>
 
@@ -146,7 +159,8 @@
             android:layout_marginLeft="10dp"
             android:layout_width="250dp"
             android:layout_height="60px"
-            android:layout_marginTop="10dp"/>
+            android:entries="@array/FacilityType_DropDown"
+            />
     </LinearLayout>
     <LinearLayout
         android:layout_marginLeft="10dp"
@@ -154,7 +168,8 @@
         android:orientation="horizontal"
         android:layout_centerVertical="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:saveEnabled="false">
 
         <TextView
             android:textSize="20dp"
@@ -295,13 +310,12 @@
             android:id="@+id/textamtsl"
             android:text="@string/amtsl"
             android:layout_width="wrap_content"
-            android:layout_height="50px" />
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -313,6 +327,255 @@
             android:text="@string/oxytocin"
             android:layout_width="wrap_content"
             android:layout_height="50px" />
+        <CheckBox
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/controlChordTraction"
+            android:text="@string/traction"
+            android:layout_width="wrap_content"
+            android:layout_height="50px" />
+        <CheckBox
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/uterusMassage"
+            android:text="@string/massage"
+            android:layout_width="wrap_content"
+            android:layout_height="50px" />
     </LinearLayout>
-    
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp">
+
+        <TextView
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/epcotomi"
+            android:id="@+id/idEpcotomi" />
+        <RadioButton
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/general_yes"
+            android:id="@+id/radioEpc_yes" />
+        <RadioButton
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/general_no"
+            android:id="@+id/radioEpc_no" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp">
+
+        <TextView
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/oxytocin"
+            android:id="@+id/idOxytocin" />
+        <RadioButton
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/general_yes"
+            android:id="@+id/radioOxytocin_yes" />
+        <RadioButton
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/general_no"
+            android:id="@+id/radioOxytocin_no" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/deliveryComplication"
+            android:id="@+id/idCOmplication" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <CheckBox
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/id_delayedDelivery"
+                android:text="@string/delayedDelivery"
+                android:layout_width="wrap_content"
+                android:layout_height="50px"/>
+
+            <CheckBox
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/idBloodLoss"
+                android:text="@string/bloodLoss"
+                android:layout_width="wrap_content"
+                android:layout_height="50px"/>
+            <CheckBox
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/id_blockedDelivery"
+                android:text="@string/blockedDelivery"
+                android:layout_width="wrap_content"
+                android:layout_height="50px" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <CheckBox
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/id_blockedPlacenta"
+                android:text="@string/blockedPlacenta"
+                android:layout_width="wrap_content"
+                android:layout_height="50px" />
+            <CheckBox
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/id_heavyHedache"
+                android:text="@string/heavyHedache"
+                android:layout_width="wrap_content"
+                android:layout_height="50px" />
+            <CheckBox
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/id_blurryVision"
+                android:text="@string/blurryVision"
+                android:layout_width="wrap_content"
+                android:layout_height="50px" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+            <CheckBox
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/id_onlyHead"
+                android:text="@string/onlyHead"
+                android:layout_width="wrap_content"
+                android:layout_height="50px" />
+            <CheckBox
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/id_convulsion"
+                android:text="@string/convulsion"
+                android:layout_width="wrap_content"
+                android:layout_height="50px" />
+            <CheckBox
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/id_deleiveryExtra"
+                android:text="@string/deleiveryExtra"
+                android:layout_width="wrap_content"
+                android:layout_height="50px" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+            <TextView
+                android:textSize="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/general_treatment"
+                android:id="@+id/id_general_treatment" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/id_treatment_spinner"
+                android:layout_weight="1" />
+
+            <TextView
+                android:textSize="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/general_advice"
+                android:id="@+id/id_general_advice" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/id_spinner_advice"
+                android:layout_weight="1" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+            <CheckBox
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/id_delivery_refer"
+                android:text="@string/general_refer"
+                android:layout_width="wrap_content"
+                android:layout_height="50px" />
+            <TextView
+                android:textSize="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/general_facility_name"
+                android:id="@+id/id_facility_name" />
+
+            <Spinner
+                android:textSize = "20dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/id_spinner_facilities"
+                android:layout_weight="1"
+                android:entries="@array/FacilityType_DropDown"/>
+            <TextView
+                android:textSize="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/general_cause"
+                android:id="@+id/id_delivery_cause" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/id_spinner_delivery_cause"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
+</ScrollView>
+
 </LinearLayout>
