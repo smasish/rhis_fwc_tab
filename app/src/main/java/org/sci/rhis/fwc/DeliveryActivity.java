@@ -37,9 +37,11 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery);
-        Spinner spinners[] = new Spinner[2];
+        Spinner spinners[] = new Spinner[3];
         spinners[0] = (Spinner) findViewById(R.id.delivery_placeDropdown);
         spinners[1] = (Spinner) findViewById(R.id.id_facility_name_Dropdown);
+        spinners[2] = (Spinner) findViewById(R.id.delivery_typeDropdown);
+
         for(int i = 0; i < spinners.length; ++i) {
             spinners[i].setOnItemSelectedListener(this);
         }
@@ -79,10 +81,11 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+        LinearLayout [] section;
         switch (parent.getId()) {
             case R.id.delivery_placeDropdown:
                 System.out.println("Hit the Place Spinner");
-                LinearLayout [] section = new LinearLayout[2];
+                section = new LinearLayout[2];
                 section [0] = (LinearLayout) findViewById(R.id.id_facililties_section_layout);
                 section [1] = (LinearLayout) findViewById(R.id.id_Epcotomi_section_layout);
 
@@ -96,7 +99,18 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 faclityAdmission.setVisibility((position == 0 || position == 1) ? View.INVISIBLE:View.VISIBLE);
                 //0 - UH&FWC 1 - CC
                 break;
+            case R.id.delivery_typeDropdown:
+                section = new LinearLayout[2];
+                section [0] = (LinearLayout) findViewById(R.id.id_deliveryResultLayout);
+                section [1] = (LinearLayout) findViewById(R.id.id_DeliveryManagementLayout);
+                //section [] = (LinearLayout) findViewById(R.id.id_deliveryResultLayout);
+                //section [] = (LinearLayout) findViewById(R.id.id_deliveryResultLayout);
 
+                for(int i = 0; i < section.length; ++i) {
+                    section[i].setVisibility( position == 2? View.INVISIBLE:View.VISIBLE); //0 - abortion
+                }
+                System.out.println("Hit the Delivery Type");
+                break;
         }
     }
 
