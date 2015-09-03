@@ -26,7 +26,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
     //UI References
 
-    private DatePickerDialog fromDatePickerDialog;
+    //private DatePickerDialog fromDatePickerDialog;
     private ImageView deliveryDateButton;
     private ImageView admissionDateButton;
     private ImageView anyDateButton;
@@ -90,13 +90,13 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 section [1] = (LinearLayout) findViewById(R.id.id_Epcotomi_section_layout);
 
                 for(int i = 0; i < section.length; ++i) {
-                    section[i].setVisibility( position == 0? View.INVISIBLE:View.VISIBLE); //0 - home
+                    section[i].setVisibility( position == 0? View.GONE:View.VISIBLE); //0 - home
                 }                
                 break;
             case R.id.id_facility_name_Dropdown:
                 System.out.println("Hit the Facility Spinner");
                 LinearLayout  faclityAdmission = (LinearLayout) findViewById(R.id.id_facililties_admission_layout);
-                faclityAdmission.setVisibility((position == 0 || position == 1) ? View.INVISIBLE:View.VISIBLE);
+                faclityAdmission.setVisibility((position == 0 || position == 1) ? View.GONE:View.VISIBLE);
                 //0 - UH&FWC 1 - CC
                 break;
             case R.id.delivery_typeDropdown:
@@ -107,7 +107,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 //section [] = (LinearLayout) findViewById(R.id.id_deliveryResultLayout);
 
                 for(int i = 0; i < section.length; ++i) {
-                    section[i].setVisibility( position == 2? View.INVISIBLE:View.VISIBLE); //0 - abortion
+                    section[i].setVisibility( position == 2? View.GONE:View.VISIBLE); //0 - abortion
                 }
                 System.out.println("Hit the Delivery Type");
                 break;
@@ -116,6 +116,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
     @Override
     public void onClick(View view) {
+//        if(view.getLayerType())
         datePickerDialog.show(datePickerPair.get(view.getId()));
     }
 
