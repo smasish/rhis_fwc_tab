@@ -83,14 +83,17 @@
 	<string name="general_cause">"	কারণ:"</string>	
 	
 
-    <string name="delevery_service">"গর্ভকালীন সেবা"</string>
-    <string name="delevery_related_info">"প্রসব সংক্রান্ত তথ্য"</string>
-    <string name="delevery_place">"প্রসবের স্থান:"</string>
-    <string name="delevery_date">"প্রসবের তারিখ:"</string>
-    <string name="delevery_time">"সময়:"</string>
-    <string name="delevery_type">"প্রসবের ধরণ:"</string>
+    <string name="delivery_service">"গর্ভকালীন সেবা"</string>
+    <string name="delivery_related_info">"প্রসব সংক্রান্ত তথ্য"</string>
+    <string name="delivery_place">"প্রসবের স্থান:"</string>
+    <string name="delivery_date">"প্রসবের তারিখ:"</string>
+    <string name="delivery_time">"সময়:"</string>
+    <string name="delivery_type">"প্রসবের ধরণ:"</string>
     <string name="service_center_name">"সেবাকেন্দ্রের নাম:"</string>
-    <string name="delevery_result">"প্রসবের ফলাফল:"</string>
+    <string name="admission_date">"ভর্তির তারিখ:"</string>
+    <string name="ward">"ওয়ার্ড:"</string>
+    <string name="bed">"শয্যা:"</string>
+    <string name="delivery_result">"প্রসবের ফলাফল:"</string>
     <string name="live_born">"জীবিত জন্ম:"</string>
     <string name="dead_born">"মৃত জন্ম:"</string>
     <string name="dead_born_fresh">"ফ্রেশ:"</string>
