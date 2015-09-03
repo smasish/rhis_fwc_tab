@@ -4,13 +4,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 
-public class DeleveryActivity extends AppCompatActivity {
+public class DeliveryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_delevery);
+        setContentView(R.layout.activity_delivery);
     }
 
     @Override
@@ -33,5 +35,17 @@ public class DeleveryActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void genericSpinnerContextMenu(AdapterView<String> parent, View view,
+                                          int pos, long id) {
+
+        switch (view.getId()) {
+            case R.id.delevery_placeDropdown:
+
+                break;
+
+        }
+
     }
 }

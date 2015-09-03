@@ -60,7 +60,9 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:entries="@array/FacilityPlace_DropDown"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"
+                    android:prompt="@string/delevery_place"
+                    android:onItemClick="genericSetContextMenu"/>
 
                 <TextView
                     android:id="@+id/delevery_type"
