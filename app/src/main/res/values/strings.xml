@@ -28,7 +28,7 @@
     <string name = "ClientsMobileNo">"মোবাইল নম্বর:"</string>
 
     <string name = "ClientsInfoFragment">"সেবাগ্রহীতার তথ্য"</string>
-   <string name = "LMPDate">"শেষ মাসিকের তারিখ:"</string>
+    <string name = "LMPDate">"শেষ মাসিকের তারিখ:"</string>
     <string name="pick_time">Pick time</string>
     <string name="selectdate">Pick time</string>
     <string name = "DeliveryDate">"প্রসবের সম্ভাব্য তারিখ:"</string>
@@ -36,7 +36,7 @@
     <string name = "Clients_Gravida">"গ্রাভিডা:"</string>
     <string name = "Client_Son_Num">"ছেলে:"</string>
     <string name = "Client_Daughter_Num">"মেয়ে:"</string>
-        <string name = "TextViewLive_child_Num">"জীবিত সন্তান সংখ্যা:"</string>
+    <string name = "TextViewLive_child_Num">"জীবিত সন্তান সংখ্যা:"</string>
     <string name = "TextViewLast_child_Age">"শেষ সন্তানের বয়স:"</string>
     <string name = "Age_of_last_child_year">"বছর "</string>
     <string name = "Age_of_last_child_mont">"মাস "</string>
@@ -73,15 +73,27 @@
         <item>Birth Reg. No</item>
         <item>Mobile No </item>
     </string-array>
+	
+	<string name="general_yes">"হ্যাঁ"</string>
+    <string name="general_no">"না"</string>
+    <string name="general_treatment">"চিকিৎসা:"</string>
+    <string name="general_advice">"পরামর্শ:"</string>
+    <string name="general_refer">"রেফার:"</string>
+	<string name="general_facility_name">"কেন্দ্রের নাম:"</string>
+	<string name="general_cause">"	কারণ:"</string>	
+	
 
-    <string name="delevery_service">"গর্ভকালীন সেবা"</string>
-    <string name="delevery_related_info">"প্রসব সংক্রান্ত তথ্য"</string>
-    <string name="delevery_place">"প্রসবের স্থান:"</string>
-    <string name="delevery_date">"প্রসবের তারিখ:"</string>
-    <string name="delevery_time">"সময়:"</string>
-    <string name="delevery_type">"প্রসবের ধরণ:"</string>
+    <string name="delivery_service">"গর্ভকালীন সেবা"</string>
+    <string name="delivery_related_info">"প্রসব সংক্রান্ত তথ্য"</string>
+    <string name="delivery_place">"প্রসবের স্থান:"</string>
+    <string name="delivery_date">"প্রসবের তারিখ:"</string>
+    <string name="delivery_time">"সময়:"</string>
+    <string name="delivery_type">"প্রসবের ধরণ:"</string>
     <string name="service_center_name">"সেবাকেন্দ্রের নাম:"</string>
-    <string name="delevery_result">"প্রসবের ফলাফল:"</string>
+    <string name="admission_date">"ভর্তির তারিখ:"</string>
+    <string name="ward">"ওয়ার্ড:"</string>
+    <string name="bed">"শয্যা:"</string>
+    <string name="delivery_result">"প্রসবের ফলাফল:"</string>
     <string name="live_born">"জীবিত জন্ম:"</string>
     <string name="dead_born">"মৃত জন্ম:"</string>
     <string name="dead_born_fresh">"ফ্রেশ:"</string>
@@ -90,6 +102,42 @@
     <string name="not_detected">"সনাক্ত করা যাই নি:"</string>
     <string name="amtsl">"প্রসবের তৃতীয় ধাপের সক্রিয় ব্যবস্থাপনায় (AMTSL) যা অনুসরণ করা হয়েছে:"</string>
     <string name="oxytocin">"প্রসবের ১ মিনিটের মধ্যে অক্সিটোসিন প্রয়োগ"</string>
+	<string name="traction">"গর্ভফুল প্রসবের জন্য নাভিরজ্জুতে নিয়ন্ত্রিত টান"</string>
+	<string name="massage">"জরায়ু ম্যাসাজ"</string>	
+	<string name="epcotomi">"ইপিসিওটমি করা হয়েছে? "</string>
+	<string name="oxytocinGiven">"অক্সিটোসিন না থাকলে মিসোপ্রোস্টল খাওয়ানো হয়েছে?"</string>
+	<string name="providerName">"প্রসব সম্পাদনকারীর নাম:"</string>
+	<string name="providerTitle">"পদবী:"</string>
+	<string name="deliveryComplication">"প্রসব সংক্রান্ত জটিলতা:"</string>
+	<string name="bloodLoss">"অতিরিক্ত রক্তক্ষরণ"</string>
+	<string name="delayedDelivery">"বিলম্বিত প্রসব"</string>
+	<string name="blockedDelivery">"বাধাগ্রস্থ প্রসব "</string>
+	<string name="blockedPlacenta">"গর্ভফুল না পড়া "</string>
+	<string name="heavyHedache">"প্রচন্ড মাথা ব্যাথা"</string>
+	<string name="blurryVision">" চোখে ঝাপসা দেখা "</string>
+	<string name="onlyHead">"মাথা ছাড়া অন্য কোন অঙ্গ বের হওয়া"</string>
+	<string name="convulsion">"খিচুঁনি "</string>
+	<string name="deleiveryExtra">"অন্যান্য"</string>
+
+    <string-array name="FacilityType_DropDown">
+        <item> ইউনিয়ন স্বাস্থ্য ও পরিবার কল্যান কেন্দ্র </item>
+        <item> কমিউনিটি ক্লিনিক </item>
+        <item> উপজেলা স্বাস্থ্য কমপ্লেক্স </item>
+        <item> জেলা সদর হাসপাতাল </item>
+        <item> প্রাইভেট ক্লিনিক</item>
+        <item> এনজিও হাসপাতাল/ সেবা কেন্দ্র</item>
+    </string-array>
+
+    <string-array name="FacilityPlace_DropDown">
+        <item> বাড়ি </item>
+        <item> সেবাকেন্দ্র </item>
+    </string-array>
+
+    <string-array name="DeliveryType_DropDown">
+        <item> স্বাভাবিক </item>
+        <item> সিজারিয়ান </item>
+        <item> গর্ভপাত </item>
+    </string-array>
 
     <string name="anc_title">"বর্তমান সেবার তথ্য"</string>
     <string name="visit">"পরিদর্শন:"</string>

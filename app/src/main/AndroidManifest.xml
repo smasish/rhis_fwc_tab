@@ -32,7 +32,7 @@
             android:label="@string/title_activity_anc" >
         </activity>
         <activity
-            android:name=".DeleveryActivity"
+            android:name=".DeliveryActivity"
             android:label="@string/title_activity_delevery" >
         </activity>
     </application>
