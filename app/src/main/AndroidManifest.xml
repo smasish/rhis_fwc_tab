@@ -35,6 +35,10 @@
             android:name=".DeliveryActivity"
             android:label="@string/title_activity_delevery" >
         </activity>
+        <activity
+            android:name=".PNCActivity"
+            android:label="@string/title_activity_pnc" >
+        </activity>
     </application>
 
 </manifest>

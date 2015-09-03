@@ -167,5 +167,6 @@
     <string name="title_activity_anc">ANCActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_delevery">"গর্ভকালীন সেবা"</string>
+    <string name="title_activity_pnc">PNCActivity</string>
 
 </resources>
