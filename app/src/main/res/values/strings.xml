@@ -139,6 +139,29 @@
         <item> গর্ভপাত </item>
     </string-array>
 
+    <string name="anc_title">"বর্তমান সেবার তথ্য"</string>
+    <string name="visit">"পরিদর্শন:"</string>
+    <string name="service_date">"সেবাগ্রহনের তারিখ:"</string>
+    <string name="blood_presser">"রক্তচাপ (মিঃ মিঃ মার্কারি):"</string>
+    <string name="weight">"ওজন (কেজি):"</string>
+    <string name="edema">"ইডিমা:"</string>
+    <string name="uterus_height">"জরায়ুর উচ্চতা (সপ্তাহ):"</string>
+    <string name="heart_speed">"ফিটাসের হৃদপিণ্ডের গতি (প্রতি মিনিটে):"</string>
+    <string name="fetal_presentation">"ফিটাল প্রেজেনটেশন:"</string>
+    <string name="anemia_hemoglobin">"রক্তস্বল্পতা / হিমোগ্লোবিন:"</string>
+    <string name="jaundice">"জন্ডিস:"</string>
+    <string name="urine_test_sugar">"প্রস্রাব পরীক্ষা: সুগার:"</string>
+    <string name="urine_test_albumin">"প্রস্রাব পরীক্ষা: এলবুমিন:"</string>
+    <string name="danger_signs">"বিপদ চিহ্ন / জটিলতা:"</string>
+    <string name="drawback">"অসুবিধা:"</string>
+    <string name="disease">"রোগ:"</string>
+    <string name="treatment">"চিকিৎসা:"</string>
+    <string name="advice">"পরামর্শ:"</string>
+    <string name="refer">"রেফার:"</string>
+    <string name="center_name">"কেন্দ্রের নাম:"</string>
+    <string name="reason">"কারণ:"</string>
+
+
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_anc">ANCActivity</string>

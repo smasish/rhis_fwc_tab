@@ -23,7 +23,7 @@
             android:id="@+id/TextViewClient_info_tab"
             android:gravity="center"
             android:layout_centerVertical="true"
-            android:text="@string/ClientsInfoFragment"
+            android:text="@string/ClientsIntroFragment"
             android:layout_width="fill_parent"
             android:textColor="#FFFFFF"
             android:layout_height="wrap_content"
