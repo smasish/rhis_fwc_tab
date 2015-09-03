@@ -1,0 +1,45 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="PNC History"
+            android:id="@+id/pncHistoryLabel"
+            android:layout_gravity="center_horizontal" />
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/pnchistory_fragment"
+            android:name="org.sci.rhis.fwc.PNCHistory" tools:layout="@layout/fragment_pnchistory"
+            android:layout_width="match_parent" android:layout_height="677dp"
+            android:layout_weight="0.62" />
+        <LinearLayout
+            style="@style/rowHeading"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10sp"
+            android:paddingTop="10sp">
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="PNC"
+                android:id="@+id/pncLabel"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
+

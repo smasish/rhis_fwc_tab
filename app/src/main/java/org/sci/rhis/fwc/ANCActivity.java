@@ -18,7 +18,8 @@ public class ANCActivity extends ClinicalServiceActivity {
         woman = getIntent().getParcelableExtra("PregWoman");
 
         today = new Date();
-        if( woman.getAncThreshold().after(today)) { // add ANC threshold
+        Date anc_limit = woman.getAncThreshold(); //TODO don't need this temporary variable
+        if( anc_limit.before(today)) { // add ANC threshold
             Toast.makeText(this, "Too Late for ANC, ask delivery status ...", Toast.LENGTH_LONG).show();
         } else {
             setContentView(R.layout.activity_anc);
