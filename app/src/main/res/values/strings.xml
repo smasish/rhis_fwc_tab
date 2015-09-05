@@ -161,6 +161,12 @@
     <string name="center_name">"কেন্দ্রের নাম:"</string>
     <string name="reason">"কারণ:"</string>
 
+    <string name="temperature">"তাপমাত্রা:"</string>
+    <string name="breast_condition">"স্তনের অবস্থা:"</string>
+    <string name="cervix_involution">"জরায়ুর ইনভলিউশন:"</string>
+    <string name="discharge_bleeding">"স্রাব/ রক্তস্রাব:"</string>
+    <string name="perineum">"পেরিনিয়াম:"</string>
+    <string name="family_planning_methods">"পরিবার পরিকল্পনা পদ্ধতি(পরামর্শ / পদ্ধতি প্রদান):"</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

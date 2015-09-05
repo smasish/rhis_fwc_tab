@@ -40,6 +40,87 @@
                 android:layout_centerVertical="true"
                 />
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ancText" android:layout_marginLeft="10dp" android:layout_marginTop="10dp" android:paddingBottom="20dp" android:orientation="vertical" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="#FFFFFF">
+
+            <LinearLayout android:id="@+id/pncVisit" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <TextView android:id="@+id/pncVisitLevel" android:text="@string/visit" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp"/>
+                <EditText android:id="@+id/pncVisitValue" android:inputType="number" android:textSize="20dp" android:layout_width="40dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+            </LinearLayout>
+            <LinearLayout android:id="@+id/pncServiceDate" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <TextView android:id="@+id/pncServiceDateLevel" android:text="@string/service_date" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp"/>
+                <EditText android:id="@+id/pncServiceDateValue" android:inputType="number"  android:hint="dd/mm/yyyy" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+                <ImageView android:id="@+id/imageancServiceDate" android:src="@drawable/calendar_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="0dp" android:onClick="pickDate"/>
+            </LinearLayout>
+            <LinearLayout android:id="@+id/pncTemperature" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <TextView android:id="@+id/pncTemperatureLevel" android:text="@string/temperature" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+                <EditText android:id="@+id/pncTemperatureValue" android:inputType="number" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+            </LinearLayout>
+            <LinearLayout android:id="@+id/pncBloodPresser" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <TextView android:id="@+id/pncBloodPresserLevel" android:text="@string/blood_presser" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+                <EditText android:id="@+id/pncBloodPresserValueS" android:inputType="number" android:textSize="20dp" android:layout_width="60dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+                <TextView android:id="@+id/pncBloodPresserLevelD" android:text="/" android:textSize="20dp" android:layout_width="10dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+                <EditText android:id="@+id/pncBloodPresserValueD" android:inputType="number" android:textSize="20dp" android:layout_width="60dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+            </LinearLayout>
+            <LinearLayout android:id="@+id/pncAnemiaHemoglobin" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <TextView android:id="@+id/pncAnemiaHemoglobinLevel" android:text="@string/anemia_hemoglobin" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+                <EditText android:id="@+id/pncAnemiaHemoglobinValue" android:inputType="text" android:textSize="20dp" android:layout_width="70dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/pncBreastCondition" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <TextView android:id="@+id/pncBreastConditionLevel" android:text="@string/breast_condition" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+                <Spinner android:id="@+id/pncBreastConditionSpinner" android:inputType="text" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp"/>
+            </LinearLayout>
+            <LinearLayout android:id="@+id/pncCervixInvolution" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <TextView android:id="@+id/pncCervixInvolutionLevel" android:text="@string/cervix_involution" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+                <EditText android:id="@+id/pncCervixInvolutionValue" android:inputType="number" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+            </LinearLayout>
+            <LinearLayout android:id="@+id/pncDischargeBleeding" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <TextView android:id="@+id/ancDischargeBleedingLevel" android:text="@string/discharge_bleeding" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+                <Spinner android:id="@+id/pncDischargeBleedingSpinner" android:inputType="text" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+            </LinearLayout>
+            <LinearLayout android:id="@+id/pncPerineum" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <TextView android:id="@+id/pncPerineumLevel" android:text="@string/perineum" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+                <Spinner android:id="@+id/pncPerineumSpinner" android:inputType="text" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp"/>
+            </LinearLayout>
+            <LinearLayout android:id="@+id/pncFamilyPlanningMethods" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <TextView android:id="@+id/pncFamilyPlanningMethodsLevel" android:text="@string/family_planning_methods" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+                <Spinner android:id="@+id/pncFamilyPlanningMethodsSpinner" android:inputType="text" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp"/>
+            </LinearLayout>
+            <LinearLayout android:id="@+id/pncDrawback" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <TextView android:id="@+id/pncDrawbackLevel" android:text="@string/drawback" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+                <Spinner android:id="@+id/pncDrawbackSpinner" android:inputType="text" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+            </LinearLayout>
+            <LinearLayout android:id="@+id/pncDisease" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <TextView android:id="@+id/pncDiseaseLevel" android:text="@string/disease" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+                <Spinner android:id="@+id/pncDiseaseSpinner" android:inputType="text" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+            </LinearLayout>
+            <LinearLayout android:id="@+id/pncTreatment" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <TextView android:id="@+id/pncTreatmentLevel" android:text="@string/treatment" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+                <Spinner android:id="@+id/pncTreatmentSpinner" android:inputType="text" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+            </LinearLayout>
+            <LinearLayout android:id="@+id/pncAdvice" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <TextView android:id="@+id/pncAdviceLevel" android:text="@string/advice" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+                <Spinner android:id="@+id/pncAdviceSpinner" android:inputType="text" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+            </LinearLayout>
+            <LinearLayout android:id="@+id/pncRefer" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <TextView android:id="@+id/pncReferLevel" android:text="@string/refer" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+                <Spinner android:id="@+id/pncReferSpinner" android:inputType="text" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+            </LinearLayout>
+            <LinearLayout android:id="@+id/pncReferCenterName" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <TextView android:id="@+id/pncReferCenterNameLevel" android:text="@string/center_name" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+                <Spinner android:id="@+id/pncReferCenterNameSpinner" android:inputType="text" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+            </LinearLayout>
+            <LinearLayout android:id="@+id/pncReason" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <TextView android:id="@+id/pncReasonLevel" android:text="@string/reason" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+                <Spinner android:id="@+id/pncReasonSpinner" android:inputType="text" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp"/>
+            </LinearLayout>
+            <LinearLayout android:id="@+id/pncButton" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <Button android:id="@+id/pncSaveButton" android:layout_width="80dp" android:layout_height="60px" android:text="Save" android:textSize="10dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 </ScrollView>
 
