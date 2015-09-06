@@ -139,7 +139,15 @@
         <item> গর্ভপাত </item>
     </string-array>
 
-    <string name="anc_title">"গর্ভকালীন সেবা "</string>
+    <string name="delevery_service">"প্রসবকালীন সেবা "</string>
+     <string name="delevery_related_info">"প্রসব সংক্রান্ত তথ্য "</string>
+     <string name="newborn_related_info">"নবজাতকের সংক্রান্ত তথ্য "</string>
+    <string name="child">"সন্তান: "</string>
+    <string name="son">"ছেলে "</string>
+    <string name="daughter">"মেয়ে "</string>
+    <string name="born_weight">"জন্ম ওজন (কেজি):"</string>
+
+     <string name="anc_title">" প্রসব সংক্রান্ত তথ্য "</string>
     <string name="visit">"পরিদর্শন:"</string>
     <string name="service_date">"সেবাগ্রহনের তারিখ:"</string>
     <string name="blood_presser">"রক্তচাপ (মিঃ মিঃ মার্কারি):"</string>
