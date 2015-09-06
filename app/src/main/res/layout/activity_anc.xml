@@ -34,7 +34,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="ANC"
+        android:text="@string/title_activity_anc"
         android:id="@+id/ancLabel"
         android:gravity="center"
         android:layout_centerVertical="true"

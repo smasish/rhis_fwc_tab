@@ -34,7 +34,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="PNC"
+                android:text="@string/title_activity_pnc"
                 android:id="@+id/pncLabel"
                 android:gravity="center"
                 android:layout_centerVertical="true"

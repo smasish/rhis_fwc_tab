@@ -139,7 +139,7 @@
         <item> গর্ভপাত </item>
     </string-array>
 
-    <string name="anc_title">"বর্তমান সেবার তথ্য"</string>
+    <string name="anc_title">"গর্ভকালীন সেবা "</string>
     <string name="visit">"পরিদর্শন:"</string>
     <string name="service_date">"সেবাগ্রহনের তারিখ:"</string>
     <string name="blood_presser">"রক্তচাপ (মিঃ মিঃ মার্কারি):"</string>
@@ -160,7 +160,7 @@
     <string name="refer">"রেফার:"</string>
     <string name="center_name">"কেন্দ্রের নাম:"</string>
     <string name="reason">"কারণ:"</string>
-
+    <string name="pnc_title">"প্রসবোত্তর সেবা"</string>
     <string name="temperature">"তাপমাত্রা:"</string>
     <string name="breast_condition">"স্তনের অবস্থা:"</string>
     <string name="cervix_involution">"জরায়ুর ইনভলিউশন:"</string>
@@ -168,11 +168,17 @@
     <string name="perineum">"পেরিনিয়াম:"</string>
     <string name="family_planning_methods">"পরিবার পরিকল্পনা পদ্ধতি(পরামর্শ / পদ্ধতি প্রদান):"</string>
 
+    <string-array name="pncBreastCondition_DropDown">
+        <item> স্বাভাবিক </item>
+        <item> ফোলা</item>
+        <item> ব্যথাযুক্ত </item>
+    </string-array>
+
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_anc">ANCActivity</string>
+    <string name="title_activity_anc">গর্ভকালীন সেবা (ANC)</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_delevery">"গর্ভকালীন সেবা"</string>
-    <string name="title_activity_pnc">PNCActivity</string>
+    <string name="title_activity_delevery">" প্রসবকালীন সেবা "</string>
+    <string name="title_activity_pnc">প্রসবোত্তর সেবা (PNC)</string>
 
 </resources>
