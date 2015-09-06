@@ -192,8 +192,9 @@
         <LinearLayout android:id="@+id/pncChildButton" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <Button android:id="@+id/pncChildSaveButton" android:layout_width="80dp" android:layout_height="60px" android:text="Save" android:textSize="10dp" android:layout_marginLeft="220dp"/>
         </LinearLayout>
-
     </LinearLayout>
+
+    
     </LinearLayout>
 </ScrollView>
 
