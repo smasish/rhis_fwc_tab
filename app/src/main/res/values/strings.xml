@@ -161,6 +161,7 @@
     <string name="center_name">"কেন্দ্রের নাম:"</string>
     <string name="reason">"কারণ:"</string>
     <string name="pnc_title">"প্রসবোত্তর সেবা"</string>
+    <string name="pncInfo_mother">"বর্তমান সেবার তথ্য: মা"</string>
     <string name="temperature">"তাপমাত্রা:"</string>
     <string name="breast_condition">"স্তনের অবস্থা:"</string>
     <string name="cervix_involution">"জরায়ুর ইনভলিউশন:"</string>
@@ -168,13 +169,36 @@
     <string name="perineum">"পেরিনিয়াম:"</string>
     <string name="family_planning_methods">"পরিবার পরিকল্পনা পদ্ধতি(পরামর্শ / পদ্ধতি প্রদান):"</string>
 
-    <string-array name="pncBreastCondition_DropDown">
+    <string-array name="Breast_Condition_DropDown">
         <item> স্বাভাবিক </item>
         <item> ফোলা</item>
         <item> ব্যথাযুক্ত </item>
     </string-array>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <string-array name="Discharge_Bleeding_DropDown">
+        <item> স্বাভাবিক </item>
+        <item> দূর্গন্ধযুক্ত </item>
+        <item> অতিরিক্ত </item>
+    </string-array>
+
+    <string-array name="Perineum_DropDown">
+        <item> স্বাভাবিক </item>
+        <item> ছিঁড়ে গিয়েছে  </item>
+        <item> অন্যান্য জটিলতা </item>
+    </string-array>
+
+    <string-array name="Family_Planning_Methods_DropDown">
+        <item> পরামর্শ </item>
+        <item> FP Method Name 1 </item>
+        <item> FP Method Name 2 </item>
+    </string-array>
+    <string name="pncInfo_child">"বর্তমান সেবার তথ্য: সন্তান "</string>
+    <string name="new_born">" নবজাতক: "</string>
+    <string name="breath_per_minute">" শ্বাস (মিনিটে কতবার): "</string>
+    <string name="only_breast_feeding">" শুধুমাত্র বুকের দুধ খাওয়ানো:"</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_anc">গর্ভকালীন সেবা (ANC)</string>
     <string name="hello_world">Hello world!</string>
