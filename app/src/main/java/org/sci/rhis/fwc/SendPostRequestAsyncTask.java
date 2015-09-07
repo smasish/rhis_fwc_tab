@@ -3,6 +3,8 @@ package org.sci.rhis.fwc;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
@@ -103,6 +105,8 @@ public class SendPostRequestAsyncTask extends AsyncTask<String, Void, String> {
         }
         return null;
     }
+
+    protected void onProgressUpdate(Integer... values) {}
 
     @Override
     protected void onPostExecute(String result) {
