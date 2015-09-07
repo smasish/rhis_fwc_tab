@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -111,7 +112,9 @@ public class SecondActivity extends ClinicalServiceActivity {
         try {
             JSONObject json = new JSONObject(result);
             String key;
-            woman = PregWoman.CreatePregWoman(json);
+            //woman = PregWoman.CreatePregWoman(json);
+
+            Log.d("---woman---------", "" + woman.toString());
 
             //DEBUG
             for ( Iterator<String> ii = json.keys(); ii.hasNext(); ) {
