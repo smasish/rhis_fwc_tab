@@ -4,10 +4,7 @@ package org.sci.rhis.fwc;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -112,9 +109,7 @@ public class SecondActivity extends ClinicalServiceActivity {
         try {
             JSONObject json = new JSONObject(result);
             String key;
-            //woman = PregWoman.CreatePregWoman(json);
-
-            Log.d("---woman---------", "" + woman.toString());
+            woman = PregWoman.CreatePregWoman(json);
 
             //DEBUG
             for ( Iterator<String> ii = json.keys(); ii.hasNext(); ) {
@@ -163,7 +158,7 @@ public class SecondActivity extends ClinicalServiceActivity {
         //startActivity(intent);
     }
     public void startDelivery(View view) {
-        Intent intent = new Intent(this, DeleveryActivity.class);
+        Intent intent = new Intent(this, DeliveryActivity.class);
         startActivity(intent);
     }
 }
