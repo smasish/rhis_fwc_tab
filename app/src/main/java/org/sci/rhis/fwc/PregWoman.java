@@ -155,7 +155,7 @@ public class PregWoman extends GeneralPerson implements Parcelable{
         try {
             //client = new PregWoman(JSONObject jso );
             initialize( clientInfo.getString("cLMP"),
-                    clientInfo.getString("cEDD"),
+                        clientInfo.getString("cEDD"),
                         clientInfo.getInt("cPregNo"),
                         clientInfo.getString("cPara"),
                         clientInfo.getString("cGravida"),

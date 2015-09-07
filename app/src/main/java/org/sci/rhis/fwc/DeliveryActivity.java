@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.sci.rhis.utilities.CustomDatePickerDialog;
 
 import java.text.SimpleDateFormat;
@@ -32,6 +34,9 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     private ImageView anyDateButton;
     private CustomDatePickerDialog datePickerDialog;
     private HashMap<Integer, EditText> datePickerPair;
+    private PregWoman mother;
+    private ProviderInfo provider;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,22 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         datePickerPair = new HashMap<Integer, EditText>();
         datePickerPair.put(R.id.imageViewDeliveryDate, (EditText)findViewById(R.id.id_delivery_date));
         datePickerPair.put(R.id.imageViewAdmissionDate, (EditText)findViewById(R.id.id_admissionDate));
+
+        //create the mother
+        mother = getIntent().getParcelableExtra("PregWoman");
+        provider = getIntent().getParcelableExtra("Provider");
+
+        //get info from database
+        String queryString =   "{" +
+                "healthid:" + mother.getHealthId() + "," +
+                "pregno:" + mother.getPregNo() + "," +
+                "deliveryLoad:" + "retrieve" +
+                "}";
+        String servlet = "delivery";
+        String jsonRootkey = "deliveryInfo";
+        SendPostRequestAsyncTask retrieveDelivery = new AsyncDeliveryInfoUpdate(this);
+        retrieveDelivery.execute(queryString, servlet, jsonRootkey);
+
     }
 
     @Override
@@ -133,5 +154,18 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     @Override
     public void callbackAsyncTask(String result) {
 
+        try {
+            JSONObject json = new JSONObject(result);
+            String key;
+
+
+            //DEBUG
+            for (Iterator<String> ii = json.keys(); ii.hasNext(); ) {
+                key = ii.next();
+                System.out.println("1.Key:" + key + " Value:\'" + json.get(key) + "\'");
+            }
+        } catch (JSONException jse) {
+            jse.printStackTrace();
+        }
     }
 }

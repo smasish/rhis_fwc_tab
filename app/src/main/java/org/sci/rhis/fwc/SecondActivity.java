@@ -163,6 +163,7 @@ public class SecondActivity extends ClinicalServiceActivity {
         Intent intent = new Intent(this, DeliveryActivity.class);
         if(woman.isEligibleFor(PregWoman.PREG_SERVICE.DELIVERY)) {
             intent.putExtra("PregWoman", woman);
+            intent.putExtra("Provider", ProviderInfo.getProvider());
             startActivity(intent);
         } else {
             Toast.makeText(this, "Too Late for Delivery, verify ...", Toast.LENGTH_LONG).show();
