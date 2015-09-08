@@ -94,6 +94,24 @@ public class ANCActivity extends ClinicalServiceActivity {
                 // Toast.makeText(getApplicationContext(),
                 // "Group Clicked " + listDataHeader.get(groupPosition),
                 // Toast.LENGTH_SHORT).show();
+
+
+                AsyncClientInfoUpdate client = new AsyncClientInfoUpdate(ANCActivity.this);
+                //SendPostRequestAsyncTask
+                AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(ANCActivity.this);
+                String queryString =   "{" +
+                        "pregNo:" + 3 + "," +
+                        "healthid:" + "43366275025436" + "," +
+                        "ancLoad:" + ProviderInfo.getProvider().getProviderCode() +
+                        "}";
+                String servlet = "anc";
+                String jsonRootkey = "ANCInfo";
+
+
+
+
+                sendPostReqAsyncTask.execute(queryString, servlet, jsonRootkey);
+
                 return false;
             }
         });
@@ -415,6 +433,31 @@ public class ANCActivity extends ClinicalServiceActivity {
     @Override
     public void callbackAsyncTask(String result) {
 
+        System.out.println("-===test============== " );
+        try {
+            JSONObject json = new JSONObject(result);
+            String key;
+            System.out.println("-================= "+json.toString() );
+            woman = PregWoman.CreatePregWoman(json);
+
+            //DEBUG
+            for ( Iterator<String> ii = json.keys(); ii.hasNext(); ) {
+                key = ii.next();
+                System.out.println("1.Key:" + key + " Value:\'" + json.get(key)+"\'");
+            }
+
+            if(json.get("False").toString().equals("")) {
+//                populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
+//                woman.UpdateUIField(this);
+//                //populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
+//                Utilities.DisableTextFields(this, R.id.fragment_client_intro_scroll);
+//                Utilities.DisableTextFields(this, R.id.fragment_client_info_scroll);
+            }
+
+        } catch (JSONException jse) {
+            System.out.println("JSON Exception Thrown::\n " );
+            jse.printStackTrace();
+        }
     }
 
     @Override

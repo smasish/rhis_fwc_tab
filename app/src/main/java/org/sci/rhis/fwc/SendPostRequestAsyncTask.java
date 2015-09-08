@@ -56,6 +56,8 @@ public class SendPostRequestAsyncTask extends AsyncTask<String, Void, String> {
         String jsonRootkey = params[2];
                 String queryString2 = "{sOpt:1,sStr:5833,providerid:6608}";
                 System.out.println("*** doInBackground ** query: " + queryString);
+
+        System.out.println(jsonRootkey+"*** servlet-------: " + servlet);
                 HttpClient httpClient = new DefaultHttpClient();
                 // In a POST request, we don't pass the values in the URL.
         //Therefore we use only the web page URL as the parameter of the HttpPost argument
