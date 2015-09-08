@@ -58,6 +58,7 @@
             android:layout_width="200dp"
             android:layout_height="50px"
             android:id="@+id/Client_name"
+            android:paddingLeft="10dp"
             android:editable="false"/>
 
           <TextView
@@ -79,6 +80,7 @@
               android:textAppearance="?android:attr/textAppearanceLarge"
               android:id="@+id/Clients_Age"
               android:inputType="number"
+              android:paddingLeft="10dp"
               />
 
 
@@ -111,6 +113,7 @@
             android:background="@drawable/edittextstyle"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/Clients_Husband"
+            android:paddingLeft="10dp"
             />
 
         <TextView
@@ -132,6 +135,7 @@
         android:background="@drawable/edittextstyle"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/Clients_District"
+        android:paddingLeft="10dp"
         />
     </LinearLayout>
         <LinearLayout
@@ -160,6 +164,7 @@
         android:background="@drawable/edittextstyle"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/Clients_Upazila"
+        android:paddingLeft="10dp"
         />
         <TextView
             android:layout_marginLeft="120dp"
@@ -179,6 +184,7 @@
         android:background="@drawable/edittextstyle"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/Clients_Union"
+        android:paddingLeft="10dp"
         />
 </LinearLayout>
 
@@ -208,6 +214,7 @@
         android:background="@drawable/edittextstyle"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/Clients_Village"
+        android:paddingLeft="10dp"
         />
 
         <TextView
@@ -229,6 +236,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/Clients_Word_No"
         android:inputType="number"
+        android:paddingLeft="10dp"
        />
         </LinearLayout>
 
@@ -259,6 +267,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/Clients_Unite_No"
         android:inputType="number"
+        android:paddingLeft="10dp"
         />
 
             <TextView
@@ -280,6 +289,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/Clients_House_No"
                 android:inputType="number"
+                android:paddingLeft="10dp"
                 android:background="@drawable/edittextstyle"
                 />
 
@@ -313,6 +323,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/Clients_ElcoNo"
         android:inputType="number"
+        android:paddingLeft="10dp"
          />
 
         <TextView
@@ -334,6 +345,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/Clients_Mobile_no"
         android:inputType="number"
+        android:paddingLeft="10dp"
        />
     </LinearLayout>
 
