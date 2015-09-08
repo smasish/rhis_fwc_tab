@@ -123,11 +123,11 @@
 	<string name="delayedDelivery">"বিলম্বিত প্রসব"</string>
 	<string name="blockedDelivery">"বাধাগ্রস্থ প্রসব "</string>
 	<string name="blockedPlacenta">"গর্ভফুল না পড়া "</string>
-	<string name="heavyHedache">"প্রচন্ড মাথা ব্যাথা"</string>
+	<string name="heavyHeadache">"প্রচন্ড মাথা ব্যাথা"</string>
 	<string name="blurryVision">" চোখে ঝাপসা দেখা "</string>
 	<string name="onlyHead">"মাথা ছাড়া অন্য কোন অঙ্গ বের হওয়া"</string>
 	<string name="convulsion">"খিচুঁনি "</string>
-	<string name="deleiveryExtra">"অন্যান্য"</string>
+	<string name="deliveryExtra">"অন্যান্য"</string>
 
     <string-array name="FacilityType_DropDown">
         <item> মেডিকেল কলেজ হাসপাতাল </item>
@@ -244,7 +244,7 @@
     <string name="history_breast">স্তনের অবস্থা:</string>
     <string name="history_involution">জরায়ুর ইনভলিউশন:</string>
     <string name="history_bleeding">স্রাব/ রক্তস্রাব:</string>
-    <string name="history_perinium">পেরিনিয়াম:</string>
+    <string name="history_perineum">পেরিনিয়াম:</string>
     <string name="history_plan">পরিবার পরিকল্পনা পদ্ধতি(পরামর্শ / পদ্ধতি প্রদান):</string>
     <string name="history_trouble">অসুবিধা:</string>
     <string name="history_disease">রোগ:</string>
@@ -253,7 +253,9 @@
     <string name="history_refer">রেফার:</string>
     <string name="history_c_name">কেন্দ্রের নাম:</string>
     <string name="history_cause">কারণ:</string>
+    <string name="child_refer">রেফার </string>
 
+    <color name="text_color">#000000</color>
 
 
 

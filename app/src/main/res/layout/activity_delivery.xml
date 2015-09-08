@@ -44,7 +44,7 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:text="@string/delivery_place"
-                android:textSize="20dp" />
+                android:textSize="20dp" android:textColor="@color/text_color" />
 
             <Spinner
                 android:id="@+id/delivery_placeDropdown"
@@ -62,7 +62,7 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:text="@string/delivery_type"
-                android:textSize="20dp" />
+                android:textSize="20dp" android:textColor="@color/text_color"/>
 
             <Spinner
                 android:id="@+id/delivery_typeDropdown"
@@ -89,7 +89,8 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:text="@string/delivery_date"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/text_color"/>
 
             <EditText
                 android:id="@+id/id_delivery_date"
@@ -115,7 +116,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:text="@string/delivery_time"
-                android:textSize="20dp" />
+                android:textSize="20dp" android:textColor="@color/text_color" />
 
             <EditText
                 android:id="@+id/delivery_time_hour"
@@ -172,7 +173,7 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:text="@string/service_center_name"
-                android:textSize="20dp" />
+                android:textSize="20dp" android:textColor="@color/text_color" />
 
             <Spinner
                 android:id="@+id/id_facility_name_Dropdown"
@@ -198,7 +199,7 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:text="@string/admission_date"
-                android:textSize="20dp" />
+                android:textSize="20dp" android:textColor="@color/text_color" />
             <EditText
                 android:id="@+id/id_admissionDate"
                 android:layout_width="120dp"
@@ -223,7 +224,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/ward"
-                android:textSize="20dp" />
+                android:textSize="20dp" android:textColor="@color/text_color" />
 
             <EditText
                 android:id="@+id/id_ward"
@@ -238,7 +239,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:text="@string/bed"
-                android:textSize="20dp" />
+                android:textSize="20dp" android:textColor="@color/text_color" />
             <EditText
                 android:id="@+id/id_bed"
                 android:layout_width="40dp"
@@ -261,7 +262,7 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:text="@string/delivery_result"
-                android:textSize="20dp" />
+                android:textSize="20dp" android:textColor="@color/text_color" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -276,7 +277,7 @@
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
                     android:text="@string/live_born"
-                    android:textSize="20dp" />
+                    android:textSize="20dp" android:textColor="@color/text_color"/>
 
                 <EditText
                     android:id="@+id/Live_born"
@@ -293,7 +294,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:text="@string/dead_born"
-                    android:textSize="20dp" />
+                    android:textSize="20dp" android:textColor="@color/text_color" />
                 <EditText
                     android:id="@+id/Dead_born"
                     android:layout_width="40dp"
@@ -309,7 +310,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:text="@string/dead_born_fresh"
-                    android:textSize="20dp" />
+                    android:textSize="20dp" android:textColor="@color/text_color" />
 
                 <EditText
                     android:id="@+id/Dead_born_fresh"
@@ -326,7 +327,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:text="@string/dead_born_macerated"
-                    android:textSize="20dp" />
+                    android:textSize="20dp" android:textColor="@color/text_color"/>
 
                 <EditText
                     android:id="@+id/Dead_born_macerated"
@@ -350,7 +351,7 @@
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
                     android:text="@string/child_sex"
-                    android:textSize="20dp" />
+                    android:textSize="20dp" android:textColor="@color/text_color"/>
 
                 <TextView
                     android:id="@+id/textSon"
@@ -358,7 +359,7 @@
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
                     android:text="@string/Client_Son_Num"
-                    android:textSize="20dp" />
+                    android:textSize="20dp" android:textColor="@color/text_color" />
 
                 <EditText
                     android:id="@+id/son"
@@ -376,7 +377,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:text="@string/Client_Daughter_Num"
-                    android:textSize="20dp" />
+                    android:textSize="20dp" android:textColor="@color/text_color"/>
 
                 <EditText
                     android:id="@+id/daughter"
@@ -392,7 +393,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:text="@string/not_detected"
-                    android:textSize="20dp" />
+                    android:textSize="20dp" android:textColor="@color/text_color" />
 
                 <EditText
                     android:id="@+id/notDetected"
@@ -419,7 +420,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:text="@string/amtsl"
-                android:textSize="20dp" />
+                android:textSize="20dp" android:textColor="@color/text_color"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -467,7 +468,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/epcotomi"
-                    android:textSize="20dp" />
+                    android:textSize="20dp" android:textColor="@color/text_color"/>
                 <RadioGroup
                     android:id="@+id/id_radioGroupEpctiomi"
                     android:layout_width="fill_parent"
@@ -502,7 +503,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/oxytocin"
-                    android:textSize="20dp" />
+                    android:textSize="20dp" android:textColor="@color/text_color" />
                 <RadioGroup
                     android:id="@+id/id_radioGroupOytocin"
                     android:layout_width="fill_parent"
@@ -514,7 +515,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/general_yes"
-                    android:textSize="20dp" />
+                    android:textSize="20dp" android:textColor="@color/text_color" />
 
                 <RadioButton
                     android:id="@+id/radioOxytocin_no"
@@ -541,7 +542,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/deliveryComplication"
-                android:textSize="20dp" />
+                android:textSize="20dp" android:textColor="@color/text_color" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -592,7 +593,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
-                    android:text="@string/heavyHedache"
+                    android:text="@string/heavyHeadache"
                     android:textSize="20dp" />
 
                 <CheckBox
@@ -630,7 +631,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
-                    android:text="@string/deleiveryExtra"
+                    android:text="@string/deliveryExtra"
                     android:textSize="20dp" />
             </LinearLayout>
         </LinearLayout>
@@ -647,7 +648,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/general_treatment"
-                android:textSize="20dp" />
+                android:textSize="20dp" android:textColor="@color/text_color" />
 
             <Spinner
                 android:id="@+id/id_treatment_spinner"
@@ -663,7 +664,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/general_advice"
-                android:textSize="20dp" />
+                android:textSize="20dp" android:textColor="@color/text_color"/>
 
             <Spinner
                 android:id="@+id/id_spinner_advice"
@@ -697,7 +698,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/general_facility_name"
-                android:textSize="20dp" />
+                android:textSize="20dp" android:textColor="@color/text_color"/>
 
             <Spinner
                 android:id="@+id/id_spinner_refer_facilities"
@@ -715,7 +716,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/general_cause"
-                android:textSize="20dp" />
+                android:textSize="20dp" android:textColor="@color/text_color"/>
 
             <Spinner
                 android:id="@+id/id_spinner_delivery_cause"
