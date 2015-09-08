@@ -113,14 +113,12 @@ public class PregWoman extends GeneralPerson implements Parcelable{
 
     public static PregWoman CreatePregWoman(JSONObject clientInfo) throws JSONException {
 
-        if (client != null) {
-            return client;
-        }
-
         //Only create PregWOman when it is confirmed she is pregnant
         //meaning pregnancy related information i s present
         if(!clientInfo.getString("cNewMCHClient").equals("False")) {
             client = new PregWoman(clientInfo);
+        } else {
+            client = null;
         }
 
         return client;
