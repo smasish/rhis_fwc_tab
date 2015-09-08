@@ -3,6 +3,8 @@ package org.sci.rhis.fwc;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
@@ -54,6 +56,8 @@ public class SendPostRequestAsyncTask extends AsyncTask<String, Void, String> {
         String jsonRootkey = params[2];
                 String queryString2 = "{sOpt:1,sStr:5833,providerid:6608}";
                 System.out.println("*** doInBackground ** query: " + queryString);
+
+        System.out.println(jsonRootkey+"*** servlet-------: " + servlet);
                 HttpClient httpClient = new DefaultHttpClient();
                 // In a POST request, we don't pass the values in the URL.
         //Therefore we use only the web page URL as the parameter of the HttpPost argument
@@ -103,6 +107,8 @@ public class SendPostRequestAsyncTask extends AsyncTask<String, Void, String> {
         }
         return null;
     }
+
+    protected void onProgressUpdate(Integer... values) {}
 
     @Override
     protected void onPostExecute(String result) {

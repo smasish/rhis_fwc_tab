@@ -122,5 +122,12 @@
         android:text="পাসওয়ার্ড ভুলে গেছেন ?"/>
 
 </LinearLayout>
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBarLogin"
+        android:layout_gravity="center_horizontal"
+        android:visibility="invisible"
+        />
 
 </LinearLayout>

@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,29 +39,6 @@ public class SecondActivity extends ClinicalServiceActivity {
 
         // Apply the adapter to the spinner
         staticSpinner.setAdapter(staticAdapter);
-/*
-        Spinner dynamicSpinner = (Spinner) findViewById(R.id.dynamic_spinner);
-
-        String[] items = new String[] { "Chai Latte", "Green Tea", "Black Tea" };
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, items);
-
-        dynamicSpinner.setAdapter(adapter);
-
-        dynamicSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-                Log.v("item", (String) parent.getItemAtPosition(position));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
-            }
-        }); */
-
         addListenerOnButton();
     }
 
@@ -104,7 +82,7 @@ public class SecondActivity extends ClinicalServiceActivity {
     }
 
     @Override
-    public void callbackAsyncTask(String result) {
+    public void callbackAsyncTask(String result) { //Get results back from healthId search
 
         try {
             JSONObject json = new JSONObject(result);
@@ -150,15 +128,28 @@ public class SecondActivity extends ClinicalServiceActivity {
 
     public void startANC(View view) {
         Intent intent = new Intent(this, ANCActivity.class);
-        intent.putExtra("PregWoman", woman);
-        startActivity(intent);
+        if(woman.isEligibleFor(PregWoman.PREG_SERVICE.ANC)) {
+            intent.putExtra("PregWoman", woman);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Too Late for ANC, ask delivery status ...", Toast.LENGTH_LONG).show();
+        }
     }
-    public void startPNC(View view) {
-        //Intent intent = new Intent(this, LoginActivity.class);
-        //startActivity(intent);
-    }
+
     public void startDelivery(View view) {
         Intent intent = new Intent(this, DeliveryActivity.class);
+        if(woman.isEligibleFor(PregWoman.PREG_SERVICE.DELIVERY)) {
+            intent.putExtra("PregWoman", woman);
+            intent.putExtra("Provider", ProviderInfo.getProvider());
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Too Late for Delivery, verify ...", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void startPNC(View view) {
+        Intent intent = new Intent(this, PNCActivity.class);
         startActivity(intent);
     }
+
 }

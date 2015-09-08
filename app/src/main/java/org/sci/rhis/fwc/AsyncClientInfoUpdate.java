@@ -1,7 +1,9 @@
 package org.sci.rhis.fwc;
 
 import android.app.Activity;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,6 +16,7 @@ import java.util.Iterator;
  */
 public class AsyncClientInfoUpdate extends SendPostRequestAsyncTask{
     String mName;
+    ProgressBar bar;
 
     public void setName(String mName) {
         this.mName = mName;
@@ -31,5 +34,17 @@ public class AsyncClientInfoUpdate extends SendPostRequestAsyncTask{
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
+        if(bar != null) {
+            bar.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @Override
+    protected void onProgressUpdate(Integer... values) {
+
+        bar = (ProgressBar) getActivity().findViewById(R.id.progressBarLogin);
+        if(bar != null) {
+            bar.setVisibility(View.VISIBLE);
+        }
     }
 }

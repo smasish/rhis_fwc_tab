@@ -130,12 +130,15 @@
 	<string name="deleiveryExtra">"অন্যান্য"</string>
 
     <string-array name="FacilityType_DropDown">
+        <item> মেডিকেল কলেজ হাসপাতাল </item>
+        <item> জেলা সদর হাসপাতাল </item>
+        <item>মা ও শিশু কল্যাণ কেন্দ্র</item>
+        <item> উপজেলা স্বাস্থ্য কমপ্লেক্স </item>
         <item> ইউনিয়ন স্বাস্থ্য ও পরিবার কল্যান কেন্দ্র </item>
         <item> কমিউনিটি ক্লিনিক </item>
-        <item> উপজেলা স্বাস্থ্য কমপ্লেক্স </item>
-        <item> জেলা সদর হাসপাতাল </item>
-        <item> প্রাইভেট ক্লিনিক</item>
-        <item> এনজিও হাসপাতাল/ সেবা কেন্দ্র</item>
+        <item> এনজিও হাসপাতাল / ক্লিনিক / সেবা কেন্দ্র </item>
+        <item> প্রাইভেট ক্লিনিক / হাসপাতাল </item>
+        <item> অন্যান্য</item>
     </string-array>
 
     <string-array name="FacilityPlace_DropDown">
@@ -147,6 +150,11 @@
         <item> স্বাভাবিক </item>
         <item> সিজারিয়ান </item>
         <item> গর্ভপাত </item>
+    </string-array>
+
+    <string-array name="DeliveryTime_DropDown">
+        <item> AM </item>
+        <item> PM </item>
     </string-array>
 
      <string name="anc_title">" প্রসব সংক্রান্ত তথ্য "</string>
@@ -226,5 +234,28 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_delevery">" প্রসবকালীন সেবা "</string>
     <string name="title_activity_pnc">প্রসবোত্তর সেবা (PNC)</string>
+
+
+    <string name="history_visit1">পরিদর্শন ১:</string>
+    <string name="history_date">সেবাগ্রহনের তারিখ:</string>
+    <string name="history_temp">তাপমাত্রা:</string>
+    <string name="history_b_pressure">রক্তচাপ (মিঃ মিঃ মার্কারি)</string>
+    <string name="history_b_lack">রক্তস্বল্পতা / হিমোগ্লোবিন:</string>
+    <string name="history_breast">স্তনের অবস্থা:</string>
+    <string name="history_involution">জরায়ুর ইনভলিউশন:</string>
+    <string name="history_bleeding">স্রাব/ রক্তস্রাব:</string>
+    <string name="history_perinium">পেরিনিয়াম:</string>
+    <string name="history_plan">পরিবার পরিকল্পনা পদ্ধতি(পরামর্শ / পদ্ধতি প্রদান):</string>
+    <string name="history_trouble">অসুবিধা:</string>
+    <string name="history_disease">রোগ:</string>
+    <string name="history_treatment">চিকিৎসা:</string>
+    <string name="history_consult">পরামর্শ:</string>
+    <string name="history_refer">রেফার:</string>
+    <string name="history_c_name">কেন্দ্রের নাম:</string>
+    <string name="history_cause">কারণ:</string>
+
+
+
+
 
 </resources>

@@ -22,7 +22,8 @@ import java.util.Date;
 public class PregWoman extends GeneralPerson implements Parcelable{
     private Date lmp;
     private Date edd;
-    private String pregNo; //current pregnancy no
+    private Date actualDelivery;
+    private int pregNo; //current pregnancy no
     private String husbandName;
     private String para;
     private String gravida;
@@ -42,6 +43,8 @@ public class PregWoman extends GeneralPerson implements Parcelable{
 
     //constants
     private static enum PREG_STATUS {NEW, ANC, DELIVERING, PNC, NOT_PREGNANT};
+    public static enum PREG_SERVICE {NEW, ANC, DELIVERY, PNC};
+
     final static int PREG_PERIOD    = 280; //We are only considering 280 days now
     final static int PNC_THRESHOLD  = 42;
     final static int ANC_THRESHOLD  = 294; //  PREG_PERIOD +  (2*7); -> 42 weeks from LMP
@@ -66,6 +69,7 @@ public class PregWoman extends GeneralPerson implements Parcelable{
         dest.writeString(getSex());
         dest.writeLong(getHealthId());
         dest.writeString(df.format(lmp));
+        dest.writeInt(getPregNo());
     }
 
     public static final Parcelable.Creator<PregWoman> CREATOR= new Parcelable.Creator<PregWoman>() {
@@ -86,35 +90,40 @@ public class PregWoman extends GeneralPerson implements Parcelable{
     //Parcel Constructor
     public PregWoman(Parcel data) {
         //"IMPORTANT" ->Do not change the order by which the 'data' is accessed
-        super(data.readString(), data.readString(), data.readInt(), data.readString());
-        setHealthId(data.readLong());
+
+        super(
+                data.readString(),      //name
+                data.readString(),      //guardian name
+                data.readInt(),         //age
+                data.readString()       //sex
+        );
+        setHealthId(data.readLong());   //healthId
         if(df == null) {
             df = new SimpleDateFormat("yyyy-MM-dd");
         }
         try {
-            lmp = df.parse(data.readString()); //"IMPORTANT" ->Do not change the order by which the 'data' is accessed
+            lmp = df.parse(data.readString()); //lmp
         } catch (ParseException pe) {
             System.out.println("Parsing Exception:");
             pe.printStackTrace();
         }
+        setPregNo(data.readInt()); //pregnancyNo
         UpdateEdd();
     }
 
     public static PregWoman CreatePregWoman(JSONObject clientInfo) throws JSONException {
 
-        if (client != null) {
-            return client;
-        }
-
         //Only create PregWOman when it is confirmed she is pregnant
         //meaning pregnancy related information i s present
         if(!clientInfo.getString("cNewMCHClient").equals("False")) {
             client = new PregWoman(clientInfo);
+        } else {
+            client = null;
         }
 
         return client;
     }
-
+/*
     @Deprecated
     public static void DeletePregWoman()  {
 
@@ -131,7 +140,7 @@ public class PregWoman extends GeneralPerson implements Parcelable{
         client = new PregWoman();
 
         return client;
-    }
+    }*/
 
     //default
     public PregWoman() {
@@ -145,7 +154,7 @@ public class PregWoman extends GeneralPerson implements Parcelable{
             //client = new PregWoman(JSONObject jso );
             initialize( clientInfo.getString("cLMP"),
                         clientInfo.getString("cEDD"),
-                        clientInfo.getString("cPregNo"),
+                        clientInfo.getInt("cPregNo"),
                         clientInfo.getString("cPara"),
                         clientInfo.getString("cGravida"),
                         clientInfo.getString("cBoy"),
@@ -174,13 +183,13 @@ public class PregWoman extends GeneralPerson implements Parcelable{
     void initialize(
                     String _lmp,
                     String _edd,
-                    String _pregNo,
+                    int    _pregNo,
                     String _para,
                     String _gravida,
                     String _nBoy,
                     String _nGirl,
-                    int _lastChildAge,
-                    int _height,
+                    int    _lastChildAge,
+                    int    _height,
                     String _bloodGroup,
                     String _historyComplicated,
                     String _historyContent
@@ -230,6 +239,10 @@ public class PregWoman extends GeneralPerson implements Parcelable{
         return addDateOffset(lmp, ANC_THRESHOLD);
     }
 
+    public Date getPncThreshold() {
+        return addDateOffset(lmp, ANC_THRESHOLD);
+    }
+
     public void UpdateUIField(Activity activity) {
 
         ((EditText)activity.findViewById(R.id.lmpDate)).setText(df.format(lmp));
@@ -242,6 +255,28 @@ public class PregWoman extends GeneralPerson implements Parcelable{
         ((EditText)activity.findViewById(R.id.lastChildMonth)).setText(String.valueOf(lastChildAge%12));
         ((EditText)activity.findViewById(R.id.heightFeet)).setText(String.valueOf(height/12));
         ((EditText)activity.findViewById(R.id.heightInch)).setText(String.valueOf(height%12));
+    }
+
+    public boolean isEligibleFor(PREG_SERVICE service) {
+        boolean eligible = false;
+        Date today = new Date();
+        switch(service) {
+            case NEW:
+            case ANC:
+            case DELIVERY:
+                if(today.before(getAncThreshold()))
+                    eligible = true;
+                break;
+            case PNC:
+                if(today.before(getAncThreshold()))
+                    eligible = true;
+                break;
+            default:
+                eligible = false;
+        }
+
+        return eligible;
+
     }
 
     public Date getLmp() {
@@ -265,11 +300,11 @@ public class PregWoman extends GeneralPerson implements Parcelable{
         this.edd = edd;
     }
 
-    public String getPregNo() {
+    public int getPregNo() {
         return pregNo;
     }
 
-    public void setPregNo(String pregNo) {
+    public void setPregNo(int pregNo) {
         this.pregNo = pregNo;
     }
 
