@@ -120,12 +120,15 @@
 	<string name="deleiveryExtra">"অন্যান্য"</string>
 
     <string-array name="FacilityType_DropDown">
+        <item> মেডিকেল কলেজ হাসপাতাল </item>
+        <item> জেলা সদর হাসপাতাল </item>
+        <item>মা ও শিশু কল্যাণ কেন্দ্র</item>
+        <item> উপজেলা স্বাস্থ্য কমপ্লেক্স </item>
         <item> ইউনিয়ন স্বাস্থ্য ও পরিবার কল্যান কেন্দ্র </item>
         <item> কমিউনিটি ক্লিনিক </item>
-        <item> উপজেলা স্বাস্থ্য কমপ্লেক্স </item>
-        <item> জেলা সদর হাসপাতাল </item>
-        <item> প্রাইভেট ক্লিনিক</item>
-        <item> এনজিও হাসপাতাল/ সেবা কেন্দ্র</item>
+        <item> এনজিও হাসপাতাল / ক্লিনিক / সেবা কেন্দ্র </item>
+        <item> প্রাইভেট ক্লিনিক / হাসপাতাল </item>
+        <item> অন্যান্য</item>
     </string-array>
 
     <string-array name="FacilityPlace_DropDown">
@@ -137,6 +140,11 @@
         <item> স্বাভাবিক </item>
         <item> সিজারিয়ান </item>
         <item> গর্ভপাত </item>
+    </string-array>
+
+    <string-array name="DeliveryTime_DropDown">
+        <item> AM </item>
+        <item> PM </item>
     </string-array>
 
      <string name="anc_title">" প্রসব সংক্রান্ত তথ্য "</string>
