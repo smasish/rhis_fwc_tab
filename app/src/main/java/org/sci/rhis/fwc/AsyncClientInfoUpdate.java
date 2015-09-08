@@ -34,15 +34,17 @@ public class AsyncClientInfoUpdate extends SendPostRequestAsyncTask{
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        bar = (ProgressBar) getActivity().findViewById(R.id.progressBarLogin);
-        bar.setVisibility(View.VISIBLE);
+        if(bar != null) {
+            bar.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
     protected void onProgressUpdate(Integer... values) {
 
+        bar = (ProgressBar) getActivity().findViewById(R.id.progressBarLogin);
         if(bar != null) {
-            bar.setVisibility(View.INVISIBLE);
+            bar.setVisibility(View.VISIBLE);
         }
     }
 }

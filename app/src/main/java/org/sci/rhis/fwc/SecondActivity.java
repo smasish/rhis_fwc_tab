@@ -39,29 +39,6 @@ public class SecondActivity extends ClinicalServiceActivity {
 
         // Apply the adapter to the spinner
         staticSpinner.setAdapter(staticAdapter);
-/*
-        Spinner dynamicSpinner = (Spinner) findViewById(R.id.dynamic_spinner);
-
-        String[] items = new String[] { "Chai Latte", "Green Tea", "Black Tea" };
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, items);
-
-        dynamicSpinner.setAdapter(adapter);
-
-        dynamicSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-                Log.v("item", (String) parent.getItemAtPosition(position));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
-            }
-        }); */
-
         addListenerOnButton();
     }
 
