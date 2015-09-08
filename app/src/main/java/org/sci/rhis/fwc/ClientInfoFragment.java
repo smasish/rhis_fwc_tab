@@ -42,18 +42,6 @@ public class ClientInfoFragment extends Fragment implements OnClickListener {
         et = (EditText) view.findViewById(R.id.lmpDate);
         ib.setOnClickListener(this);
 
-        Spinner staticSpinner = (Spinner)  view.findViewById(R.id.ClientsPrivious_History_Dropdown);
-        // Create an ArrayAdapter using the string array and a default spinner
-        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
-                .createFromResource(getActivity(), R.array.ClientsPrivious_History_Dropdown,
-                        android.R.layout.simple_spinner_item);
-
-        // Specify the layout to use when the list of choices appears
-        staticAdapter
-                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Apply the adapter to the spinner
-        staticSpinner.setAdapter(staticAdapter);
         return view;
 
     }

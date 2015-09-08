@@ -17,6 +17,25 @@
         style="@style/rowHeading">
 
         <TextView
+            android:id="@+id/Reg._No._Label"
+            android:gravity="left"
+            android:layout_marginTop="10dp"
+            android:text="@string/reg_no"
+            android:layout_width="wrap_content"
+            android:textColor="#FFFFFF"
+            android:layout_height="wrap_content"
+            android:textSize="20sp" />
+        <EditText
+            android:layout_width="130dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="60px"
+            android:id="@+id/reg.NO.Value"
+            android:inputType="text"
+            android:textColor="#FFFFFF"
+            android:paddingLeft="10dp"
+            />
+
+        <TextView
             android:id="@+id/TextViewClient_info_tab"
             android:gravity="center"
             android:layout_centerVertical="true"
@@ -131,7 +150,7 @@
             />
 
             <TextView
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="30dp"
                 android:textSize="20dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/TextViewLive_son_Num"
@@ -220,13 +239,14 @@
                 android:id="@+id/TextViewAge_of_last_child_year"
                 android:text="@string/Age_of_last_child_year"
                 android:layout_width="60dp"
-                android:layout_height="50px" />
+                android:layout_height="50px"
+                android:layout_marginLeft="10dp"/>
 
         <EditText
             android:layout_marginTop="10dp"
             android:layout_width="40dp"
             android:layout_height="50px"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:background="@drawable/edittextstyle"
             android:id="@+id/lastChildMonth"
             android:paddingLeft="10dp"
@@ -238,7 +258,8 @@
                 android:id="@+id/TextViewAge_of_last_child_mont"
                 android:text="@string/Age_of_last_child_mont"
                 android:layout_width="60dp"
-                android:layout_height="50px"/>
+                android:layout_height="50px"
+                android:layout_marginLeft="10dp"/>
 
             <TextView
                 android:textSize="20dp"
@@ -266,7 +287,8 @@
                 android:text="@string/Clients_Hight_feet"
                 android:layout_marginTop="10dp"
                 android:layout_width="50dp"
-                android:layout_height="50px" />
+                android:layout_height="50px"
+                android:layout_marginLeft="10dp"/>
 
 
             <EditText
@@ -286,7 +308,8 @@
                 android:id="@+id/TextViewClients_Hight_Inch"
                 android:text="@string/Clients_Hight_Inch"
                 android:layout_width="60dp"
-                android:layout_height="50px" />
+                android:layout_height="50px"
+                android:layout_marginLeft="10dp"/>
 
         </LinearLayout>
 
@@ -314,11 +337,12 @@
             android:layout_width="50dp"
             android:layout_height="60px"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:entries="@array/Blood_Group_Dropdown"/>
             />
         <TextView
             android:textSize="20dp"
-            android:layout_marginLeft="140dp"
+            android:layout_marginLeft="50dp"
             android:layout_marginTop="10dp"
             android:id="@+id/TextViewClients_TT_Tika"
             android:text="@string/Clients_TT_Tika"
@@ -330,7 +354,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1 "
+            android:text="১ "
             android:id="@+id/Clients_TT_Tika1" />
 
         <CheckBox
@@ -338,7 +362,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2 "
+            android:text="২ "
             android:id="@+id/Clients_TT_Tika2" />
 
         <CheckBox
@@ -346,7 +370,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3 "
+            android:text="৩ "
             android:id="@+id/Clients_TT_Tika3" />
 
         <CheckBox
@@ -354,14 +378,14 @@
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4 "
+            android:text="৪ "
             android:id="@+id/Clients_TT_Tika4" />
         <CheckBox
             android:textSize="20dp"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="5 "
+            android:text="৫ "
             android:id="@+id/Clients_TT_Tika5" />
 
 
@@ -370,26 +394,87 @@
     <LinearLayout
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <TextView
             android:textSize="20dp"
             android:layout_marginTop="10dp"
             android:id="@+id/TextViewPrivious_History"
             android:text="@string/Privious_History"
-            android:layout_width="280dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <Spinner
-            android:id="@+id/ClientsPrivious_History_Dropdown"
-            android:layout_marginLeft="10dp"
-            android:layout_width="250dp"
-            android:layout_height="60px"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="50px"
+                android:text="@string/bleeding"
+                android:id="@+id/previousDeliveryBleedingCheckBox" />
+
+            <CheckBox
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delayed_birth"
+                android:id="@+id/delayedBirthCheckBox" />
+            <CheckBox
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lines_birth"
+                android:id="@+id/linesBirthCheckBox" />
+
+            <CheckBox
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/placenta_inside_uterus"
+                android:id="@+id/placentaInsideUterusCheckBox" />
+         </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="50px"
+                android:text="@string/give_birth_as_dead"
+                android:id="@+id/giveBirthDeadCheckBox" />
+
+            <CheckBox
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="50px"
+                android:text="@string/newborn_die_within_48hours"
+                android:id="@+id/newbornDieWithin48hoursCheckBox" />
+            <CheckBox
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="50px"
+                android:text="@string/swelling_legs_or_whole_body"
+                android:id="@+id/swellingLegsOrWholeBodyCheckBox" />
+        </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="50px"
+                android:text="@string/with_convulsion_senseless"
+                android:id="@+id/withConvulsionSenselessCheckBox" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
