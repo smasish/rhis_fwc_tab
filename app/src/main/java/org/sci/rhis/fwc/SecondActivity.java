@@ -26,7 +26,7 @@ public class SecondActivity extends ClinicalServiceActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
-        Spinner staticSpinner = (Spinner) findViewById(R.id.ClientsIdendityDropdown);
+        Spinner staticSpinner = (Spinner) findViewById(R.id.ClientsIdentityDropdown);
         // Create an ArrayAdapter using the string array and a default spinner
         ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
                 .createFromResource(this, R.array.Health_Id,
@@ -65,7 +65,7 @@ public class SecondActivity extends ClinicalServiceActivity {
     }
 
     public void startSearch(View view) {
-        Spinner searchOptions = (Spinner)findViewById(R.id.ClientsIdendityDropdown);
+        Spinner searchOptions = (Spinner)findViewById(R.id.ClientsIdentityDropdown);
         EditText searchableId = (EditText)findViewById(R.id.searchableTextId);
         //TODO - remove
         long index = (searchOptions.getSelectedItemId() + 1);

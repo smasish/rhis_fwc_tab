@@ -46,11 +46,11 @@
         android:orientation="horizontal">
 
     <Spinner
-        android:id="@+id/ClientsIdendityDropdown"
-        android:layout_marginLeft="10dp"
-        android:layout_width="235px"
+        android:id="@+id/ClientsIdentityDropdown"
+        android:layout_width="140dp"
         android:layout_height="60px"
         android:layout_marginBottom="10dp"
+        android:drawSelectorOnTop="true"
         android:layout_marginTop="10dp"/>
         <!--android:="onSelect"/-->
      <!--
