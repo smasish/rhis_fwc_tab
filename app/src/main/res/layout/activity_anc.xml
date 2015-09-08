@@ -50,21 +50,21 @@
         android:id="@+id/ancText" android:layout_marginLeft="10dp" android:layout_marginTop="10dp" android:paddingBottom="20dp" android:orientation="vertical" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="#FFFFFF">
 
         <LinearLayout android:id="@+id/ancVisit" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
-            <TextView android:id="@+id/ancVisitLevel" android:text="@string/visit" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp"/>
-            <EditText android:id="@+id/ancVisitValue" android:inputType="number" android:textSize="20dp" android:layout_width="40dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+            <TextView android:id="@+id/ancVisitLevel" android:text="@string/visit" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp"  />
+            <EditText android:id="@+id/ancVisitValue" android:inputType="number" android:textSize="20dp" android:paddingLeft="10dp" android:layout_width="40dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
         </LinearLayout>
         <LinearLayout android:id="@+id/ancServiceDate" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView android:id="@+id/ancServiceDateLevel" android:text="@string/service_date" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp"/>
-            <EditText android:id="@+id/ancServiceDateValue" android:inputType="number"  android:hint="dd/mm/yyyy" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+            <EditText android:id="@+id/ancServiceDateValue" android:inputType="number"  android:hint="dd/mm/yyyy" android:paddingLeft="10dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
             <ImageView android:id="@+id/imageancServiceDate" android:src="@drawable/calendar_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="0dp" android:onClick="pickDate"/>
         </LinearLayout>
         <LinearLayout android:id="@+id/ancBloodPresser" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView android:id="@+id/ancBloodPresserLevel" android:text="@string/blood_presser" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" />
-            <EditText android:id="@+id/ancBloodPresserValue" android:inputType="number" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+            <EditText android:id="@+id/ancBloodPresserValue" android:inputType="number" android:textSize="20dp" android:paddingLeft="10dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
         </LinearLayout>
         <LinearLayout android:id="@+id/ancWeight" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView android:id="@+id/ancWeightLevel" android:text="@string/weight" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" />
-            <EditText android:id="@+id/ancWeightValue" android:inputType="number" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+            <EditText android:id="@+id/ancWeightValue" android:inputType="number" android:textSize="20dp" android:paddingLeft="10dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
         </LinearLayout>
         <LinearLayout android:id="@+id/ancEdema" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView android:id="@+id/ancEdemaLevel" android:text="@string/edema" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" />
@@ -72,11 +72,11 @@
         </LinearLayout>
         <LinearLayout android:id="@+id/ancUterusHeight" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView android:id="@+id/ancUterusHeightLevel" android:text="@string/uterus_height" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" />
-            <EditText android:id="@+id/ancUterusHeightValue" android:inputType="number" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+            <EditText android:id="@+id/ancUterusHeightValue" android:inputType="number" android:textSize="20dp" android:paddingLeft="10dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
         </LinearLayout>
         <LinearLayout android:id="@+id/ancHeartSpeed" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView android:id="@+id/ancHeartSpeedLevel" android:text="@string/heart_speed" android:textSize="20dp" android:layout_width="330dp" android:layout_height="50px" android:layout_marginTop="10dp" />
-            <EditText android:id="@+id/ancHeartSpeedValue" android:inputType="number" android:textSize="20dp" android:layout_width="70dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+            <EditText android:id="@+id/ancHeartSpeedValue" android:inputType="number" android:textSize="20dp" android:paddingLeft="10dp" android:layout_width="70dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
         </LinearLayout>
         <LinearLayout android:id="@+id/ancFetalPresentation" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView android:id="@+id/ancFetalPresentationLevel" android:text="@string/fetal_presentation" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" />
@@ -84,7 +84,7 @@
         </LinearLayout>
         <LinearLayout android:id="@+id/ancAnemiaHemoglobin" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView android:id="@+id/ancAnemiaHemoglobinLevel" android:text="@string/anemia_hemoglobin" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" />
-            <EditText android:id="@+id/ancAnemiaHemoglobinValue" android:inputType="text" android:textSize="20dp" android:layout_width="70dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
+            <EditText android:id="@+id/ancAnemiaHemoglobinValue" android:inputType="text" android:textSize="20dp" android:paddingLeft="10dp" android:layout_width="70dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
         </LinearLayout>
         <LinearLayout android:id="@+id/ancJaundice" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView android:id="@+id/ancJaundiceLevel" android:text="@string/jaundice" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" />

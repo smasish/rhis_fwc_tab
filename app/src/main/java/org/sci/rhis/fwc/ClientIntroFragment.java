@@ -31,8 +31,8 @@ public class ClientIntroFragment extends Fragment {
 
 
         //String EditText = "output";
-        EditText output = (EditText) view.findViewById(R.id.Client_name);
-        output.setText("Alamin");
+       // EditText output = (EditText) view.findViewById(R.id.Client_name);
+       // output.setText("Alamin");
 
         String strJson = "{cBloodGroup:none, cAge:28, cVill:madhoppur bazar, cDist:Hobigonj, cHeight:0, cUpz:Madhoppur, cMobileNo:01711223344,cUnion:madhoppur, cName:MARUPA BEGUM, cMouza:010, cHusbandName:HATEM ALI}";
 
