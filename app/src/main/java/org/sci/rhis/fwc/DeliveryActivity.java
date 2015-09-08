@@ -28,7 +28,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class DeliveryActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,View.OnClickListener {
+public class DeliveryActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
+                                                                         View.OnClickListener {
 
     //UI References
 

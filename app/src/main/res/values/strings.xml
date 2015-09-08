@@ -30,8 +30,8 @@
     <string name = "reg_no">"রেজি: নম্বর:"</string>
     <string name = "ClientsInfoFragment">"সেবাগ্রহীতার তথ্য"</string>
     <string name = "LMPDate">"শেষ মাসিকের তারিখ:"</string>
-    <string name="pick_time">Pick time</string>
-    <string name="selectdate">Pick time</string>
+    <string name = "pick_time">Pick time</string>
+    <string name = "selectdate">Pick time</string>
     <string name = "DeliveryDate">"প্রসবের সম্ভাব্য তারিখ:"</string>
     <string name = "Clients_Para">"প্যারা:"</string>
     <string name = "Clients_Gravida">"গ্রাভিডা:"</string>
