@@ -10,6 +10,8 @@ import android.widget.Spinner;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 /**
@@ -47,6 +49,35 @@ public class Utilities {
                 keyMap.get(key).setChecked((json.getInt(key) == 1));
             } catch (JSONException jse) {
                 System.out.println("The JSON key: '" + key+ "' does not exist");
+            }
+        }
+    }
+
+    public static void updateEditTexts(HashMap<String,EditText> keyMap, JSONObject json) {
+        for (String key: keyMap.keySet()) {
+            try {
+                keyMap.get(key).setText(json.getString(key));
+            } catch (JSONException jse) {
+                System.out.println("The JSON key: '" + key+ "' does not exist");
+            }
+        }
+    }
+
+    public static void updateEditTextDates(HashMap<String,EditText> keyMap, JSONObject json) {
+
+        SimpleDateFormat iformat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat oformat = new SimpleDateFormat("dd/MM/yyyy");
+        String currentDate;
+        for (String key: keyMap.keySet()) {
+            try {
+                currentDate = json.getString(key);
+                if(!currentDate.equals("")) {
+                    keyMap.get(key).setText(oformat.format(iformat.parse(json.getString(key))));
+                }
+            } catch (JSONException jse) {
+                System.out.println("The JSON key: '" + key+ "' does not exist");
+            } catch (ParseException pe) {
+                System.out.println("Parsing Exception: Could not parse date");
             }
         }
     }
