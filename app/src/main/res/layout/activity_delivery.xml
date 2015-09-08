@@ -132,7 +132,7 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:text=":"
-                android:textSize="20dp" />
+                android:textSize="20dp" android:textColor="@color/text_color"/>
 
             <EditText
                 android:id="@+id/delivery_time_minute"
