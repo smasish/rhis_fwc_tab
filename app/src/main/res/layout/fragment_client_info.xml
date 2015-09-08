@@ -226,6 +226,7 @@
 
         <EditText
             android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_width="40dp"
             android:layout_height="50px"
             android:background="@drawable/edittextstyle"
@@ -413,74 +414,81 @@
             android:layout_height="wrap_content">
             <CheckBox
                 android:layout_width="wrap_content"
+                android:textSize="20dp"
                 android:layout_height="50px"
                 android:text="@string/bleeding"
                 android:id="@+id/previousDeliveryBleedingCheckBox" />
 
             <CheckBox
                 android:layout_marginLeft="10dp"
+                android:textSize="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/delayed_birth"
                 android:id="@+id/delayedBirthCheckBox" />
             <CheckBox
                 android:layout_marginLeft="10dp"
+                android:textSize="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/lines_birth"
                 android:id="@+id/linesBirthCheckBox" />
 
-            <CheckBox
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/placenta_inside_uterus"
-                android:id="@+id/placentaInsideUterusCheckBox" />
          </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <CheckBox
+                android:textSize="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/placenta_inside_uterus"
+                android:id="@+id/placentaInsideUterusCheckBox" />
+            <CheckBox
+                android:textSize="20dp"
+                android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:text="@string/give_birth_as_dead"
                 android:id="@+id/giveBirthDeadCheckBox" />
-
-            <CheckBox
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="50px"
-                android:text="@string/newborn_die_within_48hours"
-                android:id="@+id/newbornDieWithin48hoursCheckBox" />
-            <CheckBox
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="50px"
-                android:text="@string/swelling_legs_or_whole_body"
-                android:id="@+id/swellingLegsOrWholeBodyCheckBox" />
         </LinearLayout>
-            <LinearLayout
+        <LinearLayout
                 android:orientation="horizontal"
                 android:layout_centerVertical="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
             <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="50px"
-                android:text="@string/with_convulsion_senseless"
-                android:id="@+id/withConvulsionSenselessCheckBox" />
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50px"
+                    android:text="@string/newborn_die_within_48hours"
+                    android:id="@+id/newbornDieWithin48hoursCheckBox" />
+             <CheckBox
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50px"
+                    android:text="@string/swelling_legs_or_whole_body"
+                    android:id="@+id/swellingLegsOrWholeBodyCheckBox" />
+            </LinearLayout>
 
-        </LinearLayout>
-
-
+      <LinearLayout
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+       <CheckBox
+        android:textSize="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="50px"
+        android:text="@string/with_convulsion_senseless"
+        android:id="@+id/withConvulsionSenselessCheckBox" />
+      </LinearLayout>
     </LinearLayout>
 
-
     <LinearLayout
-
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
@@ -503,7 +511,4 @@
             android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
-
-
-
 </LinearLayout>
