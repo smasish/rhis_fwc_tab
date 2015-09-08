@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -65,6 +66,7 @@ public class LoginActivity extends FWCServiceActivity {
 
             if(json.getBoolean("loginStatus")) { //if successful login
                 //first create the provider object
+                Log.d("++++++++++","-----"+json.getString("ProvName"));
                 ProviderInfo provider = ProviderInfo.getProvider();
                 provider.setProviderName(json.getString("ProvName"));
                 provider.setProviderCode(json.getString("ProvCode"));
