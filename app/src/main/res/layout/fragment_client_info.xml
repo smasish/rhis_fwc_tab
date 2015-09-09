@@ -1,3 +1,7 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -49,12 +53,11 @@
     </LinearLayout>
 
     <LinearLayout
-
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:layout_centerVertical="true"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
         <TextView
@@ -62,13 +65,15 @@
             android:layout_marginTop="10dp"
             android:id="@+id/TextViewLMPDate"
             android:text="@string/LMPDate"
-            android:layout_width="190dp"
+            android:textColor="@color/text_color"
+            android:layout_width="wrap_content"
             android:layout_height="50px" />
 
         <EditText
             android:id="@+id/lmpDate"
             android:layout_width="130dp"
             android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_height="50px"
             android:editable="false"
             android:paddingLeft="10dp"
@@ -84,27 +89,73 @@
             android:onClick="pickDate"
             android:src="@drawable/calendar_icon"
             />
-
-
         <TextView
             android:textSize="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
+            android:id="@+id/TextViewClients_Para"
+            android:text="@string/Clients_Para"
+            android:textColor="@color/text_color"
+            android:layout_width="wrap_content"
+            android:layout_height="50px" />
+
+        <EditText
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="40dp"
+            android:layout_height="50px"
+            android:background="@drawable/edittextstyle"
+            android:id="@+id/para"
+            android:paddingLeft="10dp"
+            />
+</LinearLayout>
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_centerVertical="true"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        <TextView
+            android:textSize="20dp"
             android:layout_marginTop="10dp"
             android:id="@+id/TextViewDeliveryDate"
             android:text="@string/DeliveryDate"
-            android:layout_width="200dp"
+            android:textColor="@color/text_color"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
 
         <EditText
             android:layout_width="130dp"
             android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_height="50px"
             android:background="@drawable/edittextstyle"
             android:id="@+id/edd"
             android:inputType="date"
             android:paddingLeft="10dp"
             />
+
+            <TextView
+                android:textSize="20dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/TextViewClients_Gravida"
+                android:text="@string/Clients_Gravida"
+                android:textColor="@color/text_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="40dp"
+                android:layout_height="50px"
+                android:background="@drawable/edittextstyle"
+                android:id="@+id/gravida"
+                android:paddingLeft="10dp"
+                />
 
         </LinearLayout>
 
@@ -116,49 +167,12 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
-
-        <TextView
-            android:textSize="20dp"
-            android:layout_marginTop="10dp"
-            android:id="@+id/TextViewClients_Para"
-            android:text="@string/Clients_Para"
-            android:layout_width="90dp"
-            android:layout_height="50px" />
-
-        <EditText
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="60dp"
-            android:layout_width="40dp"
-            android:layout_height="50px"
-            android:background="@drawable/edittextstyle"
-            android:id="@+id/para"
-            android:paddingLeft="10dp"
-            />
-
-        <TextView
-            android:textSize="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:id="@+id/TextViewClients_Gravida"
-            android:text="@string/Clients_Gravida"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content" />
-
-        <EditText
-            android:layout_marginTop="10dp"
-            android:layout_width="40dp"
-            android:layout_height="50px"
-            android:background="@drawable/edittextstyle"
-            android:id="@+id/gravida"
-            android:paddingLeft="10dp"
-            />
-
             <TextView
-                android:layout_marginLeft="30dp"
                 android:textSize="20dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/TextViewLive_son_Num"
                 android:text="@string/TextViewLive_child_Num"
+                android:textColor="@color/text_color"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content" />
 
@@ -167,6 +181,7 @@
                 android:layout_marginTop="10dp"
                 android:id="@+id/TextViewClient_Son_Num"
                 android:text="@string/Client_Son_Num"
+                android:textColor="@color/text_color"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content" />
 
@@ -186,37 +201,43 @@
                 android:layout_marginTop="10dp"
                 android:id="@+id/TextViewClient_Daughter_Num"
                 android:text="@string/Client_Daughter_Num"
+                android:textColor="@color/text_color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <EditText
                 android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
                 android:layout_width="40dp"
                 android:layout_height="50px"
                 android:background="@drawable/edittextstyle"
                 android:id="@+id/DaughterNum"
                 android:paddingLeft="10dp"
                  />
-
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/TextViewClients_Blood_group"
+            android:text="@string/Clients_Blood_Group"
+            android:textColor="@color/text_color"
+            android:layout_width="110dp"
+            android:layout_height="50px" />
+        <Spinner
+            android:id="@+id/Blood_Group_Dropdown"
+            android:layout_marginLeft="10dp"
+            android:layout_width="50dp"
+            android:layout_height="50px"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:entries="@array/Blood_Group_Dropdown"/>
     </LinearLayout>
 
     <LinearLayout
-
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:layout_centerVertical="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:layout_centerVertical="true"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
     <TextView
@@ -224,6 +245,7 @@
             android:layout_marginTop="10dp"
             android:id="@+id/TextViewLast_Child_Age"
             android:text="@string/TextViewLast_child_Age"
+        android:textColor="@color/text_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -243,7 +265,8 @@
                 android:layout_marginTop="10dp"
                 android:id="@+id/TextViewAge_of_last_child_year"
                 android:text="@string/Age_of_last_child_year"
-                android:layout_width="60dp"
+                android:textColor="@color/text_color"
+                android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:layout_marginLeft="10dp"/>
 
@@ -262,16 +285,17 @@
                 android:layout_marginTop="10dp"
                 android:id="@+id/TextViewAge_of_last_child_mont"
                 android:text="@string/Age_of_last_child_mont"
-                android:layout_width="60dp"
+                android:textColor="@color/text_color"
+                android:layout_width="50dp"
                 android:layout_height="50px"
                 android:layout_marginLeft="10dp"/>
 
             <TextView
                 android:textSize="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="130dp"
                 android:id="@+id/TextViewClients_hight"
                 android:text="@string/Clients_Hight"
+                android:textColor="@color/text_color"
                 android:layout_width="70dp"
                 android:layout_height="50px" />
 
@@ -290,8 +314,9 @@
                 android:textSize="20dp"
                 android:id="@+id/TextViewClients_Hight_feet"
                 android:text="@string/Clients_Hight_feet"
+                android:textColor="@color/text_color"
                 android:layout_marginTop="10dp"
-                android:layout_width="50dp"
+                android:layout_width="40dp"
                 android:layout_height="50px"
                 android:layout_marginLeft="10dp"/>
 
@@ -312,6 +337,7 @@
                 android:layout_marginTop="10dp"
                 android:id="@+id/TextViewClients_Hight_Inch"
                 android:text="@string/Clients_Hight_Inch"
+                android:textColor="@color/text_color"
                 android:layout_width="60dp"
                 android:layout_height="50px"
                 android:layout_marginLeft="10dp"/>
@@ -324,34 +350,16 @@
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:layout_centerVertical="true"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
         <TextView
             android:textSize="20dp"
             android:layout_marginTop="10dp"
-            android:id="@+id/TextViewClients_Blood_group"
-            android:text="@string/Clients_Blood_Group"
-            android:layout_width="110dp"
-            android:layout_height="50px" />
-
-
-        <Spinner
-            android:id="@+id/Blood_Group_Dropdown"
-            android:layout_marginLeft="10dp"
-            android:layout_width="50dp"
-            android:layout_height="60px"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:entries="@array/Blood_Group_Dropdown"/>
-            />
-        <TextView
-            android:textSize="20dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="10dp"
             android:id="@+id/TextViewClients_TT_Tika"
             android:text="@string/Clients_TT_Tika"
-            android:layout_width="180dp"
+            android:textColor="@color/text_color"
+            android:layout_width="wrap_content"
             android:layout_height="50px" />
 
         <CheckBox
@@ -398,16 +406,16 @@
 
     <LinearLayout
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
         android:orientation="vertical"
         android:layout_centerVertical="true"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content">
         <TextView
             android:textSize="20dp"
             android:layout_marginTop="10dp"
             android:id="@+id/TextViewPrivious_History"
             android:text="@string/Privious_History"
+            android:textColor="@color/title_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -430,13 +438,26 @@
                 android:layout_height="wrap_content"
                 android:text="@string/delayed_birth"
                 android:id="@+id/delayedBirthCheckBox" />
+</LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <CheckBox
-                android:layout_marginLeft="10dp"
                 android:textSize="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/lines_birth"
                 android:id="@+id/linesBirthCheckBox" />
+
+            <CheckBox
+                    android:textSize="20dp"
+                android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/placenta_inside_uterus"
+                    android:id="@+id/placentaInsideUterusCheckBox" />
 
          </LinearLayout>
         <LinearLayout
@@ -448,16 +469,17 @@
             <CheckBox
                 android:textSize="20dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/placenta_inside_uterus"
-                android:id="@+id/placentaInsideUterusCheckBox" />
-            <CheckBox
-                android:textSize="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:text="@string/give_birth_as_dead"
                 android:id="@+id/giveBirthDeadCheckBox" />
+            <CheckBox
+                android:textSize="20dp"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_height="50px"
+                android:text="@string/newborn_die_within_48hours"
+                android:id="@+id/newbornDieWithin48hoursCheckBox" />
+
         </LinearLayout>
         <LinearLayout
                 android:orientation="horizontal"
@@ -465,12 +487,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <CheckBox
-                    android:textSize="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50px"
-                    android:text="@string/newborn_die_within_48hours"
-                    android:id="@+id/newbornDieWithin48hoursCheckBox" />
-             <CheckBox
                     android:textSize="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="50px"
@@ -497,7 +513,7 @@
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:layout_centerVertical="true"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
         <Button
@@ -510,9 +526,10 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New"
+            android:text="Add new pregnancy info"
             android:id="@+id/New_Button"
             android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
 </LinearLayout>
+</ScrollView>
