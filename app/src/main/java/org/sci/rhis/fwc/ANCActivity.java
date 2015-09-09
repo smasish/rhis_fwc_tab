@@ -11,6 +11,7 @@ import android.widget.ExpandableListView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,6 +41,28 @@ public class ANCActivity extends ClinicalServiceActivity {
     List<String> listDataHeader3;
     HashMap<String, List<String>> listDataChild3;
 
+    private static final String TAG_VISIT_NO = "ancVisit01";
+    private static final String TAG_DATE = "2015-07-02";
+    private static final String TAG_BLOOD_PRESSURE = "120";
+    private static final String TAG_WEIGHT = "22";
+    private static final String TAG_EDIMA = "22";
+    private static final String TAG_J_HEIGHT = "5.6";
+    private static final String TAG_FITNESS_PM = "FIT";
+    private static final String TAG_PHITAL_PRESENTATION = "GOOD";
+    private static final String TAG_HIMOGLOBIN = "2";
+    private static final String TAG_JONDIS = "3";
+    private static final String TAG_URIN_SUGAR = "3";
+    private static final String TAG_URIN_TEST = "3";
+    private static final String TAG_DANGER_SIGN = "OFF";
+    private static final String TAG_DISADVANTAGE = "NA";
+    private static final String TAG_DISEASE = "FEVER";
+    private static final String TAG_TREATMENT = "OK";
+    private static final String TAG_REFER = "DR";
+    private static final String TAG_CENTER_NAME = "DHAKA";
+    private static final String TAG_CAUSE = "MAN";
+
+    JSONArray visits = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,23 +89,38 @@ public class ANCActivity extends ClinicalServiceActivity {
 
         expListView2 = (ExpandableListView) findViewById(R.id.lvExp2);
 
-     //   expListView3 = (ExpandableListView) findViewById(R.id.lvExp3);
+        expListView3 = (ExpandableListView) findViewById(R.id.lvExp3);
+
+
+
+        AsyncClientInfoUpdate client = new AsyncClientInfoUpdate(ANCActivity.this);
+        //SendPostRequestAsyncTask
+        AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(ANCActivity.this);
+        String queryString =   "{" +
+                "pregNo:" + 3 + "," +
+                "healthid:" + "43366275025436" + "," +
+                "ancLoad:" + ProviderInfo.getProvider().getProviderCode() +
+                "}";
+        String servlet = "anc";
+        String jsonRootkey = "ANCInfo";
+        sendPostReqAsyncTask.execute(queryString, servlet, jsonRootkey);
+
 
         // preparing list data
-        prepareListData();
-
-        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
-
-        prepareListData2();
-        listAdapter2 = new ExpandableListAdapter(this, listDataHeader2, listDataChild2);
+//        prepareListData();
+//
+//        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+//
+//        prepareListData2();
+//        listAdapter2 = new ExpandableListAdapter(this, listDataHeader2, listDataChild2);
 
     //    prepareListData3();
     //    listAdapter3 = new ExpandableListAdapter(this, listDataHeader3, listDataChild3);
 
 
         // setting list adapter
-        expListView.setAdapter(listAdapter);
-        expListView2.setAdapter(listAdapter2);
+    //    expListView.setAdapter(listAdapter);
+   //     expListView2.setAdapter(listAdapter2);
    //     expListView3.setAdapter(listAdapter3);
 
         // Listview Group click listener
@@ -96,21 +134,6 @@ public class ANCActivity extends ClinicalServiceActivity {
                 // Toast.LENGTH_SHORT).show();
 
 
-                AsyncClientInfoUpdate client = new AsyncClientInfoUpdate(ANCActivity.this);
-                //SendPostRequestAsyncTask
-                AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(ANCActivity.this);
-                String queryString =   "{" +
-                        "pregNo:" + 3 + "," +
-                        "healthid:" + "43366275025436" + "," +
-                        "ancLoad:" + ProviderInfo.getProvider().getProviderCode() +
-                        "}";
-                String servlet = "anc";
-                String jsonRootkey = "ANCInfo";
-
-
-
-
-                sendPostReqAsyncTask.execute(queryString, servlet, jsonRootkey);
 
                 return false;
             }
@@ -160,7 +183,7 @@ public class ANCActivity extends ClinicalServiceActivity {
             @Override
             public void onGroupExpand(int groupPosition) {
                 Toast.makeText(getApplicationContext(),
-                        listDataHeader2.get(groupPosition) + " Expanded",
+                        listDataHeader.get(groupPosition) + " Expanded",
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -194,7 +217,7 @@ public class ANCActivity extends ClinicalServiceActivity {
             @Override
             public void onGroupCollapse(int groupPosition) {
                 Toast.makeText(getApplicationContext(),
-                        listDataHeader2.get(groupPosition) + " Collapsed",
+                        listDataHeader.get(groupPosition) + " Collapsed",
                         Toast.LENGTH_SHORT).show();
 
             }
@@ -240,10 +263,10 @@ public class ANCActivity extends ClinicalServiceActivity {
                 // TODO Auto-generated method stub
                 Toast.makeText(
                         getApplicationContext(),
-                        listDataHeader2.get(groupPosition)
+                        listDataHeader.get(groupPosition)
                                 + " : "
-                                + listDataChild2.get(
-                                listDataHeader2.get(groupPosition)).get(
+                                + listDataChild.get(
+                                listDataHeader.get(groupPosition)).get(
                                 childPosition), Toast.LENGTH_SHORT)
                         .show();
                 return false;
@@ -271,19 +294,6 @@ public class ANCActivity extends ClinicalServiceActivity {
     }
 
 
-    private void loadData(){
-        AsyncClientInfoUpdate client = new AsyncClientInfoUpdate(this);
-        //SendPostRequestAsyncTask
-        AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(this);
-        String queryString =   "{" +
-                "uid:" + "" + "," +
-                "upass:" + "" + "," +
-                "client:" + "android" +
-                "}";
-        String servlet = "---";
-        String jsonRootkey = "anc";
-        sendPostReqAsyncTask.execute(queryString, servlet, jsonRootkey);
-    }
 
 
     /*
@@ -293,135 +303,18 @@ public class ANCActivity extends ClinicalServiceActivity {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
 
-        // Adding child data
-//        listDataHeader.add("Top 250");
-//        listDataHeader.add("Now Showing");
-//        listDataHeader.add("Coming Soon..");
-
 
         listDataHeader.add(getString(R.string.history_visit1));
-        listDataHeader.add(getString(R.string.history_visit1));
-        listDataHeader.add(getString(R.string.history_visit1));
 
-        // Adding child data
-        List<String> top250 = new ArrayList<String>();
 
-        //loadData();
-
-        top250.add("The Shawshank Redemption");
-        top250.add("The Godfather");
-        top250.add("The Godfather: Part II");
-        top250.add("Pulp Fiction");
-        top250.add("The Good, the Bad and the Ugly");
-        top250.add("The Dark Knight");
-        top250.add("12 Angry Men");
-
-        List<String> nowShowing = new ArrayList<String>();
-        nowShowing.add("The Conjuring");
-        nowShowing.add("Despicable Me 2");
-        nowShowing.add("Turbo");
-        nowShowing.add("Grown Ups 2");
-        nowShowing.add("Red 2");
-        nowShowing.add("The Wolverine");
-
-        List<String> comingSoon = new ArrayList<String>();
-        comingSoon.add("2 Guns");
-        comingSoon.add("The Smurfs 2");
-        comingSoon.add("The Spectacular Now");
-        comingSoon.add("The Canyons");
-        comingSoon.add("Europa Report");
-
-        listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), nowShowing);
-        listDataChild.put(listDataHeader.get(2), comingSoon);
+       // listDataChild.put(listDataHeader.get(1), nowShowing);
+       // listDataChild.put(listDataHeader.get(2), comingSoon);
     }
 
 
-    /*
-* Preparing the list data
-*/
-    private void prepareListData2() {
-        listDataHeader2 = new ArrayList<String>();
-        listDataChild2 = new HashMap<String, List<String>>();
-
-        // Adding child data
-        listDataHeader2.add("Top 250");
-        listDataHeader2.add("Now Showing");
-        listDataHeader2.add("Coming Soon..");
 
 
-        // Adding child data
-        List<String> top250 = new ArrayList<String>();
-        top250.add("The Shawshank Redemption");
-        top250.add("The Godfather");
-        top250.add("The Godfather: Part II");
-        top250.add("Pulp Fiction");
-        top250.add("The Good, the Bad and the Ugly");
-        top250.add("The Dark Knight");
-        top250.add("12 Angry Men");
 
-        List<String> nowShowing = new ArrayList<String>();
-        nowShowing.add("The Conjuring");
-        nowShowing.add("Despicable Me 2");
-        nowShowing.add("Turbo");
-        nowShowing.add("Grown Ups 2");
-        nowShowing.add("Red 2");
-        nowShowing.add("The Wolverine");
-
-        List<String> comingSoon = new ArrayList<String>();
-        comingSoon.add("2 Guns");
-        comingSoon.add("The Smurfs 2");
-        comingSoon.add("The Spectacular Now");
-        comingSoon.add("The Canyons");
-        comingSoon.add("Europa Report");
-
-        listDataChild2.put(listDataHeader2.get(0), top250); // Header, Child data
-        listDataChild2.put(listDataHeader2.get(1), nowShowing);
-        listDataChild2.put(listDataHeader2.get(2), comingSoon);
-    }
-
-    /*
-* Preparing the list data
-*/
-//    private void prepareListData3() {
-//        listDataHeader3 = new ArrayList<String>();
-//        listDataChild3 = new HashMap<String, List<String>>();
-//
-//        // Adding child data
-//        listDataHeader3.add("Top 250");
-//        listDataHeader3.add("Now Showing");
-//        listDataHeader3.add("Coming Soon..");
-//
-//
-//        // Adding child data
-//        List<String> top250 = new ArrayList<String>();
-//        top250.add("The Shawshank Redemption");
-//        top250.add("The Godfather");
-//        top250.add("The Godfather: Part II");
-//        top250.add("Pulp Fiction");
-//        top250.add("The Good, the Bad and the Ugly");
-//        top250.add("The Dark Knight");
-//        top250.add("12 Angry Men");
-//
-//        List<String> nowShowing = new ArrayList<String>();
-//        nowShowing.add("The Conjuring");
-//        nowShowing.add("Despicable Me 2");
-//        nowShowing.add("Turbo");
-//        nowShowing.add("Grown Ups 2");
-//        nowShowing.add("Red 2");
-//        nowShowing.add("The Wolverine");
-//
-//        List<String> comingSoon = new ArrayList<String>();
-//        comingSoon.add("2 Guns");
-//        comingSoon.add("The Smurfs 2");
-//        comingSoon.add("The Spectacular Now");
-//        comingSoon.add("The Canyons");
-//        comingSoon.add("Europa Report");
-//
-//        listDataChild3.put(listDataHeader3.get(0), top250); // Header, Child data
-//        listDataChild3.put(listDataHeader3.get(1), nowShowing);
-//        listDataChild3.put(listDataHeader3.get(2), comingSoon);
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -433,26 +326,58 @@ public class ANCActivity extends ClinicalServiceActivity {
     @Override
     public void callbackAsyncTask(String result) {
 
-        System.out.println("-===test============== " );
+
         try {
-            JSONObject json = new JSONObject(result);
+            JSONObject jsonStr = new JSONObject(result);
             String key;
-            System.out.println("-================= "+json.toString() );
-            woman = PregWoman.CreatePregWoman(json);
+
+           // woman = PregWoman.CreatePregWoman(json);
 
             //DEBUG
-            for ( Iterator<String> ii = json.keys(); ii.hasNext(); ) {
+            int m = 0;
+            for ( Iterator<String> ii = jsonStr.keys(); ii.hasNext(); ) {
                 key = ii.next();
-                System.out.println("1.Key:" + key + " Value:\'" + json.get(key)+"\'");
+
+                System.out.println("1.Key:" + key + " Value:\'" + jsonStr.get(key)+"\'");
+
+                ArrayList<String> list = new ArrayList<String>();
+
+                try {
+                    JSONArray jsonArray = jsonStr.getJSONArray(key);
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+
+                        System.out.println("======= "+jsonArray.get(i).toString());
+                        list.add(jsonArray.get(i).toString());
+
+                    }//end for
+                    listDataHeader = new ArrayList<String>();
+                    listDataChild = new HashMap<String, List<String>>();
+
+
+                    listDataHeader.add(getString(R.string.history_visit1) + "" + jsonArray.get(0).toString() + " :");
+
+                    listDataChild.put(listDataHeader.get(0), list);
+
+                    listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+
+                   // expListView = new ExpandableListView(this);
+                   // expListView.setAdapter(listAdapter);
+                    if(m==0)
+                    expListView.setAdapter(listAdapter);
+                    else if(m==1)
+                        expListView2.setAdapter(listAdapter);
+                    else if(m==2)
+                        expListView3.setAdapter(listAdapter);
+
+                    m++;
+
+                } catch (JSONException e) {
+                    Log.e("::::", "onPostExecute > Try > JSONException => " + e);
+                    e.printStackTrace();
+                }
             }
 
-            if(json.get("False").toString().equals("")) {
-//                populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
-//                woman.UpdateUIField(this);
-//                //populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
-//                Utilities.DisableTextFields(this, R.id.fragment_client_intro_scroll);
-//                Utilities.DisableTextFields(this, R.id.fragment_client_info_scroll);
-            }
 
         } catch (JSONException jse) {
             System.out.println("JSON Exception Thrown::\n " );

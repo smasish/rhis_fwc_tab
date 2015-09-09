@@ -47,6 +47,9 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     private HashMap<String, Spinner> jsonSpinnerMap;
 
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

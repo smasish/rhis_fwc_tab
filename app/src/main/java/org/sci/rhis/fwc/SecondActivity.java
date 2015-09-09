@@ -4,6 +4,7 @@ package org.sci.rhis.fwc;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -127,13 +128,17 @@ public class SecondActivity extends ClinicalServiceActivity {
     }
 
     public void startANC(View view) {
+//        Intent intent = new Intent(this, ANCActivity.class);
+//        if(woman.isEligibleFor(PregWoman.PREG_SERVICE.ANC)) {
+//            intent.putExtra("PregWoman", woman);
+//           // Log.d("-----"+woman.getPregNo(),"====="+woman.getHusbandName());
+//            startActivity(intent);
+//        } else {
+//            Toast.makeText(this, "Too Late for ANC, ask delivery status ...", Toast.LENGTH_LONG).show();
+//        }
+
         Intent intent = new Intent(this, ANCActivity.class);
-        if(woman.isEligibleFor(PregWoman.PREG_SERVICE.ANC)) {
-            intent.putExtra("PregWoman", woman);
-            startActivity(intent);
-        } else {
-            Toast.makeText(this, "Too Late for ANC, ask delivery status ...", Toast.LENGTH_LONG).show();
-        }
+        startActivity(intent);
     }
 
     public void startDelivery(View view) {

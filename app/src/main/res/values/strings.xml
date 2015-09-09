@@ -226,7 +226,7 @@
     <string name="title_activity_pnc">প্রসবোত্তর সেবা (PNC)</string>
 
 
-    <string name="history_visit1">পরিদর্শন ১:</string>
+    <string name="history_visit1">পরিদর্শন</string>
     <string name="history_date">সেবাগ্রহনের তারিখ:</string>
     <string name="history_temp">তাপমাত্রা:</string>
     <string name="history_b_pressure">রক্তচাপ (মিঃ মিঃ মার্কারি)</string>
