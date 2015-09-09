@@ -9,7 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -17,51 +21,38 @@ import android.view.View.OnClickListener;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 
+import org.sci.rhis.utilities.CustomDatePickerDialog;
+
 
 public class ClientInfoFragment extends Fragment implements OnClickListener {
 
     private ImageButton ib;
-    private Calendar cal;
-    private int day;
-    private int month;
-    private int year;
-    private EditText et;
+    private CustomDatePickerDialog datePickerDialog;
+    private HashMap<Integer, EditText> datePickerPair;
 
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_client_info,
-                container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_client_info, container, false);
 
         ib = (ImageButton) view.findViewById(R.id.Date_Picker_Button);
-        cal = Calendar.getInstance();
-        day = cal.get(Calendar.DAY_OF_MONTH);
-        month = cal.get(Calendar.MONTH);
-        year = cal.get(Calendar.YEAR);
-        et = (EditText) view.findViewById(R.id.lmpDate);
         ib.setOnClickListener(this);
+
+        datePickerDialog = new CustomDatePickerDialog(getActivity(), new SimpleDateFormat("yyyy-MM-dd"));
+        datePickerPair = new HashMap<Integer, EditText>();
+
+        datePickerPair.put(R.id.Date_Picker_Button, (EditText) view.findViewById(R.id.lmpDate));
 
         return view;
 
     }
-
-    @Override
+      @Override
     public void onClick(View v) {
-        //showDialog(0);
+               if(v.getId() == R.id.lmpDate || v.getId() == R.id.Date_Picker_Button) {
+            datePickerDialog.show(datePickerPair.get(v.getId()));
+        }
     }
 
-   // @Override
-    @Deprecated
-    protected Dialog onCreateDialog(int id) {
-        return new DatePickerDialog(getActivity(), datePickerListener, year, month, day);
-    }
-    private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
-        public void onDateSet(DatePicker view, int selectedYear,
-                              int selectedMonth, int selectedDay) {
-            et.setText(selectedDay + " / " + (selectedMonth + 1) + " / "
-                    + selectedYear);
-        }
-    };
+
 
 }

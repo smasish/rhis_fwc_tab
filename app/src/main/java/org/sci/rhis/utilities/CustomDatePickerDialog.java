@@ -44,6 +44,21 @@ public class CustomDatePickerDialog implements DatePickerDialog.OnDateSetListene
         );
         editTextFielId = null;
     }
+
+    public CustomDatePickerDialog(Context context, SimpleDateFormat simpleDateFormat) {
+        calendar = Calendar.getInstance();
+        dateFormat = simpleDateFormat;
+        //calendar.set(year, monthOfYear, dayOfMonth);
+        //todays, date
+        datePickerDialog = new DatePickerDialog(
+                context,
+                this,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+        );
+        editTextFielId = null;
+    }
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         calendar.set(year, monthOfYear, dayOfMonth);

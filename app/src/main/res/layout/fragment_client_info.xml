@@ -25,11 +25,11 @@
             android:textColor="#FFFFFF"
             android:layout_height="wrap_content"
             android:textSize="20sp" />
-        <EditText
+        <TextView
             android:layout_width="130dp"
             android:layout_marginTop="10dp"
             android:layout_height="60px"
-            android:id="@+id/reg.NO.Value"
+            android:id="@+id/reg.NO."
             android:inputType="text"
             android:textColor="#FFFFFF"
             style="@style/rowHeading"
