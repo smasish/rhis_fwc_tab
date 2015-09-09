@@ -255,5 +255,238 @@
     <string name="history_cause">কারণ:</string>
     <string name="child_refer">রেফার </string>
 
+    <string-array name="ANC_Advice_DropDown">
+    <item>	গর্ভবতী মাকে কমপক্ষে ৪ বার গর্ভকালীন সময়ে ভিজিটে আসুন 	</item>
+    <item>	অন্য সময়ের চাইতে বেশী পরিমাণে (কম পক্ষে ১ মুঠ চালের ভাত ও ১ চামচ ডাল বেশী) খান	</item>
+    <item>	বেশী পরিমাণে পানি খান (কম পক্ষে ৮ গ্লাস)	</item>
+    <item>	"রক্তস্বল্পতা প্রতিরোধ করার জন্য মাকে আয়রন সমৃদ্ধ খাবার যেমন সবুজ শাকসবজি, ডাল, ডিম খেতে হবে এবং এগুলোর সাথে আয়রন এবং ফলিক এসিড ট্যাবলেট খেতে খান 	</item>
+    <item>	যদি পা ফুলে যায় অতিরিক্ত (আলগা) লবণ খাওয়া বাদ দিতে হবে এবং পর্যাপ্ত বিশ্রাম নিন </item>
+    <item>	দুপুরের খাবার পর কমপক্ষে ২ ঘন্টা বিশ্রাম ও রাতে ৮ ঘন্টা ঘুমান (বিশেষ করে বাম কাত হয়ে)</item>
+    <item>	স্বাভাবিক সাংসারিক হালকা কাজকর্মে উত্‍সাহ কিন্তু ভারী কাজে নিষেধ	 </item>
+    <item>	প্রথম তিন মাস ও শেষ তিনমাস দীর্ঘ ভ্রমণ এড়িয়ে চলুন 	</item>
+    <item>	টাইট (আঁটসাঁট) পোশাক পরিহার এবং ঢিলা ও আরামদায়ক পোশাক পড়ুন </item>
+    <item>	(গর্ভপাতের আশংকা থাকলে) প্রথম তিনমাস এবং শেষের দুইমাস স্বামী সহবাস থেকে বিরত থাকুন </item>
+    <item>	টিটি টিকা দিন 	</item>
+    <item>	বারবার অল্প করে খান , তৈলাক্ত ও মসলা জাতীয় খাবার এবং ধূমপানে বিরত থাকুন	</item>
+    <item>	তিন বেলা ভারী খাবারের পরিবর্তে অল্প অল্প করে বারেবারে খান </item>
+    <item>	(কোষ্ঠকাঠিন্য হলে) প্রচুর পরিমাণ পানি, শাকসবজি, হালকা গরম দুধ এবং ইসুপগুলের ভুষি খান </item>
+    <item>	(পায়ে পানি আসলে) পা সামান্য উঁচু রাখা	</item>
+    </string-array>
+    <string-array name="PNC_Mother_Advice_DropDown">
+        <item>	অন্য সময়ের চাইতে বেশী পরিমাণে (কম পক্ষে ১ মুঠ চালের ভাত ও ১ চামচ ডাল বেশী) খান	</item>
+        <item>	"রক্তস্বল্পতা প্রতিরোধ করার জন্য মাকে আয়রন সমৃদ্ধ খাবার যেমন সবুজ শাকসবজি, ডাল, ডিম খেতে হবে এবং এগুলোর সাথে আয়রন এবং ফলিক এসিড ট্যাবলেট খেতে খান </item>
+        <item>	যদি পা ফুলে যায় অতিরিক্ত (আলগা) লবণ খাওয়া বাদ দিতে হবে এবং পর্যাপ্ত বিশ্রাম নিন	</item>
+        <item>	৩ মাস আয়রন এবং ১ মাস ফলিক এসিড খান	</item>
+        <item>	প্রসবের ২ সপ্তাহের মধ্যে ভিটামিন-এ ক্যাপসুল ২,০০,০০০ আই.ইউ	 </item>
+        <item>	প্রসব ঝরা বন্ধ করার জন্য পেরিনিয়াম ও পেটের পেশীর ব্যায়াম করুন	 </item>
+        <item>	প্রসব ও পায়খানার পর পেরিনিয়াম ভালভাবে পরিষ্কার করুন 	</item>
+        <item>	পেরিনিয়ামের ক্ষত শুকনা ও পরিষ্কার রাখুন 	</item>
+        <item>	পেরিনিয়ামের প্যাড/কাপড় দিনে কমপক্ষে চার বার পরিবর্তন করুন  ৷ যদি প্রসবোত্তর স্রাব বেশী হয়, তখন বেশী বার পরিবর্তন করুন ৷ যদি কাপড় ব্যবহার করে তা ভালমতো ধুয়ে অথবা গরম পানিতে ধুয়ে রোদ্রে শুকিয়ে ব্যবহার করুন 	</item>
+        <item>	প্রতিদিন গোসল করুন	</item>
+        <item>	প্রসবের পর ৬ সপ্তাহ পর্যন্ত স্বামী সহবাস করবেন না  </item>
+    </string-array>
+
+   <string-array name="PNC_Child_Advice_DropDown">
+       <item>	নবজাত শিশুকে কখনই অনাবৃত রাখবেন না৷ 	</item>
+       <item>	শিশু জন্মের সাথে সাথে বা ৭২ ঘণ্টার মধ্যে গোসল করাবেন না৷ </item>
+       <item>	প্রথম ২৪ ঘনটায় শিশুর শরীর কোন প্রকার তৈল মেখে পরিষ্কার করবেন না৷ </item>
+       <item>	কখনই ভারনিক্স (Vernix)ওঠাবেন না৷ 	</item>
+       <item>	জন্মের পর পরই শাল দুধ খাওয়ান  	</item>
+       <item>	জন্মের ১ ঘণ্টার মধ্যে বুকের দুধ খাননো শুরু করুন 	</item>
+       <item>	শিশুর চাহিদা অনুযায়ী শুধুমাত্র বুকের দুধ খাওয়ান  	</item>
+       <item>	নবজাতককে শুকনো ও উষ্ণ রাখুন 	</item>
+       <item>	কাঁটা নাভিতে ৭.১% CHX ব্যবহার করুন ও পরবর্তীতে শুকনো রাখুন 	</item>
+       <item>	নবজাতককে ধরার পূর্বে হাত পরিষ্কার করুন	</item>
+       <item>	জন্মের পর পর যত তাড়াতাড়ি সম্ভব বিসিজি এবং পোলিও টিকা দিন 	</item>
+       <item>	ইপিআই-এর আওতায় টিকার সময়সূচী অনুযায়ী শিশুকে রোগ প্রতিরোধের উদ্দেশ্যে টিকা দিন </item>
+       <item>	নবজাতককে বুকের দুধ খানবার পূর্বে পরিষ্কার করে নিন 	</item>
+   </string-array>
+
+    <string-array name="Delivery_Advice_DropDown">
+        <item>	বেশী পরিমাণে পানি খান (কম পক্ষে ৮ গ্লাস)	</item>
+    </string-array>
+
+    <string-array name="Treatment_DropDown">
+        <item>	Tab. Iron (200mg) &amp; Folic Acid( 0.02mg)	</item>
+        <item>	Tab. Vitamin B  Complex	</item>
+        <item>	Tab. Albendazole 400 mg	</item>
+        <item>	Tab. Paracetamol500 mg	</item>
+        <item>	Tab. Antacid </item>
+        <item>	Tab. Drotaverine Hydrocloride 40 mg	</item>
+        <item>	Tab. Ranitidine Hydrocloride 150mg	</item>
+        <item>	Tab. Metronidazole 400 mg	</item>
+        <item>	Tab. Chlorpheniramine Maleate 4mg	</item>
+        <item>	Tab. Salbutamol 4 mg	</item>
+        <item>	Tab. Ibuprufen 400 mg	</item>
+        <item>	Tab. Diazepam 5 mg		</item>
+        <item>	Tab. Cotrimoxazole 120 mg (dispersible)	</item>
+        <item>	Tab. Cotrimoxazole (480 mg)	</item>
+        <item>	Cap. Amoxycillin 250 mg	</item>
+        <item>	Tab. Ciprofloxacine 500 mg	</item>
+        <item>	Cap. Doxycycline 100mg	</item>
+        <item>	Powder for Suspension Amoxycillin 125mg/5 ml	</item>
+        <item>	Powder for Suspension Amoxycillin (Paed) 125mg/1.25ml	</item>
+        <item>	Cotrimoxazole Suspension – Sulfamethoxazole 200 mg + Trimethoprim 40 mg/5 ml	 </item>
+        <item>	Syrup/Elixir I Suspension  Paracetamol  120mg/5ml	</item>
+        <item>	Chloramphenicol Eye Ointment 10mg/gm	</item>
+        <item>	Neomycin+ Bacitracin skin Oint. Neomycin Sulfate 5mg + Bacitracin 500 I.U/gm </item>
+        <item>	Lotion Benzyle Benzoate for  Application-25% </item>
+        <item>	Oint. Benzoic Acid and Salicylic Acid </item>
+    </string-array>
+
+    <string-array name="ANC_Refer_Reason_DropDown">
+        <item>	অতিরিক্ত রক্তস্বল্পতা (শ্বাসকষ্ট, মাথা ঝিমঝিম করা, ক্লান্তি বোধ, বুক ধড়ফড় করা)	 </item>
+        <item>	খিচুনি হওয়া	</item>
+        <item>	উচ্চ রক্তচাপ (রক্তচাপ ১৪০/৯০ মি.মি. মার্কারি অথবা স্বাভাবিক অবস্থার চেয়ে ৩০/১৫ মি.মি. মার্কারি বেশী হওয়া৷ </item>
+        <item>	হাত, পা, মুখ ফুলে যাওয়া			</item>
+        <item>	প্রচন্ড মাথা ব্যথা ও চোখে ঝাপসা দেখা	 </item>
+        <item>	অত্যধিক বমি হওয়া 	</item>
+        <item>	খিঁচুনি ও অজ্ঞান হয়ে যাওয়া 	</item>
+        <item>	সময়ের আগে পানি ভাঙ্গা এবং উচ্চ তাপমাত্রা 	</item>
+        <item>	বিলম্বিত ও বাধাপ্রাপ্ত প্রসব বেদনা ১২ ঘণ্টার বেশী 	</item>
+        <item>	মাথা ছাড়া অন্য কোন উপস্থাপিত অঙ্গ থাকলে 	</item>
+        <item>	গর্ভস্থ শিশুর অসুবিধা </item>
+        <item>	শিশুর হৃদপিণ্ডের স্পন্দন ১৬০/মিঃ এর চেয়ে 	</item>
+        <item>	প্রসাব পরীক্ষা করার জন্য রেফার 	</item>
+    </string-array>
+    <string-array name="PNC_Mother_Refer_Reason_DropDown">
+        <item>	প্রসাব পরীক্ষা করার জন্য রেফার 	</item>
+        <item>	খিচুনি হওয়া	</item>
+        <item>	উচ্চ রক্তচাপ (রক্তচাপ ১৪০/৯০ মি.মি. মার্কারি অথবা স্বাভাবিক অবস্থার চেয়ে ৩০/১৫ মি.মি. মার্কারি বেশী হওয়া৷	</item>
+        <item>	যোনি পথে ঘন সবুজ তরল পদার্থ বের হওয়া (প্রসবকালীন সময়ে) 	</item>
+        <item>	প্রচন্ড মাথা ব্যথা ও চোখে ঝাপসা দেখা	</item>
+        <item>	প্রসবের পরে অত্যধিক রক্তস্রাব (৫ মিনিটে প্যাড ভিজে যাওয়া) </item>
+        <item>	খিঁচুনি ও অজ্ঞান হয়ে যাওয়া 	</item>
+        <item>	প্রসব পথে কোথাও ছিঁড়ে যাওয়া 	</item>
+        <item>	ক্রমাগত অত্যধিক ব্যথা ও রক্তস্রাব (জরায়ু ছিঁড়ে যাওয়া) </item>
+    </string-array>
+    <string-array name="PNC_Child_Refer_Reason_DropDown">
+        <item>	জন্মের ২৪ ঘন্টার মধ্যে ও দ্বিতীয় সপ্তাহের পরে জন্ডিস হওয়া এবং যে কোন সময়ে হাতের তালু,পায়ের পাতায় জন্ডিস আসা </item>
+        <item>	খিচুনি হওয়া	</item>
+        <item>	পুজ নি:সরণ সহ চোখ লাল হওয়া ও ফুলে যাওয়া	</item>
+        <item>	নাভীরজ্জর চারিদিকে লাল হয়ে যাওয়া ও নি:সরণ হওয়া 	</item>
+        <item>	শ্বাস-প্রশ্বাসে (শ্বাস মিনিটে ৩০ এর কম বা ৬০ এর বেশী)	</item>
+    </string-array>
+    <string-array name="Delivery_Refer_Reason_DropDown">
+        <item>	মায়ের রক্তের গ্রুপ আর এইচ (RH(-)) নেগেটিভ </item>
+    </string-array>
+    <string-array name="Newborn_Refer_Reason_DropDown">
+        <item>	জন্মগত শ্বাসরুদ্ধতা (asphyxia) </item>
+        <item>	অপরিণত জন্ম (Prematurity) </item>
+        <item>	কম ওজন নিয়ে জন্ম  </item>
+    </string-array>
+    <string-array name="ANC_Danger_Sign_DropDown">
+        <item>	ব্যথা সহ বা ব্যথা ছাড়া যে কোন ধরনের প্রসব-পূর্ব রক্তস্রাব</item>
+        <item>	খিচুনি হওয়া৷ 	</item>
+        <item>	হাত, পা, মুখ ফুলে যাওয়া </item>
+        <item>	প্রচন্ড মাথা ব্যথা ও চোখে ঝাপসা দেখা </item>
+        <item>	খিঁচুনি ও অজ্ঞান হয়ে যাওয়া 	</item>
+        <item>	বিলম্বিত ও বাধাপ্রাপ্ত প্রসব বেদনা ১২ ঘণ্টার বেশী </item>
+        <item>	মাথা ছাড়া অন্য কোন উপস্থাপিত অঙ্গ থাকলে	</item>
+    </string-array>
+    <string-array name="PNC_Mother_Danger_Sign_DropDown">
+        <item>	প্রসবের পরে অত্যধিক রক্তস্রাব (৫ মিনিটে প্যাড ভিজে যাওয়া) </item>
+        <item>	খিচুনি হওয়া৷ 	</item>
+        <item>	উচ্চ রক্তচাপ		</item>
+        <item>	জ্বর,তল পেটে ব্যথা,দুগন্ধযুক্ত স্রাব	</item>
+        <item>	বুকে ব্যথা ও শ্বাসকস্ট		</item>
+        <item>	যোনিপথে প্রসাব ও পায়খানা আসা		</item>
+        <item>	যোনিপথে কিছু নেমে আসা		</item>
+    </string-array>
+    <string-array name="PNC_Child_Danger_Sign_DropDown">
+        <item>	খিচুনি হওয়া৷ </item>
+        <item>	জন্মের ২৪ ঘন্টার মধ্যে ও দ্বিতীয় সপ্তাহের পরে জন্ডিস হওয়া এবং যে কোন সময়ে হাতের তালু,পায়ের পাতায় জন্ডিস আসা	</item>
+        <item>	দীঘ সময় ধরে শুয়ে থাকা বা জেগে না উঠা </item>
+        <item>	শ্বাস-প্রশ্বাসে (শ্বাস মিনিটে ৩০ এর কম বা ৬০ এর বেশী)	</item>
+        <item>	জ্বর	</item>
+        <item>	পুজ নি:সরণ সহ চোখ লাল হওয়া ও ফুলে যাওয়া	</item>
+        <item>	নাভীরজ্জর চারিদিকে লাল হয়ে যাওয়া ও নি:সরণ হওয়া	</item>
+        <item>	মায়ের দুধ কম টানা বা মোটেই না চোষা	</item>
+        <item>	নেতিয়ে পরা বা কম নড়াচড়া 	</item>
+        <item>	ত্বকে ১০ টির বেশি পুঁজবটি 	</item>
+        <item>	পেট ফোলা </item>
+    </string-array>
+
+    <string-array name="ANC_Drawback_DropDown">
+        <item>	হাত, পা, মুখ ফুলে যাওয়া </item>
+        <item>	খিচুনি হওয়া	</item>
+        <item>	প্রচন্ড মাথা ব্যথা ও চোখে ঝাপসা দেখা </item>
+        <item>	অত্যধিক বমি হওয়া 	</item>
+        <item>	সার্বক্ষণিক (Persistent) পেটে ব্যথা 	</item>
+        <item>	খিঁচুনি ও অজ্ঞান হয়ে যাওয়া 	</item>
+        <item>	সময়ের আগে পানি ভাঙ্গা এবং উচ্চ তাপমাত্রা </item>
+        <item>	গর্ভস্থ শিশুর অসুবিধা </item>
+    </string-array>
+    <string-array name="PNC_Mother_Drawback_DropDown">
+        <item>	প্রসবের পরে অত্যধিক রক্তস্রাব (৫ মিনিটে প্যাড ভিজে যাওয়া) </item>
+        <item>	ক্রমাগত অত্যধিক ব্যথা ও রক্তস্রাব (জরায়ু ছিঁড়ে যাওয়া)	 </item>
+        <item>	স্তনে কোন সমস্যা (ব্যথা,লাল হয়ে যাওয়া)	</item>
+        <item>	যোনিপথে কিছু নেমে আসা	</item>
+    </string-array>
+    <string-array name="PNC_Child_Drawback_DropDown">
+        <item>	খেতে বা চুষতে না পারা </item>
+        <item>	খিচুনি হওয়া </item>
+        <item>	দীঘ সময় ধরে শুয়ে থাকা বা জেগে না উঠা </item>
+        <item>	জ্বর বা ঠান্ডা লাগা	</item>
+        <item>	পুজ নি:সরণ সহ চোখ লাল হওয়া ও ফুলে যাওয়া </item>
+        <item>	নাভীরজ্জর চারিদিকে লাল হয়ে যাওয়া ও নি:সরণ হওয়া </item>
+        <item>	জন্মের ২৪ ঘন্টার মধ্যে ও দ্বিতীয় সপ্তাহের পরে জন্ডিস হওয়া এবং যে কোন সময়ে হাতের তালু,পায়ের পাতায় জন্ডিস আসা	</item>
+    </string-array>
+
+    <string-array name="ANC_Disease_DropDown">
+        <item>	খিচুনী হওয়া/একলাম্পসিয়া	</item>
+        <item>	শ্বাসকষ্ট /হাঁপানি	</item>
+        <item>	জন্ডিস	</item>
+        <item>	গর্ভকালীন উচ্চ রক্তচাপ	</item>
+        <item>	গর্ভকালীন জ্বর	</item>
+        <item>	গর্ভকালীন ডায়াবেটিস	</item>
+        <item>	প্লাসেনটা প্রিভিয়া	</item>
+        <item>	একটপিক প্রেগন্যান্সি</item>
+        <item>	মোলার প্রেগন্যান্সি	</item>
+        <item>	আব্রাপসিও প্লাসেনটা </item>
+        <item>	অতিরিক্ত  রক্তস্বল্পতা (শ্বাসকস্ট,মাথা ঝিমঝিম করা,ক্লন্তিবোধ,বুক ধড়ফড় করা) </item>
+        <item>	হৃদরোগ		</item>
+        <item>	হাইড্রমনিওস	</item>
+    </string-array>
+    <string-array name="PNC_Mother_Disease_DropDown">
+        <item>	খিচুনী হওয়া/একলাম্পসিয়া	</item>
+        <item>	শ্বাসকষ্ট /হাঁপানি	</item>
+        <item>	প্লাসেনটা প্রিভিয়া	</item>
+        <item>	একটপিক প্রেগন্যান্সি</item>
+        <item>	মোলার প্রেগন্যান্সি	</item>
+        <item>	আব্রাপসিও প্লাসেনটা	</item>
+        <item>	অতিরিক্ত  রক্তস্বল্পতা (শ্বাসকস্ট,মাথা ঝিমঝিম করা,ক্লন্তিবোধ,বুক ধড়ফড় করা) </item>
+        <item>	হৃদরোগ		</item>
+        <item>	গর্ভফুল দেরীতে পড়া		</item>
+        <item>	জরায়ুর ভিতর গর্ভফুল থেকে যাওয়া	</item>
+        <item>	জরায়ু ছিঁড়ে যাওয়া (ক্রমাগত অত্যধিক ব্যথা ও রক্তস্রাব )	</item>
+        <item>	বিলম্বিত প্রসব		</item>
+        <item>	বাধাগ্রস্থ প্রসব	</item>
+        <item>	ভাজাইনাল টিয়ার		</item>
+        <item>	পেরিনেয়াল টিয়ার	</item>
+        <item>	সারভিকাল টিয়ার		</item>
+        <item>	ভেরিকোস ভেইন		</item>
+        <item>	ভ্যাজাইনাল ফেসটুলা	</item>
+        <item>	জরায়ু বের হয়ে আসা	</item>
+        <item>	সময়ের পূর্বে গর্ভঝিল্লি ছিঁড়ে যাওয়া	</item>
+        <item>	প্রসব পরবর্তী সংক্রমন	</item>
+        <item>	মুত্রনালির সংক্রমন UTI	</item>
+        <item>	প্রসব পরবর্তী জ্বর		</item>
+        <item>	প্রসব পরবর্তী উচ্চ রক্তচাপ	</item>
+        <item>	প্রসব পরবর্তী  ডায়াবেটিস	</item>
+    </string-array>
+    <string-array name="PNC_Child_Disease_DropDown">
+        <item>	শ্বাস প্রশ্বাসে সমস্যা </item>
+        <item>	সেপসিস		</item>
+        <item>	নাড়ির সংক্রমণ 	</item>
+        <item>	ত্বকের সংক্রমণ	</item>
+        <item>	চোখের সংক্রমণ	</item>
+        <item>	নিম্ন তাপমাত্রা (3হাইপথারমিয়া) </item>
+        <item>	উচ্চ তাপমাত্রা (3হাইপথারমিয়া)	 </item>
+        <item>	ডায়রিয়া	</item>
+        <item>	জন্ডিস	</item>
+        <item>	মুখের থ্রাস </item>
+        <item>	নাভিরজ্জু থেকে রক্তক্ষরণ  </item>
+    </string-array>
 
 </resources>
