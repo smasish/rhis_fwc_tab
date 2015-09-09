@@ -32,6 +32,7 @@
             android:id="@+id/reg.NO.Value"
             android:inputType="text"
             android:textColor="#FFFFFF"
+            style="@style/rowHeading"
             android:paddingLeft="10dp"
             />
 
@@ -70,6 +71,7 @@
             android:layout_height="50px"
             android:editable="false"
             android:paddingLeft="10dp"
+            android:hint="dd/mm/yyyy"
             android:background="@drawable/edittextstyle"/>
 
         <ImageButton
@@ -78,8 +80,9 @@
             android:layout_marginTop="10dp"
             android:layout_width="70px"
             android:layout_height="50px"
-            android:contentDescription="@string/selectdate"
-            android:src="@drawable/calendar_icon" />
+            android:onClick="pickDate"
+            android:src="@drawable/calendar_icon"
+            />
 
 
         <TextView
