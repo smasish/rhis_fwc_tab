@@ -123,6 +123,7 @@
                 android:layout_width="40dp"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
                 android:background="@drawable/edittextstyle"
                 android:inputType="number" />
 
@@ -139,12 +140,13 @@
                 android:layout_width="40dp"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
                 android:background="@drawable/edittextstyle"
                 android:inputType="number" />
 
             <Spinner
                 android:id="@+id/delivery_time_Dropdown"
-                android:layout_width="55dp"
+                android:layout_width="60dp"
                 android:layout_height="60px"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
@@ -284,6 +286,7 @@
                     android:layout_width="40dp"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
                     android:background="@drawable/edittextstyle"
                     android:inputType="number" />
 
@@ -300,6 +303,7 @@
                     android:layout_width="40dp"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
                     android:background="@drawable/edittextstyle"
                     android:inputType="number" />
 
@@ -317,6 +321,7 @@
                     android:layout_width="40dp"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
                     android:background="@drawable/edittextstyle"
                     android:inputType="number" />
 
@@ -334,6 +339,7 @@
                     android:layout_width="40dp"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
                     android:background="@drawable/edittextstyle"
                     android:inputType="number" />
             </LinearLayout>
@@ -367,6 +373,7 @@
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
+                    android:paddingLeft="10dp"
                     android:background="@drawable/edittextstyle"
                     android:inputType="number" />
 
@@ -384,6 +391,7 @@
                     android:layout_width="40dp"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
                     android:background="@drawable/edittextstyle"
                     android:inputType="number" />
                 <TextView
@@ -400,6 +408,7 @@
                     android:layout_width="40dp"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
                     android:background="@drawable/edittextstyle"
                     android:inputType="number" />
             </LinearLayout>
@@ -737,7 +746,7 @@
                 android:id="@+id/id_saveDeliveryButton"
                 android:onClick="onClick"/>
             <Button
-                android:text="Edit"
+                android:text="Add Child"
                 android:layout_width="wrap_content"
                 android:layout_height="80px"
                 android:id="@+id/id_editDeliveryButton"
