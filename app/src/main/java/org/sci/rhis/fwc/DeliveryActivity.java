@@ -286,6 +286,11 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         jsonEditTextMap.put("dNoLiveBirth", getEditText(R.id.Live_born));
 
         //TODO Al-Amin: populate child details
+        jsonEditTextMap.put("dStillFresh",getEditText(R.id.Dead_born_fresh));
+        jsonEditTextMap.put("dStillMacerated",getEditText(R.id.Dead_born_macerated));
+        jsonEditTextMap.put("dNewBornBoy",getEditText(R.id.son));
+        jsonEditTextMap.put("dNewBornGirl",getEditText(R.id.daughter));
+        jsonEditTextMap.put("dNewBornUnidentified",getEditText(R.id.notDetected));
     }
 
     private void populateEditTextDates() {
