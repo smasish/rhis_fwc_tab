@@ -36,7 +36,7 @@ public class CustomTimePickerDialog implements TimePickerDialog.OnTimeSetListene
         //EditText tpTime;
         hourEditTextField.setText(String.valueOf(selectedHour%12));
         minuteEditTextField.setText(String.valueOf(selectedMinute));
-        if(selectedHour > 12) {
+        if(selectedHour < 12) {
             amPm.setSelection(0, true);
         } else {
             amPm.setSelection(1, true);
