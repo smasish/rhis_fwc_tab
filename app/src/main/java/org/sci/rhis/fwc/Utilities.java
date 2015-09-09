@@ -1,11 +1,16 @@
 package org.sci.rhis.fwc;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,6 +46,32 @@ public class Utilities {
                 System.out.println("The JSON key: '" + key+ "' does not exist");
             }
         }
+    }
+
+    public static void updateSpinners(HashMap<String,Spinner> keyMap, JSONObject json, Context context) {
+        Spinner spinner;
+        String compareValue;
+
+        for (String key: keyMap.keySet()) {
+            try {
+                spinner = keyMap.get(key);
+                if(spinner != null) {
+                    //spinner.setSelection((json.getInt(key) - 1));
+                    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.Blood_Group_Dropdown, android.R.layout.simple_spinner_item);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner.setAdapter(adapter);
+                    compareValue = json.getString(key);
+                    if (!compareValue.equals(null)) {
+                        int spinnerPosition = adapter.getPosition(compareValue);
+                        spinner.setSelection(spinnerPosition);
+                    }
+                }
+            } catch (JSONException jse) {
+                System.out.println("The JSON key: '" + key+ "' does not exist");
+            }
+        }
+
+
     }
 
     public static void updateCheckboxes(HashMap<String,CheckBox> keyMap, JSONObject json) {
@@ -81,4 +112,6 @@ public class Utilities {
             }
         }
     }
+
+
 }
