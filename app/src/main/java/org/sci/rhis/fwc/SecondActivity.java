@@ -128,7 +128,8 @@ public class SecondActivity extends ClinicalServiceActivity {
 
     public void startANC(View view) {
         Intent intent = new Intent(this, ANCActivity.class);
-        if(woman.isEligibleFor(PregWoman.PREG_SERVICE.ANC)) {
+
+        if( checkClientInfo() && woman.isEligibleFor(PregWoman.PREG_SERVICE.ANC)) {
             intent.putExtra("PregWoman", woman);
             startActivity(intent);
         } else {
@@ -138,7 +139,8 @@ public class SecondActivity extends ClinicalServiceActivity {
 
     public void startDelivery(View view) {
         Intent intent = new Intent(this, DeliveryActivity.class);
-        if(woman.isEligibleFor(PregWoman.PREG_SERVICE.DELIVERY)) {
+
+        if(checkClientInfo() && woman.isEligibleFor(PregWoman.PREG_SERVICE.DELIVERY)) {
             intent.putExtra("PregWoman", woman);
             intent.putExtra("Provider", ProviderInfo.getProvider());
             startActivity(intent);
@@ -150,6 +152,14 @@ public class SecondActivity extends ClinicalServiceActivity {
     public void startPNC(View view) {
         Intent intent = new Intent(this, PNCActivity.class);
         startActivity(intent);
+    }
+
+    private boolean checkClientInfo() {
+        if(woman == null ) {
+            Toast.makeText(this, "No Client, Get Client Information first ...", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 
 }

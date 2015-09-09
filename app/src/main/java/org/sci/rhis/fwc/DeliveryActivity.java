@@ -6,16 +6,22 @@ import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.Layout;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import org.json.JSONException;
@@ -29,7 +35,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 public class DeliveryActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
-                                                                         View.OnClickListener {
+                                                                         View.OnClickListener,
+                                                                         CompoundButton.OnCheckedChangeListener{
 
     //UI References
 
@@ -46,6 +53,10 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     private ProviderInfo provider;
     private HashMap<String, CheckBox> jsonCheckboxMap;
     private HashMap<String, Spinner> jsonSpinnerMap;
+    private HashMap<String, HashMap<RadioGroup, Pair<RadioButton,RadioButton>>> jsonRadioGroupButtonMap;
+    private HashMap<String, EditText> jsonEditTextMap;
+    private HashMap<String, EditText> jsonEditTextDateMap;
+
 
 
     @Override
@@ -61,8 +72,9 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             spinners[i].setOnItemSelectedListener(this);
         }
 
-        ((EditText) findViewById(R.id.id_delivery_date)).setOnClickListener(this);
-        ((EditText) findViewById(R.id.id_admissionDate)).setOnClickListener(this);
+        getEditText(R.id.id_delivery_date).setOnClickListener(this);
+        getEditText(R.id.id_admissionDate).setOnClickListener(this);
+        getCheckbox(R.id.id_delivery_refer).setOnCheckedChangeListener(this);
 
         //hourField = (EditText)findViewById(R.id.delivery_time_hour);
         //minuteField = (EditText)findViewById(R.id.delivery_time_minute);
@@ -74,6 +86,20 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         //populate Spinners
         jsonSpinnerMap = new HashMap<String, Spinner>();
         populateSpinners();
+
+        //populate RadioGroupButtons
+        jsonRadioGroupButtonMap = new HashMap<String, HashMap<RadioGroup, Pair<RadioButton,RadioButton>>>();
+        populateRadioGroups();
+
+        //populate EditTexts
+        jsonEditTextMap = new HashMap<String, EditText>();
+        populateEditTexts();
+
+        //populate EditTexts
+        jsonEditTextDateMap = new HashMap<String, EditText>();
+        populateEditTextDates();
+
+        //populateEditTextTimes();
 
         //custom date picker
         datePickerDialog = new CustomDatePickerDialog(this);
@@ -114,10 +140,13 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             }
             Utilities.updateCheckboxes(jsonCheckboxMap, json);
             Utilities.updateSpinners(jsonSpinnerMap, json);
+            updateRadioButtons(json);
+            Utilities.updateEditTexts(jsonEditTextMap, json);
+            Utilities.updateEditTextDates(jsonEditTextDateMap, json);
+            updateEditTextTimes(json);
         } catch (JSONException jse) {
             jse.printStackTrace();
         }
-
     }
 
     @Override
@@ -160,8 +189,8 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             case R.id.id_facility_name_Dropdown:
                 System.out.println("Hit the Facility Spinner");
                 LinearLayout  faclityAdmission = (LinearLayout) findViewById(R.id.id_facililties_admission_layout);
-                faclityAdmission.setVisibility((position == 0 || position == 1) ? View.GONE:View.VISIBLE);
-                //0 - UH&FWC 1 - CC
+                faclityAdmission.setVisibility((position == 4 || position == 5) ? View.GONE:View.VISIBLE);
+                //4 - UH&FWC 5 - CC
                 break;
             case R.id.delivery_typeDropdown:
                 section = new LinearLayout[2];
@@ -175,6 +204,19 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 }
                 System.out.println("Hit the Delivery Type");
                 break;
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+    {
+        if (buttonView.getId() == R.id.id_delivery_refer) {
+            int visibility = isChecked? View.VISIBLE: View.INVISIBLE;
+                getTextView(R.id.id_refer_facility_name).setVisibility(visibility);
+                getSpinner(R.id.id_spinner_refer_facilities).setVisibility(visibility);
+                getTextView(R.id.id_refer_delivery_cause).setVisibility(visibility);
+                getSpinner(R.id.id_spinner_refer_delivery_cause).setVisibility(visibility);
+
         }
     }
 
@@ -220,6 +262,9 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         jsonCheckboxMap.put("dOBodyPart", getCheckbox(R.id.id_onlyHead));
         jsonCheckboxMap.put("dConvulsions", getCheckbox(R.id.id_convulsion));
         jsonCheckboxMap.put("dOthers", getCheckbox(R.id.id_deleiveryExtra));
+        //refer
+        jsonCheckboxMap.put("dRefer", getCheckbox(R.id.id_delivery_refer));
+
     }
 
     private void populateSpinners() {
@@ -232,11 +277,97 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         jsonSpinnerMap.put("dReferCenter", getSpinner(R.id.id_spinner_refer_facilities)); //refercenter
     }
 
+    private void populateEditTexts() {
+        //admission details
+        jsonEditTextMap.put("dWard", getEditText(R.id.id_ward));
+        jsonEditTextMap.put("dBed", getEditText(R.id.id_bed));
+
+        //new born details
+        jsonEditTextMap.put("dNoLiveBirth", getEditText(R.id.Live_born));
+
+        //TODO Al-Amin: populate child details
+    }
+
+    private void populateEditTextDates() {
+        jsonEditTextDateMap.put("dDate", getEditText(R.id.id_delivery_date));
+        jsonEditTextDateMap.put("dAdmissionDate", getEditText(R.id.id_admissionDate));
+    }
+
+    private void updateEditTextTimes(JSONObject jso) {
+
+        //Too much internal knowledge assumed
+
+        try {
+            String time = jso.getString("dTime");
+            if(!time.equals("")) {
+                getEditText(R.id.delivery_time_hour).setText(time.substring(0,time.indexOf(':')));
+                getEditText(R.id.delivery_time_minute).setText(time.substring(time.indexOf(':') + 1, time.indexOf(' ') - 1));
+                String ampm = time.substring(time.indexOf(' ') + 1);
+                getSpinner(R.id.delivery_time_Dropdown).setSelection(time.substring(time.indexOf(' ')+1).equals("am")? 0:1);
+            }
+        } catch (JSONException jse) {
+
+        }
+    }
+
+    private void updateRadioButtons(JSONObject json) {
+
+        RadioGroup radioGroup;
+        try {
+            if (json.getString("dEpisiotomy").equals("1")) {
+                getRadioGroup(R.id.id_radioGroupEpctiomi).check(R.id.radioEpc_yes);
+
+            } else if (json.getString("dEpisiotomy").equals("2")) {
+                getRadioGroup(R.id.id_radioGroupEpctiomi).check(R.id.radioEpc_no);
+            }
+
+            if (json.getString("dMisoprostol").equals("1")) {
+                getRadioGroup(R.id.id_radioGroupOytocin).check(R.id.radioOxytocin_yes);
+            } else if (json.getString("dMisoprostol").equals("2")) {
+                getRadioGroup(R.id.id_radioGroupOytocin).check(R.id.radioOxytocin_no);
+            }
+        } catch (JSONException jse) {
+            System.out.println("The JSON key:  does not exist");
+        }
+    }
+
+    private void populateRadioGroups() {
+
+        /*Pair<RadioButton, RadioButton> radioGroupPairEpc =
+                new Pair<RadioButton, RadioButton>(
+                        getRadioButton(R.id.radioEpc_yes),
+                        getRadioButton(R.id.radioEpc_no));
+        Pair<RadioButton, RadioButton> radioGroupPairOxytocin =
+                new Pair<RadioButton, RadioButton>(
+                        getRadioButton(R.id.radioOxytocin_yes),
+                        getRadioButton(R.id.radioOxytocin_no));
+
+        HashMap<RadioGroup, Pair<RadioButton, RadioButton>>
+
+        jsonRadioGroupButtonMap.put("dEpisiotomy",  );*/
+    }
+
     private CheckBox getCheckbox(int id) {
         return (CheckBox)findViewById(id);
     }
 
     private Spinner getSpinner(int id) {
         return (Spinner)findViewById(id);
+    }
+
+    private RadioGroup getRadioGroup(int id) {
+        return (RadioGroup)findViewById(id);
+    }
+
+    private RadioButton getRadioButton(int id) {
+        return (RadioButton)findViewById(id);
+    }
+
+    private EditText getEditText(int id) {
+        return (EditText)findViewById(id);
+    }
+
+    private TextView getTextView(int id) {
+        return (TextView)findViewById(id);
     }
 }
