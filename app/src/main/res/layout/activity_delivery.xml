@@ -15,6 +15,9 @@
             style="@style/rowHeading"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="2dp"
             android:orientation="horizontal"
             android:paddingBottom="10sp"
             android:paddingTop="10sp">
@@ -240,7 +243,7 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/edittextstyle"/>
             <TextView
-                android:layout_width="60dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
@@ -267,7 +270,7 @@
                 android:layout_width="160dp"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
-                android:textColor="#0B0B61"
+                android:textColor="@color/title_color"
                 android:text="@string/delivery_result"
                 android:textSize="20dp" />
 
@@ -406,6 +409,7 @@
                     android:layout_width="40dp"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
                     android:paddingLeft="10dp"
                     android:background="@drawable/edittextstyle"
                     android:inputType="number" />
@@ -427,7 +431,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:text="@string/amtsl"
-                android:textColor="#0B0B61"
+                android:textColor="@color/title_color"
                 android:textSize="20dp" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -548,7 +552,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/deliveryComplication"
-                android:textColor="#0B0B61"
+                android:textColor="@color/title_color"
                 android:textSize="20dp" />
 
             <LinearLayout
@@ -695,7 +699,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
-                android:textColor="#0B0B61"
+                android:textColor="@color/title_color"
                 android:text="@string/child_refer"
                 android:textSize="20dp" />
 

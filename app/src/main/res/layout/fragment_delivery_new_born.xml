@@ -11,6 +11,9 @@
     style="@style/rowHeading"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp"
+    android:layout_marginTop="2dp"
     android:paddingBottom="10sp"
     android:paddingTop="10sp">
     <TextView
@@ -83,7 +86,7 @@ android:background="#FFFFFF">
     <RadioButton  android:id="@+id/deliveryBreastFeedingNoButton" android:text="@string/general_no" android:textSize="20dp" android:layout_width="80dp" android:layout_height="50px"  />
 </LinearLayout>
 <LinearLayout android:id="@+id/deliveryChildRefer" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
-    <CheckBox android:id="@+id/deliveryChildReferCheckBox" android:text="@string/child_refer" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" android:textColor="#0B0B61" />
+    <CheckBox android:id="@+id/deliveryChildReferCheckBox" android:text="@string/child_refer" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" android:textColor="@color/title_color" />
 </LinearLayout>
 <LinearLayout android:id="@+id/deliveryChildReferCenterName" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
     <TextView android:id="@+id/deliveryChildReferCenterNameLabel" android:text="@string/center_name" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" android:textColor="@color/text_color" />

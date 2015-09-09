@@ -11,6 +11,9 @@
     <LinearLayout
         android:paddingTop="10sp"
         android:paddingBottom="10sp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="2dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -19,16 +22,14 @@
         <TextView
             android:id="@+id/Reg._No._Label"
             android:gravity="left"
-            android:layout_marginTop="10dp"
             android:text="@string/reg_no"
             android:layout_width="wrap_content"
             android:textColor="#FFFFFF"
-            android:layout_height="wrap_content"
+            android:layout_height="50px"
             android:textSize="20sp" />
         <TextView
             android:layout_width="130dp"
-            android:layout_marginTop="10dp"
-            android:layout_height="60px"
+            android:layout_height="50px"
             android:id="@+id/reg.NO."
             android:inputType="text"
             android:textColor="#FFFFFF"
@@ -43,7 +44,7 @@
             android:text="@string/ClientsInfoFragment"
             android:layout_width="fill_parent"
             android:textColor="#FFFFFF"
-            android:layout_height="wrap_content"
+            android:layout_height="50px"
             android:textSize="20sp" />
     </LinearLayout>
 
