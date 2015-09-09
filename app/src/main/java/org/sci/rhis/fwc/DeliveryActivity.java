@@ -1,12 +1,6 @@
 package org.sci.rhis.fwc;
 
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.content.DialogInterface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
-import android.text.Layout;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,7 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,15 +15,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.sci.rhis.utilities.CustomDatePickerDialog;
 import org.sci.rhis.utilities.CustomTimePickerDialog;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -84,11 +74,11 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
         //populate checkboxes
         jsonCheckboxMap = new HashMap<String, CheckBox>();
-        populateCheckbox();
+        initiateCheckbox();
 
         //populate Spinners
         jsonSpinnerMap = new HashMap<String, Spinner>();
-        populateSpinners();
+        initiateSpinners();
 
         //populate RadioGroupButtons
         jsonRadioGroupButtonMap = new HashMap<String, HashMap<RadioGroup, Pair<RadioButton,RadioButton>>>();
@@ -96,11 +86,11 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
         //populate EditTexts
         jsonEditTextMap = new HashMap<String, EditText>();
-        populateEditTexts();
+        initiateEditTexts();
 
         //populate EditTexts
         jsonEditTextDateMap = new HashMap<String, EditText>();
-        populateEditTextDates();
+        initiateEditTextDates();
 
         //populateEditTextTimes();
 
@@ -141,12 +131,17 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 key = ii.next();
                 System.out.println("1.Key:" + key + " Value:\'" + json.get(key) + "\'");
             }
-            Utilities.updateCheckboxes(jsonCheckboxMap, json);
-            Utilities.updateSpinners(jsonSpinnerMap, json);
-            updateRadioButtons(json);
-            Utilities.updateEditTexts(jsonEditTextMap, json);
-            Utilities.updateEditTextDates(jsonEditTextDateMap, json);
-            updateEditTextTimes(json);
+
+            //populate the fields if the previous delivery information exist
+            if(json.getString("dNew").equals("No")) {
+                Utilities.updateCheckboxes(jsonCheckboxMap, json);
+                Utilities.updateSpinners(jsonSpinnerMap, json);
+                updateRadioButtons(json);
+                Utilities.updateEditTexts(jsonEditTextMap, json);
+                Utilities.updateEditTextDates(jsonEditTextDateMap, json);
+                updateEditTextTimes(json);
+                //TODO Make the fields non-modifiable
+            }
         } catch (JSONException jse) {
             jse.printStackTrace();
         }
@@ -215,18 +210,21 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     {
         if (buttonView.getId() == R.id.id_delivery_refer) {
             int visibility = isChecked? View.VISIBLE: View.INVISIBLE;
-                getTextView(R.id.id_refer_facility_name).setVisibility(visibility);
-                getSpinner(R.id.id_spinner_refer_facilities).setVisibility(visibility);
-                getTextView(R.id.id_refer_delivery_cause).setVisibility(visibility);
-                getSpinner(R.id.id_spinner_refer_delivery_cause).setVisibility(visibility);
-
+            getTextView(R.id.id_refer_facility_name).setVisibility(visibility);
+            getSpinner(R.id.id_spinner_refer_facilities).setVisibility(visibility);
+            getTextView(R.id.id_refer_delivery_cause).setVisibility(visibility);
+            getSpinner(R.id.id_spinner_refer_delivery_cause).setVisibility(visibility);
         }
     }
 
     @Override
     public void onClick(View view) {
-//        if(view.getLayerType())
-        datePickerDialog.show(datePickerPair.get(view.getId()));
+        if(view.getTag().equals("DateField")) {
+            datePickerDialog.show(datePickerPair.get(view.getId()));
+        }
+        if(view.getId() == R.id.id_saveDeliveryButton) {
+
+        }
     }
 
     public void pickDate(View view) {
@@ -249,7 +247,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     }
 
 
-    private void populateCheckbox() {
+    private void initiateCheckbox() {
         //AMTSL
         jsonCheckboxMap.put("dOxytocin", getCheckbox(R.id.oxytocin));
         jsonCheckboxMap.put("dTraction", getCheckbox(R.id.controlChordTraction));
@@ -270,7 +268,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
     }
 
-    private void populateSpinners() {
+    private void initiateSpinners() {
         jsonSpinnerMap.put("dPlace", getSpinner(R.id.delivery_placeDropdown)); //place
         jsonSpinnerMap.put("dType", getSpinner(R.id.delivery_typeDropdown)); //type
         //jsonSpinnerMap.put("dPlace", getSpinner(R.id.delivery_time_Dropdown)); //time
@@ -280,7 +278,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         jsonSpinnerMap.put("dReferCenter", getSpinner(R.id.id_spinner_refer_facilities)); //refercenter
     }
 
-    private void populateEditTexts() {
+    private void initiateEditTexts() {
         //admission details
         jsonEditTextMap.put("dWard", getEditText(R.id.id_ward));
         jsonEditTextMap.put("dBed", getEditText(R.id.id_bed));
@@ -296,7 +294,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         jsonEditTextMap.put("dNewBornUnidentified",getEditText(R.id.notDetected));
     }
 
-    private void populateEditTextDates() {
+    private void initiateEditTextDates() {
         jsonEditTextDateMap.put("dDate", getEditText(R.id.id_delivery_date));
         jsonEditTextDateMap.put("dAdmissionDate", getEditText(R.id.id_admissionDate));
     }
@@ -309,7 +307,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             String time = jso.getString("dTime");
             if(!time.equals("")) {
                 getEditText(R.id.delivery_time_hour).setText(time.substring(0,time.indexOf(':')));
-                getEditText(R.id.delivery_time_minute).setText(time.substring(time.indexOf(':') + 1, time.indexOf(' ') - 1));
+                getEditText(R.id.delivery_time_minute).setText(time.substring(time.indexOf(':') + 1, time.indexOf(' ')));
                 String ampm = time.substring(time.indexOf(' ') + 1);
                 getSpinner(R.id.delivery_time_Dropdown).setSelection(time.substring(time.indexOf(' ')+1).equals("am")? 0:1);
             }

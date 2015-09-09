@@ -51,8 +51,8 @@ public class SecondActivity extends ClinicalServiceActivity {
         long id = Long.valueOf(searchableId.getText().toString());
 
         String queryString =   "{" +
-                "sOpt:" + index + "," +
-                "sStr:" + id + "," +
+                "sOpt:" + String.valueOf(index) + "," +
+                "sStr:" + String.valueOf(id) + "," +
                 "providerid:" + ProviderInfo.getProvider().getProviderCode() +
                 "}";
         String servlet = "client";
@@ -80,6 +80,10 @@ public class SecondActivity extends ClinicalServiceActivity {
                 }
             }
         }
+
+        HashMap<String, Spinner> clientSpinnerMap= new HashMap<>(1); //fixed capacity ??
+        clientSpinnerMap.put("cBloodGroup", (Spinner)findViewById(R.id.Blood_Group_Dropdown));
+        Utilities.updateSpinners(clientSpinnerMap, json, this);
     }
 
     @Override
@@ -96,7 +100,7 @@ public class SecondActivity extends ClinicalServiceActivity {
                 System.out.println("1.Key:" + key + " Value:\'" + json.get(key)+"\'");
             }
 
-            if(json.get("False").toString().equals("")) {
+            if(json.get("False").toString().equals("")) { //Client exists
                 populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
                 woman.UpdateUIField(this);
                 //populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);

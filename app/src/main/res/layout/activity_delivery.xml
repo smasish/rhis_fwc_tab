@@ -47,7 +47,8 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:text="@string/delivery_place"
-                android:textSize="20dp" android:textColor="@color/text_color" />
+                android:textSize="20dp"
+                android:textColor="@color/text_color" />
 
             <Spinner
                 android:id="@+id/delivery_placeDropdown"
@@ -66,7 +67,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
                 android:text="@string/delivery_type"
-                android:textSize="20dp" android:textColor="@color/text_color"/>
+                android:textSize="20dp"
+                android:textColor="@color/text_color"/>
 
             <Spinner
                 android:id="@+id/delivery_typeDropdown"
@@ -111,6 +113,7 @@
                 android:id="@+id/imageViewDeliveryDate"
                 android:src="@drawable/calendar_icon"
                 android:layout_marginTop="5dp"
+                android:tag="DateField"
                 android:onClick="pickDate"/>
 
             <TextView
@@ -225,6 +228,7 @@
                 android:id="@+id/imageViewAdmissionDate"
                 android:src="@drawable/calendar_icon"
                 android:layout_marginTop="5dp"
+                android:tag="DateField"
                 android:onClick="pickDate"/>
 
             <TextView
@@ -710,7 +714,9 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/general_facility_name"
-                android:textSize="20dp" android:textColor="@color/text_color"/>
+                android:textSize="20dp"
+                android:textColor="@color/text_color"
+                android:visibility="invisible"/>
 
             <Spinner
                 android:id="@+id/id_spinner_refer_facilities"
@@ -719,7 +725,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:entries="@array/FacilityType_DropDown"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:visibility="invisible"/>
         </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -734,14 +741,17 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:text="@string/general_cause"
-                android:textSize="20dp" android:textColor="@color/text_color"/>
+                android:textSize="20dp"
+                android:textColor="@color/text_color"
+                android:visibility="invisible"/>
 
             <Spinner
                 android:id="@+id/id_spinner_refer_delivery_cause"
                 android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:visibility="invisible"/>
         </LinearLayout>
 
         <LinearLayout
