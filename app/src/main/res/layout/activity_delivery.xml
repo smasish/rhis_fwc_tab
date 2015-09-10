@@ -438,10 +438,6 @@
             android:layout_centerVertical="true"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
-            <LinearLayout
-                android:id="@+id/id_Delivery_amtsl_Layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
              <TextView
                 android:id="@+id/textamtsl"
@@ -452,7 +448,7 @@
                 android:text="@string/amtsl"
                 android:textColor="@color/title_color"
                 android:textSize="20dp" />
-            </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/amtsl"
                 android:layout_width="match_parent"
@@ -525,7 +521,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/oxytocin"
+                android:id="@+id/no_oxytocin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"

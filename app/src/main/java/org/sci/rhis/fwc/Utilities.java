@@ -47,12 +47,18 @@ public class Utilities {
             if(view instanceof LinearLayout) {
                 Disable(activity, view.getId());
             }
-            else if (view instanceof EditText) {
-                ((EditText) view).setFocusable(false);
-                ((EditText) view).setEnabled(false);
-                ((EditText) view).setCursorVisible(false);
-                ((EditText) view).setKeyListener(null);
+            else if (view instanceof EditText ||
+                     view instanceof CheckBox ||
+                     view instanceof RadioButton ||
+                     view instanceof Spinner)
+            {
+                (view).setFocusable(false);
+                (view).setEnabled(false);
+                
+                //( view).setCursorVisible(false);
+                //(view).setKeyListener(null);
             }
+     /*
             else if (view instanceof CheckBox) {
                 ((CheckBox) view).setFocusable(false);
                 ((CheckBox) view).setEnabled(false);
@@ -65,6 +71,9 @@ public class Utilities {
                 ((RadioButton) view).setCursorVisible(false);
                 ((RadioButton) view).setKeyListener(null);
             }
+      */
+
+
             else {
                 System.out.print(testgroup);
             }
