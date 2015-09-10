@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,11 +45,6 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     private HashMap<String, HashMap<RadioGroup, Pair<RadioButton,RadioButton>>> jsonRadioGroupButtonMap;
     private HashMap<String, EditText> jsonEditTextMap;
     private HashMap<String, EditText> jsonEditTextDateMap;
-
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,11 +128,11 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
             //populate the fields if the previous delivery information exist
             if(json.getString("dNew").equals("No")) {
-                Utilities.updateCheckboxes(jsonCheckboxMap, json);
-                Utilities.updateSpinners(jsonSpinnerMap, json);
+                Utilities.setCheckboxes(jsonCheckboxMap, json);
+                Utilities.setSpinners(jsonSpinnerMap, json);
                 updateRadioButtons(json);
-                Utilities.updateEditTexts(jsonEditTextMap, json);
-                Utilities.updateEditTextDates(jsonEditTextDateMap, json);
+                Utilities.setEditTexts(jsonEditTextMap, json);
+                Utilities.setEditTextDates(jsonEditTextDateMap, json);
                 updateEditTextTimes(json);
                 //TODO Make the fields non-modifiable
             }
@@ -222,6 +216,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         if(view.getTag().equals("DateField")) {
             datePickerDialog.show(datePickerPair.get(view.getId()));
         }
+
         if(view.getId() == R.id.id_saveDeliveryButton) {
 
         }
@@ -234,18 +229,16 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     public void pickTime(View view) {
 
        timePickerDialog.show(
-               (EditText)findViewById(R.id.delivery_time_hour),
-               (EditText)findViewById(R.id.delivery_time_minute),
-               (Spinner)findViewById(R.id.delivery_time_Dropdown)
+               (EditText) findViewById(R.id.delivery_time_hour),
+               (EditText) findViewById(R.id.delivery_time_minute),
+               (Spinner) findViewById(R.id.delivery_time_Dropdown)
        );
     }
-
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-
 
     private void initiateCheckbox() {
         //AMTSL
@@ -335,6 +328,13 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         } catch (JSONException jse) {
             System.out.println("The JSON key:  does not exist");
         }
+    }
+
+    private void saveToJson() {
+        JSONObject json = new JSONObject();
+        Utilities.setCheckboxes(jsonCheckboxMap, json);
+        Utilities.setEditTexts(jsonEditTextMap, json);
+        Utilities.setEditTextDates(jsonEditTextDateMap, json);
     }
 
     private void populateRadioGroups() {
