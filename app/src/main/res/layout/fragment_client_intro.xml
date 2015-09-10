@@ -9,7 +9,7 @@
     android:id = "@+id/client_intro_layout">
 
     <LinearLayout
-        android:id="@+id/clients_intro"
+        android:id="@+id/clients_intro_layout"
         android:orientation="vertical"
         android:layout_centerVertical="true"
         android:layout_width="match_parent"

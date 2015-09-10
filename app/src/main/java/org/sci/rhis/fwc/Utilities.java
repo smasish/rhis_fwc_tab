@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -23,13 +24,49 @@ import java.util.HashMap;
  * Created by jamil.zaman on 8/30/2015.
  */
 public class Utilities {
-    public static void DisableTextFields(Activity activity, int id) {
+
+ /**
+   public static void DisableTextFields(Activity activity, int id) {
         ViewGroup group = (ViewGroup)activity.findViewById(id);
         for (int i = 0,  count = group != null ? group.getChildCount(): 0; i < count; ++i) {
             View view = group.getChildAt(i);
             if (view instanceof EditText) {
                 //((EditText)view).setText("");//here it will be clear all the EditText field
                 ((EditText)view).setFocusable(false);
+            }
+        }
+    }
+*/
+
+    // This method added by Al Amin on 10/09/2015 (dd/MM/yyyy)
+    public static void Disable(Activity activity, int id) {
+
+        ViewGroup testgroup = (ViewGroup)activity.findViewById(id);
+        for(int i = 0, count = testgroup != null ? testgroup.getChildCount(): 0; i <count; i++) {
+            View view = testgroup.getChildAt(i);
+            if(view instanceof LinearLayout) {
+                Disable(activity, view.getId());
+            }
+            else if (view instanceof EditText) {
+                ((EditText) view).setFocusable(false);
+                ((EditText) view).setEnabled(false);
+                ((EditText) view).setCursorVisible(false);
+                ((EditText) view).setKeyListener(null);
+            }
+            else if (view instanceof CheckBox) {
+                ((CheckBox) view).setFocusable(false);
+                ((CheckBox) view).setEnabled(false);
+                ((CheckBox) view).setCursorVisible(false);
+                ((CheckBox) view).setKeyListener(null);
+            }
+            else if (view instanceof RadioButton) {
+                ((RadioButton) view).setFocusable(false);
+                ((RadioButton) view).setEnabled(false);
+                ((RadioButton) view).setCursorVisible(false);
+                ((RadioButton) view).setKeyListener(null);
+            }
+            else {
+                System.out.print(testgroup);
             }
         }
     }

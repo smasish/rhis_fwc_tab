@@ -103,9 +103,11 @@ public class SecondActivity extends ClinicalServiceActivity {
             if(json.get("False").toString().equals("")) { //Client exists
                 populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
                 woman.UpdateUIField(this);
-                //populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
-                Utilities.DisableTextFields(this, R.id.fragment_client_intro_scroll);
-                Utilities.DisableTextFields(this, R.id.fragment_client_info_scroll);
+
+            // To Make disable desired fields
+                Utilities.Disable(this, R.id.clients_intro_layout);
+                Utilities.Disable(this, R.id.clients_info_layout);
+
             }
 
         } catch (JSONException jse) {
