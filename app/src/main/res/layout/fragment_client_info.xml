@@ -405,6 +405,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/Previous_Delivery"
         android:layout_marginLeft="10dp"
         android:orientation="vertical"
         android:layout_centerVertical="true"
@@ -420,6 +421,7 @@
             android:layout_height="wrap_content" />
 
         <LinearLayout
+            android:id="@+id/first_layout"
             android:orientation="horizontal"
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
@@ -440,6 +442,7 @@
                 android:id="@+id/delayedBirthCheckBox" />
 </LinearLayout>
             <LinearLayout
+                android:id="@+id/second_layout"
                 android:orientation="horizontal"
                 android:layout_centerVertical="true"
                 android:layout_width="match_parent"
@@ -461,6 +464,7 @@
 
          </LinearLayout>
         <LinearLayout
+            android:id="@+id/third_layout"
             android:orientation="horizontal"
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
@@ -482,6 +486,7 @@
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/fourth_layout"
                 android:orientation="horizontal"
                 android:layout_centerVertical="true"
                 android:layout_width="match_parent"
@@ -495,6 +500,7 @@
             </LinearLayout>
 
       <LinearLayout
+          android:id="@+id/fifth_layout"
         android:orientation="horizontal"
         android:layout_centerVertical="true"
         android:layout_width="match_parent"
