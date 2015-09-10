@@ -140,8 +140,17 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 Utilities.updateEditTexts(jsonEditTextMap, json);
                 Utilities.updateEditTextDates(jsonEditTextDateMap, json);
                 updateEditTextTimes(json);
+
                 //TODO Make the fields non-modifiable
+
+                Utilities.Disable(this, R.id.delivery_date_time);
+                Utilities.Disable(this, R.id.id_facililties_admission_layout);
+                Utilities.Disable(this, R.id.id_deliveryResultLayout);
+                Utilities.Disable(this, R.id.amtsl);
+                Utilities.Disable(this, R.id.id_Epcotomi_section_layout);
+                Utilities.Disable(this, R.id.complication);
             }
+
         } catch (JSONException jse) {
             jse.printStackTrace();
         }
