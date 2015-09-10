@@ -9,10 +9,10 @@
     tools:context="org.sci.rhis.fwc.ClientInfoFragment"
     android:orientation="vertical"
     android:background="@drawable/fragmentborder"
-    android:weightSum="1"
-    android:id = "@+id/ClientInfoLayout">
+    android:id = "@+id/clients_info_layout">
 
     <LinearLayout
+        android:id="@+id/client_info_title"
         android:paddingTop="10sp"
         android:paddingBottom="10sp"
         android:layout_marginLeft="2dp"
@@ -53,6 +53,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/lmp_para"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
@@ -110,6 +111,7 @@
             />
 </LinearLayout>
         <LinearLayout
+            android:id="@+id/edd_gravida"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
@@ -160,6 +162,7 @@
         </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/born_blood"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
@@ -234,6 +237,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/age_lasr_child_height"
         android:layout_marginLeft="10dp"
         android:orientation="horizontal"
         android:layout_centerVertical="true"
@@ -346,6 +350,7 @@
 
 
     <LinearLayout
+        android:id="@+id/tt_tika"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
@@ -405,6 +410,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/Previous_Delivery"
         android:layout_marginLeft="10dp"
         android:orientation="vertical"
         android:layout_centerVertical="true"
@@ -420,6 +426,7 @@
             android:layout_height="wrap_content" />
 
         <LinearLayout
+            android:id="@+id/first_layout"
             android:orientation="horizontal"
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
@@ -440,6 +447,7 @@
                 android:id="@+id/delayedBirthCheckBox" />
 </LinearLayout>
             <LinearLayout
+                android:id="@+id/second_layout"
                 android:orientation="horizontal"
                 android:layout_centerVertical="true"
                 android:layout_width="match_parent"
@@ -461,6 +469,7 @@
 
          </LinearLayout>
         <LinearLayout
+            android:id="@+id/third_layout"
             android:orientation="horizontal"
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
@@ -482,6 +491,7 @@
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/fourth_layout"
                 android:orientation="horizontal"
                 android:layout_centerVertical="true"
                 android:layout_width="match_parent"
@@ -495,6 +505,7 @@
             </LinearLayout>
 
       <LinearLayout
+          android:id="@+id/fifth_layout"
         android:orientation="horizontal"
         android:layout_centerVertical="true"
         android:layout_width="match_parent"
