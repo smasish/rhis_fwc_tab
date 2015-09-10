@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -81,8 +82,8 @@ public class SecondActivity extends ClinicalServiceActivity {
             }
         }
 
-        HashMap<String, Spinner> clientSpinnerMap= new HashMap<>(1); //fixed capacity ??
-        clientSpinnerMap.put("cBloodGroup", (Spinner)findViewById(R.id.Blood_Group_Dropdown));
+        HashMap<String, Pair<Spinner, Integer>> clientSpinnerMap= new HashMap<>(1); //fixed capacity ??
+        clientSpinnerMap.put("cBloodGroup", Pair.create((Spinner)findViewById(R.id.Blood_Group_Dropdown),R.array.Blood_Group_Dropdown));
         Utilities.updateSpinners(clientSpinnerMap, json, this);
     }
 
