@@ -353,27 +353,5 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         jsonRadioGroupButtonMap.put("dEpisiotomy",  );*/
     }
 
-    private CheckBox getCheckbox(int id) {
-        return (CheckBox)findViewById(id);
-    }
 
-    private Spinner getSpinner(int id) {
-        return (Spinner)findViewById(id);
-    }
-
-    private RadioGroup getRadioGroup(int id) {
-        return (RadioGroup)findViewById(id);
-    }
-
-    private RadioButton getRadioButton(int id) {
-        return (RadioButton)findViewById(id);
-    }
-
-    private EditText getEditText(int id) {
-        return (EditText)findViewById(id);
-    }
-
-    private TextView getTextView(int id) {
-        return (TextView)findViewById(id);
-    }
 }
