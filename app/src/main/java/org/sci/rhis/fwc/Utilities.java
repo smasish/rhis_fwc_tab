@@ -125,7 +125,7 @@ public class Utilities {
     public static void setCheckboxes(HashMap<String, CheckBox> keyMap, JSONObject json) {
         for (String key: keyMap.keySet()) {
             try {
-                keyMap.get(key).setChecked((json.getInt(key) == 1));
+                keyMap.get(key).setChecked((json.getString(key).equals("1")));
             } catch (JSONException jse) {
                 System.out.println("The JSON key: '" + key+ "' does not exist");
             }
