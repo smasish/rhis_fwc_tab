@@ -1,6 +1,7 @@
 package org.sci.rhis.fwc;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,16 +41,17 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     private int deliveryMinute;
     private PregWoman mother;
     private ProviderInfo provider;
-    private HashMap<String, CheckBox> jsonCheckboxMap;
-    private HashMap<String, Spinner> jsonSpinnerMap;
-    private HashMap<String, HashMap<RadioGroup, Pair<RadioButton,RadioButton>>> jsonRadioGroupButtonMap;
-    private HashMap<String, EditText> jsonEditTextMap;
-    private HashMap<String, EditText> jsonEditTextDateMap;
+
+    final private String SERVLET = "delivery";
+    final private String ROOTKEY = "deliveryInfo";
+
+    SendPostRequestAsyncTask deliveryInfoHandlerTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery);
+        initialize(); //super class
         Spinner spinners[] = new Spinner[3];
         spinners[0] = (Spinner) findViewById(R.id.delivery_placeDropdown);
         spinners[1] = (Spinner) findViewById(R.id.id_facility_name_Dropdown);
@@ -66,25 +68,6 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         //hourField = (EditText)findViewById(R.id.delivery_time_hour);
         //minuteField = (EditText)findViewById(R.id.delivery_time_minute);
 
-        //populate checkboxes
-        jsonCheckboxMap = new HashMap<String, CheckBox>();
-        initiateCheckbox();
-
-        //populate Spinners
-        jsonSpinnerMap = new HashMap<String, Spinner>();
-        initiateSpinners();
-
-        //populate RadioGroupButtons
-        jsonRadioGroupButtonMap = new HashMap<String, HashMap<RadioGroup, Pair<RadioButton,RadioButton>>>();
-        populateRadioGroups();
-
-        //populate EditTexts
-        jsonEditTextMap = new HashMap<String, EditText>();
-        initiateEditTexts();
-
-        //populate EditTexts
-        jsonEditTextDateMap = new HashMap<String, EditText>();
-        initiateEditTextDates();
 
         //populateEditTextTimes();
 
@@ -102,15 +85,22 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         provider = getIntent().getParcelableExtra("Provider");
 
         //get info from database
-        String queryString =   "{" +
+        String queryString = "";
+                /* =
+                "{" +
                 "healthid:" + mother.getHealthId() + "," +
                 "pregno:" + mother.getPregNo() + "," +
                 "deliveryLoad:" + "retrieve" +
-                "}";
-        String servlet = "delivery";
-        String jsonRootkey = "deliveryInfo";
-        SendPostRequestAsyncTask retrieveDelivery = new AsyncDeliveryInfoUpdate(this);
-        retrieveDelivery.execute(queryString, servlet, jsonRootkey);
+                "}"*/
+                ;
+        //String
+        try {
+            queryString = buildQueryHeader(true).toString();
+        } catch (JSONException JSE) {
+            Log.e("Delivery", "Could not build query String: " + JSE.getMessage());
+        }
+        deliveryInfoHandlerTask = new AsyncDeliveryInfoUpdate(this);
+        deliveryInfoHandlerTask.execute(queryString, SERVLET, ROOTKEY);
     }
 
     @Override
@@ -174,9 +164,10 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         switch (parent.getId()) {
             case R.id.delivery_placeDropdown:
                 System.out.println("Hit the Place Spinner");
-                section = new LinearLayout[2];
+                section = new LinearLayout[3];
                 section [0] = (LinearLayout) findViewById(R.id.id_facililties_section_layout);
-                section [1] = (LinearLayout) findViewById(R.id.id_Epcotomi_section_layout);
+                section [1] = (LinearLayout) findViewById(R.id.id_facililties_admission_layout);
+                section [2] = (LinearLayout) findViewById(R.id.id_Epcotomi_section_layout);
 
                 for(int i = 0; i < section.length; ++i) {
                     section[i].setVisibility( position == 0? View.GONE:View.VISIBLE); //0 - home
@@ -217,12 +208,12 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
     @Override
     public void onClick(View view) {
-        if(view.getTag().equals("DateField")) {
+        if(view.getTag() != null && view.getTag().equals("DateField")) {
             datePickerDialog.show(datePickerPair.get(view.getId()));
         }
 
         if(view.getId() == R.id.id_saveDeliveryButton) {
-
+            saveToJson();
         }
     }
 
@@ -244,7 +235,8 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
     }
 
-    private void initiateCheckbox() {
+    @Override
+    protected void initiateCheckboxes() {
         //AMTSL
         jsonCheckboxMap.put("dOxytocin", getCheckbox(R.id.oxytocin));
         jsonCheckboxMap.put("dTraction", getCheckbox(R.id.controlChordTraction));
@@ -265,7 +257,8 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
     }
 
-    private void initiateSpinners() {
+    @Override
+    protected void initiateSpinners() {
         jsonSpinnerMap.put("dPlace", getSpinner(R.id.delivery_placeDropdown)); //place
         jsonSpinnerMap.put("dType", getSpinner(R.id.delivery_typeDropdown)); //type
         //jsonSpinnerMap.put("dPlace", getSpinner(R.id.delivery_time_Dropdown)); //time
@@ -275,7 +268,8 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         jsonSpinnerMap.put("dReferCenter", getSpinner(R.id.id_spinner_refer_facilities)); //refercenter
     }
 
-    private void initiateEditTexts() {
+    @Override
+    protected void initiateEditTexts() {
         //admission details
         jsonEditTextMap.put("dWard", getEditText(R.id.id_ward));
         jsonEditTextMap.put("dBed", getEditText(R.id.id_bed));
@@ -291,7 +285,8 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         jsonEditTextMap.put("dNewBornUnidentified",getEditText(R.id.notDetected));
     }
 
-    private void initiateEditTextDates() {
+    @Override
+    protected void initiateEditTextDates() {
         jsonEditTextDateMap.put("dDate", getEditText(R.id.id_delivery_date));
         jsonEditTextDateMap.put("dAdmissionDate", getEditText(R.id.id_admissionDate));
     }
@@ -335,13 +330,20 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     }
 
     private void saveToJson() {
-        JSONObject json = new JSONObject();
-        Utilities.setCheckboxes(jsonCheckboxMap, json);
-        Utilities.setEditTexts(jsonEditTextMap, json);
-        Utilities.setEditTextDates(jsonEditTextDateMap, json);
+        JSONObject json;
+        try {
+            json = buildQueryHeader(false);
+            Utilities.getCheckboxes(jsonCheckboxMap, json);
+            Utilities.getEditTexts(jsonEditTextMap, json);
+            Utilities.getEditTextDates(jsonEditTextDateMap, json);
+        } catch (JSONException jse) {
+            Log.e("Delivery", "JSON Exception: " + jse.getMessage());
+        }
+
     }
 
-    private void populateRadioGroups() {
+    @Override
+    protected void initiateRadioGroups() {
 
         /*Pair<RadioButton, RadioButton> radioGroupPairEpc =
                 new Pair<RadioButton, RadioButton>(
@@ -357,5 +359,16 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         jsonRadioGroupButtonMap.put("dEpisiotomy",  );*/
     }
 
+    private JSONObject buildQueryHeader(boolean isRetrieval) throws JSONException {
+        //get info from database
+        String queryString =   "{" +
+                "healthid:" + mother.getHealthId() + "," +
+                "pregno:" + mother.getPregNo() + "," +
+                "deliveryLoad:" + (isRetrieval? "retrieve":"") +
+                "}";
 
+        //SendPostRequestAsyncTask retrieveDelivery = new AsyncDeliveryInfoUpdate(this);
+        //retrieveDelivery.execute(queryString, SERVLET, ROOTKEY);
+        return new JSONObject(queryString);
+    }
 }

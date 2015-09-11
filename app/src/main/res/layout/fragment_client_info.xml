@@ -457,7 +457,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/lines_birth"
-                android:id="@+id/linesBirthCheckBox" />
+                android:id="@+id/blockedDeliveryCheckBox" />
 
             <CheckBox
                     android:textSize="20dp"
