@@ -55,7 +55,11 @@ public class Utilities {
                 (view).setFocusable(false);
                // (view).setEnabled(false);
             }
+            else if (view instanceof CheckBox) {
 
+                ((CheckBox) view).setCursorVisible(false);
+                ((CheckBox) view).setKeyListener(null);
+            }
 
             else {
                 System.out.print(testgroup);
