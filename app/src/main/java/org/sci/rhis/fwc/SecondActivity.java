@@ -4,29 +4,36 @@ package org.sci.rhis.fwc;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Vector;
 
 public class SecondActivity extends ClinicalServiceActivity {
 
-    Button button;
-    PregWoman woman;
+    private Button button;
+    private PregWoman woman;
+    private Vector<Pair<String, Integer>>  deliveryHistoryMapping;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+        initialize();//super class
 
         Spinner staticSpinner = (Spinner) findViewById(R.id.ClientsIdentityDropdown);
         // Create an ArrayAdapter using the string array and a default spinner
@@ -42,6 +49,8 @@ public class SecondActivity extends ClinicalServiceActivity {
         staticSpinner.setAdapter(staticAdapter);
         addListenerOnButton();
     }
+
+
 
     public void startSearch(View view) {
         Spinner searchOptions = (Spinner)findViewById(R.id.ClientsIdentityDropdown);
@@ -65,6 +74,7 @@ public class SecondActivity extends ClinicalServiceActivity {
                 + /*Adding 1 to match HTML index where healthID starts from 1*/
                 " text: " + id);
     }
+
     private void populateClientDetails(JSONObject json, HashMap<String, Integer> fieldMapping) {
         Iterator<String> i = fieldMapping.keySet().iterator();
         String key;
@@ -81,9 +91,12 @@ public class SecondActivity extends ClinicalServiceActivity {
             }
         }
 
-        HashMap<String, Spinner> clientSpinnerMap= new HashMap<>(1); //fixed capacity ??
-        clientSpinnerMap.put("cBloodGroup", (Spinner)findViewById(R.id.Blood_Group_Dropdown));
-        Utilities.updateSpinners(clientSpinnerMap, json, this);
+        HashMap<String, Pair<Spinner, Integer>> clientSpinnerMap= new HashMap<>(1); //fixed capacity ??
+        clientSpinnerMap.put("cBloodGroup", Pair.create((Spinner) findViewById(R.id.Blood_Group_Dropdown), R.array.Blood_Group_Dropdown));
+
+        manipulateJson(json);
+        Utilities.setSpinners(clientSpinnerMap, json, this);
+        Utilities.setCheckboxes(jsonCheckboxMap, json);
     }
 
     @Override
@@ -163,5 +176,74 @@ public class SecondActivity extends ClinicalServiceActivity {
         }
         return true;
     }
+
+    private void initializeJsonManipulation() {
+        deliveryHistoryMapping = new Vector<Pair<String, Integer>>(8);
+        //The prder is important
+        deliveryHistoryMapping.addElement(Pair.create("bleeding",        R.id.previousDeliveryBleedingCheckBox)); //0
+        deliveryHistoryMapping.addElement(Pair.create("delayedDelivery", R.id.delayedBirthCheckBox));//1
+        deliveryHistoryMapping.addElement(Pair.create("blockedDelivery", R.id.blockedDeliveryCheckBox));//2
+        deliveryHistoryMapping.addElement(Pair.create("blockedPlacenta", R.id.placentaInsideUterusCheckBox));//3
+        deliveryHistoryMapping.addElement(Pair.create("deadBirth",       R.id.giveBirthDeadCheckBox));//4
+        deliveryHistoryMapping.addElement(Pair.create("lived48Hour",     R.id.newbornDieWithin48hoursCheckBox));//5
+        deliveryHistoryMapping.addElement(Pair.create("edemaSwelling",   R.id.swellingLegsOrWholeBodyCheckBox));//6
+        deliveryHistoryMapping.addElement(Pair.create("convulsion",      R.id.withConvulsionSenselessCheckBox));//7
+    }
+
+    private void manipulateJson(JSONObject json) {
+        try {
+            String [] array = json.getString("cHistoryComplicatedContent").split(",");
+            int length = array.length;
+
+            for(int i = 0; i < array.length; i++) {
+                json.put(
+                        deliveryHistoryMapping.get(Integer.valueOf(array[i])-1).first, 1);// 1- checked, 2 - unchecked
+                        //deliveryHistoryMapping.get(Integer.valueOf(array[i])).second);
+            }
+        } catch (JSONException jse) {
+            jse.getMessage();
+            jse.printStackTrace();
+
+        }
+    }
+
+    //The following methods are all required for all the activities that updates information
+    //from user interface
+    @Override
+    protected void initiateCheckboxes(){
+        //TT
+        jsonCheckboxMap.put("cTT1", getCheckbox(R.id.Clients_TT_Tika1));
+        jsonCheckboxMap.put("cTT2", getCheckbox(R.id.Clients_TT_Tika2));
+        jsonCheckboxMap.put("cTT3", getCheckbox(R.id.Clients_TT_Tika3));
+        jsonCheckboxMap.put("cTT4", getCheckbox(R.id.Clients_TT_Tika4));
+        jsonCheckboxMap.put("cTT5", getCheckbox(R.id.Clients_TT_Tika5));
+
+        //Complicated Delivery History
+        //NOTE: These JSON keys are not present in the Servlet response
+        //The response will be manipulated to trick Checkbox handlers
+        //so everything is handled in a general way.
+        //manipulate json
+        initializeJsonManipulation();
+        for ( Pair<String, Integer> pair:deliveryHistoryMapping) {
+            jsonCheckboxMap.put(pair.first, getCheckbox(pair.second));
+        }
+        /*jsonCheckboxMap.put("bleeding",         getCheckbox(R.id.previousDeliveryBleedingCheckBox));
+        jsonCheckboxMap.put("delayedDelivery",  getCheckbox(R.id.delayedBirthCheckBox));
+        jsonCheckboxMap.put("blockedDelivery",  getCheckbox(R.id.blockedDeliveryCheckBox));
+        jsonCheckboxMap.put("blockedPlacenta",  getCheckbox(R.id.placentaInsideUterusCheckBox));
+        jsonCheckboxMap.put("deadBirth",        getCheckbox(R.id.giveBirthDeadCheckBox));
+        jsonCheckboxMap.put("lived48Hour",      getCheckbox(R.id.newbornDieWithin48hoursCheckBox));
+        jsonCheckboxMap.put("edemaSwelling",    getCheckbox(R.id.swellingLegsOrWholeBodyCheckBox));
+        jsonCheckboxMap.put("convulsion",       getCheckbox(R.id.withConvulsionSenselessCheckBox));*/
+    };
+
+    @Override
+    protected void initiateEditTexts(){};
+    @Override
+    protected void initiateSpinners(){};
+    @Override
+    protected void initiateEditTextDates(){};
+    @Override
+    protected void initiateRadioGroups(){};
 
 }

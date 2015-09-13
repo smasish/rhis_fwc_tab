@@ -399,4 +399,15 @@ public class ANCActivity extends ClinicalServiceActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void initiateCheckboxes(){};
+    @Override
+    protected void initiateEditTexts(){};
+    @Override
+    protected void initiateSpinners(){};
+    @Override
+    protected void initiateEditTextDates(){};
+    @Override
+    protected void initiateRadioGroups(){};
 }

@@ -3,6 +3,7 @@ package org.sci.rhis.fwc;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -108,17 +109,23 @@ public class SendPostRequestAsyncTask extends AsyncTask<String, Void, String> {
         return null;
     }
 
-    protected void onProgressUpdate(Integer... values) {}
+    protected void onProgressUpdate(Integer... values) {
+        Toast.makeText(activity, "Network Operation In Progress ...", Toast.LENGTH_LONG).show();
+    }
 
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        if (result != null ) {
-//            Toast.makeText(activity, "HTTP POST is working...", Toast.LENGTH_LONG).show();
-        } else {
-//            Toast.makeText(activity, "Invalid POST req...", Toast.LENGTH_LONG).show();
+        try {
+            if (result != null) {
+                //Toast.makeText(activity, "HTTP POST is working...", Toast.LENGTH_LONG).show();
+            } else {
+                //Toast.makeText(activity, "Invalid POST req...", Toast.LENGTH_LONG).show();
+            }
+            originalRequest.callbackAsyncTask(result);
+        } catch (Exception e) {
+            Log.e("Network", e.toString());
+            e.printStackTrace();
         }
-        originalRequest.callbackAsyncTask(result);
     }
-
 }

@@ -2,6 +2,8 @@ package org.sci.rhis.fwc;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -80,7 +82,8 @@ public class Utilities {
         }
     }
 
-    public static void updateSpinners(HashMap<String,Spinner> keyMap, JSONObject json) {
+    //update by position
+    public static void setSpinners(HashMap<String, Spinner> keyMap, JSONObject json) {
         Spinner spinner;
         for (String key: keyMap.keySet()) {
             try {
@@ -94,16 +97,17 @@ public class Utilities {
         }
     }
 
-    public static void updateSpinners(HashMap<String,Spinner> keyMap, JSONObject json, Context context) {
+    //Update by value
+    public static void setSpinners(HashMap<String, Pair<Spinner, Integer>> keyMap, JSONObject json, Context context) {
         Spinner spinner;
         String compareValue;
 
         for (String key: keyMap.keySet()) {
             try {
-                spinner = keyMap.get(key);
+                spinner = keyMap.get(key).first;
                 if(spinner != null) {
                     //spinner.setSelection((json.getInt(key) - 1));
-                    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.Blood_Group_Dropdown, android.R.layout.simple_spinner_item);
+                    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, keyMap.get(key).second, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner.setAdapter(adapter);
                     compareValue = json.getString(key);
@@ -116,21 +120,41 @@ public class Utilities {
                 System.out.println("The JSON key: '" + key+ "' does not exist");
             }
         }
-
-
     }
 
-    public static void updateCheckboxes(HashMap<String,CheckBox> keyMap, JSONObject json) {
+    public static void setCheckboxes(HashMap<String, CheckBox> keyMap, JSONObject json) {
         for (String key: keyMap.keySet()) {
             try {
-                keyMap.get(key).setChecked((json.getInt(key) == 1));
+                keyMap.get(key).setChecked((json.getString(key).equals("1")));
             } catch (JSONException jse) {
                 System.out.println("The JSON key: '" + key+ "' does not exist");
             }
         }
     }
 
-    public static void updateEditTexts(HashMap<String,EditText> keyMap, JSONObject json) {
+    public static void getCheckboxes(HashMap<String, CheckBox> keyMap, JSONObject json) {
+        for (String key: keyMap.keySet()) {
+            try {
+                //keyMap.get(key).setChecked((json.getInt(key) == 1));
+                json.put(key, (keyMap.get(key).isChecked() ? 1 : 2));
+            } catch (JSONException jse) {
+                System.out.println("The JSON key: '" + key+ "' does not exist");
+            }
+        }
+    }
+
+    public static void getEditTexts(HashMap<String, EditText> keyMap, JSONObject json) {
+        for (String key: keyMap.keySet()) {
+            try {
+                //keyMap.get(key).setText(json.getString(key));
+                json.put(key, (keyMap.get(key).getText()));
+            } catch (JSONException jse) {
+                System.out.println("The JSON key: '" + key+ "' does not exist");
+            }
+        }
+    }
+
+    public static void setEditTexts(HashMap<String, EditText> keyMap, JSONObject json) {
         for (String key: keyMap.keySet()) {
             try {
                 keyMap.get(key).setText(json.getString(key));
@@ -140,7 +164,7 @@ public class Utilities {
         }
     }
 
-    public static void updateEditTextDates(HashMap<String,EditText> keyMap, JSONObject json) {
+    public static void setEditTextDates(HashMap<String, EditText> keyMap, JSONObject json) {
 
         SimpleDateFormat iformat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat oformat = new SimpleDateFormat("dd/MM/yyyy");
@@ -159,5 +183,25 @@ public class Utilities {
         }
     }
 
+    public static void getEditTextDates(HashMap<String, EditText> keyMap, JSONObject json) {
 
+        SimpleDateFormat iformat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat oformat = new SimpleDateFormat("dd/MM/yyyy");
+        String currentDate;
+        for (String key: keyMap.keySet()) {
+            try {
+                /*currentDate = json.getString(key);
+                if(!currentDate.equals("")) {
+                    keyMap.get(key).setText(oformat.format(iformat.parse(json.getString(key))));
+                }*/
+                json.put(key, iformat.format(oformat.parse(keyMap.get(key).getText().toString())));
+            } catch (JSONException jse) {
+                System.out.println("The JSON key: '" + key+ "' does not exist");
+            } catch (ParseException pe) {
+                System.out.println("Parsing Exception: Could not parse date");
+            } catch (NullPointerException NP) {
+                Log.i("Parse", NP.getMessage());
+            }
+        }
+    }
 }
