@@ -197,8 +197,6 @@ public class ANCActivity extends ClinicalServiceActivity {
 
                     for (int i = 1; i < jsonArray.length(); i++) {
 
-
-
                         if(i == 2){
 
                         }else if(i==3){
