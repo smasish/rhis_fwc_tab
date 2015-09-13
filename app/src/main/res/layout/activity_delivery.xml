@@ -534,19 +534,19 @@
                     android:text="@string/oxytocinGiven"
                     android:textSize="20dp" android:textColor="@color/text_color" />
                 <RadioGroup
-                    android:id="@+id/id_radioGroupOytocin"
+                    android:id="@+id/id_radioGroupMisoprostol"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <RadioButton
-                        android:id="@+id/radioOxytocin_yes"
+                        android:id="@+id/radioMisoprostol_yes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/general_yes"
                     android:textSize="20dp" android:textColor="@color/text_color" />
 
                     <RadioButton
-                        android:id="@+id/radioOxytocin_no"
+                        android:id="@+id/radioMisoprostol_no"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/general_no"
@@ -554,6 +554,49 @@
                 </RadioGroup>
 
             </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/deliveryAttendantDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/id_attendantNameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/providerName"
+                android:textSize="20dp"
+                android:textColor="@color/text_color" />
+
+            <EditText
+                android:id="@+id/id_attendantName"
+                android:layout_width="100dp"
+                android:hint="Provider Name"
+                android:layout_height="50px"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/id_attendantTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/providerTitle"
+                android:textSize="20dp" android:textColor="@color/text_color"/>
+
+            <Spinner
+                android:id="@+id/id_attendantTitleDropdown"
+                android:layout_width="wrap_content"
+                android:layout_height="50px"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:entries="@array/DeliveryAttendant_DropDown"/>
 
         </LinearLayout>
 
@@ -685,11 +728,12 @@
                 android:textSize="20dp" android:textColor="@color/text_color" />
 
             <Spinner
-                android:id="@+id/id_treatment_spinner"
+                android:id="@+id/id_spinner_treatment"
                 android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:entries="@array/Treatment_DropDown"/>
 
             <TextView
                 android:id="@+id/id_general_advice"
@@ -705,7 +749,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:entries="@array/Delivery_Advice_DropDown"/>
 
 
         </LinearLayout>
@@ -771,6 +816,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
+                android:entries="@array/Delivery_Refer_Reason_DropDown"
                 />
         </LinearLayout>
 

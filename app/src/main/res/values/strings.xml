@@ -157,6 +157,18 @@
         <item> PM </item>
     </string-array>
 
+    <string-array name="DeliveryAttendant_DropDown">
+        <item>ডাক্তার</item>
+        <item>নার্স</item>
+        <item>পরিবার কল্যাণ পরিদর্শিকা (এফ.ডব্লিউ.ভি)</item>
+        <item>উপ-সহকারী কমিউনিটি মেডিকেল অফিসার (এস.এ.সি.এম.ও)</item>
+        <item>প্যারামেডিক্স </item>
+        <item>স্বাস্থ্য সহকারী (এইচ.এ)/(সি.এস.বি.এ)</item>
+        <item>পরিবার কল্যাণ সহকারী (এফ.ডব্লিউ.এ)/(সি.এস.বি.এ)</item>
+        <item>ধাত্রী (টি.বি.এ)</item>
+        <item>আত্মীয়/প্রতিবেশী</item>
+    </string-array>
+
      <string name="anc_title">" প্রসব সংক্রান্ত তথ্য "</string>
     <string name="visit">"পরিদর্শন:"</string>
     <string name="service_date">"সেবাগ্রহনের তারিখ:"</string>
