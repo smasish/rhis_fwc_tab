@@ -50,8 +50,6 @@ public class SecondActivity extends ClinicalServiceActivity {
         addListenerOnButton();
     }
 
-
-
     public void startSearch(View view) {
         Spinner searchOptions = (Spinner)findViewById(R.id.ClientsIdentityDropdown);
         EditText searchableId = (EditText)findViewById(R.id.searchableTextId);
@@ -196,14 +194,11 @@ public class SecondActivity extends ClinicalServiceActivity {
             int length = array.length;
 
             for(int i = 0; i < array.length; i++) {
-                json.put(
-                        deliveryHistoryMapping.get(Integer.valueOf(array[i])-1).first, 1);// 1- checked, 2 - unchecked
-                        //deliveryHistoryMapping.get(Integer.valueOf(array[i])).second);
+                json.put(deliveryHistoryMapping.get(Integer.valueOf(array[i])-1).first, 1);// 1- checked, 2 - unchecked
             }
         } catch (JSONException jse) {
             jse.getMessage();
             jse.printStackTrace();
-
         }
     }
 
@@ -227,14 +222,6 @@ public class SecondActivity extends ClinicalServiceActivity {
         for ( Pair<String, Integer> pair:deliveryHistoryMapping) {
             jsonCheckboxMap.put(pair.first, getCheckbox(pair.second));
         }
-        /*jsonCheckboxMap.put("bleeding",         getCheckbox(R.id.previousDeliveryBleedingCheckBox));
-        jsonCheckboxMap.put("delayedDelivery",  getCheckbox(R.id.delayedBirthCheckBox));
-        jsonCheckboxMap.put("blockedDelivery",  getCheckbox(R.id.blockedDeliveryCheckBox));
-        jsonCheckboxMap.put("blockedPlacenta",  getCheckbox(R.id.placentaInsideUterusCheckBox));
-        jsonCheckboxMap.put("deadBirth",        getCheckbox(R.id.giveBirthDeadCheckBox));
-        jsonCheckboxMap.put("lived48Hour",      getCheckbox(R.id.newbornDieWithin48hoursCheckBox));
-        jsonCheckboxMap.put("edemaSwelling",    getCheckbox(R.id.swellingLegsOrWholeBodyCheckBox));
-        jsonCheckboxMap.put("convulsion",       getCheckbox(R.id.withConvulsionSenselessCheckBox));*/
     };
 
     @Override
