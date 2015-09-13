@@ -60,6 +60,11 @@ public class Utilities {
                 ((CheckBox) view).setCursorVisible(false);
                 ((CheckBox) view).setKeyListener(null);
             }
+            else if (view instanceof RadioButton) {
+
+                ((RadioButton) view).setCursorVisible(false);
+                ((RadioButton) view).setKeyListener(null);
+            }
 
             else {
                 System.out.print(testgroup);
