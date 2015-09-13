@@ -27,19 +27,6 @@ import java.util.HashMap;
  */
 public class Utilities {
 
- /**
-   public static void DisableTextFields(Activity activity, int id) {
-        ViewGroup group = (ViewGroup)activity.findViewById(id);
-        for (int i = 0,  count = group != null ? group.getChildCount(): 0; i < count; ++i) {
-            View view = group.getChildAt(i);
-            if (view instanceof EditText) {
-                //((EditText)view).setText("");//here it will be clear all the EditText field
-                ((EditText)view).setFocusable(false);
-            }
-        }
-    }
-*/
-
     // This method added by Al Amin on 10/09/2015 (dd/MM/yyyy)
     public static void Disable(Activity activity, int id) {
 
@@ -64,6 +51,11 @@ public class Utilities {
 
                 ((RadioButton) view).setCursorVisible(false);
                 ((RadioButton) view).setKeyListener(null);
+            }
+            else if (view instanceof Spinner) {
+
+                ((Spinner) view).setClickable(false);
+                //((Spinner) view).setKeyListener(null);
             }
 
             else {
