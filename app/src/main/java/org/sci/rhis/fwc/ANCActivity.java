@@ -400,14 +400,49 @@ public class ANCActivity extends ClinicalServiceActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     @Override
-    protected void initiateCheckboxes(){};
-    @Override
-    protected void initiateEditTexts(){};
-    @Override
-    protected void initiateSpinners(){};
-    @Override
-    protected void initiateEditTextDates(){};
+    protected void initiateCheckboxes(){
+        jsonCheckboxMap.put("ancrefer", getCheckbox(R.id.ancReferCheckBox));
+    };
+
     @Override
     protected void initiateRadioGroups(){};
+
+
+    @Override
+    protected void initiateSpinners() {
+        jsonSpinnerMap.put("ancedema", getSpinner(R.id.ancEdemaSpinner));
+        jsonSpinnerMap.put("ancfpresentation", getSpinner(R.id.ancFetalPresentationSpinner));
+        jsonSpinnerMap.put("ancjaundice", getSpinner(R.id.ancJaundiceSpinner));
+        jsonSpinnerMap.put("ancsugar", getSpinner(R.id.ancUrineSugarSpinner));
+        jsonSpinnerMap.put("ancalbumin", getSpinner(R.id.ancUrineAlbuminSpinner));
+        jsonSpinnerMap.put("anccomplication", getSpinner(R.id.ancDangerSignsSpinner));
+        jsonSpinnerMap.put("ancsymptom", getSpinner(R.id.ancDrawbackSpinner));
+        jsonSpinnerMap.put("ancdisease", getSpinner(R.id.ancDiseaseSpinner));
+        jsonSpinnerMap.put("anctreatment", getSpinner(R.id.ancTreatmentSpinner));
+        jsonSpinnerMap.put("ancadvice", getSpinner(R.id.ancAdviceSpinner));
+        jsonSpinnerMap.put("anccentername", getSpinner(R.id.ancReferCenterNameSpinner));
+        jsonSpinnerMap.put("ancreferreason", getSpinner(R.id.ancReasonSpinner));
+    }
+
+    @Override
+    protected void initiateEditTexts() {
+        //anc visit
+        jsonEditTextMap.put("pregNo", getEditText(R.id.ancVisitValue));
+        jsonEditTextMap.put("ancbpsys", getEditText(R.id.ancBloodPresserValueSystolic));
+        jsonEditTextMap.put("ancbpdias", getEditText(R.id.ancBloodPresserValueDiastolic));
+        jsonEditTextMap.put("ancweight",getEditText(R.id.ancWeightValue));
+        jsonEditTextMap.put("ancuheight",getEditText(R.id.ancUterusHeightValue));
+        jsonEditTextMap.put("anchrate",getEditText(R.id.ancHeartSpeedValue));
+        jsonEditTextMap.put("anchemoglobin",getEditText(R.id.ancAnemiaHemoglobinValue));
+       }
+
+    @Override
+    protected void initiateEditTextDates() {
+        // ANC Service Date
+        jsonEditTextDateMap.put("ancdate", getEditText(R.id.ancServiceDateValue));
+    }
+
+
 }
