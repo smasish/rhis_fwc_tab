@@ -19,42 +19,32 @@
             android:scrollbars="none"
             android:orientation="horizontal"
             android:layout_margin="0dp"
+            android:id="@+id/llay"
+            style="@style/rowHeading"
             android:padding="0dp" android:background="#F3F3F3">
 
 
-           <!-- <GridView
-                android:id="@+id/gridAncVisit"
-                android:layout_width="320dp"
-                android:numColumns="5"
-                android:stretchMode="columnWidth"
-                android:layout_height="wrap_content"
-                android:scrollbars="horizontal"
-                android:horizontalSpacing="5sp" />-->
+            <!-- <GridView
+                 android:id="@+id/gridAncVisit"
+                 android:layout_width="320dp"
+                 android:numColumns="5"
+                 android:stretchMode="columnWidth"
+                 android:layout_height="wrap_content"
+                 android:scrollbars="horizontal"
+                 android:horizontalSpacing="5sp" />-->
 
 
-            <ExpandableListView
-                android:id="@+id/lvExp"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:scrollbarTrackHorizontal="@drawable/abc_btn_check_material"
+            <!-- <ExpandableListView
+                 android:id="@+id/lvExp"
+                 android:layout_height="match_parent"
+                 android:layout_width="match_parent"
+                 android:scrollbarTrackHorizontal="@drawable/abc_btn_check_material"
 
-                android:cacheColorHint="#00000000"/>
+                 android:cacheColorHint="#00000000"/>
 
-            <ExpandableListView
-                android:id="@+id/lvExp2"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:scrollbarTrackHorizontal="@drawable/abc_btn_check_material"
+             -->
 
-                android:cacheColorHint="#00000000"/>
 
-            <ExpandableListView
-                android:id="@+id/lvExp3"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:scrollbarTrackHorizontal="@drawable/abc_btn_check_material"
-
-                android:cacheColorHint="#00000000"/>
 
         </LinearLayout>
     </HorizontalScrollView>

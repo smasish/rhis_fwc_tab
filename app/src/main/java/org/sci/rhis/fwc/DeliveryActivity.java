@@ -45,7 +45,8 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     final private String SERVLET = "delivery";
     final private String ROOTKEY = "deliveryInfo";
 
-    SendPostRequestAsyncTask deliveryInfoHandlerTask;
+    AsyncDeliveryInfoUpdate deliveryInfoQueryTask;
+    AsyncDeliveryInfoUpdate deliveryInfoUpdateTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,8 +100,8 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         } catch (JSONException JSE) {
             Log.e("Delivery", "Could not build query String: " + JSE.getMessage());
         }
-        deliveryInfoHandlerTask = new AsyncDeliveryInfoUpdate(this);
-        deliveryInfoHandlerTask.execute(queryString, SERVLET, ROOTKEY);
+        deliveryInfoQueryTask = new AsyncDeliveryInfoUpdate(this);
+        deliveryInfoQueryTask.execute(queryString, SERVLET, ROOTKEY);
     }
 
     @Override
@@ -263,9 +264,11 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         jsonSpinnerMap.put("dType", getSpinner(R.id.delivery_typeDropdown)); //type
         //jsonSpinnerMap.put("dPlace", getSpinner(R.id.delivery_time_Dropdown)); //time
         jsonSpinnerMap.put("dCenterName", getSpinner(R.id.id_facility_name_Dropdown));
-        //jsonSpinnerMap.put("dPlace", getSpinner(R.id.delivery_time_Dropdown)); //treatment
-        //jsonSpinnerMap.put("dPlace", getSpinner(R.id.delivery_time_Dropdown)); //advice
+        jsonSpinnerMap.put("dAttendantDesignation", getSpinner(R.id.id_attendantTitleDropdown)); //deliveryAttendant
+        jsonSpinnerMap.put("dTreatment", getSpinner(R.id.id_spinner_treatment)); //treatment
+        jsonSpinnerMap.put("dAdvice", getSpinner(R.id.id_spinner_advice)); //advice
         jsonSpinnerMap.put("dReferCenter", getSpinner(R.id.id_spinner_refer_facilities)); //refercenter
+        jsonSpinnerMap.put("dReferReason", getSpinner(R.id.id_spinner_refer_delivery_cause)); //refer reason
     }
 
     @Override
@@ -276,13 +279,14 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
         //new born details
         jsonEditTextMap.put("dNoLiveBirth", getEditText(R.id.Live_born));
-
-        //TODO Al-Amin: populate child details
         jsonEditTextMap.put("dStillFresh",getEditText(R.id.Dead_born_fresh));
         jsonEditTextMap.put("dStillMacerated",getEditText(R.id.Dead_born_macerated));
         jsonEditTextMap.put("dNewBornBoy",getEditText(R.id.son));
         jsonEditTextMap.put("dNewBornGirl",getEditText(R.id.daughter));
         jsonEditTextMap.put("dNewBornUnidentified",getEditText(R.id.notDetected));
+
+        //attendant name
+        jsonEditTextMap.put("dAttendantName",getEditText(R.id.id_attendantName));
     }
 
     @Override
@@ -308,6 +312,18 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         }
     }
 
+    private void getEditTextTime(JSONObject json) {
+
+        String time = getEditText(R.id.delivery_time_hour).getText().toString();
+        time += ":" + getEditText(R.id.delivery_time_minute).getText().toString();
+        time += " " + getSpinner(R.id.delivery_time_Dropdown).getSelectedItem().toString();
+        try {
+            json.put("dTime", time);
+        } catch (JSONException jse) {
+
+        }
+    }
+
     private void updateRadioButtons(JSONObject json) {
 
         RadioGroup radioGroup;
@@ -320,9 +336,9 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             }
 
             if (json.getString("dMisoprostol").equals("1")) {
-                getRadioGroup(R.id.id_radioGroupOytocin).check(R.id.radioOxytocin_yes);
+                getRadioGroup(R.id.id_radioGroupMisoprostol).check(R.id.radioMisoprostol_yes);
             } else if (json.getString("dMisoprostol").equals("2")) {
-                getRadioGroup(R.id.id_radioGroupOytocin).check(R.id.radioOxytocin_no);
+                getRadioGroup(R.id.id_radioGroupMisoprostol).check(R.id.radioMisoprostol_no);
             }
         } catch (JSONException jse) {
             System.out.println("The JSON key:  does not exist");
@@ -330,41 +346,84 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     }
 
     private void saveToJson() {
+        deliveryInfoUpdateTask = new AsyncDeliveryInfoUpdate(this);
         JSONObject json;
         try {
             json = buildQueryHeader(false);
             Utilities.getCheckboxes(jsonCheckboxMap, json);
             Utilities.getEditTexts(jsonEditTextMap, json);
             Utilities.getEditTextDates(jsonEditTextDateMap, json);
+            Utilities.getSpinners(jsonSpinnerMap, json);
+            Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
+            getEditTextTime(json);
+            getSpecialCases(json);
+            deliveryInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
         } catch (JSONException jse) {
             Log.e("Delivery", "JSON Exception: " + jse.getMessage());
         }
 
     }
 
+    public void getSpecialCases(JSONObject json) {
+        try {
+            json.put("dOther", ""); //other delivery complicacies
+            json.put("dOtherReason", ""); //other delivery complicacies
+            int id[] = {R.id.Dead_born_fresh, R.id.Dead_born_macerated};
+            int stillBirth = 0;
+            String temp = "";
+            for(int i = 0; i < 2; i++) {
+                temp = getEditText(id[i]).getText().toString();
+                if(!temp.equals("")) {
+                    stillBirth += Integer.valueOf(temp);
+                }
+            }
+            json.put("dNoStillBirth", stillBirth);
+        } catch (JSONException jse) {
+
+        }
+    }
+
     @Override
     protected void initiateRadioGroups() {
 
-        /*Pair<RadioButton, RadioButton> radioGroupPairEpc =
-                new Pair<RadioButton, RadioButton>(
-                        getRadioButton(R.id.radioEpc_yes),
-                        getRadioButton(R.id.radioEpc_no));
-        Pair<RadioButton, RadioButton> radioGroupPairOxytocin =
-                new Pair<RadioButton, RadioButton>(
-                        getRadioButton(R.id.radioOxytocin_yes),
-                        getRadioButton(R.id.radioOxytocin_no));
+        jsonRadioGroupButtonMap.put("dEpisiotomy", Pair.create(
+            getRadioGroup(R.id.id_radioGroupEpctiomi), Pair.create(
+                getRadioButton(R.id.radioEpc_yes),
+                getRadioButton(R.id.radioEpc_no))
+            )
+        );
 
-        HashMap<RadioGroup, Pair<RadioButton, RadioButton>>
+        jsonRadioGroupButtonMap.put("dMisoprostol", Pair.create(
+                        getRadioGroup(R.id.id_radioGroupMisoprostol), Pair.create(
+                                getRadioButton(R.id.radioMisoprostol_yes),
+                                getRadioButton(R.id.radioMisoprostol_no))
+                )
+        );
 
-        jsonRadioGroupButtonMap.put("dEpisiotomy",  );*/
+
+    }
+
+    private HashMap<RadioGroup, Pair<RadioButton, RadioButton>> getRadioMap(int groupId, int yesId, int noId) {
+
+        HashMap<RadioGroup, Pair<RadioButton, RadioButton>> temp
+                = new HashMap<RadioGroup, Pair<RadioButton, RadioButton>>();
+        temp.put(
+                getRadioGroup(groupId),
+                Pair.create(
+                        getRadioButton(yesId),
+                        getRadioButton(noId)
+                )
+        );
+        return temp;
     }
 
     private JSONObject buildQueryHeader(boolean isRetrieval) throws JSONException {
         //get info from database
         String queryString =   "{" +
                 "healthid:" + mother.getHealthId() + "," +
+                (isRetrieval ? "": "providerid:\""+String.valueOf(provider.getProviderCode())+"\",") +
                 "pregno:" + mother.getPregNo() + "," +
-                "deliveryLoad:" + (isRetrieval? "retrieve":"") +
+                "deliveryLoad:" + (isRetrieval? "retrieve":"\"\"") +
                 "}";
 
         //SendPostRequestAsyncTask retrieveDelivery = new AsyncDeliveryInfoUpdate(this);

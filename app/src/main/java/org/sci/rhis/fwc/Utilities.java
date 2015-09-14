@@ -64,6 +64,21 @@ public class Utilities {
         }
     }
 
+    public static void getSpinners(HashMap<String, Spinner> keyMap, JSONObject json) {
+        Spinner spinner;
+        for (String key: keyMap.keySet()) {
+            try {
+                spinner = keyMap.get(key);
+                if(spinner != null) {
+                    //spinner.setSelection((json.getInt(key) - 1));
+                    json.put(key, String.valueOf(spinner.getSelectedItemPosition()+1));
+                }
+            } catch (JSONException jse) {
+                System.out.println("The JSON key: '" + key+ "' does not exist");
+            }
+        }
+    }
+
     //update by position
     public static void setSpinners(HashMap<String, Spinner> keyMap, JSONObject json) {
         Spinner spinner;
@@ -183,6 +198,45 @@ public class Utilities {
                 System.out.println("Parsing Exception: Could not parse date");
             } catch (NullPointerException NP) {
                 Log.i("Parse", NP.getMessage());
+            }
+        }
+    }
+
+    public static void getRadioGroupButtons(HashMap<String, Pair<RadioGroup, Pair<RadioButton,RadioButton>>> keyMap, JSONObject json) {
+        for (String key: keyMap.keySet()) {
+            try {
+
+                String value = "";
+                if(keyMap.get(key).first.getCheckedRadioButtonId() == keyMap.get(key).second.first.getId()) {
+                    value = "1";
+                } else if (keyMap.get(key).first.getCheckedRadioButtonId() == keyMap.get(key).second.second.getId()) {
+                    value = "2";
+                }
+                json.put(key, value);
+
+            } catch (JSONException jse) {
+                Log.i("Utility", "'" + key + "' does not exist");
+            } catch (NullPointerException NP) {
+                Log.e("Null Pointer", NP.getMessage());
+            }
+        }
+    }
+
+    public static void setRadioGroupButtons(HashMap<String, Pair<RadioGroup, Pair<RadioButton,RadioButton>>> keyMap, JSONObject json) {
+        for (String key: keyMap.keySet()) {
+            try {
+
+                if (json.getString(key).equals("1")) {
+                    keyMap.get(key).first.check(keyMap.get(key).second.first.getId());
+
+                } else if (json.getString(key).equals("2")) {
+                    keyMap.get(key).first.check(keyMap.get(key).second.second.getId());
+                }
+
+            } catch (JSONException jse) {
+                Log.i("Utility",  "'"+ key + "' does not exist");
+            } catch (NullPointerException NP) {
+                Log.e("Null Pointer", NP.getMessage());
             }
         }
     }

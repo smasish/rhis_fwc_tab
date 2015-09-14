@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -20,6 +22,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class ANCActivity extends ClinicalServiceActivity {
 
@@ -62,7 +65,7 @@ public class ANCActivity extends ClinicalServiceActivity {
     private static final String TAG_CAUSE = "MAN";
 
     JSONArray visits = null;
-
+    LinearLayout ll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,13 +86,20 @@ public class ANCActivity extends ClinicalServiceActivity {
 //        GridView gv = (GridView)findViewById(R.id.gridAncVisit);
  //       gv.setAdapter(new CustomGridAdapter(ANCActivity.this));
 
+        ll = (LinearLayout)findViewById(R.id.llay);
+//        ll.setOrientation(LinearLayout.HORIZONTAL);
+//        ll.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
+//        // ARGB: Opaque Red
+//        ll.setBackgroundColor(0x88ff0000);
 
+        expListView = new ExpandableListView(this);
+        ll.addView(expListView);
         // get the listview
-        expListView = (ExpandableListView) findViewById(R.id.lvExp);
+      //  expListView = (ExpandableListView) findViewById(R.id.lvExp);
 
-        expListView2 = (ExpandableListView) findViewById(R.id.lvExp2);
+    //    expListView2 = (ExpandableListView) findViewById(R.id.lvExp2);
 
-        expListView3 = (ExpandableListView) findViewById(R.id.lvExp3);
+     //   expListView3 = (ExpandableListView) findViewById(R.id.lvExp3);
 
 
 
@@ -123,174 +133,14 @@ public class ANCActivity extends ClinicalServiceActivity {
    //     expListView2.setAdapter(listAdapter2);
    //     expListView3.setAdapter(listAdapter3);
 
-        // Listview Group click listener
-        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v,
-                                        int groupPosition, long id) {
-                // Toast.makeText(getApplicationContext(),
-                // "Group Clicked " + listDataHeader.get(groupPosition),
-                // Toast.LENGTH_SHORT).show();
 
 
 
-                return false;
-            }
-        });
-
-        // Listview Group click listener
-        expListView2.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v,
-                                        int groupPosition, long id) {
-                // Toast.makeText(getApplicationContext(),
-                // "Group Clicked " + listDataHeader.get(groupPosition),
-                // Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
-
-        // Listview Group click listener
-//        expListView3.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-//
-//            @Override
-//            public boolean onGroupClick(ExpandableListView parent, View v,
-//                                        int groupPosition, long id) {
-//                // Toast.makeText(getApplicationContext(),
-//                // "Group Clicked " + listDataHeader.get(groupPosition),
-//                // Toast.LENGTH_SHORT).show();
-//                return false;
-//            }
-//        });
-
-        // Listview Group expanded listener
-        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                Toast.makeText(getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " Expanded",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
 
 
-        // Listview Group expanded listener
-        expListView2.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                Toast.makeText(getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " Expanded",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
 
-        // Listview Group expanded listener
-//        expListView3.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-//
-//            @Override
-//            public void onGroupExpand(int groupPosition) {
-//                Toast.makeText(getApplicationContext(),
-//                        listDataHeader2.get(groupPosition) + " Expanded",
-//                        Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
-        // Listview Group collasped listener
-        expListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-
-            @Override
-            public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " Collapsed",
-                        Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        // Listview Group collasped listener
-        expListView2.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-
-            @Override
-            public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " Collapsed",
-                        Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        // Listview Group collasped listener
-//        expListView3.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-//
-//            @Override
-//            public void onGroupCollapse(int groupPosition) {
-//                Toast.makeText(getApplicationContext(),
-//                        listDataHeader2.get(groupPosition) + " Collapsed",
-//                        Toast.LENGTH_SHORT).show();
-//
-//            }
-//        });
-
-        // Listview on child click listener
-        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
-                // TODO Auto-generated method stub
-                Toast.makeText(
-                        getApplicationContext(),
-                        listDataHeader.get(groupPosition)
-                                + " : "
-                                + listDataChild.get(
-                                listDataHeader.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT)
-                        .show();
-                return false;
-            }
-        });
-
-        // Listview on child click listener
-        expListView2.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
-                // TODO Auto-generated method stub
-                Toast.makeText(
-                        getApplicationContext(),
-                        listDataHeader.get(groupPosition)
-                                + " : "
-                                + listDataChild.get(
-                                listDataHeader.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT)
-                        .show();
-                return false;
-            }
-        });
-
-        // Listview on child click listener
-//        expListView3.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-//
-//            @Override
-//            public boolean onChildClick(ExpandableListView parent, View v,
-//                                        int groupPosition, int childPosition, long id) {
-//                // TODO Auto-generated method stub
-//                Toast.makeText(
-//                        getApplicationContext(),
-//                        listDataHeader3.get(groupPosition)
-//                                + " : "
-//                                + listDataChild3.get(
-//                                listDataHeader3.get(groupPosition)).get(
-//                                childPosition), Toast.LENGTH_SHORT)
-//                        .show();
-//                return false;
-//            }
-//        });
     }
 
 
@@ -334,7 +184,7 @@ public class ANCActivity extends ClinicalServiceActivity {
            // woman = PregWoman.CreatePregWoman(json);
 
             //DEBUG
-            int m = 0;
+
             for ( Iterator<String> ii = jsonStr.keys(); ii.hasNext(); ) {
                 key = ii.next();
 
@@ -345,32 +195,49 @@ public class ANCActivity extends ClinicalServiceActivity {
                 try {
                     JSONArray jsonArray = jsonStr.getJSONArray(key);
 
-                    for (int i = 0; i < jsonArray.length(); i++) {
+                    for (int i = 1; i < jsonArray.length(); i++) {
 
-                        System.out.println("======= "+jsonArray.get(i).toString());
-                        list.add(jsonArray.get(i).toString());
+                        if(i == 2){
+
+                        }else if(i==3){
+                            list.add(jsonArray.get(i-1).toString()+" / "+jsonArray.get(i).toString());
+                        }else
+                            list.add(jsonArray.get(i).toString());
+
 
                     }//end for
                     listDataHeader = new ArrayList<String>();
                     listDataChild = new HashMap<String, List<String>>();
 
 
-                    listDataHeader.add(getString(R.string.history_visit1) + "" + jsonArray.get(0).toString() + " :");
-
+                  //  listDataHeader.add(getString(R.string.history_visit1) + "" + jsonArray.get(0).toString() + " :");
+                    listDataHeader.add("Visit "+jsonArray.get(0).toString() + ":");
                     listDataChild.put(listDataHeader.get(0), list);
 
                     listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
 
                    // expListView = new ExpandableListView(this);
                    // expListView.setAdapter(listAdapter);
-                    if(m==0)
-                    expListView.setAdapter(listAdapter);
-                    else if(m==1)
-                        expListView2.setAdapter(listAdapter);
-                    else if(m==2)
-                        expListView3.setAdapter(listAdapter);
 
-                    m++;
+
+//                    expListView = new ExpandableListView(this);
+//                    expListView.setTranscriptMode(ExpandableListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+//
+//                    expListView.setIndicatorBounds(0, 0);
+//                    expListView.setChildIndicatorBounds(0, 0);
+//                    expListView.setStackFromBottom(true);
+//
+//
+//                    expListView.smoothScrollToPosition(expListView.getCount() - 1);
+
+                    initPage();
+
+                    ll.addView(expListView);
+                    expListView.setScrollingCacheEnabled(true);
+                    expListView.setAdapter(listAdapter);
+                    ll.invalidate();
+                    expListView.setAdapter(listAdapter);
+
 
                 } catch (JSONException e) {
                     Log.e("::::", "onPostExecute > Try > JSONException => " + e);
@@ -383,6 +250,21 @@ public class ANCActivity extends ClinicalServiceActivity {
             System.out.println("JSON Exception Thrown::\n " );
             jse.printStackTrace();
         }
+    }
+    private void initPage() {
+        expListView = new ExpandableListView(this);
+        expListView.setTranscriptMode(ExpandableListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+
+        expListView.setIndicatorBounds(0, 0);
+        expListView.setChildIndicatorBounds(0, 0);
+        expListView.setStackFromBottom(true);
+
+
+      //  expListView.smoothScrollToPosition(expListView.getCount() - 1);
+
+
+
+
     }
 
     @Override

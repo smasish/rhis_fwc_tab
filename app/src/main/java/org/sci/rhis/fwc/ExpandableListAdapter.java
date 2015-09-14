@@ -2,11 +2,13 @@ package org.sci.rhis.fwc;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
@@ -52,6 +54,19 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 				.findViewById(R.id.lblListItem);
 
 		txtListChild.setText(childText);
+
+		convertView.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+
+				Toast.makeText(_context,""+childText, Toast.LENGTH_SHORT).show();
+
+				//here I need to do some things that require me to manipulate the categoriesList from the Activity class - but it is out of scope
+			}
+		});
+
 		return convertView;
 	}
 
