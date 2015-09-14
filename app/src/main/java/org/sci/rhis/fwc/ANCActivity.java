@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.GridView;
@@ -28,7 +30,7 @@ import java.util.Iterator;
 import java.util.List;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class ANCActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+public class ANCActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener{
 
     private PregWoman woman;
     private Date today;
@@ -141,6 +143,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     //    expListView.setAdapter(listAdapter);
    //     expListView2.setAdapter(listAdapter2);
    //     expListView3.setAdapter(listAdapter3);
+
     // Initialize Spinner added By Al Amin
         initialize(); //super class
         Spinner spinners[] = new Spinner[6];
@@ -309,21 +312,23 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+// Have to set condition for Check Box Yet Checked to visible Refer Center, Refer reason
+     if (parent.getId()== R.id.ancReferCheckBox) {
 
-        /*
-        LinearLayout [] section;
-        section = new LinearLayout[6];
-        section [0] = (LinearLayout) findViewById(R.id.ancEdemaLayout);
-        section [1] = (LinearLayout) findViewById(R.id.ancFetalPresentationLayout);
-        section [2] = (LinearLayout) findViewById(R.id.ancJaundiceLayout);
-        section [3] = (LinearLayout) findViewById(R.id.ancUrineSugarLayout);
-        section [4] = (LinearLayout) findViewById(R.id.ancUrineAlbuminLayout);
-        section [5] = (LinearLayout) findViewById(R.id.ancReferCenterNameLayout);
+         System.out.println("Hit the Refer center Spinner");
+         LinearLayout[] section;
+         section = new LinearLayout[2];
+         section[0] = (LinearLayout) findViewById(R.id.ancReferCenterNameLayout);
+         section[1] = (LinearLayout) findViewById(R.id.ancReasonLayout);
 
-        for(int i = 0; i < section.length; ++i) {
-            section[i].setVisibility( position == 0? View.GONE:View.VISIBLE); //0 - home
-        }
-        */
+         for (int i = 0; i < section.length; ++i) {
+             section[i].setVisibility(position == 0 ? View.GONE : View.VISIBLE); //0 - home
+         }
+
+     }
+      else {
+          System.out.println("The condition for Refer is Not working!");
+           }
     }
 
 
@@ -375,4 +380,6 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
+
 }

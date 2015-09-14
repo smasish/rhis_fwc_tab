@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
+import android.widget.Spinner;
 
 public class PNCActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
                                                                      View.OnClickListener,
@@ -16,6 +17,19 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pnc);
+// Added By Al Amin
+        initialize(); //super class
+        Spinner spinners[] = new Spinner[5];
+        spinners[0] = (Spinner) findViewById(R.id.pncBreastConditionSpinner);
+        spinners[1] = (Spinner) findViewById(R.id.pncDischargeBleedingSpinner);
+        spinners[2] = (Spinner) findViewById(R.id.pncPerineumSpinner);
+        spinners[3] = (Spinner) findViewById(R.id.pncFamilyPlanningMethodsSpinner);
+        spinners[4] = (Spinner) findViewById(R.id.pncReferCenterNameSpinner);
+
+        for(int i = 0; i < spinners.length; ++i) {
+            spinners[i].setOnItemSelectedListener(this);
+        }
+return;
     }
 
     @Override
@@ -84,7 +98,7 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
     protected void initiateEditTexts() {
         //PNC Mother visit
 
-        //jsonEditTextMap.put("pncserviceId", getEditText(R.id.pncVisitValue));
+        jsonEditTextMap.put("serviceId", getEditText(R.id.pncVisitValue));
         jsonEditTextMap.put("pnctemperature", getEditText(R.id.pncTemperatureValue));
         jsonEditTextMap.put("pncbpsys", getEditText(R.id.pncBloodPresserValueS));
         jsonEditTextMap.put("pncbpdias",getEditText(R.id.pncBloodPresserValueD));
@@ -92,8 +106,8 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
         jsonEditTextMap.put("pncCervixInvolutionValue",getEditText(R.id.pncCervixInvolutionValue));
 
         //PNC Child visit
-        jsonEditTextMap.put("pncchildno", getEditText(R.id.pncNewBornNumber));
-       // jsonEditTextMap.put("pregno", getEditText(R.id.pncChildVisitValue));
+        jsonEditTextMap.put("childNo", getEditText(R.id.pncNewBornNumber));
+        jsonEditTextMap.put("serviceCount", getEditText(R.id.pncChildVisitValue));
         jsonEditTextMap.put("pnctemperature", getEditText(R.id.pncChildTemperatureValue));
         jsonEditTextMap.put("pncweight", getEditText(R.id.pncChildWeightValue));
         jsonEditTextMap.put("pncbreathingperminute", getEditText(R.id.pncChildBreathValue));
