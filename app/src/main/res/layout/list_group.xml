@@ -3,18 +3,25 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="8dp" 
-    android:background="#000000">
+    android:padding="0dp"
+    style="@style/rowHeading"
+    >
 
-
-    <TextView
-        android:id="@+id/lblListHeader"
+    <LinearLayout
+        style="@style/rowHeading"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
 
+        android:paddingTop="5sp">
+    <TextView
+        android:id="@+id/lblListHeader"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="17dp"
-        android:textColor="#f9f93d" />
+        android:gravity="center_horizontal"
+        android:textColor="#000000" />
 
-
+    </LinearLayout>
 
 </LinearLayout>
