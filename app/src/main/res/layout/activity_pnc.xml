@@ -133,7 +133,7 @@
         </LinearLayout>
         <LinearLayout android:id="@+id/pncNewBorn" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView android:id="@+id/pncNewBornLabel" android:text="@string/new_born" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" />
-            <EditText android:id="@+id/pncNewBornValue" android:inputType="number" android:textSize="20dp" android:layout_width="40dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+            <EditText android:id="@+id/pncNewBornNumber" android:inputType="number" android:textSize="20dp" android:layout_width="40dp" android:layout_height="50px" android:layout_marginTop="10dp" />
         </LinearLayout>
         <LinearLayout android:id="@+id/pncChildVisit" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView android:id="@+id/pncChildVisitLabel" android:text="@string/visit" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp"/>

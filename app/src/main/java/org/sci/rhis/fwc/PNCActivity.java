@@ -63,7 +63,7 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
         jsonSpinnerMap.put("pnchematuria", getSpinner(R.id.pncDischargeBleedingSpinner));
         jsonSpinnerMap.put("pncperineum", getSpinner(R.id.pncPerineumSpinner));
         jsonSpinnerMap.put("pncfpmethod", getSpinner(R.id.pncFamilyPlanningMethodsSpinner));
-        jsonSpinnerMap.put("pncDiseaseSpinner", getSpinner(R.id.pncDrawbackSpinner));
+        jsonSpinnerMap.put("pncsymptom", getSpinner(R.id.pncDrawbackSpinner));
         jsonSpinnerMap.put("pncdisease", getSpinner(R.id.pncDiseaseSpinner));
         jsonSpinnerMap.put("pnctreatment", getSpinner(R.id.pncTreatmentSpinner));
         jsonSpinnerMap.put("pncadvice", getSpinner(R.id.pncAdviceSpinner));
@@ -84,7 +84,7 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
     protected void initiateEditTexts() {
         //PNC Mother visit
 
-        jsonEditTextMap.put("pregNo", getEditText(R.id.pncVisitValue));
+        //jsonEditTextMap.put("pncserviceId", getEditText(R.id.pncVisitValue));
         jsonEditTextMap.put("pnctemperature", getEditText(R.id.pncTemperatureValue));
         jsonEditTextMap.put("pncbpsys", getEditText(R.id.pncBloodPresserValueS));
         jsonEditTextMap.put("pncbpdias",getEditText(R.id.pncBloodPresserValueD));
@@ -92,8 +92,8 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
         jsonEditTextMap.put("pncCervixInvolutionValue",getEditText(R.id.pncCervixInvolutionValue));
 
         //PNC Child visit
-        jsonEditTextMap.put("pregNo", getEditText(R.id.pncNewBornValue));
-        jsonEditTextMap.put("pregno", getEditText(R.id.pncChildVisitValue));
+        jsonEditTextMap.put("pncchildno", getEditText(R.id.pncNewBornNumber));
+       // jsonEditTextMap.put("pregno", getEditText(R.id.pncChildVisitValue));
         jsonEditTextMap.put("pnctemperature", getEditText(R.id.pncChildTemperatureValue));
         jsonEditTextMap.put("pncweight", getEditText(R.id.pncChildWeightValue));
         jsonEditTextMap.put("pncbreathingperminute", getEditText(R.id.pncChildBreathValue));
