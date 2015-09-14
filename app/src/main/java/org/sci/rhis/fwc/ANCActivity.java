@@ -2,6 +2,7 @@ package org.sci.rhis.fwc;
 
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -203,6 +204,8 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
            // woman = PregWoman.CreatePregWoman(json);
 
             //DEBUG
+            Resources res = getResources();
+            String[] mainlist = res.getStringArray(R.array.list_item);
 
             for ( Iterator<String> ii = jsonStr.keys(); ii.hasNext(); ) {
                 key = ii.next();
@@ -219,9 +222,9 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                         if(i == 2){
 
                         }else if(i==3){
-                            list.add(jsonArray.get(i-1).toString()+" / "+jsonArray.get(i).toString());
+                            list.add(""+mainlist[i]+""+jsonArray.get(i-1).toString()+" / "+jsonArray.get(i).toString());
                         }else
-                            list.add(jsonArray.get(i).toString());
+                            list.add(""+mainlist[i]+""+jsonArray.get(i).toString());
 
 
                     }//end for
@@ -358,9 +361,9 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         jsonEditTextMap.put("pregNo", getEditText(R.id.ancVisitValue));
         jsonEditTextMap.put("ancbpsys", getEditText(R.id.ancBloodPresserValueSystolic));
         jsonEditTextMap.put("ancbpdias", getEditText(R.id.ancBloodPresserValueDiastolic));
-        jsonEditTextMap.put("ancweight",getEditText(R.id.ancWeightValue));
-        jsonEditTextMap.put("ancuheight",getEditText(R.id.ancUterusHeightValue));
-        jsonEditTextMap.put("anchrate",getEditText(R.id.ancHeartSpeedValue));
+        jsonEditTextMap.put("ancweight", getEditText(R.id.ancWeightValue));
+        jsonEditTextMap.put("ancuheight", getEditText(R.id.ancUterusHeightValue));
+        jsonEditTextMap.put("anchrate", getEditText(R.id.ancHeartSpeedValue));
         jsonEditTextMap.put("anchemoglobin",getEditText(R.id.ancAnemiaHemoglobinValue));
        }
 

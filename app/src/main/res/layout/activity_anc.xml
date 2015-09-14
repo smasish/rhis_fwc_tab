@@ -1,8 +1,4 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -29,13 +25,9 @@
         xmlns:tools="http://schemas.android.com/tools" android:id="@+id/anchistory_fragment"
         android:name="org.sci.rhis.fwc.ANCActivityFragment" tools:layout="@layout/fragment_anchistory"
         android:layout_width="wrap_content" android:layout_height="350dp"
-        android:layout_weight="0.62" />
+        android:layout_weight="0.12" />
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools" android:id="@+id/anchistory_fragment2"
-        android:name="org.sci.rhis.fwc.ANCActivityFragment" tools:layout="@layout/fragment_anchistory"
-        android:layout_width="match_parent" android:layout_height="677dp"
-        android:layout_weight="0.62" />
+
     <LinearLayout
         style="@style/rowHeading"
         android:layout_width="fill_parent"
@@ -55,6 +47,13 @@
         android:layout_centerVertical="true"
         android:textColor="@color/text_color"/>
     </LinearLayout>
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
     <LinearLayout
         android:id="@+id/ancText" android:layout_marginLeft="10dp" android:layout_marginTop="10dp" android:paddingBottom="20dp" android:orientation="vertical" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="#FFFFFF">
 
@@ -202,5 +201,6 @@
             <Button android:id="@+id/ancSaveButton" android:layout_width="80dp" android:layout_height="60px" android:text="Save" android:textSize="10dp" android:textColor="@color/text_color"/>
         </LinearLayout>
         </LinearLayout>
+    </ScrollView>
 </LinearLayout>
-</ScrollView>
+
