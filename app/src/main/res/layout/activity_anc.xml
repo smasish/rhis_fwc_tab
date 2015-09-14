@@ -92,9 +92,16 @@
             <TextView android:id="@+id/ancWeightLabel" android:text="@string/weight" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" android:textColor="@color/text_color" />
             <EditText android:id="@+id/ancWeightValue" android:inputType="number" android:textSize="20dp" android:paddingLeft="10dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
         </LinearLayout>
-        <LinearLayout android:id="@+id/ancEdema" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+        <LinearLayout android:id="@+id/ancEdemaLayout" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView android:id="@+id/ancEdemaLabel" android:text="@string/edema" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" android:textColor="@color/text_color"/>
-            <Spinner android:id="@+id/ancEdemaSpinner" android:inputType="text" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp"/>
+            <Spinner
+                android:id="@+id/ancEdemaSpinner"
+                android:inputType="text"
+                android:textSize="20dp"
+                android:layout_width="120dp"
+                android:layout_height="50px"
+                android:layout_marginTop="10dp"
+                android:entries="@array/Edema_Dropdown"/>
         </LinearLayout>
         <LinearLayout android:id="@+id/ancUterusHeight" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView android:id="@+id/ancUterusHeightLabel" android:text="@string/uterus_height" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" android:textColor="@color/text_color"/>
@@ -104,25 +111,53 @@
             <TextView android:id="@+id/ancHeartSpeedLabel" android:text="@string/heart_speed" android:textSize="20dp" android:layout_width="330dp" android:layout_height="50px" android:layout_marginTop="10dp" android:textColor="@color/text_color" />
             <EditText android:id="@+id/ancHeartSpeedValue" android:inputType="number" android:textSize="20dp" android:paddingLeft="10dp" android:layout_width="70dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
         </LinearLayout>
-        <LinearLayout android:id="@+id/ancFetalPresentation" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+        <LinearLayout android:id="@+id/ancFetalPresentationLayout" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView android:id="@+id/ancFetalPresentationLabel" android:text="@string/fetal_presentation" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" android:textColor="@color/text_color" />
-            <Spinner android:id="@+id/ancFetalPresentationSpinner" android:inputType="text" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+            <Spinner
+                android:id="@+id/ancFetalPresentationSpinner"
+                android:inputType="text"
+                android:textSize="20dp"
+                android:layout_width="120dp"
+                android:layout_height="50px"
+                android:layout_marginTop="10dp"
+                android:entries="@array/Fetal_Presentation_Dropdown"/>
         </LinearLayout>
         <LinearLayout android:id="@+id/ancAnemiaHemoglobin" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView android:id="@+id/ancAnemiaHemoglobinLabel" android:text="@string/anemia_hemoglobin" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" android:textColor="@color/text_color"/>
             <EditText android:id="@+id/ancAnemiaHemoglobinValue" android:inputType="text" android:textSize="20dp" android:paddingLeft="10dp" android:layout_width="70dp" android:layout_height="50px" android:layout_marginTop="10dp" android:background="@drawable/edittextstyle"/>
         </LinearLayout>
-        <LinearLayout android:id="@+id/ancJaundice" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+        <LinearLayout android:id="@+id/ancJaundiceLayout" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView android:id="@+id/ancJaundiceLabel" android:text="@string/jaundice" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" android:textColor="@color/text_color"/>
-            <Spinner android:id="@+id/ancJaundiceSpinner" android:inputType="text" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp"/>
+            <Spinner
+                android:id="@+id/ancJaundiceSpinner"
+                android:inputType="text"
+                android:textSize="20dp"
+                android:layout_width="120dp"
+                android:layout_height="50px"
+                android:layout_marginTop="10dp"
+                android:entries="@array/Jaundice_Dropdown"/>
         </LinearLayout>
-        <LinearLayout android:id="@+id/ancUrineSugar" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+        <LinearLayout android:id="@+id/ancUrineSugarLayout" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView android:id="@+id/ancUrineSugarLabel" android:text="@string/urine_test_sugar" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" android:textColor="@color/text_color"/>
-            <Spinner android:id="@+id/ancUrineSugarSpinner" android:inputType="text" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp"/>
+            <Spinner
+                android:id="@+id/ancUrineSugarSpinner"
+                android:inputType="text"
+                android:textSize="20dp"
+                android:layout_width="120dp"
+                android:layout_height="50px"
+                android:layout_marginTop="10dp"
+                android:entries="@array/Urine_Test_Sugar_Dropdown"/>
         </LinearLayout>
-        <LinearLayout android:id="@+id/ancUrineAlbumin" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+        <LinearLayout android:id="@+id/ancUrineAlbuminLayout" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView android:id="@+id/ancUrineAlbuminLabel" android:text="@string/urine_test_albumin" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" android:textColor="@color/text_color"/>
-            <Spinner android:id="@+id/ancUrineAlbuminSpinner" android:inputType="text" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp"/>
+            <Spinner
+                android:id="@+id/ancUrineAlbuminSpinner"
+                android:inputType="text"
+                android:textSize="20dp"
+                android:layout_width="120dp"
+                android:layout_height="50px"
+                android:layout_marginTop="10dp"
+                android:entries="@array/Urine_Test_Albumin_Dropdown"/>
         </LinearLayout>
         <LinearLayout android:id="@+id/ancDangerSigns" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView android:id="@+id/ancDangerSignsLabel" android:text="@string/danger_signs" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" android:textColor="@color/text_color"/>
@@ -148,9 +183,16 @@
             <TextView android:id="@+id/ancReferLabel" android:text="@string/refer" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" android:textColor="@color/text_color"/>
             <CheckBox android:id="@+id/ancReferCheckBox" android:inputType="text" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" />
         </LinearLayout>
-        <LinearLayout android:id="@+id/ancReferCenterName" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+        <LinearLayout android:id="@+id/ancReferCenterNameLayout" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView android:id="@+id/ancReferCenterNameLabel" android:text="@string/center_name" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" android:textColor="@color/text_color" />
-            <Spinner android:id="@+id/ancReferCenterNameSpinner" android:inputType="text" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+            <Spinner
+                android:id="@+id/ancReferCenterNameSpinner"
+                android:inputType="text"
+                android:textSize="20dp"
+                android:layout_width="120dp"
+                android:layout_height="50px"
+                android:layout_marginTop="10dp"
+                android:entries="@array/Center_Name_DropDown"/>
         </LinearLayout>
         <LinearLayout android:id="@+id/ancReason" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView android:id="@+id/ancReasonLabel" android:text="@string/reason" android:textSize="20dp" android:layout_width="220dp" android:layout_height="50px" android:layout_marginTop="10dp" android:textColor="@color/text_color"/>

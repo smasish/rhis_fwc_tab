@@ -500,5 +500,44 @@
         <item>	মুখের থ্রাস </item>
         <item>	নাভিরজ্জু থেকে রক্তক্ষরণ  </item>
     </string-array>
+    <string-array name="Edema_Dropdown">
+        <item> নাই </item>
+        <item> + (অল্প) </item>
+        <item> ++ (মোটামুটি) </item>
+        <item> +++ (অধিক) </item>
+    </string-array>
 
+    <string-array name="Fetal_Presentation_Dropdown">
+        <item> স্বাভাবিক</item>
+        <item> অস্বাভাবিক </item>
+    </string-array>
+
+    <string-array name="Jaundice_Dropdown">
+        <item> নাই </item>
+        <item> + (অল্প) </item>
+        <item> ++ (মোটামুটি) </item>
+        <item> +++ (অধিক) </item>
+    </string-array>
+
+    <string-array name="Urine_Test_Sugar_Dropdown">
+        <item> নাই </item>
+        <item> +  </item>
+        <item> ++  </item>
+        <item> +++  </item>
+    </string-array>
+    <string-array name="Urine_Test_Albumin_Dropdown">
+        <item> নাই </item>
+        <item> +  </item>
+        <item> ++  </item>
+        <item> +++  </item>
+    </string-array>
+    <string-array name="Center_Name_DropDown">
+        <item> ইউনিয়ন স্বাস্থ্য ও পরিবার কল্যান কেন্দ্র </item>
+        <item> কমিউনিটি ক্লিনিক </item>
+        <item> উপজেলা স্বাস্থ্য কমপ্লেক্স </item>
+        <item> জেলা সদর হাসপাতাল </item>
+        <item> প্রাইভেট ক্লিনিক</item>
+        <item> এনজিও হাসপাতাল/ সেবা কেন্দ্র</item>
+        <item> অন্যান্য  </item>
+    </string-array>
 </resources>
