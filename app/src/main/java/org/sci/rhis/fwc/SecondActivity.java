@@ -131,14 +131,24 @@ public class SecondActivity extends ClinicalServiceActivity {
 
         final Context context = this;
 
-        button = (Button) findViewById(R.id.nonregiser);
+       Button  button1 = (Button) findViewById(R.id.nonregiser);
+       Button button2 = (Button) findViewById(R.id.pncButton);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        button1.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
 
                 Intent intent = new Intent(context, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+        button2.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+                Intent intent = new Intent(context, PNCActivity.class);
                 startActivity(intent);
             }
         });
@@ -161,12 +171,12 @@ public class SecondActivity extends ClinicalServiceActivity {
             Toast.makeText(this, "Too Late for Delivery, verify ...", Toast.LENGTH_LONG).show();
         }
     }
-
+/*
     public void startPNC(View view) {
         Intent intent = new Intent(this, PNCActivity.class);
         startActivity(intent);
     }
-
+*/
     private boolean checkClientInfo() {
         if(woman == null ) {
             Toast.makeText(this, "No Client, Get Client Information first ...", Toast.LENGTH_LONG).show();

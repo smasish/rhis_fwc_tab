@@ -8,14 +8,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.sci.rhis.utilities.CustomDatePickerDialog;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,10 +28,15 @@ import java.util.Iterator;
 import java.util.List;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class ANCActivity extends ClinicalServiceActivity {
+public class ANCActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     private PregWoman woman;
     private Date today;
+
+// For Date pick added by Al Amin
+    private CustomDatePickerDialog datePickerDialog;
+    private HashMap<Integer, EditText> datePickerPair;
+
 
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
@@ -132,14 +141,24 @@ public class ANCActivity extends ClinicalServiceActivity {
     //    expListView.setAdapter(listAdapter);
    //     expListView2.setAdapter(listAdapter2);
    //     expListView3.setAdapter(listAdapter3);
+    // Initialize Spinner added By Al Amin
+        initialize(); //super class
+        Spinner spinners[] = new Spinner[6];
+        spinners[0] = (Spinner) findViewById(R.id.ancEdemaSpinner);
+        spinners[1] = (Spinner) findViewById(R.id.ancFetalPresentationSpinner);
+        spinners[2] = (Spinner) findViewById(R.id.ancJaundiceSpinner);
+        spinners[3] = (Spinner) findViewById(R.id.ancUrineSugarSpinner);
+        spinners[4] = (Spinner) findViewById(R.id.ancUrineAlbuminSpinner);
+        spinners[5] = (Spinner) findViewById(R.id.ancReferCenterNameSpinner);
 
+        for(int i = 0; i < spinners.length; ++i) {
+            spinners[i].setOnItemSelectedListener(this);
+        }
 
-
-
-
-
-
-
+      //custom date picker Added By Al Amin
+        datePickerDialog = new CustomDatePickerDialog(this);
+        datePickerPair = new HashMap<Integer, EditText>();
+        datePickerPair.put(R.id.imageViewancServiceDate, (EditText)findViewById(R.id.ancServiceDateValue));
 
     }
 
@@ -266,7 +285,13 @@ public class ANCActivity extends ClinicalServiceActivity {
 
 
     }
-
+    // Added by Al Amin
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.ancServiceDateValue || v.getId() == R.id.imageViewancServiceDate) {
+            datePickerDialog.show(datePickerPair.get(v.getId()));
+        }
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -280,6 +305,25 @@ public class ANCActivity extends ClinicalServiceActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        /*
+        LinearLayout [] section;
+        section = new LinearLayout[6];
+        section [0] = (LinearLayout) findViewById(R.id.ancEdemaLayout);
+        section [1] = (LinearLayout) findViewById(R.id.ancFetalPresentationLayout);
+        section [2] = (LinearLayout) findViewById(R.id.ancJaundiceLayout);
+        section [3] = (LinearLayout) findViewById(R.id.ancUrineSugarLayout);
+        section [4] = (LinearLayout) findViewById(R.id.ancUrineAlbuminLayout);
+        section [5] = (LinearLayout) findViewById(R.id.ancReferCenterNameLayout);
+
+        for(int i = 0; i < section.length; ++i) {
+            section[i].setVisibility( position == 0? View.GONE:View.VISIBLE); //0 - home
+        }
+        */
     }
 
 
@@ -327,4 +371,8 @@ public class ANCActivity extends ClinicalServiceActivity {
     }
 
 
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }
