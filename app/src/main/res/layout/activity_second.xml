@@ -61,7 +61,7 @@
     <Spinner
         android:id="@+id/dynamic_spinner"
         android:layout_width="440px"
-        android:layout_height="70px"
+        android:lay\out_height="70px"
         android:layout_gravity="center"/>
     -->
 
@@ -77,7 +77,7 @@
         android:gravity="center"
         android:ellipsize="start"
         android:inputType="text"
-        android:background="@drawable/edittextstyle"
+        android:background="@drawable/edittext_round"
         android:layout_gravity="center"
         />
 
@@ -87,15 +87,16 @@
             android:ellipsize="start"
             android:src="@drawable/search"
             android:layout_width="wrap_content"
-            android:layout_height="70px"
+            android:layout_height="60px"
             android:layout_gravity="center"
             android:onClick="startSearch"/>
         <Button
             android:layout_marginLeft="5dp"
             android:layout_width="wrap_content"
-            android:layout_height="80px"
+            android:layout_height="60px"
             android:id="@+id/nonregiser"
             android:ellipsize="start"
+            android:background="@drawable/button_style"
             android:layout_gravity="center"
             android:textAlignment="center"
             android:text="Non-Register Client ?"/>
@@ -143,25 +144,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center_horizontal">
         <Button
-            android:text="ANC"
+            android:text="@string/anc_service"
+            android:layout_marginBottom="10dp"
             android:layout_width="wrap_content"
             android:layout_height="80px"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/button_style"
             android:id="@+id/ancButton"
             android:onClick="startANC"/>
 
         <Button
-            android:text="Delivery"
+            android:text="@string/delivery_service"
+            android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="80px"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/button_style"
             android:id="@+id/deliveryButton"
             android:onClick="startDelivery"/>
 
         <Button
-            android:text="PNC"
+            android:text="@string/title_activity_pnc"
             android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_height="80px"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/button_style"
             android:id="@+id/pncButton"
             android:onClick="startPNC"/>
     </LinearLayout>

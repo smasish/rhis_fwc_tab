@@ -47,7 +47,7 @@
     <string name = "Clients_Hight_Inch">"ইঞ্চি "</string>
     <string name = "Clients_Hight">"উচ্চতা:"</string>
     <string name = "Clients_Blood_Group">"রক্তের গ্রুপ:"</string>
-    <string name = "Clients_TT_Tika">"টিটি টিকা: (টিক দিন)	"</string>
+    <string name = "Clients_TT_Tika">"টিটি টিকা:"</string>
     <string name = "Privious_History">"পূর্ববর্তী গর্ভের ইতিহাস:"</string>
     <string name = "bleeding">" রক্তপাত (প্রসবপূর্ব অথবা প্রসবোত্তর) "</string>
     <string name = "delayed_birth">" দীর্ঘয়িত প্রসব"</string>
@@ -95,7 +95,8 @@
 	<string name="general_cause">"	কারণ:"</string>	
 	
 
-    <string name="delivery_service">"গর্ভকালীন সেবা"</string>
+    <string name="anc_service">"গর্ভকালীন সেবা ( ANC )"</string>
+    <string name="delivery_service">"প্রসবকালীন সেবা ( ANC )"</string>
     <string name="delivery_related_info">"প্রসব সংক্রান্ত তথ্য"</string>
     <string name="delivery_place">"প্রসবের স্থান:"</string>
     <string name="delivery_date">"প্রসবের তারিখ:"</string>
@@ -200,9 +201,6 @@
         <item>স্রাব/ রক্তস্রাব:</item>
         <item>পেরিনিয়াম:</item>
         <item>পরিবার পরিকল্পনা পদ্ধতি(পরামর্শ / পদ্ধতি প্রদান):</item>
-
-
-
     </string-array>
 
 
