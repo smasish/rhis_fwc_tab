@@ -2,6 +2,8 @@
     <declare-styleable name="TextViewPlus">
         <attr name="customFont" format="string"/>
     </declare-styleable>
+    <string name="planet_prompt">Choose a planet</string>
+
     <string name = "app_name">RHIS</string>
     <string name = "dr_prompt">Select One</string>
     <string name = "action_settings">Settings</string>

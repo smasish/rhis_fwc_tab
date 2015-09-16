@@ -17,6 +17,19 @@
                <!-- <item name="android:paddingRight">10sp</item>
         <item name="android:paddingLeft">10sp</item> -->
     </style>
-
+    <style name="rowStyle0">
+        <item name="android:paddingTop">10sp</item>
+        <item name="android:paddingBottom">10sp</item>
+        <item name="android:background">#FFFFFF</item>
+        <item name="android:paddingRight">10sp</item>
+        <item name="android:paddingLeft">10sp</item>
+    </style>
+    <style name="rowStyle1">
+        <item name="android:paddingTop">10sp</item>
+        <item name="android:paddingBottom">10sp</item>
+        <item name="android:background">#C2E0EC</item>
+        <item name="android:paddingRight">10sp</item>
+        <item name="android:paddingLeft">10sp</item>
+    </style>
 
 </resources>

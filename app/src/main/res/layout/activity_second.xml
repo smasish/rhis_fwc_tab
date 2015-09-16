@@ -43,7 +43,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        style="@style/rowStyle1"
+        android:background="@drawable/fragmentborder">
 
     <Spinner
         android:id="@+id/ClientsIdentityDropdown"
@@ -51,6 +53,8 @@
         android:layout_height="60px"
         android:layout_marginBottom="10dp"
         android:drawSelectorOnTop="true"
+        android:layout_weight="0"
+        android:prompt="@string/planet_prompt"
         android:layout_marginTop="10dp"/>
         <!--android:="onSelect"/-->
      <!--
@@ -97,7 +101,10 @@
             android:text="Non-Register Client ?"/>
 
     </LinearLayout>
-
+    <View
+        android:layout_height="1dip"
+        android:layout_width="fill_parent"
+        android:background="#CCCCCC" />
     <ScrollView
        android:layout_width="fill_parent"
        android:layout_height="wrap_content"
@@ -120,22 +127,17 @@
         android:gravity="left">
 
     </LinearLayout>
-
-    <HorizontalScrollView
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/fragment_client_info_scroll"
-        android:layout_weight="0.18">
-
-        <fragment
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:name="org.sci.rhis.fwc.ClientInfoFragment"
-            tools:layout="@layout/fragment_client_info"
-            android:orientation="vertical"/>
-
-    </HorizontalScrollView>
-
+        android:id="@+id/fragment_client_info_scroll" >
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:name="org.sci.rhis.fwc.ClientInfoFragment"
+        tools:layout="@layout/fragment_client_info"
+        android:orientation="vertical"/>
+    </ScrollView>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
