@@ -1,23 +1,17 @@
 package org.sci.rhis.fwc;
 
 
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +23,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class ANCActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener{
 
@@ -162,11 +155,13 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
       //custom date picker Added By Al Amin
         datePickerDialog = new CustomDatePickerDialog(this);
         datePickerPair = new HashMap<Integer, EditText>();
-        datePickerPair.put(R.id.imageViewancServiceDate, (EditText)findViewById(R.id.ancServiceDateValue));
+       datePickerPair.put(R.id.Date_Picker_Button, (EditText)findViewById(R.id.ancServiceDateValue));
 
     }
 
-
+    public void pickDate(View view) {
+        datePickerDialog.show(datePickerPair.get(view.getId()));
+    }
 
 
     /*
@@ -294,7 +289,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     // Added by Al Amin
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.ancServiceDateValue || v.getId() == R.id.imageViewancServiceDate) {
+        if(v.getId() == R.id.ancServiceDateValue || v.getId() == R.id.Date_Picker_Button) {
             datePickerDialog.show(datePickerPair.get(v.getId()));
         }
     }
