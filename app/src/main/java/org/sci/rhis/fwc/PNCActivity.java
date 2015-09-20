@@ -1,21 +1,63 @@
 package org.sci.rhis.fwc;
 
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
+import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 public class PNCActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
                                                                      View.OnClickListener,
                                                                      CompoundButton.OnCheckedChangeListener {
 
+
+    ExpandableListAdapterforPNC listAdapter;
+    ExpandableListView expListView;
+    List<String> listDataHeader;
+    HashMap<String, List<String>> listDataChild;
+    LinearLayout ll;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pnc);
+
+
+        ll = (LinearLayout)findViewById(R.id.llay);
+
+
+        expListView = new ExpandableListView(this);
+        ll.addView(expListView);
+
+
+        AsyncClientInfoUpdate client = new AsyncClientInfoUpdate(PNCActivity.this);
+        //SendPostRequestAsyncTask
+        AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(PNCActivity.this);
+        String queryString =   "{" +
+                "pregNo:" + 3 + "," +
+                "healthid:" + "43366275025436" + "," +
+                "pncMLoad:" + ProviderInfo.getProvider().getProviderCode() +
+                "}";
+        String servlet = "pncmother";
+        String jsonRootkey = "PNCMotherInfo";
+        Log.d("-->","---=====>"+queryString);
+        sendPostReqAsyncTask.execute(queryString, servlet, jsonRootkey);
+
     }
 
     @Override
@@ -42,6 +84,82 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
 
     @Override
     public void callbackAsyncTask(String result) {
+
+
+        try {
+            JSONObject jsonStr = new JSONObject(result);
+            String key;
+
+            // woman = PregWoman.CreatePregWoman(json);
+
+            //DEBUG
+            Resources res = getResources();
+            String[] mainlist = res.getStringArray(R.array.list_item);
+
+            for ( Iterator<String> ii = jsonStr.keys(); ii.hasNext(); ) {
+                key = ii.next();
+
+                System.out.println("1.Key:" + key + " Value:\'" + jsonStr.get(key)+"\'");
+
+                ArrayList<String> list = new ArrayList<String>();
+
+                try {
+                    JSONArray jsonArray = jsonStr.getJSONArray(key);
+
+                    for (int i = 1; i < jsonArray.length(); i++) {
+
+                        Log.d("-->","---=====>"+jsonArray.get(i).toString());
+                        list.add(""+mainlist[i]+""+jsonArray.get(i).toString());
+
+
+                    }//end for
+                    listDataHeader = new ArrayList<String>();
+                    listDataChild = new HashMap<String, List<String>>();
+
+
+                    //  listDataHeader.add(getString(R.string.history_visit1) + "" + jsonArray.get(0).toString() + " :");
+                    listDataHeader.add("Visit "+jsonArray.get(0).toString() + ":");
+                    listDataChild.put(listDataHeader.get(0), list);
+
+                    listAdapter = new ExpandableListAdapterforPNC(this, listDataHeader, listDataChild);
+
+
+
+                    initPage();
+
+                    ll.addView(expListView);
+                    expListView.setScrollingCacheEnabled(true);
+                    expListView.setAdapter(listAdapter);
+                    ll.invalidate();
+                    expListView.setAdapter(listAdapter);
+
+
+                } catch (JSONException e) {
+                    Log.e("::::", "onPostExecute > Try > JSONException => " + e);
+                    e.printStackTrace();
+                }
+            }
+
+
+        } catch (JSONException jse) {
+            System.out.println("JSON Exception Thrown::\n " );
+            jse.printStackTrace();
+        }
+    }
+
+    private void initPage() {
+        expListView = new ExpandableListView(this);
+        expListView.setTranscriptMode(ExpandableListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+
+        expListView.setIndicatorBounds(0, 0);
+        expListView.setChildIndicatorBounds(0, 0);
+        expListView.setStackFromBottom(true);
+
+
+        //  expListView.smoothScrollToPosition(expListView.getCount() - 1);
+
+
+
 
     }
 

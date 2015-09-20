@@ -43,16 +43,17 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
+    LinearLayout ll;
 
-    ExpandableListAdapter listAdapter2;
-    ExpandableListView expListView2;
-    List<String> listDataHeader2;
-    HashMap<String, List<String>> listDataChild2;
-
-    ExpandableListAdapter listAdapter3;
-    ExpandableListView expListView3;
-    List<String> listDataHeader3;
-    HashMap<String, List<String>> listDataChild3;
+//    ExpandableListAdapter listAdapter2;
+//    ExpandableListView expListView2;
+//    List<String> listDataHeader2;
+//    HashMap<String, List<String>> listDataChild2;
+//
+//    ExpandableListAdapter listAdapter3;
+//    ExpandableListView expListView3;
+//    List<String> listDataHeader3;
+//    HashMap<String, List<String>> listDataChild3;
 
     private static final String TAG_VISIT_NO = "ancVisit01";
     private static final String TAG_DATE = "2015-07-02";
@@ -74,8 +75,8 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     private static final String TAG_CENTER_NAME = "DHAKA";
     private static final String TAG_CAUSE = "MAN";
 
-    JSONArray visits = null;
-    LinearLayout ll;
+    //JSONArray visits = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,11 +220,11 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
                     for (int i = 1; i < jsonArray.length(); i++) {
 
-                        if(i == 2){
-
-                        }else if(i==3){
-                            list.add(""+mainlist[i]+""+jsonArray.get(i-1).toString()+" / "+jsonArray.get(i).toString());
-                        }else
+//                        if(i == 2){
+//
+//                        }else if(i==3){
+//                            list.add(""+mainlist[i]+""+jsonArray.get(i-1).toString()+" / "+jsonArray.get(i).toString());
+//                        }else
                             list.add(""+mainlist[i]+""+jsonArray.get(i).toString());
 
 

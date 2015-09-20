@@ -24,6 +24,7 @@
             android:name="org.sci.rhis.fwc.PNCHistory" tools:layout="@layout/fragment_pnchistory"
             android:layout_width="match_parent" android:layout_height="677dp"
             android:layout_weight="0.62" />
+
         <LinearLayout
             style="@style/rowHeading"
             android:layout_width="fill_parent"

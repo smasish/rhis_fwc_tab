@@ -14,6 +14,8 @@
             android:layout_height="match_parent"
             android:scrollbars="none"
             android:orientation="horizontal"
+            android:id="@+id/llay"
+            style="@style/rowHeading"
             android:layout_margin="0dp"
             android:padding="0dp" android:background="#F3F3F3">
             <GridView
