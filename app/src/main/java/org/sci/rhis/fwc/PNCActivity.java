@@ -102,7 +102,8 @@ return;
         jsonEditTextMap.put("pnctemperature", getEditText(R.id.pncTemperatureValue));
         jsonEditTextMap.put("pncbpsys", getEditText(R.id.pncBloodPresserValueS));
         jsonEditTextMap.put("pncbpdias",getEditText(R.id.pncBloodPresserValueD));
-        jsonEditTextMap.put("pnchemoglobin",getEditText(R.id.pncAnemiaHemoglobinValue));
+        jsonEditTextMap.put("pnchemoglobin",getEditText(R.id.pncAnemiaValue));
+        jsonEditTextMap.put("pnchemoglobin",getEditText(R.id.pncHemoglobinValue));
         jsonEditTextMap.put("pncCervixInvolutionValue",getEditText(R.id.pncCervixInvolutionValue));
 
         //PNC Child visit

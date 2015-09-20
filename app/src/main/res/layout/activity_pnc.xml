@@ -153,17 +153,17 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/edittextstyle"/>
             </LinearLayout>
-            <LinearLayout android:id="@+id/pncAnemiaHemoglobin" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+            <LinearLayout android:id="@+id/pncAnemia" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
                 <TextView
-                    android:id="@+id/pncAnemiaHemoglobinLabel"
-                    android:text="@string/anemia_hemoglobin"
+                    android:id="@+id/pncAnemiaLabel"
+                    android:text="@string/anemia"
                     android:textSize="20dp"
                     android:layout_width="220dp"
                     android:layout_height="50px"
                     android:textColor="@color/text_color"
                     android:layout_marginTop="10dp" />
                 <EditText
-                    android:id="@+id/pncAnemiaHemoglobinValue"
+                    android:id="@+id/pncAnemiaValue"
                     android:inputType="text"
                     android:textSize="20dp"
                     android:layout_width="70dp"
@@ -171,7 +171,24 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/edittextstyle"/>
             </LinearLayout>
-
+            <LinearLayout android:id="@+id/pncHemoglobin" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <TextView
+                    android:id="@+id/pncHemoglobinLabel"
+                    android:text="@string/hemoglobin"
+                    android:textSize="20dp"
+                    android:layout_width="220dp"
+                    android:layout_height="50px"
+                    android:textColor="@color/text_color"
+                    android:layout_marginTop="10dp" />
+                <EditText
+                    android:id="@+id/pncHemoglobinValue"
+                    android:inputType="text"
+                    android:textSize="20dp"
+                    android:layout_width="70dp"
+                    android:layout_height="50px"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edittextstyle"/>
+            </LinearLayout>
             <LinearLayout android:id="@+id/pncBreastCondition" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
                 <TextView
                     android:id="@+id/pncBreastConditionLabel"

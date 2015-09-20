@@ -213,7 +213,8 @@
     <string name="uterus_height">"জরায়ুর উচ্চতা (সপ্তাহ):"</string>
     <string name="heart_speed">"ফিটাসের হৃদপিণ্ডের গতি (প্রতি মিনিটে):"</string>
     <string name="fetal_presentation">"ফিটাল প্রেজেনটেশন:"</string>
-    <string name="anemia_hemoglobin">"রক্তস্বল্পতা / হিমোগ্লোবিন:"</string>
+    <string name="anemia">"রক্তস্বল্পতা:"</string>
+    <string name="hemoglobin">"হিমোগ্লোবিন:"</string>
     <string name="jaundice">"জন্ডিস:"</string>
     <string name="urine_test_sugar">"প্রস্রাব পরীক্ষা: সুগার:"</string>
     <string name="urine_test_albumin">"প্রস্রাব পরীক্ষা: এলবুমিন:"</string>
