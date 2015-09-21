@@ -364,7 +364,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         jsonEditTextMap.put("ancweight", getEditText(R.id.ancWeightValue));
         jsonEditTextMap.put("ancuheight", getEditText(R.id.ancUterusHeightValue));
         jsonEditTextMap.put("anchrate", getEditText(R.id.ancHeartSpeedValue));
-        jsonEditTextMap.put("anchemoglobin",getEditText(R.id.ancAnemiaValue));
+
         jsonEditTextMap.put("anchemoglobin",getEditText(R.id.ancHemoglobinValue));
        }
 

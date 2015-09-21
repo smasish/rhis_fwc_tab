@@ -141,7 +141,7 @@
                 android:layout_width="80dp"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/edittextstyle"/>
+                android:background="@drawable/edittext_round"/>
             <TextView
                 android:id="@+id/ancBloodPresserLabelMid"
                 android:text=" / "
@@ -158,7 +158,7 @@
                 android:layout_width="80dp"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/edittextstyle"/>
+                android:background="@drawable/edittext_round"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/ancWeight"
@@ -183,7 +183,7 @@
                 android:layout_width="120dp"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/edittextstyle"/>
+                android:background="@drawable/edittext_round"/>
         </LinearLayout>
         <LinearLayout android:id="@+id/ancEdemaLayout" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView
@@ -221,7 +221,7 @@
                 android:layout_width="120dp"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/edittextstyle"/>
+                android:background="@drawable/edittext_round"/>
         </LinearLayout>
         <LinearLayout android:id="@+id/ancHeartSpeed" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" android:textColor="@color/text_color" >
             <TextView
@@ -240,7 +240,7 @@
                 android:layout_width="70dp"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/edittextstyle"/>
+                android:background="@drawable/edittext_round"/>
         </LinearLayout>
         <LinearLayout android:id="@+id/ancFetalPresentationLayout" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView
@@ -270,15 +270,16 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/text_color"/>
-            <EditText
-                android:id="@+id/ancAnemiaValue"
+            <Spinner
+                android:id="@+id/ancAnemiaSpinner"
                 android:inputType="text"
                 android:textSize="20dp"
                 android:paddingLeft="10dp"
-                android:layout_width="70dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/edittextstyle"/>
+                android:entries="@array/Urine_Test_Albumin_Dropdown"
+                android:background="@drawable/gradient_spinner"/>
         </LinearLayout>
         <LinearLayout android:id="@+id/ancHemoglobin" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView
@@ -297,7 +298,7 @@
                 android:layout_width="70dp"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/edittextstyle"/>
+                android:background="@drawable/edittext_round"/>
         </LinearLayout>
         <LinearLayout android:id="@+id/ancJaundiceLayout" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView
