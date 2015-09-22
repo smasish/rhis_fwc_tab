@@ -1,5 +1,4 @@
 
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +6,7 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:weightSum="1">
+
     <LinearLayout
         style="@style/rowHeading"
         android:layout_width="fill_parent"
@@ -23,11 +23,17 @@
         </LinearLayout>
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools" android:id="@+id/anchistory_fragment"
-        android:name="org.sci.rhis.fwc.ANCActivityFragment" tools:layout="@layout/fragment_anchistory"
-        android:layout_width="wrap_content" android:layout_height="350dp"
-        android:layout_weight="0.12" />
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/anchistory_fragment"
+        android:name="org.sci.rhis.fwc.ANCActivityFragment"
+        tools:layout="@layout/fragment_anchistory"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/abc_action_bar_default_height_material" />
 
+<LinearLayout
+   android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
 
     <LinearLayout
         style="@style/rowHeading"
@@ -52,8 +58,8 @@
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
     <LinearLayout
         android:id="@+id/ancText" android:layout_marginLeft="10dp" android:layout_marginTop="10dp" android:paddingBottom="20dp" android:orientation="vertical" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="#FFFFFF">
@@ -198,7 +204,7 @@
                 android:id="@+id/ancEdemaSpinner"
                 android:inputType="text"
                 android:textSize="20dp"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/gradient_spinner"
@@ -255,7 +261,7 @@
                 android:id="@+id/ancFetalPresentationSpinner"
                 android:inputType="text"
                 android:textSize="20dp"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:background="@drawable/gradient_spinner"
                 android:layout_marginTop="10dp"
@@ -313,7 +319,7 @@
                 android:id="@+id/ancJaundiceSpinner"
                 android:inputType="text"
                 android:textSize="20dp"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:background="@drawable/gradient_spinner"
                 android:layout_marginTop="10dp"
@@ -332,7 +338,7 @@
                 android:id="@+id/ancUrineSugarSpinner"
                 android:inputType="text"
                 android:textSize="20dp"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:background="@drawable/gradient_spinner"
                 android:layout_marginTop="10dp"
@@ -351,7 +357,7 @@
                 android:id="@+id/ancUrineAlbuminSpinner"
                 android:inputType="text"
                 android:textSize="20dp"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:background="@drawable/gradient_spinner"
                 android:layout_marginTop="10dp"
@@ -366,11 +372,10 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/text_color"/>
-            <Spinner
+            <org.sci.rhis.fwc.MultiSelectionSpinner
                 android:id="@+id/ancDangerSignsSpinner"
-                android:inputType="text"
                 android:textSize="20dp"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:background="@drawable/gradient_spinner"
                 android:layout_marginTop="10dp" />
@@ -390,11 +395,11 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/text_color"/>
-            <Spinner
+            <org.sci.rhis.fwc.MultiSelectionSpinner
                 android:id="@+id/ancDrawbackSpinner"
                 android:inputType="text"
                 android:textSize="20dp"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:background="@drawable/gradient_spinner"
                 android:layout_marginTop="10dp" />
@@ -407,11 +412,11 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/text_color"/>
-            <Spinner
+            <org.sci.rhis.fwc.MultiSelectionSpinner
                 android:id="@+id/ancDiseaseSpinner"
                 android:inputType="text"
                 android:textSize="20dp"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:background="@drawable/gradient_spinner"
                 android:layout_marginTop="10dp" />
@@ -425,11 +430,11 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/text_color" />
-            <Spinner
+            <org.sci.rhis.fwc.MultiSelectionSpinner
                 android:id="@+id/ancTreatmentSpinner"
                 android:inputType="text"
                 android:textSize="20dp"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:background="@drawable/gradient_spinner"
                 android:layout_marginTop="10dp" />
@@ -443,11 +448,11 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/text_color"/>
-            <Spinner
+            <org.sci.rhis.fwc.MultiSelectionSpinner
                 android:id="@+id/ancAdviceSpinner"
                 android:inputType="text"
                 android:textSize="20dp"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:background="@drawable/gradient_spinner"
                 android:layout_marginTop="10dp" />
@@ -469,7 +474,13 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp" />
         </LinearLayout>
-        <LinearLayout android:id="@+id/ancReferCenterNameLayout" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+        <LinearLayout
+            android:id="@+id/ancReferCenterNameLayout"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_centerVertical="true"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
             <TextView
                 android:id="@+id/ancReferCenterNameLabel"
                 android:text="@string/center_name"
@@ -482,7 +493,7 @@
                 android:id="@+id/ancReferCenterNameSpinner"
                 android:inputType="text"
                 android:textSize="20dp"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:background="@drawable/gradient_spinner"
                 android:layout_marginTop="10dp"
@@ -497,11 +508,11 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/text_color"/>
-            <Spinner
+            <org.sci.rhis.fwc.MultiSelectionSpinner
                 android:id="@+id/ancReasonSpinner"
                 android:inputType="text"
                 android:textSize="20dp"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:background="@drawable/gradient_spinner"
                 android:layout_marginTop="10dp"/>
@@ -517,5 +528,6 @@
         </LinearLayout>
         </LinearLayout>
     </ScrollView>
+</LinearLayout>
 </LinearLayout>
 

@@ -21,7 +21,6 @@ public class MultiSelectionSpinner extends Spinner implements
     String _itemsAtStart = null;
 
     ArrayAdapter<String> simple_adapter;
-    private int items;
 
     public MultiSelectionSpinner(Context context) {
         super(context);
@@ -215,7 +214,4 @@ public class MultiSelectionSpinner extends Spinner implements
         return sb.toString();
     }
 
-    public void setItems(int items) {
-        this.items = items;
-    }
 }

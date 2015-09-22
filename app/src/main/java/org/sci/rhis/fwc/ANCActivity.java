@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
@@ -19,6 +20,7 @@ import org.json.JSONObject;
 import org.sci.rhis.utilities.CustomDatePickerDialog;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -72,6 +74,8 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     JSONArray visits = null;
     LinearLayout ll;
 
+
+    private MultiSelectionSpinner multiSelectionSpinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +94,40 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
 //        GridView gv = (GridView)findViewById(R.id.gridAncVisit);
  //       gv.setAdapter(new CustomGridAdapter(ANCActivity.this));
+
+        final List<String> dangersignlist = Arrays.asList(getResources().getStringArray(R.array.ANC_Danger_Sign_DropDown));
+        final List<String> drabackblist = Arrays.asList(getResources().getStringArray(R.array.ANC_Drawback_DropDown));
+        final List<String> diseaselist = Arrays.asList(getResources().getStringArray(R.array.ANC_Disease_DropDown));
+        final List<String> treatmentlist = Arrays.asList(getResources().getStringArray(R.array.Treatment_DropDown));
+        final List<String> advicelist = Arrays.asList(getResources().getStringArray(R.array.ANC_Advice_DropDown));
+        final List<String> referreasonlist = Arrays.asList(getResources().getStringArray(R.array.ANC_Refer_Reason_DropDown));
+        multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.ancDangerSignsSpinner);
+        if(multiSelectionSpinner == null){
+            Log.d("------"+ dangersignlist.get(1),".........");
+        }
+        multiSelectionSpinner.setItems(dangersignlist);
+        multiSelectionSpinner.setSelection(new int[]{});
+
+        multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.ancDrawbackSpinner);
+        multiSelectionSpinner.setItems(drabackblist);
+        multiSelectionSpinner.setSelection(new int[]{});
+
+        multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.ancDiseaseSpinner);
+        multiSelectionSpinner.setItems(diseaselist);
+        multiSelectionSpinner.setSelection(new int[]{});
+
+        multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.ancTreatmentSpinner);
+        multiSelectionSpinner.setItems(treatmentlist);
+        multiSelectionSpinner.setSelection(new int[]{});
+
+        multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.ancAdviceSpinner);
+        multiSelectionSpinner.setItems(advicelist);
+        multiSelectionSpinner.setSelection(new int[]{});
+
+        multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.ancReasonSpinner);
+        multiSelectionSpinner.setItems(referreasonlist);
+        multiSelectionSpinner.setSelection(new int[]{});
+
 
         ll = (LinearLayout)findViewById(R.id.llay);
 //        ll.setOrientation(LinearLayout.HORIZONTAL);
@@ -177,6 +215,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
        // listDataChild.put(listDataHeader.get(1), nowShowing);
        // listDataChild.put(listDataHeader.get(2), comingSoon);
+
     }
 
 
@@ -311,24 +350,27 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 // Have to set condition for Check Box Yet Checked to visible Refer Center, Refer reason
-     if (parent.getId()== R.id.ancReferCheckBox) {
+        CheckBox checkBox = (CheckBox) findViewById(R.id.ancReferCheckBox);
+        if (parent.getId()== R.id.ancReferCheckBox && checkBox.isChecked()) {
+            {
+                System.out.println("Hit the Refer center Spinner");
+                LinearLayout[] section;
+                section = new LinearLayout[2];
+                section[0] = (LinearLayout) findViewById(R.id.ancReferCenterNameLayout);
+                section[1] = (LinearLayout) findViewById(R.id.ancReasonLayout);
 
-         System.out.println("Hit the Refer center Spinner");
-         LinearLayout[] section;
-         section = new LinearLayout[2];
-         section[0] = (LinearLayout) findViewById(R.id.ancReferCenterNameLayout);
-         section[1] = (LinearLayout) findViewById(R.id.ancReasonLayout);
+                for (int i = 0; i < section.length; ++i) {
+                    section[i].setVisibility(position == 0 ? View.GONE : View.VISIBLE); //0 - home
+                }
 
-         for (int i = 0; i < section.length; ++i) {
-             section[i].setVisibility(position == 0 ? View.GONE : View.VISIBLE); //0 - home
-         }
+            }
+        }
+        else{
+            System.out.println("The condition for Refer is Not working!");
+        }
 
-     }
-      else {
-          System.out.println("The condition for Refer is Not working!");
-           }
+
     }
-
 
     @Override
     protected void initiateCheckboxes(){
