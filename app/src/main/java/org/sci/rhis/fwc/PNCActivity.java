@@ -1,6 +1,5 @@
 package org.sci.rhis.fwc;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -77,6 +76,7 @@ return;
         jsonSpinnerMap.put("pnchematuria", getSpinner(R.id.pncDischargeBleedingSpinner));
         jsonSpinnerMap.put("pncperineum", getSpinner(R.id.pncPerineumSpinner));
         jsonSpinnerMap.put("pncfpmethod", getSpinner(R.id.pncFamilyPlanningMethodsSpinner));
+        //jsonEditTextMap.put("pnchemoglobin",getSpinner(R.id.pncAnemiaSpinnere));
         jsonSpinnerMap.put("pncsymptom", getSpinner(R.id.pncDrawbackSpinner));
         jsonSpinnerMap.put("pncdisease", getSpinner(R.id.pncDiseaseSpinner));
         jsonSpinnerMap.put("pnctreatment", getSpinner(R.id.pncTreatmentSpinner));
@@ -102,7 +102,7 @@ return;
         jsonEditTextMap.put("pnctemperature", getEditText(R.id.pncTemperatureValue));
         jsonEditTextMap.put("pncbpsys", getEditText(R.id.pncBloodPresserValueS));
         jsonEditTextMap.put("pncbpdias",getEditText(R.id.pncBloodPresserValueD));
-        jsonEditTextMap.put("pnchemoglobin",getEditText(R.id.pncAnemiaValue));
+
         jsonEditTextMap.put("pnchemoglobin",getEditText(R.id.pncHemoglobinValue));
         jsonEditTextMap.put("pncCervixInvolutionValue",getEditText(R.id.pncCervixInvolutionValue));
 
