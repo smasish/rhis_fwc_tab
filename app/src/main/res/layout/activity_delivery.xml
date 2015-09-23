@@ -791,7 +791,7 @@
                 android:text="@string/general_facility_name"
                 android:textSize="20dp"
                 android:textColor="@color/text_color"
-                android:visibility="invisible"/>
+                android:visibility="gone"/>
 
             <Spinner
                 android:id="@+id/id_spinner_refer_facilities"
@@ -801,7 +801,7 @@
                 android:layout_weight="1"
                 android:entries="@array/FacilityType_DropDown"
                 android:textSize="20dp"
-                android:visibility="invisible"/>
+                android:visibility="gone"/>
         </LinearLayout>
             <LinearLayout
                 android:id="@+id/reason"

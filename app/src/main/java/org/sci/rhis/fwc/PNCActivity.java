@@ -6,15 +6,50 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
+import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import org.json.JSONArray;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class PNCActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
                                                                      View.OnClickListener,
                                                                      CompoundButton.OnCheckedChangeListener {
     private MultiSelectionSpinner multiSelectionSpinner;
+
+    ExpandableListAdapterforPNC listAdapter;
+    ExpandableListView expListView;
+    List<String> listDataHeader;
+    HashMap<String, List<String>> listDataChild;
+    LinearLayout ll;
+
+    private static final String TAG_VISIT_NO = "ancVisit01";
+    private static final String TAG_DATE = "2015-07-02";
+    private static final String TAG_BLOOD_PRESSURE = "120";
+    private static final String TAG_WEIGHT = "22";
+    private static final String TAG_EDIMA = "22";
+    private static final String TAG_J_HEIGHT = "5.6";
+    private static final String TAG_FITNESS_PM = "FIT";
+    private static final String TAG_PHITAL_PRESENTATION = "GOOD";
+    private static final String TAG_HIMOGLOBIN = "2";
+    private static final String TAG_JONDIS = "3";
+    private static final String TAG_URIN_SUGAR = "3";
+    private static final String TAG_URIN_TEST = "3";
+    private static final String TAG_DANGER_SIGN = "OFF";
+    private static final String TAG_DISADVANTAGE = "NA";
+    private static final String TAG_DISEASE = "FEVER";
+    private static final String TAG_TREATMENT = "OK";
+    private static final String TAG_REFER = "DR";
+    private static final String TAG_CENTER_NAME = "DHAKA";
+    private static final String TAG_CAUSE = "MAN";
+
+    ArrayList<HashMap<String, String>> contactList;
+    JSONArray contacts = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +124,8 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
         multiSelectionSpinner.setSelection(new int[]{});
 
     }
+
+    
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
