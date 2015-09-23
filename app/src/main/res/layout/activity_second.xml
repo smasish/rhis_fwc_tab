@@ -43,7 +43,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
+        style="@style/rowStyle1"
+        android:background="@drawable/fragmentborder">
 
     <Spinner
         android:id="@+id/ClientsIdentityDropdown"
@@ -51,13 +54,16 @@
         android:layout_height="60px"
         android:layout_marginBottom="10dp"
         android:drawSelectorOnTop="true"
+        android:layout_weight="0"
+        android:prompt="@string/planet_prompt"
+        android:background="@drawable/gradient_spinner"
         android:layout_marginTop="10dp"/>
         <!--android:="onSelect"/-->
      <!--
     <Spinner
         android:id="@+id/dynamic_spinner"
         android:layout_width="440px"
-        android:layout_height="70px"
+        android:lay\out_height="70px"
         android:layout_gravity="center"/>
     -->
 
@@ -67,13 +73,13 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginRight="5dp"
-        android:layout_width="170px"
+        android:layout_width="170dp"
         android:layout_height="60px"
         android:layout_centerVertical="true"
         android:gravity="center"
         android:ellipsize="start"
         android:inputType="text"
-        android:background="@drawable/edittextstyle"
+        android:background="@drawable/edittext_round"
         android:layout_gravity="center"
         />
 
@@ -83,21 +89,27 @@
             android:ellipsize="start"
             android:src="@drawable/search"
             android:layout_width="wrap_content"
-            android:layout_height="70px"
+            android:layout_height="60px"
             android:layout_gravity="center"
             android:onClick="startSearch"/>
         <Button
             android:layout_marginLeft="5dp"
             android:layout_width="wrap_content"
-            android:layout_height="80px"
+            android:layout_height="60px"
             android:id="@+id/nonregiser"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
             android:ellipsize="start"
+            android:background="@drawable/button_style"
             android:layout_gravity="center"
             android:textAlignment="center"
             android:text="Non-Register Client ?"/>
 
     </LinearLayout>
-
+    <View
+        android:layout_height="1dip"
+        android:layout_width="fill_parent"
+        android:background="#CCCCCC" />
     <ScrollView
        android:layout_width="fill_parent"
        android:layout_height="wrap_content"
@@ -120,46 +132,55 @@
         android:gravity="left">
 
     </LinearLayout>
-
-    <HorizontalScrollView
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/fragment_client_info_scroll"
-        android:layout_weight="0.18">
-
-        <fragment
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:name="org.sci.rhis.fwc.ClientInfoFragment"
-            tools:layout="@layout/fragment_client_info"
-            android:orientation="vertical"/>
-
-    </HorizontalScrollView>
-
+        android:id="@+id/fragment_client_info_scroll" >
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:name="org.sci.rhis.fwc.ClientInfoFragment"
+        tools:layout="@layout/fragment_client_info"
+        android:orientation="vertical"/>
+    </ScrollView>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center_horizontal">
         <Button
-            android:text="ANC"
+            android:text="@string/anc_service"
+            android:layout_marginBottom="10dp"
             android:layout_width="wrap_content"
             android:layout_height="80px"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/button_style"
             android:id="@+id/ancButton"
             android:onClick="startANC"/>
 
         <Button
-            android:text="Delivery"
+            android:text="@string/delivery_service"
+            android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="80px"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/button_style"
             android:id="@+id/deliveryButton"
             android:onClick="startDelivery"/>
 
         <Button
-            android:text="PNC"
+            android:text="@string/title_activity_pnc"
             android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_height="80px"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/button_style"
             android:id="@+id/pncButton"
             android:onClick="startPNC"/>
     </LinearLayout>

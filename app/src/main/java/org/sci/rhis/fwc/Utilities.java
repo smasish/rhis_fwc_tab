@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +42,11 @@ public class Utilities {
                 (view).setFocusable(false);
                // (view).setEnabled(false);
             }
+            else if (view instanceof ImageButton)
+            {
+                (view).setClickable(false);
+
+            }
             else if (view instanceof CheckBox) {
 
                 ((CheckBox) view).setCursorVisible(false);
@@ -60,6 +65,43 @@ public class Utilities {
 
             else {
                 System.out.print(testgroup);
+            }
+        }
+    }
+
+    public static void Enable(Activity activity, int id) {
+
+        ViewGroup group = (ViewGroup)activity.findViewById(id);
+        for(int i = 0, count = group != null ? group.getChildCount(): 0; i <count; i++) {
+            View view = group.getChildAt(i);
+
+            if(view instanceof LinearLayout) {
+                Disable(activity, view.getId());
+            }
+            else if (view instanceof EditText )
+            {
+                (view).setFocusable(true);
+                ((EditText)view).setText("");
+            }
+
+            else if (view instanceof CheckBox) {
+
+                ((CheckBox) view).setCursorVisible(true);
+
+            }
+            else if (view instanceof RadioButton) {
+
+                ((RadioButton) view).setCursorVisible(true);
+
+            }
+            else if (view instanceof Spinner) {
+
+                ((Spinner) view).setClickable(true);
+
+            }
+
+            else {
+                System.out.print(group);
             }
         }
     }
