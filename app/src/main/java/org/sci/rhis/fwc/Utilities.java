@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -40,6 +41,11 @@ public class Utilities {
             {
                 (view).setFocusable(false);
                // (view).setEnabled(false);
+            }
+            else if (view instanceof ImageButton)
+            {
+                (view).setClickable(false);
+
             }
             else if (view instanceof CheckBox) {
 
@@ -77,6 +83,7 @@ public class Utilities {
                 (view).setFocusable(true);
                 ((EditText)view).setText("");
             }
+
             else if (view instanceof CheckBox) {
 
                 ((CheckBox) view).setCursorVisible(true);

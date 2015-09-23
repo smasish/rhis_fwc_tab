@@ -31,7 +31,7 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
         for(int i = 0; i < spinners.length; ++i) {
             spinners[i].setOnItemSelectedListener(this);
         }
-        
+
         // Multi Select Spinner Initialisation
         final List<String> pncmdangersignlist = Arrays.asList(getResources().getStringArray(R.array.PNC_Mother_Danger_Sign_DropDown));
         final List<String> pnccdangersignlist = Arrays.asList(getResources().getStringArray(R.array.PNC_Child_Danger_Sign_DropDown));

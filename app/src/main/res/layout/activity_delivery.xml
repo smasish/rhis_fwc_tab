@@ -117,9 +117,9 @@
                 android:background="@drawable/edittext_round"
                 android:inputType="date"
                 android:hint="dd/mm/yyyy"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:id="@+id/imageViewDeliveryDate"
                 android:src="@drawable/calendar_icon"
                 android:layout_marginTop="5dp"
@@ -159,7 +159,7 @@
                 android:layout_width="40dp"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:paddingLeft="10dp"
                 android:background="@drawable/edittext_round"
                 android:inputType="number" />
@@ -170,9 +170,9 @@
                 android:layout_height="60px"
                 android:layout_marginTop="10dp"
                 android:entries="@array/DeliveryTime_DropDown"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageButton
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/imageViewDeliveryTime"
                 android:src="@drawable/clock"
                 android:layout_marginTop="10dp"
@@ -232,9 +232,9 @@
                 android:inputType="date"
                 android:hint="dd/mm/yyyy"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:id="@+id/imageViewAdmissionDate"
                 android:src="@drawable/calendar_icon"
                 android:layout_marginTop="5dp"
