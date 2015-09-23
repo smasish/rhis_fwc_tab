@@ -176,6 +176,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
+                    android:entries="@array/Urine_Test_Albumin_Dropdown"
                     android:background="@drawable/gradient_spinner"/>
             </LinearLayout>
             <LinearLayout android:id="@+id/pncHemoglobin" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
@@ -209,7 +210,7 @@
                     android:id="@+id/pncBreastConditionSpinner"
                     android:inputType="text"
                     android:textSize="20dp"
-                    android:layout_width="120dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
                     android:entries="@array/Breast_Condition_DropDown"
@@ -246,7 +247,7 @@
                     android:id="@+id/pncDischargeBleedingSpinner"
                     android:inputType="text"
                     android:textSize="20dp"
-                    android:layout_width="120dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
                     android:entries="@array/Discharge_Bleeding_DropDown"
@@ -265,7 +266,7 @@
                     android:id="@+id/pncPerineumSpinner"
                     android:inputType="text"
                     android:textSize="20dp"
-                    android:layout_width="120dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
                     android:entries="@array/Perineum_DropDown"
@@ -284,10 +285,34 @@
                     android:id="@+id/pncFamilyPlanningMethodsSpinner"
                     android:inputType="text"
                     android:textSize="20dp"
-                    android:layout_width="120dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
                     android:entries="@array/Family_Planning_Methods_DropDown"
+                    android:background="@drawable/gradient_spinner"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/pncDangerSigns"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:layout_centerVertical="true"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+                <TextView
+                    android:id="@+id/pncDangerSignsLabel"
+                    android:text="@string/danger_signs"
+                    android:textSize="20dp"
+                    android:layout_width="220dp"
+                    android:layout_height="50px"
+                    android:textColor="@color/text_color"
+                    android:layout_marginTop="10dp" />
+                <org.sci.rhis.fwc.MultiSelectionSpinner
+                    android:id="@+id/pncDangerSignsSpinner"
+                    android:inputType="text"
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50px"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/gradient_spinner"/>
             </LinearLayout>
             <LinearLayout android:id="@+id/pncDrawback" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
@@ -299,11 +324,11 @@
                     android:layout_height="50px"
                     android:textColor="@color/text_color"
                     android:layout_marginTop="10dp" />
-                <Spinner
+                <org.sci.rhis.fwc.MultiSelectionSpinner
                     android:id="@+id/pncDrawbackSpinner"
                     android:inputType="text"
                     android:textSize="20dp"
-                    android:layout_width="120dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/gradient_spinner"/>
@@ -318,11 +343,11 @@
                     android:textColor="@color/text_color"
                     android:layout_marginTop="10dp"
                     />
-                <Spinner
+                <org.sci.rhis.fwc.MultiSelectionSpinner
                     android:id="@+id/pncDiseaseSpinner"
                     android:inputType="text"
                     android:textSize="20dp"
-                    android:layout_width="120dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/gradient_spinner"/>
@@ -336,11 +361,11 @@
                     android:layout_height="50px"
                     android:textColor="@color/text_color"
                     android:layout_marginTop="10dp" />
-                <Spinner
+                <org.sci.rhis.fwc.MultiSelectionSpinner
                     android:id="@+id/pncTreatmentSpinner"
                     android:inputType="text"
                     android:textSize="20dp"
-                    android:layout_width="120dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/gradient_spinner"/>
@@ -354,11 +379,11 @@
                     android:layout_height="50px"
                     android:textColor="@color/text_color"
                     android:layout_marginTop="10dp" />
-                <Spinner
+                <org.sci.rhis.fwc.MultiSelectionSpinner
                     android:id="@+id/pncAdviceSpinner"
                     android:inputType="text"
                     android:textSize="20dp"
-                    android:layout_width="120dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/gradient_spinner"/>
@@ -393,7 +418,7 @@
                     android:id="@+id/pncReferCenterNameSpinner"
                     android:inputType="text"
                     android:textSize="20dp"
-                    android:layout_width="120dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
                     android:entries="@array/Center_Name_DropDown"
@@ -408,11 +433,11 @@
                     android:layout_height="50px"
                     android:textColor="@color/text_color"
                     android:layout_marginTop="10dp" />
-                <Spinner
+                <org.sci.rhis.fwc.MultiSelectionSpinner
                     android:id="@+id/pncReasonSpinner"
                     android:inputType="text"
                     android:textSize="20dp"
-                    android:layout_width="120dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/gradient_spinner"/>
@@ -429,6 +454,7 @@
                 android:id="@+id/pncInfoChildLabel"
                 android:text="@string/pncInfo_child"
                 android:textSize="20dp"
+                style="@style/rowHeading"
                 android:layout_width="fill_parent"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
@@ -452,7 +478,7 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp" />
         </LinearLayout>
-        <LinearLayout android:id="@+id/pncChildVisit" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+        <LinearLayout android:id="@+id/pncChildVisit"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView
                 android:id="@+id/pncChildVisitLabel"
                 android:text="@string/visit"
@@ -550,7 +576,13 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edittext_round"/>
         </LinearLayout>
-        <LinearLayout android:id="@+id/pncChildDangerSigns" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+        <LinearLayout
+            android:id="@+id/pncChildDangerSigns"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_centerVertical="true"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
             <TextView
                 android:id="@+id/pncChildDangerSignsLabel"
                 android:text="@string/danger_signs"
@@ -559,11 +591,11 @@
                 android:layout_height="50px"
                 android:textColor="@color/text_color"
                 android:layout_marginTop="10dp" />
-            <Spinner
+            <org.sci.rhis.fwc.MultiSelectionSpinner
                 android:id="@+id/pncChildDangerSignsSpinner"
                 android:inputType="text"
                 android:textSize="20dp"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/gradient_spinner"/>
@@ -593,11 +625,11 @@
                 android:layout_height="50px"
                 android:textColor="@color/text_color"
                 android:layout_marginTop="10dp" />
-            <Spinner
+            <org.sci.rhis.fwc.MultiSelectionSpinner
                 android:id="@+id/pncChildDrawbackSpinner"
                 android:inputType="text"
                 android:textSize="20dp"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/gradient_spinner"/>
@@ -611,11 +643,11 @@
                 android:layout_height="50px"
                 android:textColor="@color/text_color"
                 android:layout_marginTop="10dp" />
-            <Spinner
+            <org.sci.rhis.fwc.MultiSelectionSpinner
                 android:id="@+id/pncChildDiseaseSpinner"
                 android:inputType="text"
                 android:textSize="20dp"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/gradient_spinner"/>
@@ -629,11 +661,11 @@
                 android:layout_height="50px"
                 android:textColor="@color/text_color"
                 android:layout_marginTop="10dp" />
-            <Spinner
+            <org.sci.rhis.fwc.MultiSelectionSpinner
                 android:id="@+id/pncChildTreatmentSpinner"
                 android:inputType="text"
                 android:textSize="20dp"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/gradient_spinner"/>
@@ -647,11 +679,11 @@
                 android:layout_height="50px"
                 android:textColor="@color/text_color"
                 android:layout_marginTop="10dp" />
-            <Spinner
+            <org.sci.rhis.fwc.MultiSelectionSpinner
                 android:id="@+id/pncChildAdviceSpinner"
                 android:inputType="text"
                 android:textSize="20dp"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/gradient_spinner"/>
@@ -686,7 +718,7 @@
                 android:id="@+id/pncChildReferCenterNameSpinner"
                 android:inputType="text"
                 android:textSize="20dp"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/gradient_spinner"/>
@@ -700,11 +732,11 @@
                 android:layout_height="50px"
                 android:textColor="@color/text_color"
                 android:layout_marginTop="10dp" />
-            <Spinner
+            <org.sci.rhis.fwc.MultiSelectionSpinner
                 android:id="@+id/pncChildReasonSpinner"
                 android:inputType="text"
                 android:textSize="20dp"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/gradient_spinner"/>
