@@ -22,8 +22,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class PNCActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
-                                                                     View.OnClickListener,
-                                                                     CompoundButton.OnCheckedChangeListener {
+        View.OnClickListener,
+        CompoundButton.OnCheckedChangeListener {
 
 
     ExpandableListAdapterforPNC listAdapter;
@@ -32,6 +32,29 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
     HashMap<String, List<String>> listDataChild;
     LinearLayout ll;
 
+
+    private static final String TAG_VISIT_NO = "ancVisit01";
+    private static final String TAG_DATE = "2015-07-02";
+    private static final String TAG_BLOOD_PRESSURE = "120";
+    private static final String TAG_WEIGHT = "22";
+    private static final String TAG_EDIMA = "22";
+    private static final String TAG_J_HEIGHT = "5.6";
+    private static final String TAG_FITNESS_PM = "FIT";
+    private static final String TAG_PHITAL_PRESENTATION = "GOOD";
+    private static final String TAG_HIMOGLOBIN = "2";
+    private static final String TAG_JONDIS = "3";
+    private static final String TAG_URIN_SUGAR = "3";
+    private static final String TAG_URIN_TEST = "3";
+    private static final String TAG_DANGER_SIGN = "OFF";
+    private static final String TAG_DISADVANTAGE = "NA";
+    private static final String TAG_DISEASE = "FEVER";
+    private static final String TAG_TREATMENT = "OK";
+    private static final String TAG_REFER = "DR";
+    private static final String TAG_CENTER_NAME = "DHAKA";
+    private static final String TAG_CAUSE = "MAN";
+
+    ArrayList<HashMap<String, String>> contactList;
+    JSONArray contacts = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +62,7 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
 
 
         ll = (LinearLayout)findViewById(R.id.llay);
-
+        contactList = new ArrayList<HashMap<String, String>>();
 
         expListView = new ExpandableListView(this);
         ll.addView(expListView);
@@ -48,11 +71,18 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
         AsyncClientInfoUpdate client = new AsyncClientInfoUpdate(PNCActivity.this);
         //SendPostRequestAsyncTask
         AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(PNCActivity.this);
+//        String queryString =   "{" +
+//                "pregNo:" + 3 + "," +
+//                "healthid:" + "43366275025436" + "," +
+//                "pncMLoad:" + ProviderInfo.getProvider().getProviderCode() +
+//                "}";
+
         String queryString =   "{" +
-                "pregNo:" + 3 + "," +
+                "pregno:" + 3 + "," +
                 "healthid:" + "43366275025436" + "," +
-                "pncMLoad:" + ProviderInfo.getProvider().getProviderCode() +
+                "pncMLoad:" + "retrieve" +
                 "}";
+
         String servlet = "pncmother";
         String jsonRootkey = "PNCMotherInfo";
         Log.d("-->","---=====>"+queryString);
@@ -91,34 +121,81 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
             String key;
 
             // woman = PregWoman.CreatePregWoman(json);
-
+            //Log.d("--:::>", "---complicationsign=====>"+result);
             //DEBUG
             Resources res = getResources();
             String[] mainlist = res.getStringArray(R.array.list_item);
-
+            //Log.d("-->","---=jsonStr.keys()====>" +jsonStr.keys());
             for ( Iterator<String> ii = jsonStr.keys(); ii.hasNext(); ) {
                 key = ii.next();
 
-                System.out.println("1.Key:" + key + " Value:\'" + jsonStr.get(key)+"\'");
+
+                System.out.println("1.Key:" + key + " Value:\'" + jsonStr.get(key) + "\'");
+
+                JSONObject jsonRootObject = jsonStr.getJSONObject(key);
+                Log.d("--:::>", "---serviceSource=====>" + jsonRootObject.getString("serviceSource"));
+
+                String  complicationsign = jsonRootObject.getString("complicationsign");
+                String  serviceSource = jsonRootObject.getString("serviceSource");
+                String  anemia = jsonRootObject.getString("anemia");
+                String  referCenterName = jsonRootObject.getString("referCenterName");
+                String  treatment = jsonRootObject.getString("treatment");
+                String  perineum = jsonRootObject.getString("perineum");
+                String  uterusInvolution= jsonRootObject.getString("uterusInvolution");
+                String  visitDate = jsonRootObject.getString("visitDate");
+                String  bpDiastolic = jsonRootObject.getString("bpDiastolic");
+                String  disease = jsonRootObject.getString("disease");
+                String  bpSystolic = jsonRootObject.getString("bpSystolic");
+                String  hematuria = jsonRootObject.getString("hematuria");
+                String  temperature= jsonRootObject.getString("temperature");
+                String  referReason = jsonRootObject.getString("referReason");
+                String  refer = jsonRootObject.getString("refer");
+                String  edema = jsonRootObject.getString("edema");
+                String  serviceID = jsonRootObject.getString("serviceID");
+                String  hemoglobin = jsonRootObject.getString("hemoglobin");
+                String  FPMethod = jsonRootObject.getString("FPMethod");
+                String  breastCondition = jsonRootObject.getString("breastCondition");
+                String  advice = jsonRootObject.getString("advice");
+                String  symptom = jsonRootObject.getString("symptom");
+                // String  pncStatus= jsonRootObject.getString("pncStatus");
+                //Log.d("--:::>", "---complicationsign=====>"+jsonStr.get(key));
 
                 ArrayList<String> list = new ArrayList<String>();
+                list.add(complicationsign);
+                list.add(serviceSource);
+                list.add(anemia);
+                list.add(referCenterName);
+                list.add(treatment);
+                list.add(perineum);
+                list.add(uterusInvolution);
+                list.add(visitDate);
+                list.add(bpDiastolic);
+                list.add(disease);
+                list.add(bpSystolic);
+                list.add(hematuria);
+                list.add(temperature);
+                list.add(referReason);
+                list.add(refer);
+                list.add(edema);
+                list.add(serviceID);
+                list.add(hemoglobin);
+                list.add(FPMethod);
+                list.add(breastCondition);
+                list.add(advice);
+                list.add(symptom);
+                //   list.add(pncStatus);
+
 
                 try {
-                    JSONArray jsonArray = jsonStr.getJSONArray(key);
-
-                    for (int i = 1; i < jsonArray.length(); i++) {
-
-                        Log.d("-->","---=====>"+jsonArray.get(i).toString());
-                        list.add(""+mainlist[i]+""+jsonArray.get(i).toString());
+                    // JSONArray jsonArray = jsonStr.getJSONArray(key);
 
 
-                    }//end for
                     listDataHeader = new ArrayList<String>();
                     listDataChild = new HashMap<String, List<String>>();
 
 
-                    //  listDataHeader.add(getString(R.string.history_visit1) + "" + jsonArray.get(0).toString() + " :");
-                    listDataHeader.add("Visit "+jsonArray.get(0).toString() + ":");
+                    // listDataHeader.add(getString(R.string.history_visit1) + "" + jsonArray.get(0).toString() + " :");
+                    listDataHeader.add("Visit "+key + ":");//jsonArray.get(0).toString()
                     listDataChild.put(listDataHeader.get(0), list);
 
                     listAdapter = new ExpandableListAdapterforPNC(this, listDataHeader, listDataChild);
@@ -134,7 +211,7 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
                     expListView.setAdapter(listAdapter);
 
 
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     Log.e("::::", "onPostExecute > Try > JSONException => " + e);
                     e.printStackTrace();
                 }
@@ -196,7 +273,7 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
         jsonSpinnerMap.put("pncadvice", getSpinner(R.id.pncChildAdviceSpinner));
         jsonSpinnerMap.put("pncrefercentername", getSpinner(R.id.pncReferCenterNameSpinner));;
         jsonSpinnerMap.put("pncreferreason", getSpinner(R.id.pncChildReasonSpinner));
-        }
+    }
 
     @Override
     protected void initiateEditTexts() {
@@ -211,7 +288,7 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
 
         //PNC Child visit
         jsonEditTextMap.put("pncchildno", getEditText(R.id.pncNewBornNumber));
-       // jsonEditTextMap.put("pregno", getEditText(R.id.pncChildVisitValue));
+        // jsonEditTextMap.put("pregno", getEditText(R.id.pncChildVisitValue));
         jsonEditTextMap.put("pnctemperature", getEditText(R.id.pncChildTemperatureValue));
         jsonEditTextMap.put("pncweight", getEditText(R.id.pncChildWeightValue));
         jsonEditTextMap.put("pncbreathingperminute", getEditText(R.id.pncChildBreathValue));

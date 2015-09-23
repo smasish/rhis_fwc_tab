@@ -165,8 +165,6 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     }
 
 
-
-
     /*
  * Preparing the list data
  */
@@ -181,10 +179,6 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
        // listDataChild.put(listDataHeader.get(1), nowShowing);
        // listDataChild.put(listDataHeader.get(2), comingSoon);
     }
-
-
-
-
 
 
     @Override
