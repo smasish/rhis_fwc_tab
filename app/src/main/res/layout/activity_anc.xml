@@ -28,7 +28,7 @@
         android:name="org.sci.rhis.fwc.ANCActivityFragment"
         tools:layout="@layout/fragment_anchistory"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/abc_action_bar_default_height_material" />
+        android:layout_height="310dp" />
 
 <LinearLayout
    android:orientation="vertical"
@@ -53,7 +53,15 @@
         android:visibility="gone">
 
     <LinearLayout
-        android:id="@+id/ancText" android:layout_marginLeft="10dp" android:layout_marginTop="10dp" android:paddingBottom="20dp" android:orientation="vertical" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="#FFFFFF">
+        android:id="@+id/ancText"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="20dp"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF">
 
         <LinearLayout
             android:id="@+id/ancVisit"
