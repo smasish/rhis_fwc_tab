@@ -15,22 +15,12 @@
         android:id="@+id/delivery_info_layout"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
+        android:paddingRight="10dp"
         android:background="@drawable/fragmentborder"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/delivery_info_title"
-            style="@style/rowHeading"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:layout_marginTop="2dp"
-            android:orientation="horizontal"
-            android:paddingBottom="10sp"
-            android:paddingTop="10sp">
-
-            <TextView
+        <TextView
+                style="@style/rowHeading"
                 android:id="@+id/TextViewClient_info_tab"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -39,7 +29,7 @@
                 android:text="@string/delevery_related_info"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
-        </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/delivery_place"
@@ -67,7 +57,8 @@
                 android:layout_marginTop="10dp"
                 android:entries="@array/FacilityPlace_DropDown"
                 android:textSize="20dp"
-                android:prompt="@string/delivery_place"/>
+                android:prompt="@string/delivery_place"
+                android:background="@drawable/gradient_spinner"/>
 
             <TextView
                 android:id="@+id/delivery_type"
@@ -86,7 +77,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="20dp"
-                android:entries="@array/DeliveryType_DropDown"/>
+                android:entries="@array/DeliveryType_DropDown"
+                android:background="@drawable/gradient_spinner"/>
 
         </LinearLayout>
 
@@ -169,7 +161,8 @@
                 android:layout_width="60dp"
                 android:layout_height="60px"
                 android:layout_marginTop="10dp"
-                android:entries="@array/DeliveryTime_DropDown"/>
+                android:entries="@array/DeliveryTime_DropDown"
+                android:background="@drawable/gradient_spinner"/>
             <ImageButton
                 android:layout_width="35dp"
                 android:layout_height="35dp"
@@ -203,7 +196,8 @@
                 android:layout_marginLeft="10dp"
                 android:entries="@array/FacilityType_DropDown"
                 android:layout_marginTop="10dp"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:background="@drawable/gradient_spinner"/>
 
         </LinearLayout>
         <LinearLayout
@@ -606,7 +600,8 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
-                android:entries="@array/DeliveryAttendant_DropDown"/>
+                android:entries="@array/DeliveryAttendant_DropDown"
+                android:background="@drawable/gradient_spinner"/>
 
         </LinearLayout>
 
@@ -722,7 +717,7 @@
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/treatment_advice"
+            android:id="@+id/treatment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -741,15 +736,25 @@
                 android:id="@+id/id_spinner_treatment"
                 android:layout_width="wrap_content"
                 android:layout_height="50px"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:entries="@array/Treatment_DropDown"/>
+                android:entries="@array/Treatment_DropDown"
+                android:background="@drawable/gradient_spinner"/>
+        </LinearLayout>
+            <LinearLayout
+            android:id="@+id/advice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
 
             <TextView
                 android:id="@+id/id_general_advice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/general_advice"
                 android:textSize="20dp" android:textColor="@color/text_color"/>
@@ -759,8 +764,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:entries="@array/Delivery_Advice_DropDown"/>
+                android:layout_marginLeft="10dp"
+                android:entries="@array/Delivery_Advice_DropDown"
+                android:background="@drawable/gradient_spinner"/>
 
 
         </LinearLayout>
@@ -769,6 +775,7 @@
             android:id="@+id/refer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="10dp"
             android:orientation="horizontal">
@@ -798,10 +805,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
-                android:layout_weight="1"
                 android:entries="@array/FacilityType_DropDown"
                 android:textSize="20dp"
-                android:visibility="gone"/>
+                android:layout_marginLeft="10dp"
+                android:visibility="gone"
+                android:background="@drawable/gradient_spinner"/>
         </LinearLayout>
             <LinearLayout
                 android:id="@+id/reason"
@@ -809,6 +817,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
             <TextView
@@ -827,8 +836,9 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:visibility="invisible"
+                android:layout_marginLeft="10dp"
                 android:entries="@array/Delivery_Refer_Reason_DropDown"
-                />
+                android:background="@drawable/gradient_spinner" />
         </LinearLayout>
 
         <LinearLayout
@@ -857,13 +867,141 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/fragment_delivery_newborn_scroll" >
-
-            <fragment
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:name="org.sci.rhis.fwc.DeliveryNewBornFragment"
-                tools:layout="@layout/fragment_delivery_new_born"
-                android:orientation="vertical"/>
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:paddingBottom="10dp"
+                android:orientation="vertical"
+                android:background="@drawable/fragmentborder"
+                android:id = "@+id/DeliveryNewBornLayout">
+
+                    <Button
+                        style="@style/rowHeading"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="@string/newborn_related_info"
+                        android:id="@+id/deleveryLabel"
+                        android:gravity="center"
+                        android:layout_centerVertical="true"
+                        />
+
+                <LinearLayout
+                    android:id="@+id/NewBorn"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:paddingBottom="20dp"
+                    android:orientation="vertical"
+                    android:layout_centerVertical="true"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF">
+                    <LinearLayout android:id="@+id/deliveryNewBornCondition"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                        <TextView android:id="@+id/deliveryNewBornLabel" android:text="@string/child" android:textSize="20dp" android:layout_width="60dp" android:layout_height="50px" android:layout_marginTop="10dp" android:textColor="@color/text_color"/>
+                        <TextView android:id="@+id/deliveryNewBornNo." android:inputType="number" android:textSize="20dp" android:layout_width="40dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+                        <TextView android:id="@+id/deliveryNewBornConditionValue" android:inputType="text" android:textSize="20dp" android:layout_width="90dp" android:layout_height="50px" android:layout_marginTop="10dp" />
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/deliveryNewBorn" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                        <RadioGroup android:id="@+id/id_newBornSexRadioGroup" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal">
+                            <RadioButton android:id="@+id/deliveryNewBornSon" android:text="@string/son" android:textSize="20dp" android:layout_width="80dp" android:layout_height="50px" />
+                            <RadioButton android:id="@+id/deliveryNewBornDaughter" android:text="@string/daughter" android:textSize="20dp" android:layout_width="80dp" android:layout_height="50px"  />
+                        </RadioGroup>
+                        <TextView android:id="@+id/deliveryNewBornWeightLabel" android:text="@string/born_weight" android:textSize="20dp" android:layout_width="160dp" android:layout_height="50px" android:layout_marginLeft="10dp" android:textColor="@color/text_color"/>
+                        <EditText android:id="@+id/deliveryNewBornWeightValue" android:inputType="number" android:textSize="20dp" android:layout_width="40dp" android:layout_height="50px" android:layout_marginLeft="10dp" android:background="@drawable/edittextstyle"/>
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/deliveryPrematureBirth" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                        <TextView android:id="@+id/deliveryPrematureBirthLabel" android:text="@string/premature_birth_before_37_weeks_full" android:textSize="20dp" android:layout_width="wrap_content" android:layout_height="50px" android:textColor="@color/text_color" />
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/deliveryPrematureBirthValue" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                        <RadioGroup android:id="@+id/id_newBornImmaturRadioGroup" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal">
+                            <RadioButton  android:id="@+id/deliveryPrematureBirthYesButton" android:text="@string/general_yes" android:textSize="20dp" android:layout_width="80dp" android:layout_height="50px"  />
+                            <RadioButton  android:id="@+id/deliveryPrematureBirthNoButton" android:text="@string/general_no" android:textSize="20dp" android:layout_width="80dp" android:layout_height="50px"  />
+                        </RadioGroup>
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/deliveryWipe" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                        <TextView android:id="@+id/deliveryWipeLabel" android:text="@string/wipe_within_one_minute" android:textSize="20dp" android:layout_width="wrap_content" android:layout_height="50px" android:textColor="@color/text_color"/>
+                        <RadioGroup android:id="@+id/id_newBornWipeRadioGroup" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal">
+                            <RadioButton  android:id="@+id/deliveryWipeYesButton" android:text="@string/general_yes" android:textSize="20dp" android:layout_width="80dp" android:layout_height="50px"  />
+                            <RadioButton  android:id="@+id/deliveryWipeNoButton" android:text="@string/general_no" android:textSize="20dp" android:layout_width="80dp" android:layout_height="50px"  />
+                        </RadioGroup>
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/deliveryResastation" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                        <TextView android:id="@+id/deliveryResastationLabel" android:text="@string/resastation" android:textSize="20dp" android:layout_width="170dp" android:layout_height="50px" android:textColor="@color/text_color" />
+                        <RadioGroup android:id="@+id/id_newBornResasscitationRadioGroup" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal">
+                            <RadioButton  android:id="@+id/deliveryResastationYesButton" android:text="@string/general_yes" android:textSize="20dp" android:layout_width="80dp" android:layout_height="50px"  />
+                            <RadioButton  android:id="@+id/deliveryResastationNoButton" android:text="@string/general_no" android:textSize="20dp" android:layout_width="80dp" android:layout_height="50px"  />
+                        </RadioGroup>
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/deliveryPlacentaCutting" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                        <TextView android:id="@+id/deliveryPlacentaCuttingLabel" android:text="@string/placenta_cutting" android:textSize="20dp" android:layout_width="wrap_content" android:layout_height="50px" android:textColor="@color/text_color" />
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/deliveryPlacentaCuttingValue" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                        <RadioGroup android:id="@+id/id_newBornChlorohexidineRadioGroup" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal">
+                            <RadioButton  android:id="@+id/deliveryPlacentaCuttingYesButton" android:text="@string/general_yes" android:textSize="20dp" android:layout_width="80dp" android:layout_height="50px"  />
+                            <RadioButton  android:id="@+id/deliveryPlacentaCuttingNoButton" android:text="@string/general_no" android:textSize="20dp" android:layout_width="80dp" android:layout_height="50px"  />
+                        </RadioGroup>
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/deliveryFittedWithMotherSkin" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                        <TextView android:id="@+id/deliveryFittedWithMotherSkinLabel" android:text="@string/fitted_with_mother_skin" android:textSize="20dp" android:layout_width="wrap_content" android:layout_height="50px" android:textColor="@color/text_color" />
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/deliveryFittedWithMotherSkinValue" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                        <RadioGroup android:id="@+id/id_newBornChordCareRadioGroup" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal">
+                            <RadioButton  android:id="@+id/deliveryFittedWithMotherSkinYesButton" android:text="@string/general_yes" android:textSize="20dp" android:layout_width="80dp" android:layout_height="50px"  />
+                            <RadioButton  android:id="@+id/deliveryFittedWithMotherSkinNoButton" android:text="@string/general_no" android:textSize="20dp" android:layout_width="80dp" android:layout_height="50px"  />
+                        </RadioGroup>
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/deliveryBreastFeeding" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                        <TextView android:id="@+id/deliveryBreastFeedingLabel" android:text="@string/breast_feeding" android:textSize="20dp" android:layout_width="wrap_content" android:layout_height="50px" android:textColor="@color/text_color" />
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/deliveryBreastFeedingValue" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                        <RadioGroup android:id="@+id/id_newBornBreastFeedingRadioGroup" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal">
+                            <RadioButton  android:id="@+id/deliveryBreastFeedingYesButton" android:text="@string/general_yes" android:textSize="20dp" android:layout_width="80dp" android:layout_height="50px"  />
+                            <RadioButton  android:id="@+id/deliveryBreastFeedingNoButton" android:text="@string/general_no" android:textSize="20dp" android:layout_width="80dp" android:layout_height="50px"  />
+                        </RadioGroup>
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/deliveryChildRefer" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                        <CheckBox android:id="@+id/deliveryChildReferCheckBox" android:text="@string/child_refer" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" android:textColor="@color/title_color" />
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/deliveryChildReferCenterName" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                        <TextView android:id="@+id/deliveryChildReferCenterNameLabel" android:text="@string/center_name" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" android:textColor="@color/text_color" />
+                        <Spinner
+                            android:id="@+id/deliveryChildReferCenterNameSpinner"
+                            android:inputType="text"
+                            android:textSize="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50px"
+                            android:layout_marginTop="10dp"
+                            android:entries="@array/FacilityType_DropDown"
+                            android:background="@drawable/gradient_spinner"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/deliveryChildReferReason"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:layout_centerVertical="true"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content" >
+                        <TextView
+                            android:id="@+id/deliveryChildReferReasonLabel"
+                            android:text="@string/reason"
+                            android:textSize="20dp"
+                            android:layout_width="120dp"
+                            android:layout_height="50px"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/text_color"/>
+                        <Spinner
+                            android:id="@+id/deliveryChildReferReasonSpinner"
+                            android:inputType="text"
+                            android:textSize="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50px"
+                            android:layout_marginTop="10dp"
+                            android:entries="@array/Newborn_Refer_Reason_DropDown"
+                            android:background="@drawable/gradient_spinner"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
         </ScrollView>
     </LinearLayout>
 </ScrollView>
