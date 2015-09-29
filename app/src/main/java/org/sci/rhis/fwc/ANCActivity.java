@@ -125,8 +125,6 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         //invisibleButton.setOnClickListener(mInvisibleListener);
        // goneButton.setOnClickListener(mGoneListener);
 
-
-
 //        GridView gv = (GridView)findViewById(R.id.gridAncVisit);
  //       gv.setAdapter(new CustomGridAdapter(ANCActivity.this));
 
@@ -193,23 +191,6 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         String jsonRootkey = "ANCInfo";
         sendPostReqAsyncTask.execute(queryString, servlet, jsonRootkey);
 
-
-        // preparing list data
-//        prepareListData();
-//
-//        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
-//
-//        prepareListData2();
-//        listAdapter2 = new ExpandableListAdapter(this, listDataHeader2, listDataChild2);
-
-    //    prepareListData3();
-    //    listAdapter3 = new ExpandableListAdapter(this, listDataHeader3, listDataChild3);
-
-
-        // setting list adapter
-    //    expListView.setAdapter(listAdapter);
-   //     expListView2.setAdapter(listAdapter2);
-   //     expListView3.setAdapter(listAdapter3);
 
     // Initialize Spinner added By Al Amin
         initialize(); //super class
@@ -360,13 +341,6 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
 
     }
-    // Added by Al Amin
-    @Override
-    public void onClick(View v) {
-        if(v.getId() == R.id.ancServiceDateValue || v.getId() == R.id.Date_Picker_Button) {
-            datePickerDialog.show(datePickerPair.get(v.getId()));
-        }
-    }
 
     // added by Al Amin
     @Override
@@ -378,6 +352,14 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
             getSpinner(R.id.ancReferCenterNameSpinner).setVisibility(visibility);
             getTextView(R.id.ancReasonLabel).setVisibility(visibility);
             getSpinner(R.id.ancReasonSpinner).setVisibility(visibility);
+        }
+    }
+
+    // Added by Al Amin
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.ancServiceDateValue || v.getId() == R.id.Date_Picker_Button) {
+            datePickerDialog.show(datePickerPair.get(v.getId()));
         }
     }
 

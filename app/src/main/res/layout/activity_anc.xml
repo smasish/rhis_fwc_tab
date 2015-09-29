@@ -480,7 +480,7 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/text_color"
-                />
+                android:visibility="invisible"/>
             <Spinner
                 android:id="@+id/ancReferCenterNameSpinner"
                 android:inputType="text"
@@ -490,7 +490,7 @@
                 android:background="@drawable/gradient_spinner"
                 android:layout_marginTop="10dp"
                 android:entries="@array/Center_Name_DropDown"
-               />
+                android:visibility="invisible"/>
         </LinearLayout>
         <LinearLayout android:id="@+id/ancReasonLayout" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView
@@ -501,7 +501,7 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/text_color"
-               />
+                android:visibility="invisible"/>
             <org.sci.rhis.fwc.MultiSelectionSpinner
                 android:id="@+id/ancReasonSpinner"
                 android:inputType="text"
@@ -510,7 +510,7 @@
                 android:layout_height="50px"
                 android:background="@drawable/gradient_spinner"
                 android:layout_marginTop="10dp"
-               />
+                android:visibility="invisible"/>
         </LinearLayout>
         <LinearLayout android:id="@+id/ancButton" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <Button
