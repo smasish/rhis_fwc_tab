@@ -9,9 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
-import java.text.FieldPosition;
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -61,7 +59,7 @@ public class PregWoman extends GeneralPerson implements Parcelable{
              df = new SimpleDateFormat("yyyy-MM-dd");
         }
 
-        //Never ever change the order, if it absolutely necessary refelct the changes also in
+        //Never ever change the order, if it absolutely necessary reflect the changes also in
         //the constructor that takes in a Parcel.
         dest.writeString(getName());
         dest.writeString(getGuardianName());

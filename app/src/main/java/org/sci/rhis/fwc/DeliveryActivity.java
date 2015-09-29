@@ -20,8 +20,10 @@ import org.json.JSONObject;
 import org.sci.rhis.utilities.CustomDatePickerDialog;
 import org.sci.rhis.utilities.CustomTimePickerDialog;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 public class DeliveryActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
                                                                          View.OnClickListener,
@@ -39,6 +41,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     private int deliveryHour;
     private int deliveryMinute;
     private PregWoman mother;
+    private PregWoman newborn;
     private ProviderInfo provider;
 
     final private String SERVLET = "delivery";
@@ -46,11 +49,17 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
     AsyncDeliveryInfoUpdate deliveryInfoQueryTask;
     AsyncDeliveryInfoUpdate deliveryInfoUpdateTask;
-
+    private MultiSelectionSpinner multiSelectionSpinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery);
+        // For Multi Select Spinner
+        final List<String> dreferreasonlist = Arrays.asList(getResources().getStringArray(R.array.Delivery_Newborn_Refer_Reason_DropDown));
+        multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.deliveryChildReferReasonSpinner);
+        multiSelectionSpinner.setItems(dreferreasonlist);
+        multiSelectionSpinner.setSelection(new int[]{});
+
         initialize(); //super class
         Spinner spinners[] = new Spinner[3];
         spinners[0] = (Spinner) findViewById(R.id.delivery_placeDropdown);
@@ -60,6 +69,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         for(int i = 0; i < spinners.length; ++i) {
             spinners[i].setOnItemSelectedListener(this);
         }
+
 
         getEditText(R.id.id_delivery_date).setOnClickListener(this);
         getEditText(R.id.id_admissionDate).setOnClickListener(this);
@@ -82,6 +92,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
         //create the mother
         mother = getIntent().getParcelableExtra("PregWoman");
+        newborn = getIntent().getParcelableExtra("PregWoman");
         provider = getIntent().getParcelableExtra("Provider");
 
         //get info from database
@@ -222,6 +233,10 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         if(view.getId() == R.id.id_saveDeliveryButton) {
             saveToJson();
         }
+
+        if(view.getId() == R.id.id_saveNewbornButton) {
+            saveToJson();
+        }
     }
 
     public void pickDate(View view) {
@@ -261,7 +276,8 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         jsonCheckboxMap.put("dOthers", getCheckbox(R.id.id_deleiveryExtra));
         //refer
         jsonCheckboxMap.put("dRefer", getCheckbox(R.id.id_delivery_refer));
-
+// For New born
+        jsonCheckboxMap.put("refer", getCheckbox(R.id.deliveryChildReferCheckBox));
     }
 
     @Override
@@ -275,6 +291,9 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         jsonSpinnerMap.put("dAdvice", getSpinner(R.id.id_spinner_advice)); //advice
         jsonSpinnerMap.put("dReferCenter", getSpinner(R.id.id_spinner_refer_facilities)); //refercenter
         jsonSpinnerMap.put("dReferReason", getSpinner(R.id.id_spinner_refer_delivery_cause)); //refer reason
+      // for New born Layout
+        jsonSpinnerMap.put("referCenterName", getSpinner(R.id.deliveryChildReferCenterNameSpinner));
+
     }
 
     @Override
@@ -293,6 +312,9 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
         //attendant name
         jsonEditTextMap.put("dAttendantName",getEditText(R.id.id_attendantName));
+
+        // for New born layout
+        jsonEditTextMap.put("weight",getEditText(R.id.deliveryNewBornWeightValue));
     }
 
     @Override
@@ -346,6 +368,18 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             } else if (json.getString("dMisoprostol").equals("2")) {
                 getRadioGroup(R.id.id_radioGroupMisoprostol).check(R.id.radioMisoprostol_no);
             }
+// fOR NEW BORN
+            if (json.getString("gender").equals("1")) {
+                getRadioGroup(R.id.id_newBornSexRadioGroup).check(R.id.deliveryNewBornSon);
+            } else if (json.getString("gender").equals("2")) {
+                getRadioGroup(R.id.id_newBornSexRadioGroup).check(R.id.deliveryNewBornDaughter);
+            }
+            if (json.getString("immatureBirth").equals("1")) {
+                getRadioGroup(R.id.id_newBornImmaturRadioGroup).check(R.id.deliveryPrematureBirthYesButton);
+            } else if (json.getString("immatureBirth").equals("2")) {
+                getRadioGroup(R.id.id_newBornImmaturRadioGroup).check(R.id.deliveryPrematureBirthNoButton);
+            }
+
         } catch (JSONException jse) {
             System.out.println("The JSON key:  does not exist");
         }
@@ -405,8 +439,51 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                                 getRadioButton(R.id.radioMisoprostol_no))
                 )
         );
+        //for NewBorn
+        jsonRadioGroupButtonMap.put("gender", Pair.create(
+                        getRadioGroup(R.id.id_newBornSexRadioGroup), Pair.create(
+                                getRadioButton(R.id.deliveryNewBornSon),
+                                getRadioButton(R.id.deliveryNewBornDaughter))
+                )
+        );
+        jsonRadioGroupButtonMap.put("immatureBirth", Pair.create(
+                        getRadioGroup(R.id.id_newBornImmaturRadioGroup), Pair.create(
+                                getRadioButton(R.id.deliveryPrematureBirthYesButton),
+                                getRadioButton(R.id.deliveryPrematureBirthNoButton))
+                )
+        );
 
+        jsonRadioGroupButtonMap.put("drying", Pair.create(
+                        getRadioGroup(R.id.id_newBornWipeRadioGroup), Pair.create(
+                                getRadioButton(R.id.deliveryWipeYesButton),
+                                getRadioButton(R.id.deliveryWipeNoButton))
+                )
+        );
+        jsonRadioGroupButtonMap.put("resassitation", Pair.create(
+                        getRadioGroup(R.id.id_newBornResasscitationRadioGroup), Pair.create(
+                                getRadioButton(R.id.deliveryResastationYesButton),
+                                getRadioButton(R.id.deliveryResastationNoButton))
+                )
+        );
+        jsonRadioGroupButtonMap.put("chlorehexidin", Pair.create(
+                        getRadioGroup(R.id.id_newBornChlorohexidineRadioGroup), Pair.create(
+                                getRadioButton(R.id.deliveryPlacentaCuttingYesButton),
+                                getRadioButton(R.id.deliveryPlacentaCuttingNoButton))
+                )
+        );
+        jsonRadioGroupButtonMap.put("skinTouch", Pair.create(
+                        getRadioGroup(R.id.id_newBornChordCareRadioGroup), Pair.create(
+                                getRadioButton(R.id.deliveryFittedWithMotherSkinYesButton),
+                                getRadioButton(R.id.deliveryFittedWithMotherSkinNoButton))
+                )
+        );
 
+        jsonRadioGroupButtonMap.put("breastFeed", Pair.create(
+                        getRadioGroup(R.id.id_newBornBreastFeedingRadioGroup), Pair.create(
+                                getRadioButton(R.id.deliveryBreastFeedingYesButton),
+                                getRadioButton(R.id.deliveryBreastFeedingNoButton))
+                )
+        );
     }
 
     private HashMap<RadioGroup, Pair<RadioButton, RadioButton>> getRadioMap(int groupId, int yesId, int noId) {

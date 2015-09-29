@@ -272,6 +272,8 @@
     <string name="premature_birth_before_37_weeks_full">"অপরিণত জন্ম (৩৭ সপ্তাহ পূর্ণ হওয়ার আগে):"</string>
     <string name="wipe_within_one_minute">"১ মিনিটের মধ্যে মোছানো হয়েছে:"</string>
     <string name="resastation">"রিসাসসিটেশন:"</string>
+    <string name="stimulation">" স্টিমুলেশন"</string>
+    <string name="bag_n_mask">"ব্যাগ ও মাস্ক ব্যবহার "</string>
     <string name="placenta_cutting">"নাড়ি কাটার পর নাড়িতে ৭.১% ক্লোরহেক্সিডিন দ্রবন ব্যবহার করা হয়েছে:"</string>
     <string name="fitted_with_mother_skin">"নাড়ি কাটার পর মায়ের ত্বকে নবজাতককে লাগানো হয়েছে:"</string>
     <string name="breast_feeding">"জন্মের ১ ঘন্টার মধ্যে বুকের দুধ খাওয়ানো হয়েছে:"</string>
