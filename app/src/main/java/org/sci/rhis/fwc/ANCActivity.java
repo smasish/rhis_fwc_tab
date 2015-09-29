@@ -202,7 +202,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         for(int i = 0; i < spinners.length; ++i) {
             spinners[i].setOnItemSelectedListener(this);
         }
-
+        getCheckbox(R.id.ancReferCheckBox).setOnCheckedChangeListener(this);
       //custom date picker Added By Al Amin
         datePickerDialog = new CustomDatePickerDialog(this);
         datePickerPair = new HashMap<Integer, EditText>();

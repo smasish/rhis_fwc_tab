@@ -960,11 +960,32 @@
                             <RadioButton  android:id="@+id/deliveryBreastFeedingNoButton" android:text="@string/general_no" android:textSize="20dp" android:layout_width="80dp" android:layout_height="50px"  />
                         </RadioGroup>
                     </LinearLayout>
-                    <LinearLayout android:id="@+id/deliveryChildRefer" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
-                        <CheckBox android:id="@+id/deliveryChildReferCheckBox" android:text="@string/child_refer" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" android:textColor="@color/title_color" />
+                    <LinearLayout
+                        android:id="@+id/deliveryChildRefer"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:layout_centerVertical="true"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content" >
+                        <CheckBox
+                            android:id="@+id/deliveryChildReferCheckBox"
+                            android:text="@string/child_refer"
+                            android:textSize="20dp"
+                            android:layout_width="120dp"
+                            android:layout_height="50px"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/title_color" />
                     </LinearLayout>
                     <LinearLayout android:id="@+id/deliveryChildReferCenterName" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
-                        <TextView android:id="@+id/deliveryChildReferCenterNameLabel" android:text="@string/center_name" android:textSize="20dp" android:layout_width="120dp" android:layout_height="50px" android:layout_marginTop="10dp" android:textColor="@color/text_color" />
+                        <TextView
+                            android:id="@+id/deliveryChildReferCenterNameLabel"
+                            android:text="@string/center_name"
+                            android:textSize="20dp"
+                            android:layout_width="120dp"
+                            android:layout_height="50px"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/text_color"
+                            android:visibility="invisible"/>
                         <Spinner
                             android:id="@+id/deliveryChildReferCenterNameSpinner"
                             android:inputType="text"
@@ -973,6 +994,7 @@
                             android:layout_height="50px"
                             android:layout_marginTop="10dp"
                             android:entries="@array/FacilityType_DropDown"
+                            android:visibility="invisible"
                             android:background="@drawable/gradient_spinner"/>
                     </LinearLayout>
                     <LinearLayout
@@ -989,6 +1011,7 @@
                             android:layout_width="120dp"
                             android:layout_height="50px"
                             android:layout_marginTop="10dp"
+                            android:visibility="invisible"
                             android:textColor="@color/text_color"/>
                         <Spinner
                             android:id="@+id/deliveryChildReferReasonSpinner"
@@ -997,6 +1020,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="50px"
                             android:layout_marginTop="10dp"
+                            android:visibility="invisible"
                             android:entries="@array/Newborn_Refer_Reason_DropDown"
                             android:background="@drawable/gradient_spinner"/>
                     </LinearLayout>

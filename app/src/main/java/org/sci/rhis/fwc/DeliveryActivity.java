@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -65,7 +64,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         getEditText(R.id.id_delivery_date).setOnClickListener(this);
         getEditText(R.id.id_admissionDate).setOnClickListener(this);
         getCheckbox(R.id.id_delivery_refer).setOnCheckedChangeListener(this);
-
+        getCheckbox(R.id.deliveryChildReferCheckBox).setOnCheckedChangeListener(this);
         //hourField = (EditText)findViewById(R.id.delivery_time_hour);
         //minuteField = (EditText)findViewById(R.id.delivery_time_minute);
 
@@ -204,6 +203,13 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             getSpinner(R.id.id_spinner_refer_facilities).setVisibility(visibility);
             getTextView(R.id.id_refer_delivery_cause).setVisibility(visibility);
             getSpinner(R.id.id_spinner_refer_delivery_cause).setVisibility(visibility);
+        }
+       if (buttonView.getId() == R.id.deliveryChildReferCheckBox) {
+            int visibility = isChecked? View.VISIBLE: View.INVISIBLE;
+            getTextView(R.id.deliveryChildReferCenterNameLabel).setVisibility(visibility);
+            getSpinner(R.id.deliveryChildReferCenterNameSpinner).setVisibility(visibility);
+            getTextView(R.id.deliveryChildReferReasonLabel).setVisibility(visibility);
+            getSpinner(R.id.deliveryChildReferReasonSpinner).setVisibility(visibility);
         }
     }
 
