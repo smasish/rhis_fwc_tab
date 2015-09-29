@@ -303,6 +303,12 @@
     <string name="history_cause">কারণ:</string>
     <string name="child_refer">রেফার </string>
 
+    <string-array name="Delivery_Newborn_Refer_Reason_DropDown">
+        <item> জন্মগত শ্বাসরুদ্ধতা (asphyxia)	</item>
+        <item> অপরিণত জন্ম (Prematurity)	</item>
+        <item>কম ওজন নিয়ে জন্ম	</item>
+    </string-array>
+
     <string-array name="ANC_Advice_DropDown">
     <item>	গর্ভবতী মাকে কমপক্ষে ৪ বার গর্ভকালীন সময়ে ভিজিটে আসুন 	</item>
     <item>	অন্য সময়ের চাইতে বেশী পরিমাণে (কম পক্ষে ১ মুঠ চালের ভাত ও ১ চামচ ডাল বেশী) খান	</item>

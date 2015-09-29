@@ -93,15 +93,12 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 //        }
 
         setContentView(R.layout.activity_anc);
-
         // Find the view whose visibility will change
         mANCLayout = findViewById(R.id.ancLayoutScrollview);
         // Find our buttons
         Button visibleButton = (Button) findViewById(R.id.ancLabelButton);
-        //Button invisibleButton = (Button) findViewById(R.id.ancLabelButton);
+        Button invisibleButton = (Button) findViewById(R.id.ancLabelButton);
         //Button goneButton = (Button) findViewById(R.id.ancLabelButton);
-
-
 
         OnClickListener mVisibleListener = new OnClickListener() {
             public void onClick(View v) {
