@@ -57,7 +57,7 @@
     <string name = "newborn_die_within_48hours">" ৪৮ ঘন্টার মধ্যে নবজাতক মরে যাওয়া "</string>
     <string name = "swelling_legs_or_whole_body">" পা বা সমস্ত শরীর বেশি রকম ফোলা (ইডিমা) "</string>
     <string name = "with_convulsion_senseless">" একল্যাম্পসিয়া বা খিঁচুনিসহ বার বার অজ্ঞান হওয়া "</string>
-
+    <string name = "caesar">" সিজারিয়ান অপারেশন বা যন্ত্রের মাধ্যমে (ফরসেফ/ভেকুয়াম) প্রসব "</string>
     <string-array name="Blood_Group_Dropdown">
         <item> A+ </item>
         <item> A- </item>

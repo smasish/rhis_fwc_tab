@@ -162,7 +162,7 @@
                 android:layout_height="60px"
                 android:layout_marginTop="10dp"
                 android:entries="@array/DeliveryTime_DropDown"
-                android:background="@drawable/gradient_spinner"/>
+               />
             <ImageButton
                 android:layout_width="35dp"
                 android:layout_height="35dp"
@@ -732,13 +732,12 @@
                 android:text="@string/general_treatment"
                 android:textSize="20dp" android:textColor="@color/text_color" />
 
-            <Spinner
+            <org.sci.rhis.fwc.MultiSelectionSpinner
                 android:id="@+id/id_spinner_treatment"
                 android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:entries="@array/Treatment_DropDown"
                 android:background="@drawable/gradient_spinner"/>
         </LinearLayout>
             <LinearLayout
@@ -759,13 +758,12 @@
                 android:text="@string/general_advice"
                 android:textSize="20dp" android:textColor="@color/text_color"/>
 
-            <Spinner
+            <org.sci.rhis.fwc.MultiSelectionSpinner
                 android:id="@+id/id_spinner_advice"
                 android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
-                android:entries="@array/Delivery_Advice_DropDown"
                 android:background="@drawable/gradient_spinner"/>
 
 
@@ -830,14 +828,13 @@
                 android:textColor="@color/text_color"
                 android:visibility="invisible"/>
 
-            <Spinner
+            <org.sci.rhis.fwc.MultiSelectionSpinner
                 android:id="@+id/id_spinner_refer_delivery_cause"
                 android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:visibility="invisible"
                 android:layout_marginLeft="10dp"
-                android:entries="@array/Delivery_Refer_Reason_DropDown"
                 android:background="@drawable/gradient_spinner" />
         </LinearLayout>
 

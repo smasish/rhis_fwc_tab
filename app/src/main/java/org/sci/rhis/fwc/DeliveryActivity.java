@@ -47,17 +47,35 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     final private String SERVLET = "delivery";
     final private String ROOTKEY = "deliveryInfo";
 
+
     AsyncDeliveryInfoUpdate deliveryInfoQueryTask;
     AsyncDeliveryInfoUpdate deliveryInfoUpdateTask;
+
     private MultiSelectionSpinner multiSelectionSpinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery);
+
         // For Multi Select Spinner
-        final List<String> dreferreasonlist = Arrays.asList(getResources().getStringArray(R.array.Delivery_Newborn_Refer_Reason_DropDown));
-        multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.deliveryChildReferReasonSpinner);
+        final List<String> dtreatmentlist = Arrays.asList(getResources().getStringArray(R.array.Treatment_DropDown));
+        multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.id_spinner_treatment);
+        multiSelectionSpinner.setItems(dtreatmentlist);
+        multiSelectionSpinner.setSelection(new int[]{});
+
+        final List<String> dadvicelist = Arrays.asList(getResources().getStringArray(R.array.Delivery_Advice_DropDown));
+        multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.id_spinner_advice);
+        multiSelectionSpinner.setItems(dadvicelist);
+        multiSelectionSpinner.setSelection(new int[]{});
+
+        final List<String> dreferreasonlist = Arrays.asList(getResources().getStringArray(R.array.Delivery_Refer_Reason_DropDown));
+        multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.id_spinner_refer_delivery_cause);
         multiSelectionSpinner.setItems(dreferreasonlist);
+        multiSelectionSpinner.setSelection(new int[]{});
+
+        final List<String> newbornreferreasonlist = Arrays.asList(getResources().getStringArray(R.array.Delivery_Newborn_Refer_Reason_DropDown));
+        multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.deliveryChildReferReasonSpinner);
+        multiSelectionSpinner.setItems(newbornreferreasonlist);
         multiSelectionSpinner.setSelection(new int[]{});
 
         initialize(); //super class
