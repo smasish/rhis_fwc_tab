@@ -14,11 +14,19 @@ public class DeliveryNewBornFragment extends Fragment {
 
     final private String SERVLET = "newborn";
     final private String ROOTKEY = "NewbornInfo";
-
-    AsyncDeliveryInfoUpdate newbornInfoQueryTask;
-    AsyncDeliveryInfoUpdate newbornInfoUpdateTask;
-
+    private PregWoman newborn;
     private MultiSelectionSpinner multiSelectionSpinner;
+
+    public static DeliveryNewBornFragment newInstance(String param1, String param2) {
+        DeliveryNewBornFragment fragment = new DeliveryNewBornFragment();
+
+        return fragment;
+    }
+
+    public DeliveryNewBornFragment() {
+        // Required empty public constructor
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +43,8 @@ public class DeliveryNewBornFragment extends Fragment {
         multiSelectionSpinner = (MultiSelectionSpinner) multiSelectionSpinner.findViewById(R.id.deliveryChildReferReasonSpinner);
         multiSelectionSpinner.setItems(newbornreferreasonlist);
         multiSelectionSpinner.setSelection(new int[]{});
+
+       // newborn = getIntent().getParcelableExtra("PregWoman");
         return view;
     }
 

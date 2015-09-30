@@ -41,7 +41,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     private int deliveryHour;
     private int deliveryMinute;
     private PregWoman mother;
-    private PregWoman newborn;
+
     private ProviderInfo provider;
 
     final private String SERVLET = "delivery";
@@ -110,7 +110,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
         //create the mother
         mother = getIntent().getParcelableExtra("PregWoman");
-        newborn = getIntent().getParcelableExtra("PregWoman");
+
         provider = getIntent().getParcelableExtra("Provider");
 
         //get info from database
