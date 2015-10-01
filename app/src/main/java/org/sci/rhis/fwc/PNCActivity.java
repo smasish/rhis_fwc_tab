@@ -245,8 +245,8 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
                 //Log.d("--:::>", "---complicationsign=====>"+jsonStr.get(key));
 
                 ArrayList<String> list = new ArrayList<String>();
-                list.add(complicationsign);
-                list.add(serviceSource);
+                list.add(""+getString(R.string.pnc_m_poridorshan)+" "+complicationsign);
+                list.add(""+getString(R.string.pnc_m_date)+" "+serviceSource);
                 list.add(anemia);
                 list.add(referCenterName);
                 list.add(treatment);
