@@ -79,6 +79,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
     private View mANCLayout;
     private MultiSelectionSpinner multiSelectionSpinner;
+    Boolean flag=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,30 +99,23 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         mANCLayout = findViewById(R.id.ancLayoutScrollview);
         // Find our buttons
         Button visibleButton = (Button) findViewById(R.id.ancLabelButton);
-        Button invisibleButton = (Button) findViewById(R.id.ancLabelButton);
-        //Button goneButton = (Button) findViewById(R.id.ancLabelButton);
 
         OnClickListener mVisibleListener = new OnClickListener() {
             public void onClick(View v) {
+            if(flag==false) {
                 mANCLayout.setVisibility(View.VISIBLE);
+                flag=true;
             }
-        };
-
-        OnClickListener mInvisibleListener = new OnClickListener() {
-            public void onClick(View v) {
+            else
+            {
                 mANCLayout.setVisibility(View.INVISIBLE);
+                flag=false;
             }
+        }
         };
 
-        OnClickListener mGoneListener = new OnClickListener() {
-            public void onClick(View v) {
-                mANCLayout.setVisibility(View.GONE);
-            }
-        };
         // Wire each button to a click listener
         visibleButton.setOnClickListener(mVisibleListener);
-        //invisibleButton.setOnClickListener(mInvisibleListener);
-       // goneButton.setOnClickListener(mGoneListener);
 
 //        GridView gv = (GridView)findViewById(R.id.gridAncVisit);
  //       gv.setAdapter(new CustomGridAdapter(ANCActivity.this));
@@ -203,6 +197,9 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         for(int i = 0; i < spinners.length; ++i) {
             spinners[i].setOnItemSelectedListener(this);
         }
+
+
+        getEditText(R.id.ancServiceDateValue).setOnClickListener(this);
         getCheckbox(R.id.ancReferCheckBox).setOnCheckedChangeListener(this);
       //custom date picker Added By Al Amin
         datePickerDialog = new CustomDatePickerDialog(this);

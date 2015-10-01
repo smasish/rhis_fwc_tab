@@ -78,99 +78,23 @@
         <item>Case:5 </item>
     </string-array>
 
-        <string-array name="Health_Id">
+    <string-array name="Health_Id">
         <item>Health ID</item>
         <item>Name</item>
         <item>National ID</item>
         <item>Birth Reg. No</item>
         <item>Mobile No </item>
     </string-array>
-	
-	<string name="general_yes">"হ্যাঁ"</string>
+
+
+
+    <string name="general_yes">"হ্যাঁ"</string>
     <string name="general_no">"না"</string>
     <string name="general_treatment">"চিকিৎসা:"</string>
     <string name="general_advice">"পরামর্শ:"</string>
     <string name="general_refer">"রেফার:"</string>
-	<string name="general_facility_name">"কেন্দ্রের নাম:"</string>
-	<string name="general_cause">"	কারণ:"</string>	
-	
-
-    <string name="anc_service">"গর্ভকালীন সেবা ( ANC )"</string>
-    <string name="delivery_service">"প্রসবকালীন সেবা ( Delivery )"</string>
-    <string name="delivery_related_info">"প্রসব সংক্রান্ত তথ্য"</string>
-    <string name="delivery_place">"প্রসবের স্থান:"</string>
-    <string name="delivery_date">"প্রসবের তারিখ:"</string>
-    <string name="delivery_time">"সময়:"</string>
-    <string name="delivery_type">"প্রসবের ধরণ:"</string>
-    <string name="service_center_name">"সেবাকেন্দ্রের নাম:"</string>
-    <string name="admission_date">"ভর্তির তারিখ:"</string>
-    <string name="ward">"ওয়ার্ড:"</string>
-    <string name="bed">"শয্যা:"</string>
-    <string name="delivery_result">"প্রসবের ফলাফল:"</string>
-    <string name="live_born">"জীবিত জন্ম:"</string>
-    <string name="dead_born">"মৃত জন্ম:"</string>
-    <string name="dead_born_fresh">"ফ্রেশ:"</string>
-    <string name="dead_born_macerated">"ম্যাসারেটেড:"</string>
-    <string name="child_sex">"লিঙ্গ:"</string>
-    <string name="not_detected">"সনাক্ত করা যাই নি:"</string>
-    <string name="amtsl">"প্রসবের তৃতীয় ধাপের সক্রিয় ব্যবস্থাপনায় (AMTSL) যা অনুসরণ করা হয়েছে:"</string>
-    <string name="oxytocin">"প্রসবের ১ মিনিটের মধ্যে অক্সিটোসিন প্রয়োগ"</string>
-	<string name="traction">"গর্ভফুল প্রসবের জন্য নাভিরজ্জুতে নিয়ন্ত্রিত টান"</string>
-	<string name="massage">"জরায়ু ম্যাসাজ"</string>	
-	<string name="epcotomi">"ইপিসিওটমি করা হয়েছে? "</string>
-	<string name="oxytocinGiven">"অক্সিটোসিন না থাকলে মিসোপ্রোস্টল খাওয়ানো হয়েছে?"</string>
-	<string name="providerName">"প্রসব সম্পাদনকারীর নাম:"</string>
-	<string name="providerTitle">"পদবী:"</string>
-	<string name="deliveryComplication">"প্রসব সংক্রান্ত জটিলতা:"</string>
-	<string name="bloodLoss">"অতিরিক্ত রক্তক্ষরণ"</string>
-	<string name="delayedDelivery">"বিলম্বিত প্রসব"</string>
-	<string name="blockedDelivery">"বাধাগ্রস্থ প্রসব "</string>
-	<string name="blockedPlacenta">"গর্ভফুল না পড়া "</string>
-	<string name="heavyHeadache">"প্রচন্ড মাথা ব্যাথা"</string>
-	<string name="blurryVision">" চোখে ঝাপসা দেখা "</string>
-	<string name="onlyHead">"মাথা ছাড়া অন্য কোন অঙ্গ বের হওয়া"</string>
-	<string name="convulsion">"খিচুঁনি "</string>
-	<string name="deliveryExtra">"অন্যান্য"</string>
-
-    <string-array name="FacilityType_DropDown">
-        <item> মেডিকেল কলেজ হাসপাতাল </item>
-        <item> জেলা সদর হাসপাতাল </item>
-        <item>মা ও শিশু কল্যাণ কেন্দ্র</item>
-        <item> উপজেলা স্বাস্থ্য কমপ্লেক্স </item>
-        <item> ইউনিয়ন স্বাস্থ্য ও পরিবার কল্যান কেন্দ্র </item>
-        <item> কমিউনিটি ক্লিনিক </item>
-        <item> এনজিও হাসপাতাল / ক্লিনিক / সেবা কেন্দ্র </item>
-        <item> প্রাইভেট ক্লিনিক / হাসপাতাল </item>
-        <item> অন্যান্য</item>
-    </string-array>
-
-    <string-array name="FacilityPlace_DropDown">
-        <item> বাড়ি </item>
-        <item> সেবাকেন্দ্র </item>
-    </string-array>
-
-    <string-array name="DeliveryType_DropDown">
-        <item> স্বাভাবিক </item>
-        <item> সিজারিয়ান </item>
-        <item> গর্ভপাত </item>
-    </string-array>
-
-    <string-array name="DeliveryTime_DropDown">
-        <item> AM </item>
-        <item> PM </item>
-    </string-array>
-
-    <string-array name="DeliveryAttendant_DropDown">
-        <item>ডাক্তার</item>
-        <item>নার্স</item>
-        <item>পরিবার কল্যাণ পরিদর্শিকা (এফ.ডব্লিউ.ভি)</item>
-        <item>উপ-সহকারী কমিউনিটি মেডিকেল অফিসার (এস.এ.সি.এম.ও)</item>
-        <item>প্যারামেডিক্স </item>
-        <item>স্বাস্থ্য সহকারী (এইচ.এ)/(সি.এস.বি.এ)</item>
-        <item>পরিবার কল্যাণ সহকারী (এফ.ডব্লিউ.এ)/(সি.এস.বি.এ)</item>
-        <item>ধাত্রী (টি.বি.এ)</item>
-        <item>আত্মীয়/প্রতিবেশী</item>
-    </string-array>
+    <string name="general_facility_name">"কেন্দ্রের নাম:"</string>
+    <string name="general_cause">"	কারণ:"</string>
 
 
     <string-array name="list_item">
@@ -235,6 +159,82 @@
         <item>পরিবার পরিকল্পনা পদ্ধতি(পরামর্শ / পদ্ধতি প্রদান):</item>
     </string-array>
 
+    <string name="anc_service">"গর্ভকালীন সেবা ( ANC )"</string>
+    <string name="delivery_service">"প্রসবকালীন সেবা ( Delivery )"</string>
+    <string name="delivery_related_info">"প্রসব সংক্রান্ত তথ্য"</string>
+    <string name="delivery_place">"প্রসবের স্থান:"</string>
+    <string name="delivery_date">"প্রসবের তারিখ:"</string>
+    <string name="delivery_time">"সময়:"</string>
+    <string name="delivery_type">"প্রসবের ধরণ:"</string>
+    <string name="service_center_name">"সেবাকেন্দ্রের নাম:"</string>
+    <string name="admission_date">"ভর্তির তারিখ:"</string>
+    <string name="ward">"ওয়ার্ড:"</string>
+    <string name="bed">"শয্যা:"</string>
+    <string name="delivery_result">"প্রসবের ফলাফল:"</string>
+    <string name="live_born">"জীবিত জন্ম:"</string>
+    <string name="dead_born">"মৃত জন্ম:"</string>
+    <string name="dead_born_fresh">"ফ্রেশ:"</string>
+    <string name="dead_born_macerated">"ম্যাসারেটেড:"</string>
+    <string name="child_sex">"লিঙ্গ:"</string>
+    <string name="not_detected">"সনাক্ত করা যাই নি:"</string>
+    <string name="amtsl">"প্রসবের তৃতীয় ধাপের সক্রিয় ব্যবস্থাপনায় (AMTSL) যা অনুসরণ করা হয়েছে:"</string>
+    <string name="oxytocin">"প্রসবের ১ মিনিটের মধ্যে অক্সিটোসিন প্রয়োগ"</string>
+    <string name="traction">"গর্ভফুল প্রসবের জন্য নাভিরজ্জুতে নিয়ন্ত্রিত টান"</string>
+    <string name="massage">"জরায়ু ম্যাসাজ"</string>
+    <string name="epcotomi">"ইপিসিওটমি করা হয়েছে? "</string>
+    <string name="oxytocinGiven">"অক্সিটোসিন না থাকলে মিসোপ্রোস্টল খাওয়ানো হয়েছে?"</string>
+    <string name="providerName">"প্রসব সম্পাদনকারীর নাম:"</string>
+    <string name="providerTitle">"পদবী:"</string>
+    <string name="deliveryComplication">"প্রসব সংক্রান্ত জটিলতা:"</string>
+    <string name="bloodLoss">"অতিরিক্ত রক্তক্ষরণ"</string>
+    <string name="delayedDelivery">"বিলম্বিত প্রসব"</string>
+    <string name="blockedDelivery">"বাধাগ্রস্থ প্রসব "</string>
+    <string name="blockedPlacenta">"গর্ভফুল না পড়া "</string>
+    <string name="heavyHeadache">"প্রচন্ড মাথা ব্যাথা"</string>
+    <string name="blurryVision">" চোখে ঝাপসা দেখা "</string>
+    <string name="onlyHead">"মাথা ছাড়া অন্য কোন অঙ্গ বের হওয়া"</string>
+    <string name="convulsion">"খিচুঁনি "</string>
+    <string name="deliveryExtra">"অন্যান্য"</string>
+
+    <string-array name="FacilityType_DropDown">
+        <item> মেডিকেল কলেজ হাসপাতাল </item>
+        <item> জেলা সদর হাসপাতাল </item>
+        <item>মা ও শিশু কল্যাণ কেন্দ্র</item>
+        <item> উপজেলা স্বাস্থ্য কমপ্লেক্স </item>
+        <item> ইউনিয়ন স্বাস্থ্য ও পরিবার কল্যান কেন্দ্র </item>
+        <item> কমিউনিটি ক্লিনিক </item>
+        <item> এনজিও হাসপাতাল / ক্লিনিক / সেবা কেন্দ্র </item>
+        <item> প্রাইভেট ক্লিনিক / হাসপাতাল </item>
+        <item> অন্যান্য</item>
+    </string-array>
+
+    <string-array name="FacilityPlace_DropDown">
+        <item> বাড়ি </item>
+        <item> সেবাকেন্দ্র </item>
+    </string-array>
+
+    <string-array name="DeliveryType_DropDown">
+        <item> স্বাভাবিক </item>
+        <item> সিজারিয়ান </item>
+        <item> গর্ভপাত </item>
+    </string-array>
+
+    <string-array name="DeliveryTime_DropDown">
+        <item> AM </item>
+        <item> PM </item>
+    </string-array>
+
+    <string-array name="DeliveryAttendant_DropDown">
+        <item>ডাক্তার</item>
+        <item>নার্স</item>
+        <item>পরিবার কল্যাণ পরিদর্শিকা (এফ.ডব্লিউ.ভি)</item>
+        <item>উপ-সহকারী কমিউনিটি মেডিকেল অফিসার (এস.এ.সি.এম.ও)</item>
+        <item>প্যারামেডিক্স </item>
+        <item>স্বাস্থ্য সহকারী (এইচ.এ)/(সি.এস.বি.এ)</item>
+        <item>পরিবার কল্যাণ সহকারী (এফ.ডব্লিউ.এ)/(সি.এস.বি.এ)</item>
+        <item>ধাত্রী (টি.বি.এ)</item>
+        <item>আত্মীয়/প্রতিবেশী</item>
+    </string-array>
 
     <string name="anc_title">" প্রসব সংক্রান্ত তথ্য "</string>
     <string name="visit">"পরিদর্শন:"</string>
@@ -344,21 +344,21 @@
     </string-array>
 
     <string-array name="ANC_Advice_DropDown">
-    <item>	গর্ভবতী মাকে কমপক্ষে ৪ বার গর্ভকালীন সময়ে ভিজিটে আসুন 	</item>
-    <item>	অন্য সময়ের চাইতে বেশী পরিমাণে (কম পক্ষে ১ মুঠ চালের ভাত ও ১ চামচ ডাল বেশী) খান	</item>
-    <item>	বেশী পরিমাণে পানি খান (কম পক্ষে ৮ গ্লাস)	</item>
-    <item>	"রক্তস্বল্পতা প্রতিরোধ করার জন্য মাকে আয়রন সমৃদ্ধ খাবার যেমন সবুজ শাকসবজি, ডাল, ডিম খেতে হবে এবং এগুলোর সাথে আয়রন এবং ফলিক এসিড ট্যাবলেট খেতে খান 	</item>
-    <item>	যদি পা ফুলে যায় অতিরিক্ত (আলগা) লবণ খাওয়া বাদ দিতে হবে এবং পর্যাপ্ত বিশ্রাম নিন </item>
-    <item>	দুপুরের খাবার পর কমপক্ষে ২ ঘন্টা বিশ্রাম ও রাতে ৮ ঘন্টা ঘুমান (বিশেষ করে বাম কাত হয়ে)</item>
-    <item>	স্বাভাবিক সাংসারিক হালকা কাজকর্মে উত্‍সাহ কিন্তু ভারী কাজে নিষেধ	 </item>
-    <item>	প্রথম তিন মাস ও শেষ তিনমাস দীর্ঘ ভ্রমণ এড়িয়ে চলুন 	</item>
-    <item>	টাইট (আঁটসাঁট) পোশাক পরিহার এবং ঢিলা ও আরামদায়ক পোশাক পড়ুন </item>
-    <item>	(গর্ভপাতের আশংকা থাকলে) প্রথম তিনমাস এবং শেষের দুইমাস স্বামী সহবাস থেকে বিরত থাকুন </item>
-    <item>	টিটি টিকা দিন 	</item>
-    <item>	বারবার অল্প করে খান , তৈলাক্ত ও মসলা জাতীয় খাবার এবং ধূমপানে বিরত থাকুন	</item>
-    <item>	তিন বেলা ভারী খাবারের পরিবর্তে অল্প অল্প করে বারেবারে খান </item>
-    <item>	(কোষ্ঠকাঠিন্য হলে) প্রচুর পরিমাণ পানি, শাকসবজি, হালকা গরম দুধ এবং ইসুপগুলের ভুষি খান </item>
-    <item>	(পায়ে পানি আসলে) পা সামান্য উঁচু রাখা	</item>
+        <item>	গর্ভবতী মাকে কমপক্ষে ৪ বার গর্ভকালীন সময়ে ভিজিটে আসুন 	</item>
+        <item>	অন্য সময়ের চাইতে বেশী পরিমাণে (কম পক্ষে ১ মুঠ চালের ভাত ও ১ চামচ ডাল বেশী) খান	</item>
+        <item>	বেশী পরিমাণে পানি খান (কম পক্ষে ৮ গ্লাস)	</item>
+        <item>	"রক্তস্বল্পতা প্রতিরোধ করার জন্য মাকে আয়রন সমৃদ্ধ খাবার যেমন সবুজ শাকসবজি, ডাল, ডিম খেতে হবে এবং এগুলোর সাথে আয়রন এবং ফলিক এসিড ট্যাবলেট খেতে খান 	</item>
+        <item>	যদি পা ফুলে যায় অতিরিক্ত (আলগা) লবণ খাওয়া বাদ দিতে হবে এবং পর্যাপ্ত বিশ্রাম নিন </item>
+        <item>	দুপুরের খাবার পর কমপক্ষে ২ ঘন্টা বিশ্রাম ও রাতে ৮ ঘন্টা ঘুমান (বিশেষ করে বাম কাত হয়ে)</item>
+        <item>	স্বাভাবিক সাংসারিক হালকা কাজকর্মে উত্‍সাহ কিন্তু ভারী কাজে নিষেধ	 </item>
+        <item>	প্রথম তিন মাস ও শেষ তিনমাস দীর্ঘ ভ্রমণ এড়িয়ে চলুন 	</item>
+        <item>	টাইট (আঁটসাঁট) পোশাক পরিহার এবং ঢিলা ও আরামদায়ক পোশাক পড়ুন </item>
+        <item>	(গর্ভপাতের আশংকা থাকলে) প্রথম তিনমাস এবং শেষের দুইমাস স্বামী সহবাস থেকে বিরত থাকুন </item>
+        <item>	টিটি টিকা দিন 	</item>
+        <item>	বারবার অল্প করে খান , তৈলাক্ত ও মসলা জাতীয় খাবার এবং ধূমপানে বিরত থাকুন	</item>
+        <item>	তিন বেলা ভারী খাবারের পরিবর্তে অল্প অল্প করে বারেবারে খান </item>
+        <item>	(কোষ্ঠকাঠিন্য হলে) প্রচুর পরিমাণ পানি, শাকসবজি, হালকা গরম দুধ এবং ইসুপগুলের ভুষি খান </item>
+        <item>	(পায়ে পানি আসলে) পা সামান্য উঁচু রাখা	</item>
     </string-array>
     <string-array name="PNC_Mother_Advice_DropDown">
         <item>	অন্য সময়ের চাইতে বেশী পরিমাণে (কম পক্ষে ১ মুঠ চালের ভাত ও ১ চামচ ডাল বেশী) খান	</item>
@@ -374,21 +374,21 @@
         <item>	প্রসবের পর ৬ সপ্তাহ পর্যন্ত স্বামী সহবাস করবেন না  </item>
     </string-array>
 
-   <string-array name="PNC_Child_Advice_DropDown">
-       <item>	নবজাত শিশুকে কখনই অনাবৃত রাখবেন না৷ 	</item>
-       <item>	শিশু জন্মের সাথে সাথে বা ৭২ ঘণ্টার মধ্যে গোসল করাবেন না৷ </item>
-       <item>	প্রথম ২৪ ঘনটায় শিশুর শরীর কোন প্রকার তৈল মেখে পরিষ্কার করবেন না৷ </item>
-       <item>	কখনই ভারনিক্স (Vernix)ওঠাবেন না৷ 	</item>
-       <item>	জন্মের পর পরই শাল দুধ খাওয়ান  	</item>
-       <item>	জন্মের ১ ঘণ্টার মধ্যে বুকের দুধ খাননো শুরু করুন 	</item>
-       <item>	শিশুর চাহিদা অনুযায়ী শুধুমাত্র বুকের দুধ খাওয়ান  	</item>
-       <item>	নবজাতককে শুকনো ও উষ্ণ রাখুন 	</item>
-       <item>	কাঁটা নাভিতে ৭.১% CHX ব্যবহার করুন ও পরবর্তীতে শুকনো রাখুন 	</item>
-       <item>	নবজাতককে ধরার পূর্বে হাত পরিষ্কার করুন	</item>
-       <item>	জন্মের পর পর যত তাড়াতাড়ি সম্ভব বিসিজি এবং পোলিও টিকা দিন 	</item>
-       <item>	ইপিআই-এর আওতায় টিকার সময়সূচী অনুযায়ী শিশুকে রোগ প্রতিরোধের উদ্দেশ্যে টিকা দিন </item>
-       <item>	নবজাতককে বুকের দুধ খানবার পূর্বে পরিষ্কার করে নিন 	</item>
-   </string-array>
+    <string-array name="PNC_Child_Advice_DropDown">
+        <item>	নবজাত শিশুকে কখনই অনাবৃত রাখবেন না৷ 	</item>
+        <item>	শিশু জন্মের সাথে সাথে বা ৭২ ঘণ্টার মধ্যে গোসল করাবেন না৷ </item>
+        <item>	প্রথম ২৪ ঘনটায় শিশুর শরীর কোন প্রকার তৈল মেখে পরিষ্কার করবেন না৷ </item>
+        <item>	কখনই ভারনিক্স (Vernix)ওঠাবেন না৷ 	</item>
+        <item>	জন্মের পর পরই শাল দুধ খাওয়ান  	</item>
+        <item>	জন্মের ১ ঘণ্টার মধ্যে বুকের দুধ খাননো শুরু করুন 	</item>
+        <item>	শিশুর চাহিদা অনুযায়ী শুধুমাত্র বুকের দুধ খাওয়ান  	</item>
+        <item>	নবজাতককে শুকনো ও উষ্ণ রাখুন 	</item>
+        <item>	কাঁটা নাভিতে ৭.১% CHX ব্যবহার করুন ও পরবর্তীতে শুকনো রাখুন 	</item>
+        <item>	নবজাতককে ধরার পূর্বে হাত পরিষ্কার করুন	</item>
+        <item>	জন্মের পর পর যত তাড়াতাড়ি সম্ভব বিসিজি এবং পোলিও টিকা দিন 	</item>
+        <item>	ইপিআই-এর আওতায় টিকার সময়সূচী অনুযায়ী শিশুকে রোগ প্রতিরোধের উদ্দেশ্যে টিকা দিন </item>
+        <item>	নবজাতককে বুকের দুধ খানবার পূর্বে পরিষ্কার করে নিন 	</item>
+    </string-array>
 
     <string-array name="Delivery_Advice_DropDown">
         <item>	বেশী পরিমাণে পানি খান (কম পক্ষে ৮ গ্লাস)	</item>

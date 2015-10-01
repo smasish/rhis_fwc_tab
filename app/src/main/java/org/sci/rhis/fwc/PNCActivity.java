@@ -1,7 +1,6 @@
 package org.sci.rhis.fwc;
 
 import android.content.res.Resources;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -9,24 +8,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.ExpandableListView;
-import android.widget.LinearLayout;
-
-import org.json.JSONArray;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.sci.rhis.utilities.CustomDatePickerDialog;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -38,6 +31,9 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
 
 
 
+    // For Date pick added by Al Amin
+    private CustomDatePickerDialog datePickerDialog;
+    private HashMap<Integer, EditText> datePickerPair;
 
     ExpandableListAdapterforPNC listAdapter;
     ExpandableListView expListView;
@@ -170,9 +166,20 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
         Log.d("-->","---=====>"+queryString);
         sendPostReqAsyncTask.execute(queryString, servlet, jsonRootkey);
 
+        getEditText(R.id.pncServiceDateValue).setOnClickListener(this);
+        getEditText(R.id.pncChildServiceDateValue).setOnClickListener(this);
+        getCheckbox(R.id.pncReferCheckBox).setOnCheckedChangeListener(this);
+        getCheckbox(R.id.pncChildReferCheckBox).setOnCheckedChangeListener(this);
+
+//custom date picker Added By Al Amin
+        datePickerDialog = new CustomDatePickerDialog(this);
+        datePickerPair = new HashMap<Integer, EditText>();
+        datePickerPair.put(R.id.Date_Picker_Button, (EditText) findViewById(R.id.pncServiceDateValue));
     }
 
-    
+    public void pickDate(View view) {
+        datePickerDialog.show(datePickerPair.get(view.getId()));
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -393,12 +400,28 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (buttonView.getId() == R.id.pncReferCheckBox) {
+            int visibility = isChecked? View.VISIBLE: View.GONE;
+            getTextView(R.id.pncReferCenterNameLabel).setVisibility(visibility);
+            getSpinner(R.id.pncReferCenterNameSpinner).setVisibility(visibility);
+            getTextView(R.id.pncReasonLabel).setVisibility(visibility);
+            getSpinner(R.id.pncReasonSpinner).setVisibility(visibility);
+        }
+        if (buttonView.getId() == R.id.pncChildReferCheckBox) {
+            int visibility = isChecked? View.VISIBLE: View.GONE;
+            getTextView(R.id.pncChildReferCenterNameLabel).setVisibility(visibility);
+            getSpinner(R.id.pncChildReferCenterNameSpinner).setVisibility(visibility);
+            getTextView(R.id.pncChildReasonLabel).setVisibility(visibility);
+            getSpinner(R.id.pncChildReasonSpinner).setVisibility(visibility);
+        }
 
     }
 
     @Override
     public void onClick(View v) {
-
+        if(v.getId() == R.id.pncServiceDateValue || v.getId() == R.id.Date_Picker_Button) {
+            datePickerDialog.show(datePickerPair.get(v.getId()));
+        }
     }
 
     @Override
