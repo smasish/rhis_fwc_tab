@@ -86,7 +86,7 @@
                     android:layout_width="40dp"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/edittextstyle"/>
+                 />
             </LinearLayout>
             <LinearLayout android:id="@+id/pncServiceDate" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
                 <TextView
