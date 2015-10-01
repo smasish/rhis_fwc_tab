@@ -9,11 +9,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
+import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 
+import org.json.JSONArray;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -165,6 +171,8 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
         sendPostReqAsyncTask.execute(queryString, servlet, jsonRootkey);
 
     }
+
+    
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

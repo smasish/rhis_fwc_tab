@@ -8,12 +8,10 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -113,6 +111,7 @@ public class SecondActivity extends ClinicalServiceActivity {
 
             if(json.get("False").toString().equals("")) { //Client exists
                 populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
+                populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
                 woman.UpdateUIField(this);
 
             // To Make disable desired fields
@@ -186,7 +185,7 @@ public class SecondActivity extends ClinicalServiceActivity {
     }
 
     private void initializeJsonManipulation() {
-        deliveryHistoryMapping = new Vector<Pair<String, Integer>>(8);
+        deliveryHistoryMapping = new Vector<Pair<String, Integer>>(9);
         //The prder is important
         deliveryHistoryMapping.addElement(Pair.create("bleeding",        R.id.previousDeliveryBleedingCheckBox)); //0
         deliveryHistoryMapping.addElement(Pair.create("delayedDelivery", R.id.delayedBirthCheckBox));//1
@@ -196,6 +195,7 @@ public class SecondActivity extends ClinicalServiceActivity {
         deliveryHistoryMapping.addElement(Pair.create("lived48Hour",     R.id.newbornDieWithin48hoursCheckBox));//5
         deliveryHistoryMapping.addElement(Pair.create("edemaSwelling",   R.id.swellingLegsOrWholeBodyCheckBox));//6
         deliveryHistoryMapping.addElement(Pair.create("convulsion",      R.id.withConvulsionSenselessCheckBox));//7
+        deliveryHistoryMapping.addElement(Pair.create("caesar",      R.id.caesarCheckBox));//8
     }
 
     private void manipulateJson(JSONObject json) {

@@ -349,11 +349,12 @@
             <Spinner
                 android:id="@+id/Blood_Group_Dropdown"
                 android:layout_marginLeft="10dp"
-                android:layout_width="50dp"
+                android:layout_width="70dp"
                 android:layout_height="50px"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
-                android:entries="@array/Blood_Group_Dropdown"/>
+                android:entries="@array/Blood_Group_Dropdown"
+                android:background="@drawable/gradient_spinner"/>
 
         </LinearLayout>
 
@@ -525,6 +526,19 @@
                     android:layout_height="50px"
                     android:text="@string/with_convulsion_senseless"
                     android:id="@+id/withConvulsionSenselessCheckBox" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/caesar_layout"
+                android:orientation="horizontal"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <CheckBox
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50px"
+                    android:text="@string/caesar"
+                    android:id="@+id/caesarCheckBox" />
             </LinearLayout>
         </LinearLayout>
 

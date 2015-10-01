@@ -28,41 +28,40 @@
         android:name="org.sci.rhis.fwc.ANCActivityFragment"
         tools:layout="@layout/fragment_anchistory"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/abc_action_bar_default_height_material" />
+        android:layout_height="310dp" />
 
 <LinearLayout
    android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content" >
 
-    <LinearLayout
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         style="@style/rowHeading"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
-        android:layout_marginTop="2dp"
-        android:paddingBottom="10sp"
-        android:paddingTop="10sp">
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/title_activity_anc"
-        android:id="@+id/ancLabel"
+        android:id="@+id/ancLabelButton"
         android:gravity="center"
         android:layout_centerVertical="true"
         android:textColor="@color/text_color"/>
-    </LinearLayout>
+
 
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+       android:id="@+id/ancLayoutScrollview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
     <LinearLayout
-        android:id="@+id/ancText" android:layout_marginLeft="10dp" android:layout_marginTop="10dp" android:paddingBottom="20dp" android:orientation="vertical" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="#FFFFFF">
+        android:id="@+id/ancText"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="20dp"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF">
 
         <LinearLayout
             android:id="@+id/ancVisit"
@@ -488,7 +487,8 @@
                 android:layout_width="220dp"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
-                android:textColor="@color/text_color" />
+                android:textColor="@color/text_color"
+                android:visibility="invisible"/>
             <Spinner
                 android:id="@+id/ancReferCenterNameSpinner"
                 android:inputType="text"
@@ -497,7 +497,8 @@
                 android:layout_height="50px"
                 android:background="@drawable/gradient_spinner"
                 android:layout_marginTop="10dp"
-                android:entries="@array/Center_Name_DropDown"/>
+                android:entries="@array/Center_Name_DropDown"
+                android:visibility="invisible"/>
         </LinearLayout>
         <LinearLayout android:id="@+id/ancReasonLayout" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView
@@ -507,7 +508,8 @@
                 android:layout_width="220dp"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
-                android:textColor="@color/text_color"/>
+                android:textColor="@color/text_color"
+                android:visibility="invisible"/>
             <org.sci.rhis.fwc.MultiSelectionSpinner
                 android:id="@+id/ancReasonSpinner"
                 android:inputType="text"
@@ -515,7 +517,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50px"
                 android:background="@drawable/gradient_spinner"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:visibility="invisible"/>
         </LinearLayout>
         <LinearLayout android:id="@+id/ancButton" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <Button

@@ -8,12 +8,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-
+import android.view.View.OnClickListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +27,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-public class ANCActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener{
+public class ANCActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener,
+                                                                     CompoundButton.OnCheckedChangeListener{
 
     private PregWoman woman;
     private Date today;
@@ -75,7 +77,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     //JSONArray visits = null;
 
 
-
+    private View mANCLayout;
     private MultiSelectionSpinner multiSelectionSpinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +94,34 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 //        }
 
         setContentView(R.layout.activity_anc);
+        // Find the view whose visibility will change
+        mANCLayout = findViewById(R.id.ancLayoutScrollview);
+        // Find our buttons
+        Button visibleButton = (Button) findViewById(R.id.ancLabelButton);
+        Button invisibleButton = (Button) findViewById(R.id.ancLabelButton);
+        //Button goneButton = (Button) findViewById(R.id.ancLabelButton);
+
+        OnClickListener mVisibleListener = new OnClickListener() {
+            public void onClick(View v) {
+                mANCLayout.setVisibility(View.VISIBLE);
+            }
+        };
+
+        OnClickListener mInvisibleListener = new OnClickListener() {
+            public void onClick(View v) {
+                mANCLayout.setVisibility(View.INVISIBLE);
+            }
+        };
+
+        OnClickListener mGoneListener = new OnClickListener() {
+            public void onClick(View v) {
+                mANCLayout.setVisibility(View.GONE);
+            }
+        };
+        // Wire each button to a click listener
+        visibleButton.setOnClickListener(mVisibleListener);
+        //invisibleButton.setOnClickListener(mInvisibleListener);
+       // goneButton.setOnClickListener(mGoneListener);
 
 //        GridView gv = (GridView)findViewById(R.id.gridAncVisit);
  //       gv.setAdapter(new CustomGridAdapter(ANCActivity.this));
@@ -160,23 +190,6 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         sendPostReqAsyncTask.execute(queryString, servlet, jsonRootkey);
 
 
-        // preparing list data
-//        prepareListData();
-//
-//        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
-//
-//        prepareListData2();
-//        listAdapter2 = new ExpandableListAdapter(this, listDataHeader2, listDataChild2);
-
-    //    prepareListData3();
-    //    listAdapter3 = new ExpandableListAdapter(this, listDataHeader3, listDataChild3);
-
-
-        // setting list adapter
-    //    expListView.setAdapter(listAdapter);
-   //     expListView2.setAdapter(listAdapter2);
-   //     expListView3.setAdapter(listAdapter3);
-
     // Initialize Spinner added By Al Amin
         initialize(); //super class
         Spinner spinners[] = new Spinner[6];
@@ -190,7 +203,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         for(int i = 0; i < spinners.length; ++i) {
             spinners[i].setOnItemSelectedListener(this);
         }
-
+        getCheckbox(R.id.ancReferCheckBox).setOnCheckedChangeListener(this);
       //custom date picker Added By Al Amin
         datePickerDialog = new CustomDatePickerDialog(this);
         datePickerPair = new HashMap<Integer, EditText>();
@@ -320,6 +333,20 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
 
     }
+
+    // added by Al Amin
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+    {
+        if (buttonView.getId() == R.id.ancReferCheckBox) {
+            int visibility = isChecked? View.VISIBLE: View.INVISIBLE;
+            getTextView(R.id.ancReferCenterNameLabel).setVisibility(visibility);
+            getSpinner(R.id.ancReferCenterNameSpinner).setVisibility(visibility);
+            getTextView(R.id.ancReasonLabel).setVisibility(visibility);
+            getSpinner(R.id.ancReasonSpinner).setVisibility(visibility);
+        }
+    }
+
     // Added by Al Amin
     @Override
     public void onClick(View v) {
@@ -327,6 +354,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
             datePickerDialog.show(datePickerPair.get(v.getId()));
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -344,25 +372,6 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-// Have to set condition for Check Box Yet Checked to visible Refer Center, Refer reason
-        CheckBox checkBox = (CheckBox) findViewById(R.id.ancReferCheckBox);
-        if (parent.getId()== R.id.ancReferCheckBox && checkBox.isChecked()) {
-            {
-                System.out.println("Hit the Refer center Spinner");
-                LinearLayout[] section;
-                section = new LinearLayout[2];
-                section[0] = (LinearLayout) findViewById(R.id.ancReferCenterNameLayout);
-                section[1] = (LinearLayout) findViewById(R.id.ancReasonLayout);
-
-                for (int i = 0; i < section.length; ++i) {
-                    section[i].setVisibility(position == 0 ? View.GONE : View.VISIBLE); //0 - home
-                }
-
-            }
-        }
-        else{
-            System.out.println("The condition for Refer is Not working!");
-        }
 
 
     }
