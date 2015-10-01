@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
@@ -64,10 +65,34 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
 
     ArrayList<HashMap<String, String>> contactList;
     JSONArray contacts = null;
+
+    private View mPNCLayout;
+    Boolean flag=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pnc);
+
+        mPNCLayout = findViewById(R.id.pncScroll);
+        // Find our buttons
+        Button visibleButton = (Button) findViewById(R.id.pncLabel);
+
+        View.OnClickListener mVisibleListener = new View.OnClickListener() {
+            public void onClick(View v) {
+                if(flag==false) {
+                    mPNCLayout.setVisibility(View.VISIBLE);
+                    flag=true;
+                }
+                else
+                {
+                    mPNCLayout.setVisibility(View.INVISIBLE);
+                    flag=false;
+                }
+            }
+        };
+
+        // Wire each button to a click listener
+        visibleButton.setOnClickListener(mVisibleListener);
 // Added By Al Amin
         initialize(); //super class
         Spinner spinners[] = new Spinner[6];
@@ -256,11 +281,11 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
                 list.add(""+getString(R.string.pnc_m_date)+" "+serviceSource);
                 list.add(anemia);
                 list.add(referCenterName);
+                list.add(""+getString(R.string.edema)+" "+anemia);
+                list.add(""+getString(R.string.pnc_m_date)+" "+referCenterName);
                 list.add(treatment);
                 list.add(perineum);
                 list.add(uterusInvolution);
-                list.add(visitDate);
-                list.add(bpDiastolic);
                 list.add(disease);
                 list.add(bpSystolic);
                 list.add(hematuria);
@@ -268,14 +293,18 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
                 list.add(referReason);
                 list.add(refer);
                 list.add(edema);
+                list.add(""+getString(R.string.temperature)+" "+temperature);
+                list.add(""+getString(R.string.reason)+" "+referReason);
+                list.add(""+getString(R.string.refer)+" "+refer);
+                list.add(""+getString(R.string.edema)+" "+edema);
                 list.add(serviceID);
                 list.add(hemoglobin);
+                list.add(""+getString(R.string.hemoglobin)+" "+hemoglobin);
                 list.add(FPMethod);
                 list.add(breastCondition);
                 list.add(advice);
+                list.add(""+getString(R.string.advice)+" "+advice);
                 list.add(symptom);
-                //   list.add(pncStatus);
-
 
                 try {
                     // JSONArray jsonArray = jsonStr.getJSONArray(key);
