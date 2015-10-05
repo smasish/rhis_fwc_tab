@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
@@ -62,7 +60,8 @@ public class SendPostRequestAsyncTask extends AsyncTask<String, Void, String> {
                 HttpClient httpClient = new DefaultHttpClient();
                 // In a POST request, we don't pass the values in the URL.
         //Therefore we use only the web page URL as the parameter of the HttpPost argument
-        HttpPost httpPost = new HttpPost("http://119.148.6.215:8080/RHIS/"+servlet);
+        //HttpPost httpPost = new HttpPost("http://119.148.6.215:8080/RHIS/"+servlet);
+        HttpPost httpPost = new HttpPost("http://localhost:8080/RHIS/"+servlet);
                 // Because we are not passing values over the URL, we should have a mechanism to pass the values that can be
         //uniquely separate by the other end.
         //To achieve that we use BasicNameValuePair
