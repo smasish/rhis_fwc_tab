@@ -46,10 +46,15 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
     final private String SERVLET = "delivery";
     final private String ROOTKEY = "deliveryInfo";
-
+    final private String servlet = "newborn";
+    final private String rootkey = "NewbornInfo";
+    private PregWoman newborn;
 
     AsyncDeliveryInfoUpdate deliveryInfoQueryTask;
     AsyncDeliveryInfoUpdate deliveryInfoUpdateTask;
+
+    AsyncNewbornInfoUpdate newbornInfoQueryTask;
+    AsyncNewbornInfoUpdate newbornInfoUpdateTask;
 
     private MultiSelectionSpinner multiSelectionSpinner;
     @Override
@@ -87,7 +92,6 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         for(int i = 0; i < spinners.length; ++i) {
             spinners[i].setOnItemSelectedListener(this);
         }
-
 
         getEditText(R.id.id_delivery_date).setOnClickListener(this);
         getEditText(R.id.id_admissionDate).setOnClickListener(this);
@@ -130,6 +134,9 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         }
         deliveryInfoQueryTask = new AsyncDeliveryInfoUpdate(this);
         deliveryInfoQueryTask.execute(queryString, SERVLET, ROOTKEY);
+
+        newbornInfoQueryTask = new AsyncNewbornInfoUpdate(this);
+        newbornInfoUpdateTask.execute(queryString,servlet,rootkey);
     }
 
     @Override
@@ -311,7 +318,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         jsonSpinnerMap.put("dReferReason", getSpinner(R.id.id_spinner_refer_delivery_cause)); //refer reason
       // for New born Layout
         jsonSpinnerMap.put("referCenterName", getSpinner(R.id.deliveryChildReferCenterNameSpinner));
-
+        jsonSpinnerMap.put("referCenterName", getSpinner(R.id.deliveryChildReferReasonSpinner));
     }
 
     @Override
@@ -405,6 +412,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
     private void saveToJson() {
         deliveryInfoUpdateTask = new AsyncDeliveryInfoUpdate(this);
+        newbornInfoUpdateTask = new AsyncNewbornInfoUpdate(this);
         JSONObject json;
         try {
             json = buildQueryHeader(false);
@@ -416,8 +424,10 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             getEditTextTime(json);
             getSpecialCases(json);
             deliveryInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
+            newbornInfoUpdateTask.execute(json.toString(),servlet,rootkey);
         } catch (JSONException jse) {
             Log.e("Delivery", "JSON Exception: " + jse.getMessage());
+            Log.d("Newborn", "JSON Exception: " + jse.getMessage());
         }
 
     }
