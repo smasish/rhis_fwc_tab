@@ -139,7 +139,7 @@ public class SecondActivity extends ClinicalServiceActivity {
             @Override
             public void onClick(View arg0) {
 
-                Intent intent = new Intent(context, LoginActivity.class);
+                Intent intent = new Intent(context, NRCActivity.class);
                 startActivity(intent);
             }
         });
