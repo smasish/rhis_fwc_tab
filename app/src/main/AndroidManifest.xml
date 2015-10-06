@@ -39,6 +39,10 @@
             android:name=".PNCActivity"
             android:label="@string/title_activity_pnc" >
         </activity>
+        <activity
+            android:name=".NRCActivity"
+            android:label="@string/title_activity_nrc" >
+        </activity>
     </application>
 
 </manifest>
