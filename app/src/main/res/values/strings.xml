@@ -19,7 +19,10 @@
     <string name = "ClientsNameHint">"সেবাগ্রহীতার নাম:"</string>
     <string name = "ClientsAge">"বয়স:"</string>
     <string name = "ClientsHusband">"স্বামীর নাম:"</string>
+    <string name = "ClientsFather">"পিতার নাম:"</string>
+    <string name = "ClientsMother">"মাতার নাম:"</string>
     <string name = "ClientsDist">"জেলা:"</string>
+    <string name = "ClientsSex">"লিঙ্গ:"</string>
     <string name = "ClientsUpazila">"উপজেলা:"</string>
     <string name = "ClientsUnion">"ইউনিয়ন:"</string>
     <string name = "ClientsVillage">"গ্রাম / মহল্লা:"</string>
@@ -616,4 +619,5 @@
         <item> এনজিও হাসপাতাল/ সেবা কেন্দ্র</item>
         <item> অন্যান্য  </item>
     </string-array>
+    <string name="title_activity_nrc">NRCActivity</string>
 </resources>
