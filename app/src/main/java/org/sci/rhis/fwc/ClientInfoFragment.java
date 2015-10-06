@@ -1,27 +1,18 @@
 package org.sci.rhis.fwc;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.HashMap;
-
-import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.view.View.OnClickListener;
-import android.widget.DatePicker;
+import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 import org.sci.rhis.utilities.CustomDatePickerDialog;
+
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 
 
 public class ClientInfoFragment extends Fragment implements OnClickListener {
@@ -38,7 +29,7 @@ public class ClientInfoFragment extends Fragment implements OnClickListener {
         ib = (ImageButton) view.findViewById(R.id.Date_Picker_Button);
         ib.setOnClickListener(this);
 
-        datePickerDialog = new CustomDatePickerDialog(getActivity(), new SimpleDateFormat("yyyy-MM-dd"));
+        datePickerDialog = new CustomDatePickerDialog(getActivity(), new SimpleDateFormat("dd-MMM-yyyy"));
         datePickerPair = new HashMap<Integer, EditText>();
 
         datePickerPair.put(R.id.Date_Picker_Button, (EditText) view.findViewById(R.id.lmpDate));
