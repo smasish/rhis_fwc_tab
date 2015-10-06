@@ -117,6 +117,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
         provider = getIntent().getParcelableExtra("Provider");
 
+        newborn =getIntent().getParcelableExtra("newborn");
         //get info from database
         String queryString = "";
                 /* =
@@ -260,7 +261,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         }
 
         if(view.getId() == R.id.id_saveNewbornButton) {
-            saveToJson();
+            newbornsaveToJson();
         }
     }
 
@@ -412,7 +413,6 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
     private void saveToJson() {
         deliveryInfoUpdateTask = new AsyncDeliveryInfoUpdate(this);
-        newbornInfoUpdateTask = new AsyncNewbornInfoUpdate(this);
         JSONObject json;
         try {
             json = buildQueryHeader(false);
@@ -424,9 +424,23 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             getEditTextTime(json);
             getSpecialCases(json);
             deliveryInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
-            newbornInfoUpdateTask.execute(json.toString(),servlet,rootkey);
         } catch (JSONException jse) {
             Log.e("Delivery", "JSON Exception: " + jse.getMessage());
+        }
+
+    }
+    private void newbornsaveToJson() {
+               newbornInfoUpdateTask = new AsyncNewbornInfoUpdate(this);
+        JSONObject json;
+        try {
+            json = buildQueryHeader(false);
+            Utilities.getCheckboxes(jsonCheckboxMap, json);
+            Utilities.getEditTexts(jsonEditTextMap, json);
+            Utilities.getSpinners(jsonSpinnerMap, json);
+            Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
+            newbornInfoUpdateTask.execute(json.toString(),servlet,rootkey);
+        } catch (JSONException jse) {
+
             Log.d("Newborn", "JSON Exception: " + jse.getMessage());
         }
 
