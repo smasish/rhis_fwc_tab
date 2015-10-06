@@ -6,9 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Arrays;
-import java.util.List;
-
 
 public class DeliveryNewBornFragment extends Fragment {
 
@@ -39,12 +36,6 @@ public class DeliveryNewBornFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_delivery_new_born,
                 container, false);
 
-        final List<String> newbornreferreasonlist = Arrays.asList(getResources().getStringArray(R.array.Delivery_Newborn_Refer_Reason_DropDown));
-        multiSelectionSpinner = (MultiSelectionSpinner) multiSelectionSpinner.findViewById(R.id.deliveryChildReferReasonSpinner);
-        multiSelectionSpinner.setItems(newbornreferreasonlist);
-        multiSelectionSpinner.setSelection(new int[]{});
-
-       // newborn = getIntent().getParcelableExtra("PregWoman");
         return view;
     }
 
