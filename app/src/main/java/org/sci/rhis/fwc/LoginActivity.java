@@ -1,15 +1,11 @@
 package org.sci.rhis.fwc;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -42,7 +38,13 @@ public class LoginActivity extends FWCServiceActivity {
         //Button loginButton = (Button)findViewById(R.id.buttonLogin);
         //final TextView loginBanner = (TextView)findViewById(R.id.textViewBanner);
         //ProgressBar bar = (ProgressBar) findViewById(R.id.progressBarLogin);
-        AsyncClientInfoUpdate client = new AsyncClientInfoUpdate(this);
+
+
+       // AsyncClientInfoUpdate client = new AsyncClientInfoUpdate(this);
+
+
+        Intent intent = new Intent(this, SecondActivity.class);
+        startActivity(intent);
         //SendPostRequestAsyncTask
         //AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(this);
         //sendPostReqAsyncTask.setP
@@ -53,7 +55,7 @@ public class LoginActivity extends FWCServiceActivity {
                 "}";
         String servlet = "login";
         String jsonRootkey = "loginInfo";
-        client.execute(queryString, servlet, jsonRootkey);
+       // client.execute(queryString, servlet, jsonRootkey);
     }
 
     @Override
