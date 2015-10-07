@@ -141,6 +141,7 @@
                 android:layout_height="50px"
                 android:background="@drawable/gradient_spinner"
                 android:id="@+id/ClientsSexSpinner"
+                android:entries="@array/nrcClientsSex"
                 android:paddingLeft="10dp"
                 />
         </LinearLayout>
