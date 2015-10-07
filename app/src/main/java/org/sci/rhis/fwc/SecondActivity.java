@@ -4,6 +4,7 @@ package org.sci.rhis.fwc;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.util.Pair;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -34,7 +35,9 @@ public class SecondActivity extends ClinicalServiceActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
-        // Find the view whose visibility will change
+        // Remove Action Bar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         initialize();//super class
         Spinner staticSpinner = (Spinner) findViewById(R.id.ClientsIdentityDropdown);
