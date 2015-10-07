@@ -7,42 +7,26 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/govtlogo"
+        android:icon="@drawable/rhislogo"
         android:label="@string/app_name"
+        android:clearTaskOnLaunch="true"
+        android:largeHeap="true"
         android:theme="@style/AppTheme" >
+
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/app_name" >
+            android:name="org.sci.rhis.fwc.LoginActivity"
+            android:label="@string/app_name"
+            android:icon="@mipmap/rhislogo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".SecondActivity"
-            android:label="@string/title_activity_second"
-            android:parentActivityName=".org.sci.rhis.fwc.LoginActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.sci.rhis.fwc.LoginActivity" />
-        </activity>
-        <activity
-            android:name=".ANCActivity"
-            android:label="@string/title_activity_anc" >
-        </activity>
-        <activity
-            android:name=".DeliveryActivity"
-            android:label="@string/title_activity_delevery" >
-        </activity>
-        <activity
-            android:name=".PNCActivity"
-            android:label="@string/title_activity_pnc" >
-        </activity>
-        <activity
-            android:name=".NRCActivity"
-            android:label="@string/title_activity_nrc" >
-        </activity>
+        <activity android:name=".SecondActivity" android:label="@string/appTitle" ></activity>
+        <activity android:name=".ANCActivity" android:label="@string/title_activity_anc" ></activity>
+        <activity android:name=".DeliveryActivity" android:label="@string/title_activity_delevery" ></activity>
+        <activity android:name=".PNCActivity" android:label="@string/title_activity_pnc" ></activity>
+        <activity android:name=".NRCActivity" android:label="@string/title_activity_nrc" ></activity>
     </application>
 
 </manifest>

@@ -624,4 +624,7 @@
         <item> অন্যান্য  </item>
     </string-array>
     <string name="title_activity_nrc">NRCActivity</string>
+    <string name="mr_service">এম আর সেবা</string>
+    <string name="pac_service">PAC</string>
+    <string name="death_service">মৃত্যু </string>
 </resources>
