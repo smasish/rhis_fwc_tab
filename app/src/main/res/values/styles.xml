@@ -20,7 +20,7 @@
     <style name="rowStyle0">
         <item name="android:paddingTop">10sp</item>
         <item name="android:paddingBottom">10sp</item>
-        <item name="android:background">#FFFFFF</item>
+        <item name="android:background">#819FF7</item>
         <item name="android:paddingRight">10sp</item>
         <item name="android:paddingLeft">10sp</item>
     </style>

@@ -89,7 +89,11 @@
         <item>Mobile No </item>
     </string-array>
 
-
+    <string-array name="nrcClientsSex">
+        <item>পুরুষ </item>
+        <item>মহিলা </item>
+        <item>হিজরা </item>
+    </string-array>
 
     <string name="general_yes">"হ্যাঁ"</string>
     <string name="general_no">"না"</string>
