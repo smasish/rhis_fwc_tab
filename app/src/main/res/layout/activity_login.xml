@@ -19,7 +19,7 @@
         android:layout_gravity="center"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:src="@drawable/bdgovtogo"
+        android:src="@drawable/rhislogo"
         />
 
     <TextView android:id="@+id/TextView1"
