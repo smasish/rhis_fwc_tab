@@ -3,10 +3,12 @@ package org.sci.rhis.fwc;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -14,7 +16,7 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.view.View.OnClickListener;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -95,6 +97,10 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 //        }
 
         setContentView(R.layout.activity_anc);
+
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
         // Find the view whose visibility will change
         mANCLayout = findViewById(R.id.ancLayoutScrollview);
         // Find our buttons

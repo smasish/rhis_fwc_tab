@@ -2,6 +2,7 @@ package org.sci.rhis.fwc;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -72,6 +73,10 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pnc);
+
+      // Remove Action Bar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         mPNCLayout = findViewById(R.id.pncScroll);
         // Find our buttons

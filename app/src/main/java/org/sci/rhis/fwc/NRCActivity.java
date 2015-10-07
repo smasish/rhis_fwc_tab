@@ -1,14 +1,12 @@
 package org.sci.rhis.fwc;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
 
 public class NRCActivity extends ClinicalServiceActivity {
     Connection C;
@@ -16,23 +14,19 @@ public class NRCActivity extends ClinicalServiceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nrc);
-        //  C = new Connection(this);
 
+        // Remove Action Bar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
+        Spinner sex = (Spinner)findViewById(R.id.ClientsSexSpinner);
         final Spinner spnDist = (Spinner) findViewById(R.id.Clients_District);
-        SpinnerItem(spnDist, "Select ZILLAID+'-'+ZILLANAME from Zilla");
         final Spinner spnUpz = (Spinner) findViewById(R.id.Clients_Upazila);
         final Spinner spnUN = (Spinner) findViewById(R.id.Clients_Union);
         final Spinner spnVillage = (Spinner) findViewById(R.id.Clients_Village);
 
     }
 
-    private void SpinnerItem(Spinner SpinnerName,String SQL)
-    {
-        List<String> listItem = new ArrayList<String>();
-        //listItem = AreaList(SQL);
-        ArrayAdapter<String> adptrList= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listItem);
-        SpinnerName.setAdapter(adptrList);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

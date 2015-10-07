@@ -2,6 +2,7 @@ package org.sci.rhis.fwc;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +23,9 @@ public class LoginActivity extends FWCServiceActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+     // Remove Action Bar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
         //Set deafult bang;a font
         //Typeface tf = Typeface.createFromAsset(getApplicationContext().getAssets(),"Nikosh.ttf");
         //TextView textview = (TextView)findViewById(R.id.providerLabelId);

@@ -1,6 +1,7 @@
 package org.sci.rhis.fwc;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
@@ -61,7 +62,9 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery);
-
+     // Remove Action Bar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
         // For Multi Select Spinner
         final List<String> dtreatmentlist = Arrays.asList(getResources().getStringArray(R.array.Treatment_DropDown));
         multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.id_spinner_treatment);
@@ -130,6 +133,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         //String
         try {
             queryString = buildQueryHeader(true).toString();
+            Log.e("Delivery", "build query String: " + "working properly");
         } catch (JSONException JSE) {
             Log.e("Delivery", "Could not build query String: " + JSE.getMessage());
         }
