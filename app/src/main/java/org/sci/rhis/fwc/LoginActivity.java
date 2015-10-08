@@ -43,12 +43,7 @@ public class LoginActivity extends FWCServiceActivity {
         //final TextView loginBanner = (TextView)findViewById(R.id.textViewBanner);
         //ProgressBar bar = (ProgressBar) findViewById(R.id.progressBarLogin);
 
-
-       // AsyncClientInfoUpdate client = new AsyncClientInfoUpdate(this);
-
-
-        Intent intent = new Intent(this, SecondActivity.class);
-        startActivity(intent);
+       AsyncClientInfoUpdate client = new AsyncClientInfoUpdate(this);
         //SendPostRequestAsyncTask
         //AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(this);
         //sendPostReqAsyncTask.setP
@@ -59,7 +54,8 @@ public class LoginActivity extends FWCServiceActivity {
                 "}";
         String servlet = "login";
         String jsonRootkey = "loginInfo";
-       // client.execute(queryString, servlet, jsonRootkey);
+        client.execute(queryString, servlet, jsonRootkey);
+
     }
 
     @Override

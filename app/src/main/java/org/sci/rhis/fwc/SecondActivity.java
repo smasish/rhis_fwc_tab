@@ -85,7 +85,7 @@ public class SecondActivity extends ClinicalServiceActivity {
                 try {
                     ((EditText) findViewById(fieldMapping.get(key))).setText(json.get(key).toString());
                 } catch (JSONException jse) {
-                    System.out.println("JSON Exception Thrown:\n " );
+                    System.out.println("JSON Exception Thrown(test):\n " );
                     jse.printStackTrace();
                 }
             }
@@ -125,7 +125,7 @@ public class SecondActivity extends ClinicalServiceActivity {
             }
 
         } catch (JSONException jse) {
-            System.out.println("JSON Exception Thrown:\n " );
+            System.out.println("JSON Exception Thrown( At callbackAsyncTask ):\n " );
             jse.printStackTrace();
         }
     }
