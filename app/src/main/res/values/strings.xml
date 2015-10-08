@@ -627,4 +627,5 @@
     <string name="mr_service">এম আর সেবা</string>
     <string name="pac_service">PAC</string>
     <string name="death_service">মৃত্যু </string>
+    <string name="title_activity_delivery_newborn">DeliveryNewbornActivity</string>
 </resources>

@@ -1,5 +1,6 @@
 package org.sci.rhis.fwc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
@@ -47,15 +48,11 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
     final private String SERVLET = "delivery";
     final private String ROOTKEY = "deliveryInfo";
-    final private String servlet = "newborn";
-    final private String rootkey = "NewbornInfo";
-    private PregWoman newborn;
 
     AsyncDeliveryInfoUpdate deliveryInfoQueryTask;
     AsyncDeliveryInfoUpdate deliveryInfoUpdateTask;
 
-    AsyncNewbornInfoUpdate newbornInfoQueryTask;
-    AsyncNewbornInfoUpdate newbornInfoUpdateTask;
+
 
     private MultiSelectionSpinner multiSelectionSpinner;
     @Override
@@ -81,10 +78,6 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         multiSelectionSpinner.setItems(dreferreasonlist);
         multiSelectionSpinner.setSelection(new int[]{});
 
-        final List<String> newbornreferreasonlist = Arrays.asList(getResources().getStringArray(R.array.Delivery_Newborn_Refer_Reason_DropDown));
-        multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.deliveryChildReferReasonSpinner);
-        multiSelectionSpinner.setItems(newbornreferreasonlist);
-        multiSelectionSpinner.setSelection(new int[]{});
 
         initialize(); //super class
         Spinner spinners[] = new Spinner[3];
@@ -99,7 +92,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         getEditText(R.id.id_delivery_date).setOnClickListener(this);
         getEditText(R.id.id_admissionDate).setOnClickListener(this);
         getCheckbox(R.id.id_delivery_refer).setOnCheckedChangeListener(this);
-        getCheckbox(R.id.deliveryChildReferCheckBox).setOnCheckedChangeListener(this);
+
         //hourField = (EditText)findViewById(R.id.delivery_time_hour);
         //minuteField = (EditText)findViewById(R.id.delivery_time_minute);
 
@@ -120,7 +113,6 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
         provider = getIntent().getParcelableExtra("Provider");
 
-        newborn =getIntent().getParcelableExtra("newborn");
         //get info from database
         String queryString = "";
                 /* =
@@ -140,8 +132,8 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         deliveryInfoQueryTask = new AsyncDeliveryInfoUpdate(this);
         deliveryInfoQueryTask.execute(queryString, SERVLET, ROOTKEY);
 
-        newbornInfoQueryTask = new AsyncNewbornInfoUpdate(this);
-        newbornInfoUpdateTask.execute(queryString,servlet,rootkey);
+       // newbornInfoQueryTask = new AsyncNewbornInfoUpdate(this);
+        //newbornInfoUpdateTask.execute(queryString,servlet,rootkey);
     }
 
     @Override
@@ -245,13 +237,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             getTextView(R.id.id_refer_delivery_cause).setVisibility(visibility);
             getSpinner(R.id.id_spinner_refer_delivery_cause).setVisibility(visibility);
         }
-       if (buttonView.getId() == R.id.deliveryChildReferCheckBox) {
-            int visibility = isChecked? View.VISIBLE: View.INVISIBLE;
-            getTextView(R.id.deliveryChildReferCenterNameLabel).setVisibility(visibility);
-            getSpinner(R.id.deliveryChildReferCenterNameSpinner).setVisibility(visibility);
-            getTextView(R.id.deliveryChildReferReasonLabel).setVisibility(visibility);
-            getSpinner(R.id.deliveryChildReferReasonSpinner).setVisibility(visibility);
-        }
+
     }
 
     @Override
@@ -262,11 +248,11 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
         if(view.getId() == R.id.id_saveDeliveryButton) {
             saveToJson();
+            Intent intent = new Intent(this, DeliveryNewbornActivity.class);
+            startActivity(intent);
         }
 
-        if(view.getId() == R.id.id_saveNewbornButton) {
-            newbornsaveToJson();
-        }
+
     }
 
     public void pickDate(View view) {
@@ -306,8 +292,6 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         jsonCheckboxMap.put("dOthers", getCheckbox(R.id.id_deleiveryExtra));
         //refer
         jsonCheckboxMap.put("dRefer", getCheckbox(R.id.id_delivery_refer));
-// For New born
-        jsonCheckboxMap.put("refer", getCheckbox(R.id.deliveryChildReferCheckBox));
     }
 
     @Override
@@ -321,9 +305,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         jsonSpinnerMap.put("dAdvice", getSpinner(R.id.id_spinner_advice)); //advice
         jsonSpinnerMap.put("dReferCenter", getSpinner(R.id.id_spinner_refer_facilities)); //refercenter
         jsonSpinnerMap.put("dReferReason", getSpinner(R.id.id_spinner_refer_delivery_cause)); //refer reason
-      // for New born Layout
-        jsonSpinnerMap.put("referCenterName", getSpinner(R.id.deliveryChildReferCenterNameSpinner));
-        jsonSpinnerMap.put("referCenterName", getSpinner(R.id.deliveryChildReferReasonSpinner));
+
     }
 
     @Override
@@ -343,8 +325,6 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         //attendant name
         jsonEditTextMap.put("dAttendantName",getEditText(R.id.id_attendantName));
 
-        // for New born layout
-        jsonEditTextMap.put("weight",getEditText(R.id.deliveryNewBornWeightValue));
     }
 
     @Override
@@ -398,17 +378,6 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             } else if (json.getString("dMisoprostol").equals("2")) {
                 getRadioGroup(R.id.id_radioGroupMisoprostol).check(R.id.radioMisoprostol_no);
             }
-// fOR NEW BORN
-            if (json.getString("gender").equals("1")) {
-                getRadioGroup(R.id.id_newBornSexRadioGroup).check(R.id.deliveryNewBornSon);
-            } else if (json.getString("gender").equals("2")) {
-                getRadioGroup(R.id.id_newBornSexRadioGroup).check(R.id.deliveryNewBornDaughter);
-            }
-            if (json.getString("immatureBirth").equals("1")) {
-                getRadioGroup(R.id.id_newBornImmaturRadioGroup).check(R.id.deliveryPrematureBirthYesButton);
-            } else if (json.getString("immatureBirth").equals("2")) {
-                getRadioGroup(R.id.id_newBornImmaturRadioGroup).check(R.id.deliveryPrematureBirthNoButton);
-            }
 
         } catch (JSONException jse) {
             System.out.println("The JSON key:  does not exist");
@@ -428,24 +397,9 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             getEditTextTime(json);
             getSpecialCases(json);
             deliveryInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
+            Log.e("Delivery", "Save Succeeded");
         } catch (JSONException jse) {
             Log.e("Delivery", "JSON Exception: " + jse.getMessage());
-        }
-
-    }
-    private void newbornsaveToJson() {
-               newbornInfoUpdateTask = new AsyncNewbornInfoUpdate(this);
-        JSONObject json;
-        try {
-            json = buildQueryHeader(false);
-            Utilities.getCheckboxes(jsonCheckboxMap, json);
-            Utilities.getEditTexts(jsonEditTextMap, json);
-            Utilities.getSpinners(jsonSpinnerMap, json);
-            Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
-            newbornInfoUpdateTask.execute(json.toString(),servlet,rootkey);
-        } catch (JSONException jse) {
-
-            Log.d("Newborn", "JSON Exception: " + jse.getMessage());
         }
 
     }
@@ -485,51 +439,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                                 getRadioButton(R.id.radioMisoprostol_no))
                 )
         );
-        //for NewBorn
-        jsonRadioGroupButtonMap.put("gender", Pair.create(
-                        getRadioGroup(R.id.id_newBornSexRadioGroup), Pair.create(
-                                getRadioButton(R.id.deliveryNewBornSon),
-                                getRadioButton(R.id.deliveryNewBornDaughter))
-                )
-        );
-        jsonRadioGroupButtonMap.put("immatureBirth", Pair.create(
-                        getRadioGroup(R.id.id_newBornImmaturRadioGroup), Pair.create(
-                                getRadioButton(R.id.deliveryPrematureBirthYesButton),
-                                getRadioButton(R.id.deliveryPrematureBirthNoButton))
-                )
-        );
 
-        jsonRadioGroupButtonMap.put("drying", Pair.create(
-                        getRadioGroup(R.id.id_newBornWipeRadioGroup), Pair.create(
-                                getRadioButton(R.id.deliveryWipeYesButton),
-                                getRadioButton(R.id.deliveryWipeNoButton))
-                )
-        );
-        jsonRadioGroupButtonMap.put("resassitation", Pair.create(
-                        getRadioGroup(R.id.id_newBornResasscitationRadioGroup), Pair.create(
-                                getRadioButton(R.id.deliveryResastationYesButton),
-                                getRadioButton(R.id.deliveryResastationNoButton))
-                )
-        );
-        jsonRadioGroupButtonMap.put("chlorehexidin", Pair.create(
-                        getRadioGroup(R.id.id_newBornChlorohexidineRadioGroup), Pair.create(
-                                getRadioButton(R.id.deliveryPlacentaCuttingYesButton),
-                                getRadioButton(R.id.deliveryPlacentaCuttingNoButton))
-                )
-        );
-        jsonRadioGroupButtonMap.put("skinTouch", Pair.create(
-                        getRadioGroup(R.id.id_newBornChordCareRadioGroup), Pair.create(
-                                getRadioButton(R.id.deliveryFittedWithMotherSkinYesButton),
-                                getRadioButton(R.id.deliveryFittedWithMotherSkinNoButton))
-                )
-        );
-
-        jsonRadioGroupButtonMap.put("breastFeed", Pair.create(
-                        getRadioGroup(R.id.id_newBornBreastFeedingRadioGroup), Pair.create(
-                                getRadioButton(R.id.deliveryBreastFeedingYesButton),
-                                getRadioButton(R.id.deliveryBreastFeedingNoButton))
-                )
-        );
     }
 
     private HashMap<RadioGroup, Pair<RadioButton, RadioButton>> getRadioMap(int groupId, int yesId, int noId) {
