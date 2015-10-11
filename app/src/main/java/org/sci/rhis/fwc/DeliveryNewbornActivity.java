@@ -32,7 +32,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     private HashMap<Integer, EditText> datePickerPair;
 
     final private String servlet = "newborn";
-    final private String rootkey = "NewbornInfo";
+    final private String rootkey = "newbornInfo";
     private PregWoman mother;
 
     private PregWoman newborn;
@@ -60,7 +60,24 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
         getCheckbox(R.id.deliveryChildReferCheckBox).setOnCheckedChangeListener(this);
 
+        /*
+        //create the mother
+        mother = getIntent().getParcelableExtra("PregWoman");
 
+        provider = getIntent().getParcelableExtra("Provider");
+
+        //get info from database
+        String queryString = "";
+
+        try {
+            queryString = buildQueryHeader(true).toString();
+            Log.e("Newborn", "build query String: " + "working properly");
+        } catch (JSONException JSE) {
+            Log.e("Newborn", "Could not build query String: " + JSE.getMessage());
+        }
+        newbornInfoQueryTask = new AsyncNewbornInfoUpdate(this);
+        newbornInfoQueryTask.execute(queryString, servlet, rootkey);
+        */
     }
 
     @Override
@@ -193,6 +210,8 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     public void onClick(View v) {
         if(v.getId() == R.id.id_saveNewbornButton) {
             newbornsaveToJson();
+            Log.e("Newborn","Saved Newborn Successfully?");
+
         }
     }
 
