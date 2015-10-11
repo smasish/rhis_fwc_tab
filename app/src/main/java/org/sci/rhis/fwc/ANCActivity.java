@@ -418,6 +418,11 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
        }
 
     @Override
+    protected void initiateTextViews() {
+
+    }
+
+    @Override
     protected void initiateEditTextDates() {
         // ANC Service Date
         jsonEditTextDateMap.put("ancdate", getEditText(R.id.ancServiceDateValue));

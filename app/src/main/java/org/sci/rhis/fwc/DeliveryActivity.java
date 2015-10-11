@@ -326,6 +326,11 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     }
 
     @Override
+    protected void initiateTextViews() {
+
+    }
+
+    @Override
     protected void initiateEditTextDates() {
         jsonEditTextDateMap.put("dDate", getEditText(R.id.id_delivery_date));
         jsonEditTextDateMap.put("dAdmissionDate", getEditText(R.id.id_admissionDate));

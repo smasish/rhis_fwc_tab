@@ -8,6 +8,7 @@ import java.util.HashMap;
 public class DatabaseFieldMapping {
     public static HashMap<String, Integer> CLIENT_INTRO;
     public static HashMap<String, Integer> CLIENT_INFO;
+    public static HashMap<String, Integer> PROVIDER_INFO;
 
     public static void InitializeClientIntroduction() {
         CLIENT_INTRO = new HashMap<String, Integer>();
@@ -39,5 +40,9 @@ public class DatabaseFieldMapping {
         //CLIENT_INFO.put("cBloodGroup", R.id.Clients_Husband);
         //CLIENT_INFO.put("cHistoryComplicated", R.id.Clients_Upazila);
         //CLIENT_INFO.put("cHistoryComplicatedContent", R.id.Clients_Union);
+    }
+    public static void Initializefwc()
+    {
+        PROVIDER_INFO.put("FacilityName",R.id.fwc_heading);
     }
 }

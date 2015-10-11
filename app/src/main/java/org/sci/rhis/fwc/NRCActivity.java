@@ -66,6 +66,11 @@ public class NRCActivity extends ClinicalServiceActivity {
     }
 
     @Override
+    protected void initiateTextViews() {
+
+    }
+
+    @Override
     protected void initiateSpinners() {
 
     }

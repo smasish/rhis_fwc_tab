@@ -50,6 +50,7 @@ public class SecondActivity extends ClinicalServiceActivity {
         // Apply the adapter to the spinner
         staticSpinner.setAdapter(staticAdapter);
         addListenerOnButton();
+
     }
 
     public void startSearch(View view) {
@@ -73,6 +74,7 @@ public class SecondActivity extends ClinicalServiceActivity {
         System.out.println("sOpt: " + index
                 + /*Adding 1 to match HTML index where healthID starts from 1*/
                 " text: " + id);
+
     }
 
     private void populateClientDetails(JSONObject json, HashMap<String, Integer> fieldMapping) {
@@ -191,7 +193,7 @@ public class SecondActivity extends ClinicalServiceActivity {
     private void initializeJsonManipulation() {
         deliveryHistoryMapping = new Vector<Pair<String, Integer>>(9);
         //The prder is important
-        deliveryHistoryMapping.addElement(Pair.create("bleeding",        R.id.previousDeliveryBleedingCheckBox)); //0
+        deliveryHistoryMapping.addElement(Pair.create("bleeding", R.id.previousDeliveryBleedingCheckBox)); //0
         deliveryHistoryMapping.addElement(Pair.create("delayedDelivery", R.id.delayedBirthCheckBox));//1
         deliveryHistoryMapping.addElement(Pair.create("blockedDelivery", R.id.blockedDeliveryCheckBox));//2
         deliveryHistoryMapping.addElement(Pair.create("blockedPlacenta", R.id.placentaInsideUterusCheckBox));//3
@@ -199,7 +201,7 @@ public class SecondActivity extends ClinicalServiceActivity {
         deliveryHistoryMapping.addElement(Pair.create("lived48Hour",     R.id.newbornDieWithin48hoursCheckBox));//5
         deliveryHistoryMapping.addElement(Pair.create("edemaSwelling",   R.id.swellingLegsOrWholeBodyCheckBox));//6
         deliveryHistoryMapping.addElement(Pair.create("convulsion",      R.id.withConvulsionSenselessCheckBox));//7
-        deliveryHistoryMapping.addElement(Pair.create("caesar",      R.id.caesarCheckBox));//8
+        deliveryHistoryMapping.addElement(Pair.create("caesar", R.id.caesarCheckBox));//8
     }
 
     private void manipulateJson(JSONObject json) {
@@ -239,7 +241,15 @@ public class SecondActivity extends ClinicalServiceActivity {
     };
 
     @Override
-    protected void initiateEditTexts(){};
+    protected void initiateEditTexts(){}
+
+    @Override
+    protected void initiateTextViews() {
+        jsonTextViewsMap.put("FacilityName",getTextView(R.id.fwc_heading));
+
+    }
+
+    ;
     @Override
     protected void initiateSpinners(){};
     @Override

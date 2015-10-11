@@ -1,13 +1,12 @@
 package org.sci.rhis.fwc;
 
-import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Pair;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.HashMap;
 
@@ -21,7 +20,7 @@ public abstract class ClinicalServiceActivity extends FWCServiceActivity {
     protected HashMap<String, Pair<RadioGroup, Pair<RadioButton,RadioButton>>> jsonRadioGroupButtonMap;
     protected HashMap<String, EditText> jsonEditTextMap;
     protected HashMap<String, EditText> jsonEditTextDateMap;
-
+    protected HashMap<String, TextView> jsonTextViewsMap;
 
     @Override
     public abstract void callbackAsyncTask(String result);
@@ -29,7 +28,7 @@ public abstract class ClinicalServiceActivity extends FWCServiceActivity {
 
     protected void initialize() {
 //populate checkboxes
-        jsonCheckboxMap = new HashMap<String, CheckBox>();
+        jsonCheckboxMap = new HashMap<>();
         initiateCheckboxes();
 
         //populate Spinners
@@ -44,6 +43,10 @@ public abstract class ClinicalServiceActivity extends FWCServiceActivity {
         jsonEditTextMap = new HashMap<String, EditText>();
         initiateEditTexts();
 
+        //populate TextViews
+        jsonTextViewsMap = new HashMap<String, TextView>();
+        initiateTextViews();
+
         //populate EditTexts
         jsonEditTextDateMap = new HashMap<String, EditText>();
         initiateEditTextDates();
@@ -53,6 +56,7 @@ public abstract class ClinicalServiceActivity extends FWCServiceActivity {
 
     protected abstract void initiateCheckboxes();
     protected abstract void initiateEditTexts();
+    protected abstract void initiateTextViews();
     protected abstract void initiateSpinners();
     protected abstract void initiateEditTextDates();
     protected abstract void initiateRadioGroups();

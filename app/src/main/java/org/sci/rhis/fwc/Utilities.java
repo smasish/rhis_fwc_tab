@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -126,7 +127,7 @@ public static void Visibility(Activity activity,int id)
                 spinner = keyMap.get(key);
                 if(spinner != null) {
                     //spinner.setSelection((json.getInt(key) - 1));
-                    json.put(key, String.valueOf(spinner.getSelectedItemPosition()+1));
+                    json.put(key, String.valueOf(spinner.getSelectedItemPosition() + 1));
                 }
             } catch (JSONException jse) {
                 System.out.println("The JSON key: '" + key+ "' does not exist");
@@ -183,7 +184,15 @@ public static void Visibility(Activity activity,int id)
             }
         }
     }
-
+    public static void setTextViews(HashMap<String, TextView> keyMap, JSONObject json) {
+        for (String key: keyMap.keySet()) {
+            try {
+                keyMap.get(key).setText(json.getString(key));
+            } catch (JSONException jse) {
+                System.out.println("The JSON key: '" + key+ "' does not exist");
+            }
+        }
+    }
     public static void getCheckboxes(HashMap<String, CheckBox> keyMap, JSONObject json) {
         for (String key: keyMap.keySet()) {
             try {

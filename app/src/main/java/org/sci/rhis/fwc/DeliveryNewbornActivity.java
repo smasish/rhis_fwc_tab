@@ -122,6 +122,11 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     }
 
     @Override
+    protected void initiateTextViews() {
+
+    }
+
+    @Override
     protected void initiateSpinners() {
         // for New born Layout
         jsonSpinnerMap.put("referCenterName", getSpinner(R.id.deliveryChildReferCenterNameSpinner));

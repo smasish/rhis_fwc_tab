@@ -425,6 +425,11 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
     }
 
     @Override
+    protected void initiateTextViews() {
+
+    }
+
+    @Override
     protected void initiateEditTextDates() {
         // PNC Mother Service Date
         jsonEditTextDateMap.put("pncdate", getEditText(R.id.pncServiceDateValue));
