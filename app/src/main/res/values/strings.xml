@@ -202,7 +202,9 @@
     <string name="onlyHead">"মাথা ছাড়া অন্য কোন অঙ্গ বের হওয়া"</string>
     <string name="convulsion">"খিচুঁনি "</string>
     <string name="deliveryExtra">"অন্যান্য"</string>
-
+    <string name="newborn_add">"নবজাতক সংযোজন"</string>
+    <string name="death_fresh_add">"মৃত জন্ম সংযোজন: ফ্রেশ"</string>
+    <string name="death_macerated_add">"মৃত জন্ম সংযোজন:ম্যাসারেটেড"</string>
     <string-array name="FacilityType_DropDown">
         <item> মেডিকেল কলেজ হাসপাতাল </item>
         <item> জেলা সদর হাসপাতাল </item>
@@ -303,7 +305,7 @@
     <string name="only_breast_feeding">" শুধুমাত্র বুকের দুধ খাওয়ানো:"</string>
     <string name="delevery_service">"প্রসবকালীন সেবা "</string>
     <string name="delevery_related_info">"প্রসব সংক্রান্ত তথ্য "</string>
-    <string name="newborn_related_info">"নবজাতকের সংক্রান্ত তথ্য "</string>
+    <string name="newborn_related_info">"নবজাতক সংক্রান্ত তথ্য "</string>
     <string name="child">"সন্তান: "</string>
     <string name="son">"ছেলে "</string>
     <string name="daughter">"মেয়ে "</string>
