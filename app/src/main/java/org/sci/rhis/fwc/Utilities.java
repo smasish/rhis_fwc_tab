@@ -7,6 +7,7 @@ import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -47,6 +48,11 @@ public class Utilities {
                 (view).setClickable(false);
 
             }
+            else if (view instanceof Button)
+            {
+                (view).setClickable(false);
+
+            }
             else if (view instanceof CheckBox) {
 
                 ((CheckBox) view).setCursorVisible(false);
@@ -68,6 +74,13 @@ public class Utilities {
             }
         }
     }
+public static void Visibility(Activity activity,int id)
+{
+    ViewGroup visibility = (ViewGroup)activity.findViewById(id);
+    int view =visibility.getId();
+
+            visibility.setVisibility(View.GONE);
+}
 
     public static void Enable(Activity activity, int id) {
 
