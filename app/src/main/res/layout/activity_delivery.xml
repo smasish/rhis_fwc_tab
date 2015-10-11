@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:paddingRight="10dp"
+        android:paddingBottom="10dp"
         android:background="@drawable/fragmentborder"
         android:orientation="vertical">
 
@@ -859,20 +860,53 @@
                 android:onClick="onClick"/>
 
         </LinearLayout>
+
     </LinearLayout>
-
-        <ScrollView
-            android:layout_width="fill_parent"
+        <TableLayout
+            android:id="@+id/newborn_Tabla_Layout"
             android:layout_height="wrap_content"
-            android:id="@+id/fragment_delivery_newborn_scroll" >
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+           >
 
-            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/newborn_fragment"
-                android:name="org.sci.rhis.fwc.DeliveryNewBornFragment"
-                tools:layout="@layout/fragment_delivery_new_born"
-                android:layout_width="wrap_content"
-                android:layout_height="310dp" />
-        </ScrollView>
+            <LinearLayout>
+                <TextView
+                    style="@style/rowHeading"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/newborn_related_info"
+                    android:id="@+id/newbornLabel"
+                    android:gravity="center"
+                    android:layout_centerVertical="true"
+                    />
+            </LinearLayout>
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:text="@string/newborn_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80px"
+                    android:id="@+id/newbornAddButton"
+                    android:onClick="onClick"/>
+                <Button
+                    android:text="@string/death_fresh_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80px"
+                    android:id="@+id/deathFreshButton"
+                    android:onClick="onClick"/>
+                <Button
+                    android:text="@string/death_macerated_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80px"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/deathmaceratedButton"
+                    android:onClick="onClick"/>
+            </TableRow>
+        </TableLayout>
+
     </LinearLayout>
 </ScrollView>

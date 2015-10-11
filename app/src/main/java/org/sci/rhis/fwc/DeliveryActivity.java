@@ -156,7 +156,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
                 //TODO Make the fields non-modifiable
                 Utilities.Disable(this, R.id.delivery_info_layout);
-
+               Utilities.Visibility(this,R.id.btn_save_add_child);
             }
 
         } catch (JSONException jse) {
@@ -246,6 +246,12 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             Intent intent = new Intent(this, DeliveryNewbornActivity.class);
             startActivity(intent);
         }
+
+        if(view.getId()==R.id.newbornAddButton){
+        Intent intent = new Intent(this, DeliveryNewbornActivity.class);
+        startActivity(intent);
+    }
+
     }
 
     public void pickDate(View view) {
