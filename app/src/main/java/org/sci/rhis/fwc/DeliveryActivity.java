@@ -28,8 +28,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class DeliveryActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
-                                                                         View.OnClickListener,
-                                                                         CompoundButton.OnCheckedChangeListener{
+        View.OnClickListener,
+        CompoundButton.OnCheckedChangeListener{
 
     //UI References
 
@@ -43,7 +43,6 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     private int deliveryHour;
     private int deliveryMinute;
     private PregWoman mother;
-
     private ProviderInfo provider;
 
     final private String SERVLET = "delivery";
@@ -59,7 +58,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery);
-     // Remove Action Bar
+        // Remove Action Bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         // For Multi Select Spinner
@@ -121,7 +120,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 "pregno:" + mother.getPregNo() + "," +
                 "deliveryLoad:" + "retrieve" +
                 "}"*/
-                ;
+        ;
         //String
         try {
             queryString = buildQueryHeader(true).toString();
@@ -131,9 +130,6 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         }
         deliveryInfoQueryTask = new AsyncDeliveryInfoUpdate(this);
         deliveryInfoQueryTask.execute(queryString, SERVLET, ROOTKEY);
-
-       // newbornInfoQueryTask = new AsyncNewbornInfoUpdate(this);
-        //newbornInfoUpdateTask.execute(queryString,servlet,rootkey);
     }
 
     @Override
@@ -204,7 +200,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
                 for(int i = 0; i < section.length; ++i) {
                     section[i].setVisibility( position == 0? View.GONE:View.VISIBLE); //0 - home
-                }                
+                }
                 break;
             case R.id.id_facility_name_Dropdown:
                 System.out.println("Hit the Facility Spinner");
@@ -237,7 +233,6 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             getTextView(R.id.id_refer_delivery_cause).setVisibility(visibility);
             getSpinner(R.id.id_spinner_refer_delivery_cause).setVisibility(visibility);
         }
-
     }
 
     @Override
@@ -251,8 +246,6 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             Intent intent = new Intent(this, DeliveryNewbornActivity.class);
             startActivity(intent);
         }
-
-
     }
 
     public void pickDate(View view) {
@@ -261,11 +254,11 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
     public void pickTime(View view) {
 
-       timePickerDialog.show(
-               (EditText) findViewById(R.id.delivery_time_hour),
-               (EditText) findViewById(R.id.delivery_time_minute),
-               (Spinner) findViewById(R.id.delivery_time_Dropdown)
-       );
+        timePickerDialog.show(
+                (EditText) findViewById(R.id.delivery_time_hour),
+                (EditText) findViewById(R.id.delivery_time_minute),
+                (Spinner) findViewById(R.id.delivery_time_Dropdown)
+        );
     }
 
     @Override
@@ -292,6 +285,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         jsonCheckboxMap.put("dOthers", getCheckbox(R.id.id_deleiveryExtra));
         //refer
         jsonCheckboxMap.put("dRefer", getCheckbox(R.id.id_delivery_refer));
+
     }
 
     @Override
@@ -305,7 +299,6 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         jsonSpinnerMap.put("dAdvice", getSpinner(R.id.id_spinner_advice)); //advice
         jsonSpinnerMap.put("dReferCenter", getSpinner(R.id.id_spinner_refer_facilities)); //refercenter
         jsonSpinnerMap.put("dReferReason", getSpinner(R.id.id_spinner_refer_delivery_cause)); //refer reason
-
     }
 
     @Override
@@ -324,7 +317,6 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
         //attendant name
         jsonEditTextMap.put("dAttendantName",getEditText(R.id.id_attendantName));
-
     }
 
     @Override
@@ -378,7 +370,6 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             } else if (json.getString("dMisoprostol").equals("2")) {
                 getRadioGroup(R.id.id_radioGroupMisoprostol).check(R.id.radioMisoprostol_no);
             }
-
         } catch (JSONException jse) {
             System.out.println("The JSON key:  does not exist");
         }
@@ -427,10 +418,10 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     protected void initiateRadioGroups() {
 
         jsonRadioGroupButtonMap.put("dEpisiotomy", Pair.create(
-            getRadioGroup(R.id.id_radioGroupEpctiomi), Pair.create(
-                getRadioButton(R.id.radioEpc_yes),
-                getRadioButton(R.id.radioEpc_no))
-            )
+                        getRadioGroup(R.id.id_radioGroupEpctiomi), Pair.create(
+                                getRadioButton(R.id.radioEpc_yes),
+                                getRadioButton(R.id.radioEpc_no))
+                )
         );
 
         jsonRadioGroupButtonMap.put("dMisoprostol", Pair.create(
@@ -439,6 +430,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                                 getRadioButton(R.id.radioMisoprostol_no))
                 )
         );
+
 
     }
 

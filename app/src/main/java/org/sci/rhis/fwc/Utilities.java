@@ -206,7 +206,7 @@ public class Utilities {
     public static void setEditTextDates(HashMap<String, EditText> keyMap, JSONObject json) {
 
         SimpleDateFormat iformat = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat oformat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat oformat = new SimpleDateFormat("yyyy-MM-dd");
         String currentDate;
         for (String key: keyMap.keySet()) {
             try {
@@ -225,7 +225,7 @@ public class Utilities {
     public static void getEditTextDates(HashMap<String, EditText> keyMap, JSONObject json) {
 
         SimpleDateFormat iformat = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat oformat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat oformat = new SimpleDateFormat("yyyy-MM-dd");
         String currentDate;
         for (String key: keyMap.keySet()) {
             try {

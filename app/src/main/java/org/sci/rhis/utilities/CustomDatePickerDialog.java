@@ -23,7 +23,7 @@ public class CustomDatePickerDialog implements DatePickerDialog.OnDateSetListene
 
     public CustomDatePickerDialog(Context context,  int year, int monthOfYear, int dayOfMonth) {
         calendar = Calendar.getInstance();
-        dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         //calendar.set(year, monthOfYear, dayOfMonth);
         //todays, date
         datePickerDialog = new DatePickerDialog(context, this, year, monthOfYear, dayOfMonth);
@@ -32,7 +32,7 @@ public class CustomDatePickerDialog implements DatePickerDialog.OnDateSetListene
 
     public CustomDatePickerDialog(Context context) {
         calendar = Calendar.getInstance();
-        dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         //calendar.set(year, monthOfYear, dayOfMonth);
         //todays, date
         datePickerDialog = new DatePickerDialog(

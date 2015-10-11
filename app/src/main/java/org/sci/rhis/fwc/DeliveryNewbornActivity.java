@@ -227,7 +227,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
                 "healthid:" + mother.getHealthId() + "," +
                 (isRetrieval ? "": "providerid:\""+String.valueOf(provider.getProviderCode())+"\",") +
                 "pregno:" + mother.getPregNo() + "," +
-                "deliveryLoad:" + (isRetrieval? "retrieve":"\"\"") +
+                "newbornLoad:" + (isRetrieval? "retrieve":"\"\"") +
                 "}";
 
         return new JSONObject(queryString);
