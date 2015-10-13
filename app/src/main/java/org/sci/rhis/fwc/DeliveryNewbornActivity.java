@@ -66,9 +66,9 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         mother = getIntent().getParcelableExtra("PregWoman");
 
         provider = getIntent().getParcelableExtra("Provider");
-
-        //get info from database
+     //get info from database
         String queryString = "";
+/*
 
         try {
             queryString = buildQueryHeader(true).toString();
@@ -77,7 +77,8 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         } catch (JSONException JSE) {
             Log.e("Newborn", "Could not build query String: " + JSE.getMessage());
         }
-        newbornInfoQueryTask = new AsyncNewbornInfoUpdate(this);
+        */
+       newbornInfoQueryTask = new AsyncNewbornInfoUpdate(this);
         newbornInfoQueryTask.execute(queryString, servlet, rootkey);
 
     }
@@ -262,7 +263,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
                 "healthid:" + mother.getHealthId() + "," +
                 (isRetrieval ? "": "providerid:\""+ valueOf(provider.getProviderCode())+"\",") +
                 "pregno:" + mother.getPregNo() + "," +
-                "newbornLoad:" + (isRetrieval? "retrieve":"\"\"") +
+                "newbornLoad:" + (isRetrieval? "retrieve":"\"\"") + "outcomeplace" +
                 "}";
 
         return new JSONObject(queryString);

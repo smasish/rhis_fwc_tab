@@ -135,6 +135,9 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         deliveryInfoQueryTask = new AsyncDeliveryInfoUpdate(this);
         deliveryInfoQueryTask.execute(queryString, SERVLET, ROOTKEY);
 
+        LinearLayout mNewbornLayout = (LinearLayout) findViewById(R.id.newborn_Tabla_Layout);
+        mNewbornLayout.setVisibility(View.VISIBLE);
+
         newbornInfoQueryTask = new AsyncNewbornInfoUpdate(this);
         newbornInfoQueryTask.execute(queryString, servlet, rootkey);
     }
@@ -251,11 +254,13 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         if(view.getId() == R.id.id_saveDeliveryButton) {
             saveToJson();
             System.out.print("saved Delivery?");
-            Intent intent = new Intent(this, DeliveryNewbornActivity.class);
-            startActivity(intent);
+            LinearLayout mNewbornLayout = (LinearLayout) findViewById(R.id.newborn_Tabla_Layout);
+            mNewbornLayout.setVisibility(View.VISIBLE);
+
         }
 
         if(view.getId()==R.id.newbornAddButton){
+
         Intent intent = new Intent(this, DeliveryNewbornActivity.class);
         startActivity(intent);
     }
