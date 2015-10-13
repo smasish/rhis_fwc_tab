@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -41,6 +42,9 @@ public class SecondActivity extends ClinicalServiceActivity {
         actionBar.hide();
         ProviderInfo provider = ProviderInfo.getProvider();
 
+        TextView FWCName = (TextView) findViewById(R.id.fwc_heading);
+        FWCName.setText(provider.getProviderFacility());
+
         Log.e("aaf", "" + provider.getProviderFacility());
         initialize();//super class
         Spinner staticSpinner = (Spinner) findViewById(R.id.ClientsIdentityDropdown);
@@ -61,6 +65,7 @@ public class SecondActivity extends ClinicalServiceActivity {
         EditText searchableId = (EditText)findViewById(R.id.searchableTextId);
         //TODO - remove
         long index = (searchOptions.getSelectedItemId() + 1);
+        String stringId= (String) searchOptions.getSelectedItem();
         long id = Long.valueOf(searchableId.getText().toString());
 
         String queryString =   "{" +
@@ -73,6 +78,12 @@ public class SecondActivity extends ClinicalServiceActivity {
         AsyncClientInfoUpdate retrieveClient = new AsyncClientInfoUpdate(this);
 
         retrieveClient.execute(queryString, servlet, jsonRootkey);
+
+        TextView mHealthIdLayout = (TextView) findViewById(R.id.health_id);
+        mHealthIdLayout.setVisibility(View.VISIBLE);
+
+        TextView healthId = (TextView) findViewById(R.id.health_id);
+        healthId.setText(String.valueOf(stringId) +": "+ String.valueOf(id));
 
         System.out.println("sOpt: " + index
                 + /*Adding 1 to match HTML index where healthID starts from 1*/
@@ -121,7 +132,6 @@ public class SecondActivity extends ClinicalServiceActivity {
             if(json.get("False").toString().equals("")) { //Client exists
                 populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
                 populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
-                populateClientDetails(json, DatabaseFieldMapping.PROVIDER_INFO);
                 woman.UpdateUIField(this);
 
             // To Make disable desired fields
@@ -141,7 +151,6 @@ public class SecondActivity extends ClinicalServiceActivity {
         final Context context = this;
 
        Button  button1 = (Button) findViewById(R.id.nonregiser);
-       Button button2 = (Button) findViewById(R.id.pncButton);
 
         button1.setOnClickListener(new View.OnClickListener() {
 
@@ -152,21 +161,18 @@ public class SecondActivity extends ClinicalServiceActivity {
                 startActivity(intent);
             }
         });
-        button2.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-
-                Intent intent = new Intent(context, PNCActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     public void startANC(View view) {
         Intent intent = new Intent(this, ANCActivity.class);
+        if(checkClientInfo() && woman.isEligibleFor(PregWoman.PREG_SERVICE.ANC)) {
+            intent.putExtra("PregWoman", woman);
+            intent.putExtra("Provider", ProviderInfo.getProvider());
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Too Late for ANC, verify ...", Toast.LENGTH_LONG).show();
+        }
 
-        startActivity(intent);
     }
 
     public void startDelivery(View view) {
@@ -180,13 +186,16 @@ public class SecondActivity extends ClinicalServiceActivity {
             Toast.makeText(this, "Too Late for Delivery, verify ...", Toast.LENGTH_LONG).show();
         }
     }
-/*
     public void startPNC(View view) {
         Intent intent = new Intent(this, PNCActivity.class);
-        startActivity(intent);
-    }
-*/
-    private boolean checkClientInfo() {
+        if(checkClientInfo() && woman.isEligibleFor(PregWoman.PREG_SERVICE.PNC)) {
+            intent.putExtra("PregWoman", woman);
+            intent.putExtra("Provider", ProviderInfo.getProvider());
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Too Late for PNC, verify ...", Toast.LENGTH_LONG).show();
+        }
+    }    private boolean checkClientInfo() {
         if(woman == null ) {
             Toast.makeText(this, "No Client, Get Client Information first ...", Toast.LENGTH_LONG).show();
             return false;

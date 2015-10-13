@@ -139,7 +139,7 @@
 
             <TextView
                 android:textSize="20dp"
-                android:layout_marginLeft="35dp"
+                android:layout_marginLeft="55dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/TextViewClients_Gravida"
                 android:text="@string/Clients_Gravida"
@@ -232,7 +232,7 @@
                 android:id="@+id/TextViewLast_Child_Age"
                 android:text="@string/TextViewLast_child_Age"
                 android:textColor="@color/title_color"
-                android:layout_width="wrap_content"
+                android:layout_width="230dp"
                 android:layout_height="wrap_content" />
 
 
@@ -260,7 +260,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="40dp"
                 android:layout_height="50px"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
                 android:background="@drawable/edittext_round"
                 android:id="@+id/lastChildMonth"
                 android:paddingLeft="10dp"
@@ -348,7 +348,7 @@
                 android:layout_height="50px" />
             <Spinner
                 android:id="@+id/Blood_Group_Dropdown"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="8dp"
                 android:layout_width="70dp"
                 android:layout_height="50px"
                 android:layout_marginBottom="10dp"
@@ -532,11 +532,13 @@
                 android:orientation="horizontal"
                 android:layout_centerVertical="true"
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content">
                 <CheckBox
                     android:textSize="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50px"
+                    android:layout_width="fill_parent"
+                    android:layout_height="80px"
+                    android:paddingBottom="10dp"
                     android:text="@string/caesar"
                     android:id="@+id/caesarCheckBox" />
             </LinearLayout>
@@ -545,8 +547,9 @@
         <LinearLayout
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:paddingRight="10dp"
             android:orientation="horizontal"
+            android:gravity="right"
             android:layout_centerVertical="true"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
@@ -556,6 +559,8 @@
                 android:layout_height="wrap_content"
                 android:text="Edit"
                 android:id="@+id/Edit_Button"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
                 android:background="@drawable/button_style"
                 android:layout_gravity="center_horizontal" />
 
@@ -563,6 +568,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
                 android:text="Add new pregnancy info"
                 android:background="@drawable/button_style"
                 android:id="@+id/New_Button"

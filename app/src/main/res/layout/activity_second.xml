@@ -50,6 +50,8 @@
        <TextView
            android:layout_width="fill_parent"
            android:layout_height="wrap_content"
+           android:textSize="30dp"
+           android:textColor="@color/text_color"
            android:id="@+id/fwc_heading"
            android:gravity="center"
            android:layout_gravity="center"
