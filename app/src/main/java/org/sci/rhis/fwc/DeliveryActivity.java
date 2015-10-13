@@ -48,6 +48,11 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     final private String SERVLET = "delivery";
     final private String ROOTKEY = "deliveryInfo";
 
+    final private String servlet = "newborn";
+    final private String rootkey = "newbornInfo";
+    AsyncNewbornInfoUpdate newbornInfoQueryTask;
+    AsyncNewbornInfoUpdate newbornInfoUpdateTask;
+
     AsyncDeliveryInfoUpdate deliveryInfoQueryTask;
     AsyncDeliveryInfoUpdate deliveryInfoUpdateTask;
 
@@ -120,7 +125,6 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 "pregno:" + mother.getPregNo() + "," +
                 "deliveryLoad:" + "retrieve" +
                 "}"*/
-        ;
         //String
         try {
             queryString = buildQueryHeader(true).toString();
@@ -130,6 +134,9 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         }
         deliveryInfoQueryTask = new AsyncDeliveryInfoUpdate(this);
         deliveryInfoQueryTask.execute(queryString, SERVLET, ROOTKEY);
+
+        newbornInfoQueryTask = new AsyncNewbornInfoUpdate(this);
+        newbornInfoQueryTask.execute(queryString, servlet, rootkey);
     }
 
     @Override
@@ -243,6 +250,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
         if(view.getId() == R.id.id_saveDeliveryButton) {
             saveToJson();
+            System.out.print("saved Delivery?");
             Intent intent = new Intent(this, DeliveryNewbornActivity.class);
             startActivity(intent);
         }
@@ -378,6 +386,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
             if (json.getString("dMisoprostol").equals("1")) {
                 getRadioGroup(R.id.id_radioGroupMisoprostol).check(R.id.radioMisoprostol_yes);
+
             } else if (json.getString("dMisoprostol").equals("2")) {
                 getRadioGroup(R.id.id_radioGroupMisoprostol).check(R.id.radioMisoprostol_no);
             }

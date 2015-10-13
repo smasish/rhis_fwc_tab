@@ -68,13 +68,14 @@ public class LoginActivity extends FWCServiceActivity {
 
             if(json.getBoolean("loginStatus")) { //if successful login
                 //first create the provider object
-                Log.d("++++++++++","-----"+json.getString("ProvName"));
+                Log.d("++++++++++", "-----" + json.getString("ProvName"));
                 ProviderInfo provider = ProviderInfo.getProvider();
                 provider.setProviderName(json.getString("ProvName"));
                 provider.setProviderCode(json.getString("ProvCode"));
                 provider.setProviderFacility(json.getString("FacilityName"));
                 Intent intent = new Intent(this, SecondActivity.class);
                 startActivity(intent);
+                Log.e("aaf",""+provider.getProviderFacility());
                 System.out.println("Post Response: " + result);
             } else {
                 //todo: displaya red colored text view that log in failed.

@@ -23,6 +23,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import static java.lang.String.valueOf;
+
 public class DeliveryNewbornActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
         View.OnClickListener,
         CompoundButton.OnCheckedChangeListener{
@@ -35,7 +37,6 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     final private String rootkey = "newbornInfo";
     private PregWoman mother;
 
-    private PregWoman newborn;
     private ProviderInfo provider;
 
     AsyncNewbornInfoUpdate newbornInfoQueryTask;
@@ -59,8 +60,8 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         multiSelectionSpinner.setSelection(new int[]{});
 
         getCheckbox(R.id.deliveryChildReferCheckBox).setOnCheckedChangeListener(this);
+        buildQueryHeader();
 
-        /*
         //create the mother
         mother = getIntent().getParcelableExtra("PregWoman");
 
@@ -71,13 +72,14 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
         try {
             queryString = buildQueryHeader(true).toString();
+            queryString = buildQueryHeader();
             Log.e("Newborn", "build query String: " + "working properly");
         } catch (JSONException JSE) {
             Log.e("Newborn", "Could not build query String: " + JSE.getMessage());
         }
         newbornInfoQueryTask = new AsyncNewbornInfoUpdate(this);
         newbornInfoQueryTask.execute(queryString, servlet, rootkey);
-        */
+
     }
 
     @Override
@@ -215,7 +217,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     public void onClick(View v) {
         if(v.getId() == R.id.id_saveNewbornButton) {
             newbornsaveToJson();
-            Log.e("Newborn","Saved Newborn Successfully?");
+            Log.e("Newborn", "Saved Newborn Successfully?");
 
         }
     }
@@ -230,6 +232,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
     }
     private void newbornsaveToJson() {
+
         newbornInfoUpdateTask = new AsyncNewbornInfoUpdate(this);
         JSONObject json;
         try {
@@ -245,11 +248,19 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         }
 
     }
+    private String buildQueryHeader()
+    {
+        Log.e("Hello", "World");
+
+        return null;
+    }
     private JSONObject buildQueryHeader(boolean isRetrieval) throws JSONException {
+        Log.e("Newborn", "boolean Value is found " + valueOf(isRetrieval));
+
         //get info from database
         String queryString =   "{" +
                 "healthid:" + mother.getHealthId() + "," +
-                (isRetrieval ? "": "providerid:\""+String.valueOf(provider.getProviderCode())+"\",") +
+                (isRetrieval ? "": "providerid:\""+ valueOf(provider.getProviderCode())+"\",") +
                 "pregno:" + mother.getPregNo() + "," +
                 "newbornLoad:" + (isRetrieval? "retrieve":"\"\"") +
                 "}";

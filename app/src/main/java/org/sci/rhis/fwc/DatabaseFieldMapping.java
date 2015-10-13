@@ -23,6 +23,7 @@ public class DatabaseFieldMapping {
         //CLIENT_INTRO.put("cHealthID", R.id.Clients_HealthId);
         CLIENT_INTRO.put("cElcoNo", R.id.Clients_ElcoNo);
         CLIENT_INTRO.put("cHusbandName", R.id.Clients_Husband);
+
     }
 
     public static void InitializeClientInformation() {
@@ -41,8 +42,5 @@ public class DatabaseFieldMapping {
         //CLIENT_INFO.put("cHistoryComplicated", R.id.Clients_Upazila);
         //CLIENT_INFO.put("cHistoryComplicatedContent", R.id.Clients_Union);
     }
-    public static void Initializefwc()
-    {
-        PROVIDER_INFO.put("FacilityName",R.id.fwc_heading);
-    }
+
 }

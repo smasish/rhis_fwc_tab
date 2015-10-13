@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -38,7 +39,9 @@ public class SecondActivity extends ClinicalServiceActivity {
         // Remove Action Bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+        ProviderInfo provider = ProviderInfo.getProvider();
 
+        Log.e("aaf", "" + provider.getProviderFacility());
         initialize();//super class
         Spinner staticSpinner = (Spinner) findViewById(R.id.ClientsIdentityDropdown);
         // Create an ArrayAdapter using the string array and a default spinner
@@ -118,6 +121,7 @@ public class SecondActivity extends ClinicalServiceActivity {
             if(json.get("False").toString().equals("")) { //Client exists
                 populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
                 populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
+                populateClientDetails(json, DatabaseFieldMapping.PROVIDER_INFO);
                 woman.UpdateUIField(this);
 
             // To Make disable desired fields
@@ -246,10 +250,7 @@ public class SecondActivity extends ClinicalServiceActivity {
     @Override
     protected void initiateTextViews() {
         jsonTextViewsMap.put("FacilityName",getTextView(R.id.fwc_heading));
-
-    }
-
-    ;
+    };
     @Override
     protected void initiateSpinners(){};
     @Override
