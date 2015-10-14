@@ -40,7 +40,7 @@
                 android:layout_marginTop="10dp"
                 android:textColor="@color/text_color"/>
             <EditText
-                android:id="@+id/deliveryNewBornNo."
+                android:id="@+id/deliveryNewBornNo"
                 android:inputType="number"
                 android:textSize="20dp"
                 android:layout_width="40dp"

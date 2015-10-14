@@ -117,6 +117,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
         provider = getIntent().getParcelableExtra("Provider");
 
+       // Log.e("Is there Found mother dPlace?", "" + mother.getHealthId());
         //get info from database
         String queryString = "";
                 /* =
@@ -138,8 +139,6 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         LinearLayout mNewbornLayout = (LinearLayout) findViewById(R.id.newborn_Tabla_Layout);
         mNewbornLayout.setVisibility(View.VISIBLE);
 
-        newbornInfoQueryTask = new AsyncNewbornInfoUpdate(this);
-        newbornInfoQueryTask.execute(queryString, servlet, rootkey);
     }
 
     @Override

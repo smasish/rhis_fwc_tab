@@ -23,11 +23,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import static java.lang.String.valueOf;
-
 public class DeliveryNewbornActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
-        View.OnClickListener,
-        CompoundButton.OnCheckedChangeListener{
+                                                                                View.OnClickListener,
+                                                                                CompoundButton.OnCheckedChangeListener{
 
     private CustomDatePickerDialog datePickerDialog;
     private CustomTimePickerDialog timePickerDialog;
@@ -54,9 +52,9 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
         Spinner referSpinner= (Spinner)findViewById(R.id.deliveryChildReferCenterNameSpinner);
 
-        final List<String> newbornreferreasonlist = Arrays.asList(getResources().getStringArray(R.array.Delivery_Newborn_Refer_Reason_DropDown));
+        final List<String> newbornReferReasonList = Arrays.asList(getResources().getStringArray(R.array.Delivery_Newborn_Refer_Reason_DropDown));
         multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.deliveryChildReferReasonSpinner);
-        multiSelectionSpinner.setItems(newbornreferreasonlist);
+        multiSelectionSpinner.setItems(newbornReferReasonList);
         multiSelectionSpinner.setSelection(new int[]{});
 
         getCheckbox(R.id.deliveryChildReferCheckBox).setOnCheckedChangeListener(this);
@@ -66,20 +64,8 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         mother = getIntent().getParcelableExtra("PregWoman");
 
         provider = getIntent().getParcelableExtra("Provider");
-     //get info from database
-        String queryString = "";
-/*
 
-        try {
-            queryString = buildQueryHeader(true).toString();
-            queryString = buildQueryHeader();
-            Log.e("Newborn", "build query String: " + "working properly");
-        } catch (JSONException JSE) {
-            Log.e("Newborn", "Could not build query String: " + JSE.getMessage());
-        }
-        */
-       newbornInfoQueryTask = new AsyncNewbornInfoUpdate(this);
-        newbornInfoQueryTask.execute(queryString, servlet, rootkey);
+       // Log.e("Is there Found?", "" + provider.getProviderFacility());
 
     }
 
@@ -120,7 +106,10 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
     @Override
     protected void initiateEditTexts() {
+
         // for New born layout
+        jsonEditTextDateMap.put("immature",getEditText(R.id.deliveryNewBornNo));
+        jsonEditTextDateMap.put("birthStatus",getEditText(R.id.deliveryNewBornConditionValue));
         jsonEditTextMap.put("weight",getEditText(R.id.deliveryNewBornWeightValue));
     }
 
@@ -217,7 +206,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.id_saveNewbornButton) {
-            newbornsaveToJson();
+            newbornSaveToJson();
             Log.e("Newborn", "Saved Newborn Successfully?");
 
         }
@@ -232,9 +221,9 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-    private void newbornsaveToJson() {
+    private void newbornSaveToJson() {
 
-        newbornInfoUpdateTask = new AsyncNewbornInfoUpdate(this);
+        newbornInfoQueryTask = new AsyncNewbornInfoUpdate(this);
         JSONObject json;
         try {
             json = buildQueryHeader(false);
@@ -249,23 +238,26 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         }
 
     }
+
     private String buildQueryHeader()
     {
-        Log.e("Hello", "World");
+        Log.e("Test buildQuery", "Hello World" );
 
         return null;
     }
     private JSONObject buildQueryHeader(boolean isRetrieval) throws JSONException {
-        Log.e("Newborn", "boolean Value is found " + valueOf(isRetrieval));
-
+        //Log.e("Newborn", "boolean Value is found " + valueOf(isRetrieval));
+     System.out.print("DeliveryPlace:"+ mother.getDeliveryPlace());
         //get info from database
         String queryString =   "{" +
                 "healthid:" + mother.getHealthId() + "," +
-                (isRetrieval ? "": "providerid:\""+ valueOf(provider.getProviderCode())+"\",") +
+                (isRetrieval ? "": "providerid:\""+ String.valueOf(provider.getProviderCode())+"\",") +
                 "pregno:" + mother.getPregNo() + "," +
-                "newbornLoad:" + (isRetrieval? "retrieve":"\"\"") + "outcomeplace" +
+                "newbornLoad:" + (isRetrieval? "retrieve":"\"\"") + "outcomeplace:" + mother.getDeliveryPlace() + "," +
+                "outcometype:" + mother.getDeliveryType() + "outcomedate:" + mother.getActualDelivery() +
+                "outcometime:" + mother.getDeliveryTime() +
                 "}";
-
+          System.out.print(queryString);
         return new JSONObject(queryString);
     }
 }

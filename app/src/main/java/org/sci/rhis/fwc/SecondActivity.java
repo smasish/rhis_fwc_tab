@@ -254,14 +254,25 @@ public class SecondActivity extends ClinicalServiceActivity {
     };
 
     @Override
-    protected void initiateEditTexts(){}
+    protected void initiateEditTexts(){
+        jsonEditTextMap.put("para",getEditText(R.id.para));
+        jsonEditTextMap.put("gravida",getEditText(R.id.gravida));
+        jsonEditTextMap.put("boy",getEditText(R.id.SonNum));
+        jsonEditTextMap.put("girl",getEditText(R.id.DaughterNum));
+        jsonEditTextMap.put("lastChildAge", getEditText(R.id.lastChildYear));
+        jsonEditTextMap.put("lastChildAge",getEditText(R.id.lastChildMonth));
+        jsonEditTextMap.put("height", getEditText(R.id.heightFeet));
+        jsonEditTextMap.put("height",getEditText(R.id.heightInch));
+    }
 
     @Override
     protected void initiateTextViews() {
         jsonTextViewsMap.put("FacilityName",getTextView(R.id.fwc_heading));
     };
     @Override
-    protected void initiateSpinners(){};
+    protected void initiateSpinners(){
+        jsonSpinnerMap.put("Blood_Group_Dropdown",getSpinner(R.id.Blood_Group_Dropdown));
+    };
     @Override
     protected void initiateEditTextDates(){};
     @Override
