@@ -33,7 +33,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
     final private String servlet = "newborn";
     final private String rootkey = "newbornInfo";
-    private PregWoman mother;
+    private MotherWithChild mother;
 
     private ProviderInfo provider;
 
@@ -61,7 +61,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         buildQueryHeader();
 
         //create the mother
-        mother = getIntent().getParcelableExtra("PregWoman");
+        mother = getIntent().getParcelableExtra("MotherWithChild");
 
         provider = getIntent().getParcelableExtra("Provider");
 
@@ -246,7 +246,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         return null;
     }
     private JSONObject buildQueryHeader(boolean isRetrieval) throws JSONException {
-        //Log.e("Newborn", "boolean Value is found " + valueOf(isRetrieval));
+
      System.out.print("DeliveryPlace:"+ mother.getDeliveryPlace());
         //get info from database
         String queryString =   "{" +
