@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+  >
 
 
     <TextView
@@ -31,7 +32,8 @@
 <LinearLayout
    android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    >
 
     <Button
         android:layout_width="fill_parent"
@@ -525,6 +527,7 @@
                 android:layout_height="60px"
                 android:text="Save"
                 android:textSize="10dp"
+                android:onClick="onClick"
                 android:textColor="@color/text_color"/>
         </LinearLayout>
         </LinearLayout>

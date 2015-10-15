@@ -41,7 +41,7 @@ public class PregWoman extends GeneralPerson implements Parcelable{
 
     //constants
     private static enum PREG_STATUS {NEW, ANC, DELIVERING, PNC, NOT_PREGNANT};
-    public static enum PREG_SERVICE {NEW, ANC, DELIVERY, PNC};
+    public static enum PREG_SERVICE {NEW, ANC, DELIVERY, NEWBORN, PNC};
 
     final static int PREG_PERIOD    = 280; //We are only considering 280 days now
     final static int PNC_THRESHOLD  = 42;
@@ -265,6 +265,11 @@ public class PregWoman extends GeneralPerson implements Parcelable{
                 if(today.before(getAncThreshold()))
                     eligible = true;
                 break;
+            case NEWBORN:
+                if(today.before(getAncThreshold()))
+                    eligible = true;
+                break;
+
             case PNC:
                 if(today.before(getAncThreshold()))
                     eligible = true;

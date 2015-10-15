@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -259,8 +260,21 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
         if(view.getId()==R.id.newbornAddButton){
         Intent intent = new Intent(this, DeliveryNewbornActivity.class);
-            intent.putExtra("Layout", 1);
-            startActivity(intent);
+        intent.putExtra("Layout", 1);
+        //intent.putExtra("dPlace", getEditText(R.id.delivery_placeDropdown).getText().toString());
+        //intent.putExtra("dType", getEditText(R.id.delivery_typeDropdown).getText().toString());
+        //intent.putExtra("dDate",  getEditText(R.id.id_delivery_date).getText().toString());
+       // intent.putExtra("dTime", getEditText(R.id.delivery_time_hour).getText().toString() +
+                      //           ":" +
+                //                 getEditText(R.id.delivery_time_minute).getText().toString());
+
+            if(checkClientInfo() && mother.isEligibleFor(PregWoman.PREG_SERVICE.NEWBORN)) {
+                intent.putExtra("PregWoman", mother);
+                intent.putExtra("Provider", ProviderInfo.getProvider());
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "Too Late for PNC, verify ...", Toast.LENGTH_LONG).show();
+            }
 
     }
         else  if(view.getId()==R.id.deathFreshButton){
@@ -422,6 +436,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             getEditTextTime(json);
             getSpecialCases(json);
             deliveryInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
+
             Log.e("Delivery", "Save Succeeded");
         } catch (JSONException jse) {
             Log.e("Delivery", "JSON Exception: " + jse.getMessage());
@@ -494,5 +509,12 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         //SendPostRequestAsyncTask retrieveDelivery = new AsyncDeliveryInfoUpdate(this);
         //retrieveDelivery.execute(queryString, SERVLET, ROOTKEY);
         return new JSONObject(queryString);
+    }
+    private boolean checkClientInfo() {
+        if(mother== null ) {
+            Toast.makeText(this, "No Client, Get Client Information first ...", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 }

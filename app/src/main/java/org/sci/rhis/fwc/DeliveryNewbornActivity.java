@@ -31,7 +31,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     private CustomDatePickerDialog datePickerDialog;
     private CustomTimePickerDialog timePickerDialog;
     private HashMap<Integer, EditText> datePickerPair;
-
+    String outComePlace= "";
     final private String servlet = "newborn";
     final private String rootkey = "newbornInfo";
     private MotherWithChild mother;
@@ -54,9 +54,9 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
         /**get the intent*/
         Intent intent = getIntent();
-
         System.out.print("Get Intent?" + "Under this");
-        int integerRecd = intent.getIntExtra("Layout",flag);
+
+        int integerRecd = intent.getIntExtra("Layout", flag);
 
         switch(integerRecd) {
             case 1:
@@ -70,6 +70,12 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
                 Utilities.Visibility(this,R.id.layout_only_for_neborn);
                 break;
         }
+
+        Intent outComePlace = getIntent();
+        //String str = outComePlace.getStringExtra("dPlace");
+       // System.out.print(str);
+
+
 
         Spinner referSpinner= (Spinner)findViewById(R.id.deliveryChildReferCenterNameSpinner);
 

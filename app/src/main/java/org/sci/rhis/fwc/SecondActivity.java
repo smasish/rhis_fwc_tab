@@ -195,7 +195,8 @@ public class SecondActivity extends ClinicalServiceActivity {
         } else {
             Toast.makeText(this, "Too Late for PNC, verify ...", Toast.LENGTH_LONG).show();
         }
-    }    private boolean checkClientInfo() {
+    }
+    private boolean checkClientInfo() {
         if(woman == null ) {
             Toast.makeText(this, "No Client, Get Client Information first ...", Toast.LENGTH_LONG).show();
             return false;
