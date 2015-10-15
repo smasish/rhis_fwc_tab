@@ -263,13 +263,13 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             startActivity(intent);
 
     }
-        if(view.getId()==R.id.deathFreshButton){
+        else  if(view.getId()==R.id.deathFreshButton){
             Intent intent = new Intent(this, DeliveryNewbornActivity.class);
             intent.putExtra("Layout", 2);
             startActivity(intent);
         }
 
-        if(view.getId()==R.id.deathmaceratedButton){
+        else if(view.getId()==R.id.deathmaceratedButton){
             Intent intent = new Intent(this, DeliveryNewbornActivity.class);
             intent.putExtra("Layout", 3);
             startActivity(intent);
