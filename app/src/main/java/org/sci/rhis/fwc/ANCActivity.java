@@ -390,7 +390,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
                         JSONArray jsonArray = null;
                         try {
-                            jsonArray = jsonStr.getJSONArray(list.get(in));
+                            jsonArray = jsonStr.getJSONArray(list.get(in-1));
 
                             list1 = new ArrayList<String>();
                             for (int i = 1; i < jsonArray.length(); i++) {
