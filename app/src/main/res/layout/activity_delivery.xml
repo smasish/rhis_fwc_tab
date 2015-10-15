@@ -871,7 +871,8 @@
             android:layout_marginBottom="10dp"
            >
 
-            <LinearLayout>
+            <LinearLayout android:layout_width="wrap_content"
+                android:layout_height="match_parent">
                 <TextView
                     style="@style/rowHeading"
                     android:layout_width="fill_parent"

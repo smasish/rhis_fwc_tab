@@ -1,5 +1,6 @@
 package org.sci.rhis.fwc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
@@ -36,7 +37,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     private MotherWithChild mother;
 
     private ProviderInfo provider;
-
+    int flag =0;
     AsyncNewbornInfoUpdate newbornInfoQueryTask;
     AsyncNewbornInfoUpdate newbornInfoUpdateTask;
 
@@ -46,9 +47,29 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery_newborn);
+
         // Remove Action Bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+
+        /**get the intent*/
+        Intent intent = getIntent();
+
+        System.out.print("Get Intent?" + "Under this");
+        int integerRecd = intent.getIntExtra("Layout",flag);
+
+        switch(integerRecd) {
+            case 1:
+                break;
+            case 2:
+                Utilities.Visibility(this,R.id.layout_only_for_neborn);
+                break;
+
+            case 3:
+                Utilities.Visibility(this,R.id.deliveryWipe);
+                Utilities.Visibility(this,R.id.layout_only_for_neborn);
+                break;
+        }
 
         Spinner referSpinner= (Spinner)findViewById(R.id.deliveryChildReferCenterNameSpinner);
 
@@ -64,8 +85,6 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         mother = getIntent().getParcelableExtra("MotherWithChild");
 
         provider = getIntent().getParcelableExtra("Provider");
-
-       // Log.e("Is there Found?", "" + provider.getProviderFacility());
 
     }
 

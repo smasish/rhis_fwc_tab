@@ -32,7 +32,6 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         CompoundButton.OnCheckedChangeListener{
 
     //UI References
-
     //private DatePickerDialog fromDatePickerDialog;
     private ImageView deliveryDateButton;
     private ImageView admissionDateButton;
@@ -259,11 +258,22 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         }
 
         if(view.getId()==R.id.newbornAddButton){
-
         Intent intent = new Intent(this, DeliveryNewbornActivity.class);
-        startActivity(intent);
-    }
+            intent.putExtra("Layout", 1);
+            startActivity(intent);
 
+    }
+        if(view.getId()==R.id.deathFreshButton){
+            Intent intent = new Intent(this, DeliveryNewbornActivity.class);
+            intent.putExtra("Layout", 2);
+            startActivity(intent);
+        }
+
+        if(view.getId()==R.id.deathmaceratedButton){
+            Intent intent = new Intent(this, DeliveryNewbornActivity.class);
+            intent.putExtra("Layout", 3);
+            startActivity(intent);
+        }
     }
 
     public void pickDate(View view) {

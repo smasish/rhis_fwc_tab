@@ -183,7 +183,7 @@
     <string name="dead_born_fresh">"ফ্রেশ:"</string>
     <string name="dead_born_macerated">"ম্যাসারেটেড:"</string>
     <string name="child_sex">"লিঙ্গ:"</string>
-    <string name="not_detected">"সনাক্ত করা যাই নি:"</string>
+    <string name="not_detected">"সনাক্ত করা যাই নি "</string>
     <string name="amtsl">"প্রসবের তৃতীয় ধাপের সক্রিয় ব্যবস্থাপনায় (AMTSL) যা অনুসরণ করা হয়েছে:"</string>
     <string name="oxytocin">"প্রসবের ১ মিনিটের মধ্যে অক্সিটোসিন প্রয়োগ"</string>
     <string name="traction">"গর্ভফুল প্রসবের জন্য নাভিরজ্জুতে নিয়ন্ত্রিত টান"</string>
