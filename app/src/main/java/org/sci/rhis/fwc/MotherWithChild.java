@@ -28,7 +28,7 @@ public class MotherWithChild extends GeneralPerson implements Parcelable {
     private DateFormat df;
     private Calendar edd_cal;
     private JSONObject Jso;
-    
+
     //Parcelable overrides
     @Override
     public int describeContents() {

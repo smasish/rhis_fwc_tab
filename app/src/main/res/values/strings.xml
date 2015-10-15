@@ -225,7 +225,7 @@
     <string-array name="DeliveryType_DropDown">
         <item> স্বাভাবিক </item>
         <item> সিজারিয়ান </item>
-        <item> গর্ভপাত </item>
+
     </string-array>
 
     <string-array name="DeliveryTime_DropDown">
