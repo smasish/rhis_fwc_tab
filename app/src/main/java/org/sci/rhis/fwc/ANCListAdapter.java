@@ -1,122 +1,133 @@
 package org.sci.rhis.fwc;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ANCListAdapter extends BaseExpandableListAdapter {
+public class ANCListAdapter extends BaseAdapter  implements View.OnClickListener {
 
-	private Context _context;
-	private List<String> _listDataHeader; // header titles
-	// child data in format of header title, child title
-	private HashMap<String, List<String>> _listDataChild;
+	/*********** Declare Used Variables *********/
+	private Activity activity;
+	private ArrayList data;
+	private static LayoutInflater inflater=null;
+	public Resources res;
 
-	public ANCListAdapter(Context context, List<String> listDataHeader,
-						  HashMap<String, List<String>> listChildData) {
-		this._context = context;
-		this._listDataHeader = listDataHeader;
-		this._listDataChild = listChildData;
+	int i=0;
+
+	/*************  CustomAdapter Constructor *****************/
+	public ANCListAdapter(Activity a, ArrayList d) {
+
+		/********** Take passed values **********/
+		activity = a;
+		data=d;
+
+
+		/***********  Layout inflator to call external xml layout () ***********/
+		inflater = ( LayoutInflater )activity.
+				getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+	}
+
+	/******** What is the size of Passed Arraylist Size ************/
+	public int getCount() {
+
+		if(data.size()<=0)
+			return 1;
+		return data.size();
+	}
+
+	public Object getItem(int position) {
+		return position;
+	}
+
+	public long getItemId(int position) {
+		return position;
+	}
+
+	/********* Create a holder Class to contain inflated xml file elements *********/
+	public static class ViewHolder{
+
+		public TextView text;
+		public TextView text1;
+		public TextView textWide;
+		public ImageView image;
+
+	}
+
+	/****** Depends upon data size called for each row , Create each ListView row *****/
+	public View getView(int position, View convertView, ViewGroup parent) {
+
+		View vi = convertView;
+		ViewHolder holder;
+
+		if(convertView==null){
+
+			/****** Inflate tabitem.xml file for each row ( Defined below ) *******/
+			vi = inflater.inflate(R.layout.list_item, null);
+
+			/****** View Holder Object to contain tabitem.xml file elements ******/
+
+			holder = new ViewHolder();
+			holder.text = (TextView) vi.findViewById(R.id.lblListItem);
+			//holder.text1=(TextView)vi.findViewById(R.id.text1);
+			//holder.image=(ImageView)vi.findViewById(R.id.image);
+
+			/************  Set holder with LayoutInflater ************/
+			vi.setTag( holder );
+		}
+		else
+			holder=(ViewHolder)vi.getTag();
+
+		if(data.size()<=0)
+		{
+			holder.text.setText("No Data");
+
+		}
+		else
+		{
+			/***** Get each Model object from Arraylist ********/
+
+			//vi.setOnClickListener(new OnItemClickListener( position ));
+		}
+		return vi;
 	}
 
 	@Override
-	public Object getChild(int groupPosition, int childPosititon) {
-		return this._listDataChild.get(this._listDataHeader.get(groupPosition))
-				.get(childPosititon);
+	public void onClick(View v) {
+		Log.v("CustomAdapter", "=====Row button clicked=====");
 	}
 
-	@Override
-	public long getChildId(int groupPosition, int childPosition) {
-		return childPosition;
-	}
+	/********* Called when Item click in ListView ************/
+	private class OnItemClickListener  implements View.OnClickListener {
+		private int mPosition;
 
-	@Override
-	public View getChildView(int groupPosition, final int childPosition,
-			boolean isLastChild, View convertView, ViewGroup parent) {
-
-		final String childText = (String) getChild(groupPosition, childPosition);
-
-		if (convertView == null) {
-			LayoutInflater infalInflater = (LayoutInflater) this._context
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = infalInflater.inflate(R.layout.list_item, null);
+		OnItemClickListener(int position){
+			mPosition = position;
 		}
 
-		TextView txtListChild = (TextView) convertView
-				.findViewById(R.id.lblListItem);
-
-		txtListChild.setText(childText);
-
-		convertView.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
+		@Override
+		public void onClick(View arg0) {
 
 
-				Toast.makeText(_context,""+childText, Toast.LENGTH_SHORT).show();
-
-				//here I need to do some things that require me to manipulate the categoriesList from the Activity class - but it is out of scope
-			}
-		});
-
-		return convertView;
-	}
-
-	@Override
-	public int getChildrenCount(int groupPosition) {
-		return this._listDataChild.get(this._listDataHeader.get(groupPosition))
-				.size();
-	}
-
-
-	@Override
-	public Object getGroup(int groupPosition) {
-		return this._listDataHeader.get(groupPosition);
-	}
-
-	@Override
-	public int getGroupCount() {
-		return this._listDataHeader.size();
-	}
-
-	@Override
-	public long getGroupId(int groupPosition) {
-		return groupPosition;
-	}
-
-	@Override
-	public View getGroupView(int groupPosition, boolean isExpanded,
-			View convertView, ViewGroup parent) {
-		String headerTitle = (String) getGroup(groupPosition);
-		if (convertView == null) {
-			LayoutInflater infalInflater = (LayoutInflater) this._context
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = infalInflater.inflate(R.layout.list_group, null);
+//			CustomListViewAndroidExample sct = (CustomListViewAndroidExample)activity;
+//
+//			/****  Call  onItemClick Method inside CustomListViewAndroidExample Class ( See Below )****/
+//
+//			sct.onItemClick(mPosition);
 		}
-
-		TextView lblListHeader = (TextView) convertView
-				.findViewById(R.id.lblListHeader);
-		lblListHeader.setTypeface(null, Typeface.BOLD);
-		lblListHeader.setText(headerTitle);
-
-		return convertView;
 	}
-
-	@Override
-	public boolean hasStableIds() {
-		return false;
-	}
-
-	@Override
-	public boolean isChildSelectable(int groupPosition, int childPosition) {
-		return true;
-	}
-
 }

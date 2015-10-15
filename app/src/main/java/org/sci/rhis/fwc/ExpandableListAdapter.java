@@ -106,6 +106,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 				.findViewById(R.id.lblListHeader);
 		lblListHeader.setTypeface(null, Typeface.BOLD);
 		lblListHeader.setText(headerTitle);
+		Log.d("::::----"+headerTitle, "ontest===== ");
 
 		return convertView;
 	}
