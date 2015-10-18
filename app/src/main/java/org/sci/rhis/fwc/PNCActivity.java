@@ -282,34 +282,24 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
                 //Log.d("--:::>", "---complicationsign=====>"+jsonStr.get(key));
 
                 ArrayList<String> list = new ArrayList<String>();
-                list.add(""+getString(R.string.pnc_m_poridorshan)+" "+complicationsign);
-                list.add(""+getString(R.string.pnc_m_date)+" "+serviceSource);
-                list.add(anemia);
-                list.add(referCenterName);
-                list.add(""+getString(R.string.edema)+" "+anemia);
-                list.add(""+getString(R.string.pnc_m_date)+" "+referCenterName);
-                list.add(treatment);
-                list.add(perineum);
-                list.add(uterusInvolution);
-                list.add(disease);
-                list.add(bpSystolic);
-                list.add(hematuria);
-                list.add(temperature);
-                list.add(referReason);
-                list.add(refer);
-                list.add(edema);
+                list.add(""+getString(R.string.visitDate)+" "+visitDate);
                 list.add(""+getString(R.string.temperature)+" "+temperature);
-                list.add(""+getString(R.string.reason)+" "+referReason);
-                list.add(""+getString(R.string.refer)+" "+refer);
-                list.add(""+getString(R.string.edema)+" "+edema);
-                list.add(serviceID);
-                list.add(hemoglobin);
+                list.add(""+getString(R.string.bpSystolic)+" "+bpSystolic);
+                list.add(""+getString(R.string.anemia)+" "+anemia);
                 list.add(""+getString(R.string.hemoglobin)+" "+hemoglobin);
-                list.add(FPMethod);
-                list.add(breastCondition);
-                list.add(advice);
+                list.add(""+getString(R.string.edema)+" "+edema);
+                list.add(""+getString(R.string.breastCondition)+" "+breastCondition);
+                list.add(""+getString(R.string.uterusInvolution)+" "+uterusInvolution);
+                list.add(""+getString(R.string.hematuria)+" "+hematuria);
+                list.add(""+getString(R.string.perineum)+" "+perineum);
+                list.add(""+getString(R.string.family_planning_methods)+" "+FPMethod);
+                list.add(""+getString(R.string.danger_signs)+" "+complicationsign);
+                list.add(""+getString(R.string.disease)+" "+disease);
+                list.add(""+getString(R.string.treatment)+" "+treatment);
                 list.add(""+getString(R.string.advice)+" "+advice);
-                list.add(symptom);
+                list.add(""+getString(R.string.referCenterName)+" "+referCenterName);
+                list.add(""+getString(R.string.referReason)+" "+referReason);
+
 
                 try {
                     // JSONArray jsonArray = jsonStr.getJSONArray(key);
