@@ -42,6 +42,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     private HashMap<Integer, EditText> datePickerPair;
     private int deliveryHour;
     private int deliveryMinute;
+    private JSONObject dJson;
     private PregWoman mother;
     private ProviderInfo provider;
     private Intent passJson;
@@ -163,9 +164,8 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 Utilities.setEditTexts(jsonEditTextMap, json);
                 Utilities.setEditTextDates(jsonEditTextDateMap, json);
                 updateEditTextTimes(json);
-             Log.d("Delivery Json in Query:", json.toString());
-
-                passJson.putExtra("DeliveryJson", json.toString());
+               Log.d("Delivery Json in Query:", json.toString());
+                dJson = json;
 
                 //TODO Make the fields non-modifiable
                 Utilities.Disable(this, R.id.delivery_info_layout);
@@ -269,6 +269,8 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             if(checkClientInfo() && mother.isEligibleFor(PregWoman.PREG_SERVICE.NEWBORN)) {
                 passJson.putExtra("PregWoman", mother);
                 passJson.putExtra("Provider", ProviderInfo.getProvider());
+                passJson.putExtra("DeliveryJson",dJson.toString());
+                Log.d("DeliveryJson", dJson.toString());
                 startActivity(passJson);
             } else {
                 Toast.makeText(this, "Too Late for PNC, verify ...", Toast.LENGTH_LONG).show();
