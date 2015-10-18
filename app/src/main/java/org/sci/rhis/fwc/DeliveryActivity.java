@@ -44,7 +44,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     private int deliveryMinute;
     private PregWoman mother;
     private ProviderInfo provider;
-
+    private Intent passJson;
     final private String SERVLET = "delivery";
     final private String ROOTKEY = "deliveryInfo";
 
@@ -130,6 +130,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         try {
             queryString = buildQueryHeader(true).toString();
             Log.e("Delivery", "build query String: " + "working properly");
+            Log.e("Delivery Json", queryString);
         } catch (JSONException JSE) {
             Log.e("Delivery", "Could not build query String: " + JSE.getMessage());
         }
@@ -138,7 +139,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
         LinearLayout mNewbornLayout = (LinearLayout) findViewById(R.id.newborn_Tabla_Layout);
         mNewbornLayout.setVisibility(View.VISIBLE);
-
+        passJson = new Intent(this, DeliveryNewbornActivity.class);
     }
 
     @Override
@@ -162,6 +163,9 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 Utilities.setEditTexts(jsonEditTextMap, json);
                 Utilities.setEditTextDates(jsonEditTextDateMap, json);
                 updateEditTextTimes(json);
+             Log.d("Delivery Json in Query:", json.toString());
+
+                passJson.putExtra("DeliveryJson", json.toString());
 
                 //TODO Make the fields non-modifiable
                 Utilities.Disable(this, R.id.delivery_info_layout);
@@ -259,19 +263,13 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         }
 
         if(view.getId()==R.id.newbornAddButton){
-        Intent intent = new Intent(this, DeliveryNewbornActivity.class);
-        intent.putExtra("Layout", 1);
-        //intent.putExtra("dPlace", getEditText(R.id.delivery_placeDropdown).getText().toString());
-        //intent.putExtra("dType", getEditText(R.id.delivery_typeDropdown).getText().toString());
-        //intent.putExtra("dDate",  getEditText(R.id.id_delivery_date).getText().toString());
-       // intent.putExtra("dTime", getEditText(R.id.delivery_time_hour).getText().toString() +
-                      //           ":" +
-                //                 getEditText(R.id.delivery_time_minute).getText().toString());
+        //Intent intent = new Intent(this, DeliveryNewbornActivity.class);
+        passJson.putExtra("Layout", 1);
 
             if(checkClientInfo() && mother.isEligibleFor(PregWoman.PREG_SERVICE.NEWBORN)) {
-                intent.putExtra("PregWoman", mother);
-                intent.putExtra("Provider", ProviderInfo.getProvider());
-                startActivity(intent);
+                passJson.putExtra("PregWoman", mother);
+                passJson.putExtra("Provider", ProviderInfo.getProvider());
+                startActivity(passJson);
             } else {
                 Toast.makeText(this, "Too Late for PNC, verify ...", Toast.LENGTH_LONG).show();
             }
@@ -436,7 +434,8 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             getEditTextTime(json);
             getSpecialCases(json);
             deliveryInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
-
+        System.out.print("In Save, Delivery Json in Query:" + json.toString());
+            passJson.putExtra("DeliveryJson",json.toString());
             Log.e("Delivery", "Save Succeeded");
         } catch (JSONException jse) {
             Log.e("Delivery", "JSON Exception: " + jse.getMessage());

@@ -345,7 +345,13 @@
     <string name="history_c_name">কেন্দ্রের নাম:</string>
     <string name="history_cause">কারণ:</string>
     <string name="child_refer">রেফার </string>
-
+    <string name="death_info">মৃত্যু সংক্রান্ত তথ্য: </string>
+    <string name="reserve">সংরক্ষণ  </string>
+    <string name="change">পরিবর্তন </string>
+    <string name="mother_death">মাতৃ মৃত্যু  </string>
+    <string name="child_death">নবজাতক মৃত্যু</string>
+    <string name="date">তারিখ </string>
+    <string name="place">স্থান </string>
     <string-array name="Delivery_Newborn_Refer_Reason_DropDown">
         <item> জন্মগত শ্বাসরুদ্ধতা (asphyxia)	</item>
         <item> অপরিণত জন্ম (Prematurity)	</item>
@@ -630,4 +636,5 @@
     <string name="pac_service">PAC</string>
     <string name="death_service">মৃত্যু </string>
     <string name="title_activity_delivery_newborn">DeliveryNewbornActivity</string>
+    <string name="title_activity_death">DeathActivity</string>
 </resources>

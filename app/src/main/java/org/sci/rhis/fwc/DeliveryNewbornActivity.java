@@ -71,11 +71,9 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
                 break;
         }
 
-        Intent outComePlace = getIntent();
-        //String str = outComePlace.getStringExtra("dPlace");
-       // System.out.print(str);
-
-
+        //Intent outComePlace = getIntent();
+        String str = intent.getStringExtra("DeliveryJson");
+        Log.d("Get Json As", str);
 
         Spinner referSpinner= (Spinner)findViewById(R.id.deliveryChildReferCenterNameSpinner);
 
@@ -276,11 +274,9 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         //get info from database
         String queryString =   "{" +
                 "healthid:" + mother.getHealthId() + "," +
-                (isRetrieval ? "": "providerid:\""+ String.valueOf(provider.getProviderCode())+"\",") +
+               "providerid:"+ String.valueOf(provider.getProviderCode()) + "," +
                 "pregno:" + mother.getPregNo() + "," +
-                "newbornLoad:" + (isRetrieval? "retrieve":"\"\"") + "outcomeplace:" + mother.getDeliveryPlace() + "," +
-                "outcometype:" + mother.getDeliveryType() + "outcomedate:" + mother.getActualDelivery() +
-                "outcometime:" + mother.getDeliveryTime() +
+                "newbornLoad:" + "" + "," +
                 "}";
           System.out.print(queryString);
         return new JSONObject(queryString);
