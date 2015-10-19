@@ -6,12 +6,10 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,7 +19,6 @@ import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -39,7 +36,8 @@ import java.util.List;
 public class ANCActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener,
                                                                      CompoundButton.OnCheckedChangeListener{
 
-    private PregWoman woman;
+    private PregWoman mother;
+    private ProviderInfo provider;
     private Date today;
 
 // For Date pick added by Al Amin
@@ -53,7 +51,14 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     HashMap<String, List<String>> listDataChild;
     LinearLayout ll;
 
+
+    AsyncDeliveryInfoUpdate ancInfoUpdateTask;
+    final private String SERVLET = "anc";
+    final private String ROOTKEY = "ANCInfo";
+
+
     ANCListAdapter ancAdapter;
+
 
 
 //    ExpandableListAdapter listAdapter2;
@@ -233,7 +238,10 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
      //   expListView3 = (ExpandableListView) findViewById(R.id.lvExp3);
 
+        //create the mother
+        mother = getIntent().getParcelableExtra("PregWoman");
 
+        provider = getIntent().getParcelableExtra("Provider");
 
         AsyncClientInfoUpdate client = new AsyncClientInfoUpdate(ANCActivity.this);
         //SendPostRequestAsyncTask
@@ -535,7 +543,13 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.ancServiceDateValue || v.getId() == R.id.Date_Picker_Button) {
+
             datePickerDialog.show(datePickerPair.get(v.getId()));
+        }
+
+        if(v.getId() == R.id.ancSaveButton){
+            saveToJson();
+
         }
     }
 
@@ -559,7 +573,27 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
 
     }
+    private void saveToJson() {
+        ancInfoUpdateTask = new AsyncDeliveryInfoUpdate(this);
+        JSONObject json;
+        try {
+            json = buildQueryHeader(false);
+            Utilities.getCheckboxes(jsonCheckboxMap, json);
+            Utilities.getEditTexts(jsonEditTextMap, json);
+            Utilities.getEditTextDates(jsonEditTextDateMap, json);
+            Utilities.getSpinners(jsonSpinnerMap, json);
+            Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
+            //getEditTextTime(json);
+            //getSpecialCases(json);
+            System.out.print("Json Printed:"+ json.toString());
 
+            ancInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
+            Log.e("Delivery", "Save Succeeded");
+        } catch (JSONException jse) {
+            Log.e("Delivery", "JSON Exception: " + jse.getMessage());
+        }
+
+    }
     @Override
     protected void initiateCheckboxes(){
         jsonCheckboxMap.put("ancrefer", getCheckbox(R.id.ancReferCheckBox));
@@ -615,5 +649,18 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
     }
 
+    private JSONObject buildQueryHeader(boolean isRetrieval) throws JSONException {
+        //get info from database
+        String queryString =   "{" +
+                "healthid:" + mother.getHealthId() + "," +
+                (isRetrieval ? "": "providerid:\""+String.valueOf(provider.getProviderCode())+"\",") +
+                "pregno:" + mother.getPregNo() + "," +
+                "ancLoad:" + (isRetrieval? "retrieve":"\"\"") +
+                "}";
+
+        //SendPostRequestAsyncTask retrieveDelivery = new AsyncDeliveryInfoUpdate(this);
+        //retrieveDelivery.execute(queryString, SERVLET, ROOTKEY);
+        return new JSONObject(queryString);
+    }
 
 }

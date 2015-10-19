@@ -32,12 +32,15 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     private CustomTimePickerDialog timePickerDialog;
     private HashMap<Integer, EditText> datePickerPair;
 
-    final private String servlet = "newborn";
-    final private String rootkey = "newbornInfo";
-    private MotherWithChild mother;
 
+    private PregWoman mother;
+    private  JSONObject deliveryJsonObj;
     private ProviderInfo provider;
     int flag =0;
+
+    final private String SERVLET = "newborn";
+    final private String ROOTKEY= "newbornInfo";
+
     AsyncNewbornInfoUpdate newbornInfoQueryTask;
     AsyncNewbornInfoUpdate newbornInfoUpdateTask;
 
@@ -54,9 +57,9 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
         /**get the intent*/
         Intent intent = getIntent();
-
         System.out.print("Get Intent?" + "Under this");
-        int integerRecd = intent.getIntExtra("Layout",flag);
+
+        int integerRecd = intent.getIntExtra("Layout", flag);
 
         switch(integerRecd) {
             case 1:
@@ -71,6 +74,10 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
                 break;
         }
 
+        //Intent outComePlace = getIntent();
+        String str = intent.getStringExtra("DeliveryJson");
+        Log.d("Get Json As", str);
+
         Spinner referSpinner= (Spinner)findViewById(R.id.deliveryChildReferCenterNameSpinner);
 
         final List<String> newbornReferReasonList = Arrays.asList(getResources().getStringArray(R.array.Delivery_Newborn_Refer_Reason_DropDown));
@@ -82,10 +89,16 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         buildQueryHeader();
 
         //create the mother
-        mother = getIntent().getParcelableExtra("MotherWithChild");
+        mother = getIntent().getParcelableExtra("PregWoman");
+
+        try {
+            deliveryJsonObj = new JSONObject(str);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         provider = getIntent().getParcelableExtra("Provider");
-
+        initialize();
     }
 
     @Override
@@ -120,28 +133,28 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 // For New born
         jsonCheckboxMap.put("stimulation", getCheckbox(R.id.stimulation));
         jsonCheckboxMap.put("bagNMask", getCheckbox(R.id.bag_n_mask));
-        jsonCheckboxMap.put("refer", getCheckbox(R.id.deliveryChildReferCheckBox));
+        jsonCheckboxMap.put("newBornRefer", getCheckbox(R.id.deliveryChildReferCheckBox));
     }
 
     @Override
     protected void initiateEditTexts() {
-
         // for New born layout
-        jsonEditTextDateMap.put("immature",getEditText(R.id.deliveryNewBornNo));
-        jsonEditTextDateMap.put("birthStatus",getEditText(R.id.deliveryNewBornConditionValue));
+        jsonEditTextMap.put("immature",  getEditText(R.id.deliveryNewBornNo));
+        jsonEditTextMap.put("birthStatus", getEditText(R.id.deliveryNewBornConditionValue));
         jsonEditTextMap.put("weight",getEditText(R.id.deliveryNewBornWeightValue));
     }
 
     @Override
     protected void initiateTextViews() {
-
+        jsonTextViewsMap.put("immature",  getTextView(R.id.deliveryNewBornNo));
+        jsonTextViewsMap.put("birthStatus",getTextView(R.id.deliveryNewBornConditionValue));
     }
 
     @Override
     protected void initiateSpinners() {
         // for New born Layout
-        jsonSpinnerMap.put("referCenterName", getSpinner(R.id.deliveryChildReferCenterNameSpinner));
-        jsonSpinnerMap.put("referReason", getSpinner(R.id.deliveryChildReferReasonSpinner));
+        jsonSpinnerMap.put("newBornReferCenter", getSpinner(R.id.deliveryChildReferCenterNameSpinner));
+        jsonSpinnerMap.put("newBornReferReason", getSpinner(R.id.deliveryChildReferReasonSpinner));
     }
 
     @Override
@@ -155,17 +168,13 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         jsonRadioGroupButtonMap.put("gender", Pair.create(
                         getRadioGroup(R.id.id_newBornSexRadioGroup), Pair.create(
                                 getRadioButton(R.id.deliveryNewBornSon),
-                                getRadioButton(R.id.deliveryNewBornDaughter))
-                )
-        );
-        jsonRadioGroupButtonMap.put("immatureBirth", Pair.create(
-                        getRadioGroup(R.id.id_newBornImmaturRadioGroup), Pair.create(
-                                getRadioButton(R.id.deliveryPrematureBirthYesButton),
-                                getRadioButton(R.id.deliveryPrematureBirthNoButton))
+                                getRadioButton(R.id.deliveryNewBornDaughter)
+                                //getRadioButton(R.id.deliveryNewBornNotDetected)
+                        )
                 )
         );
 
-        jsonRadioGroupButtonMap.put("drying", Pair.create(
+        jsonRadioGroupButtonMap.put("washAfterBirth", Pair.create(
                         getRadioGroup(R.id.id_newBornWipeRadioGroup), Pair.create(
                                 getRadioButton(R.id.deliveryWipeYesButton),
                                 getRadioButton(R.id.deliveryWipeNoButton))
@@ -190,7 +199,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
                 )
         );
 
-        jsonRadioGroupButtonMap.put("breastFeed", Pair.create(
+        jsonRadioGroupButtonMap.put("breastfeed", Pair.create(
                         getRadioGroup(R.id.id_newBornBreastFeedingRadioGroup), Pair.create(
                                 getRadioButton(R.id.deliveryBreastFeedingYesButton),
                                 getRadioButton(R.id.deliveryBreastFeedingNoButton))
@@ -246,11 +255,13 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         JSONObject json;
         try {
             json = buildQueryHeader(false);
-            Utilities.getCheckboxes(jsonCheckboxMap, json);
-            Utilities.getEditTexts(jsonEditTextMap, json);
             Utilities.getSpinners(jsonSpinnerMap, json);
+            Utilities.getEditTexts(jsonEditTextMap, json);
+            Utilities.getCheckboxes(jsonCheckboxMap, json);
             Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
-            newbornInfoUpdateTask.execute(json.toString(),servlet,rootkey);
+            Log.d("DeliveryJsonFoundinSave", json.toString());
+           Log.e("Servlet and Rootkey",SERVLET + " " + ROOTKEY);
+            newbornInfoQueryTask.execute(json.toString(), SERVLET, ROOTKEY);
         } catch (JSONException jse) {
 
             Log.d("Newborn", "JSON Exception: " + jse.getMessage());
@@ -266,17 +277,20 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     }
     private JSONObject buildQueryHeader(boolean isRetrieval) throws JSONException {
 
-     System.out.print("DeliveryPlace:"+ mother.getDeliveryPlace());
         //get info from database
         String queryString =   "{" +
                 "healthid:" + mother.getHealthId() + "," +
-                (isRetrieval ? "": "providerid:\""+ String.valueOf(provider.getProviderCode())+"\",") +
+               "providerid:"+ String.valueOf(provider.getProviderCode()) + "," +
                 "pregno:" + mother.getPregNo() + "," +
-                "newbornLoad:" + (isRetrieval? "retrieve":"\"\"") + "outcomeplace:" + mother.getDeliveryPlace() + "," +
-                "outcometype:" + mother.getDeliveryType() + "outcomedate:" + mother.getActualDelivery() +
-                "outcometime:" + mother.getDeliveryTime() +
+                "newbornLoad:" + "\"\"" + "," +
+                "\"outcomeplace\":" + deliveryJsonObj.getInt("dPlace")+ "," +
+                "\"outcomedate\":" + "\"" +deliveryJsonObj.getString("dDate") + "\"" +"," +
+                "\"outcometime\":" + "\"" +deliveryJsonObj.getString("dTime")+ "\"" + "," +
+                "\"outcometype\":" + deliveryJsonObj.getInt("dType") +
                 "}";
-          System.out.print(queryString);
+
+          Log.e("Is There have Actual Value?",queryString);
+
         return new JSONObject(queryString);
     }
 }

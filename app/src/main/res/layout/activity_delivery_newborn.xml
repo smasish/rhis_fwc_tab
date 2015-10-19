@@ -1,3 +1,9 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -40,14 +46,14 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/text_color"/>
-            <TextView
+            <EditText
                 android:id="@+id/deliveryNewBornNo"
                 android:inputType="number"
                 android:textSize="20dp"
                 android:layout_width="40dp"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp" />
-            <TextView
+            <EditText
                 android:id="@+id/deliveryNewBornConditionValue"
                 android:inputType="text"
                 android:textSize="20dp"
@@ -331,4 +337,4 @@
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
-       
+</ScrollView>
