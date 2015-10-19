@@ -34,7 +34,7 @@ proguard/
 /.idea/misc.xml
 .DS_Store
 /captures
-
+.idea/
 
 #Git merge records
 *.orig
