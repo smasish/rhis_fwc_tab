@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Vector;
 
-public class SecondActivity extends ClinicalServiceActivity {
+public class SecondActivity extends ClinicalServiceActivity  {
 
     private Button button;
     private PregWoman woman;
@@ -268,7 +268,7 @@ public class SecondActivity extends ClinicalServiceActivity {
 
     @Override
     protected void initiateTextViews() {
-        jsonTextViewsMap.put("FacilityName",getTextView(R.id.fwc_heading));
+        //jsonTextViewsMap.put("FacilityName",getTextView(R.id.fwc_heading));
     };
     @Override
     protected void initiateSpinners(){

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="district_DropDown">
+        <item>হবিগঞ্জ </item>
+        <item> টাঙ্গাইল </item>
+        <item>কুমিল্লা </item>
+    </string-array>
+
+
+</resources>

@@ -190,6 +190,7 @@
                 android:textSize="20dp"
                 android:layout_width="100dp"
                 android:layout_height="50px"
+                android:entries="@array/district_DropDown"
                android:background="@drawable/gradient_spinner"
                 android:id="@+id/Clients_District"
                 android:paddingLeft="10dp"
@@ -246,6 +247,7 @@
                 android:background="@drawable/gradient_spinner"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/Clients_Upazila"
+
                 android:paddingLeft="10dp"
                 />
 
