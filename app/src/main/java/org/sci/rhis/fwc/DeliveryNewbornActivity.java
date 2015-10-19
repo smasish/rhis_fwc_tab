@@ -31,13 +31,16 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     private CustomDatePickerDialog datePickerDialog;
     private CustomTimePickerDialog timePickerDialog;
     private HashMap<Integer, EditText> datePickerPair;
-    String outComePlace= "";
-    final private String servlet = "newborn";
-    final private String rootkey = "newbornInfo";
+
+
     private PregWoman mother;
     private  JSONObject deliveryJsonObj;
     private ProviderInfo provider;
     int flag =0;
+
+    final private String SERVLET = "newborn";
+    final private String ROOTKEY= "newbornInfo";
+
     AsyncNewbornInfoUpdate newbornInfoQueryTask;
     AsyncNewbornInfoUpdate newbornInfoUpdateTask;
 
@@ -256,9 +259,9 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
             Utilities.getEditTexts(jsonEditTextMap, json);
             Utilities.getCheckboxes(jsonCheckboxMap, json);
             Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
-            Log.d("NewbornJson Found",json.toString());
-
-            newbornInfoUpdateTask.execute(json.toString(),servlet,rootkey);
+            Log.d("DeliveryJsonFoundinSave", json.toString());
+           Log.e("Servlet and Rootkey",SERVLET + " " + ROOTKEY);
+            newbornInfoQueryTask.execute(json.toString(), SERVLET, ROOTKEY);
         } catch (JSONException jse) {
 
             Log.d("Newborn", "JSON Exception: " + jse.getMessage());

@@ -49,10 +49,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     final private String SERVLET = "delivery";
     final private String ROOTKEY = "deliveryInfo";
 
-    final private String servlet = "newborn";
-    final private String rootkey = "newbornInfo";
-    AsyncNewbornInfoUpdate newbornInfoQueryTask;
-    AsyncNewbornInfoUpdate newbornInfoUpdateTask;
+
 
     AsyncDeliveryInfoUpdate deliveryInfoQueryTask;
     AsyncDeliveryInfoUpdate deliveryInfoUpdateTask;
@@ -436,9 +433,9 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             getEditTextTime(json);
             getSpecialCases(json);
             deliveryInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
-        System.out.print("In Save, Delivery Json in Query:" + json.toString());
+           System.out.print("In Save, Delivery Json in Query:" + json.toString());
             passJson.putExtra("DeliveryJson",json.toString());
-            Log.e("Delivery", "Save Succeeded");
+
         } catch (JSONException jse) {
             Log.e("Delivery", "JSON Exception: " + jse.getMessage());
         }
