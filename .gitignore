@@ -29,11 +29,11 @@ proguard/
 .navigation/
 
 #idea files
-/.idea/workspace.xml
-/.idea/libraries
-/.idea/misc.xml
+.idea/workspace.xml
+.idea/libraries
+.idea/misc.xml
 .DS_Store
-/captures
+captures
 .idea/
 
 #Git merge records
