@@ -95,12 +95,6 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         getEditText(R.id.id_admissionDate).setOnClickListener(this);
         getCheckbox(R.id.id_delivery_refer).setOnCheckedChangeListener(this);
 
-        //hourField = (EditText)findViewById(R.id.delivery_time_hour);
-        //minuteField = (EditText)findViewById(R.id.delivery_time_minute);
-
-
-        //populateEditTextTimes();
-
         //custom date picker
         datePickerDialog = new CustomDatePickerDialog(this);
         datePickerPair = new HashMap<Integer, EditText>();
