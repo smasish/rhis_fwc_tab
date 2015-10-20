@@ -247,9 +247,9 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         //SendPostRequestAsyncTask
         AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(ANCActivity.this);
         String queryString =   "{" +
-                "pregNo:" + 3 + "," +
-                "healthid:" + "43366275025436" + "," +
-                "ancLoad:" + ProviderInfo.getProvider().getProviderCode() +
+                "pregNo:" + mother.getPregNo() + "," +
+                "healthid:" + mother.getHealthId() + "," +
+                "ancLoad:" + provider.getProviderCode() +
                 "}";
         String servlet = "anc";
         String jsonRootkey = "ANCInfo";
@@ -607,6 +607,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     protected void initiateSpinners() {
         jsonSpinnerMap.put("ancedema", getSpinner(R.id.ancEdemaSpinner));
         jsonSpinnerMap.put("ancfpresentation", getSpinner(R.id.ancFetalPresentationSpinner));
+        jsonSpinnerMap.put("ancanemia",getSpinner(R.id.ancAnemiaSpinner));
         jsonSpinnerMap.put("ancjaundice", getSpinner(R.id.ancJaundiceSpinner));
         jsonSpinnerMap.put("ancsugar", getSpinner(R.id.ancUrineSugarSpinner));
         jsonSpinnerMap.put("ancalbumin", getSpinner(R.id.ancUrineAlbuminSpinner));
@@ -628,7 +629,6 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         jsonEditTextMap.put("ancweight", getEditText(R.id.ancWeightValue));
         jsonEditTextMap.put("ancuheight", getEditText(R.id.ancUterusHeightValue));
         jsonEditTextMap.put("anchrate", getEditText(R.id.ancHeartSpeedValue));
-
         jsonEditTextMap.put("anchemoglobin", getEditText(R.id.ancHemoglobinValue));
        }
 
@@ -661,6 +661,25 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         //SendPostRequestAsyncTask retrieveDelivery = new AsyncDeliveryInfoUpdate(this);
         //retrieveDelivery.execute(queryString, SERVLET, ROOTKEY);
         return new JSONObject(queryString);
+    }
+
+    public void getSpecialCases(JSONObject json) {
+        try {
+            json.put("ancsatelitecentername", ""); //other delivery complicacies
+            json.put("ancservicesource", ""); //other delivery complicacies
+            int id[] = {R.id.Dead_born_fresh, R.id.Dead_born_macerated};
+            int stillBirth = 0;
+            String temp = "";
+            for(int i = 0; i < 2; i++) {
+                temp = getEditText(id[i]).getText().toString();
+                if(!temp.equals("")) {
+                    stillBirth += Integer.valueOf(temp);
+                }
+            }
+            json.put("dNoStillBirth", stillBirth);
+        } catch (JSONException jse) {
+
+        }
     }
 
 }
