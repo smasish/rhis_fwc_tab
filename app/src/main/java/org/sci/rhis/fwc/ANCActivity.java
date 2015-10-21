@@ -58,6 +58,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
 
     ANCListAdapter ancAdapter;
+    AsyncAncInfoUpdate ancInfoUpdate;
 
 
 
@@ -70,6 +71,9 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 //    ExpandableListView expListView3;
 //    List<String> listDataHeader3;
 //    HashMap<String, List<String>> listDataChild3;
+
+    final private String SERVLET = "anc";
+    final private String ROOTKEY = "ANCInfo";
 
     private static final String TAG_VISIT_NO = "ancVisit01";
     private static final String TAG_DATE = "2015-07-02";
@@ -240,7 +244,6 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
         //create the mother
         mother = getIntent().getParcelableExtra("PregWoman");
-
         provider = getIntent().getParcelableExtra("Provider");
 
         AsyncClientInfoUpdate client = new AsyncClientInfoUpdate(ANCActivity.this);
@@ -573,25 +576,6 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
 
     }
-    private void saveToJson() {
-        ancInfoUpdateTask = new AsyncDeliveryInfoUpdate(this);
-        JSONObject json;
-        try {
-            json = buildQueryHeader(false);
-            Utilities.getCheckboxes(jsonCheckboxMap, json);
-            Utilities.getEditTexts(jsonEditTextMap, json);
-            Utilities.getEditTextDates(jsonEditTextDateMap, json);
-            Utilities.getSpinners(jsonSpinnerMap, json);
-            Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
-            //getEditTextTime(json);
-            //getSpecialCases(json);
-            System.out.print("Json Printed:"+ json.toString());
-
-            ancInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
-            Log.e("Delivery", "Save Succeeded");
-        } catch (JSONException jse) {
-            Log.e("Delivery", "JSON Exception: " + jse.getMessage());
-        }
 
     }
     @Override
@@ -649,12 +633,44 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
     }
 
+    public void saveAnc(View view) {
+        JSONObject json;
+        try {
+            json = buildQueryHeader(false);
+            Utilities.getCheckboxes(jsonCheckboxMap, json);
+            Utilities.getEditTexts(jsonEditTextMap, json);
+            Utilities.getEditTextDates(jsonEditTextDateMap, json);
+            Utilities.getSpinners(jsonSpinnerMap, json);
+            Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
+            //getEditTextTime(json);
+            getSpecialCases(json);
+            ancInfoUpdate = new AsyncAncInfoUpdate(this);
+            ancInfoUpdate.execute(json.toString(), SERVLET, ROOTKEY);
+
+            Log.i("ANC", "Save Succeeded");
+            Log.d("ANC", "JSON:\n" +json.toString());
+
+        } catch (JSONException jse) {
+            Log.e("ANC", "JSON Exception: " + jse.getMessage());
+        }
+    }
+
+    public void getSpecialCases(JSONObject json) {
+        try {
+            json.put("ancsatelitecentername", ""); //If the service was given from satellite
+            json.put("ancservicesource", "1"); //anc service source
+
+        } catch (JSONException jse) {
+
+        }
+    }
+
     private JSONObject buildQueryHeader(boolean isRetrieval) throws JSONException {
         //get info from database
         String queryString =   "{" +
-                "healthid:" + mother.getHealthId() + "," +
+                "healthid:" + woman.getHealthId() + "," +
                 (isRetrieval ? "": "providerid:\""+String.valueOf(provider.getProviderCode())+"\",") +
-                "pregno:" + mother.getPregNo() + "," +
+                "pregno:" + woman.getPregNo() + "," +
                 "ancLoad:" + (isRetrieval? "retrieve":"\"\"") +
                 "}";
 
@@ -662,24 +678,4 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         //retrieveDelivery.execute(queryString, SERVLET, ROOTKEY);
         return new JSONObject(queryString);
     }
-
-    public void getSpecialCases(JSONObject json) {
-        try {
-            json.put("ancsatelitecentername", ""); //other delivery complicacies
-            json.put("ancservicesource", ""); //other delivery complicacies
-            int id[] = {R.id.Dead_born_fresh, R.id.Dead_born_macerated};
-            int stillBirth = 0;
-            String temp = "";
-            for(int i = 0; i < 2; i++) {
-                temp = getEditText(id[i]).getText().toString();
-                if(!temp.equals("")) {
-                    stillBirth += Integer.valueOf(temp);
-                }
-            }
-            json.put("dNoStillBirth", stillBirth);
-        } catch (JSONException jse) {
-
-        }
-    }
-
 }
