@@ -37,16 +37,16 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
 
     private EditText cName, cFatherName, cMotherName, cAge;
     public static int NO_OPTIONS=0;
-    private String getString, md5Result;
+    private String getString, md5Result, vilStringValue;
     private Button computeMD5;
     private HashMap<String, Pair<Integer, Integer>> districtCodeMap;
     private HashMap<String, Integer> upazilaCodeMap;
     private HashMap<String, Integer> unionCodeMap;
-    private HashMap<String, Integer> villageCodeMap;
+    private HashMap<String, Pair<Integer, Integer>> villageCodeMap;
     private long generatedId;
     private  int flag=0, provider;
     private String selectedDistName, selectedUpazilaName,selectedUnionName, selectedVillageName;
-    private int divValue, distValue, upValue, unValue, vilValue;
+    private int divValue, distValue, upValue, unValue, vilValue, mouzaValue;
 
     public NRCActivity() {
     }
@@ -140,36 +140,45 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         Log.e("selected Union Value", String.valueOf(unValue));
 
 
-        villageCodeMap = new HashMap<String,Integer>();
-        switch(upValue) {
-            case 16:
-                villageCodeMap.put("আদাঐর",16);
-                villageCodeMap.put("শাহজাহানপুর",94);
-                break;
+        villageCodeMap = new HashMap<String,Pair<Integer, Integer>>();
+        switch(unValue) {
+
             case 94:
-                villageCodeMap.put("কাঞ্চনপুর",59);
-                villageCodeMap.put("কাশিল",71);
+                villageCodeMap.put("বান্দারিয়া",Pair.create(01, 164));
+                villageCodeMap.put("ফারোদপুর",Pair.create(02, 324));
                 break;
             case 59:
-                villageCodeMap.put("আদাঐর",16);
-                villageCodeMap.put("শাহজাহানপুর",94);
+                villageCodeMap.put("যৌতুকী",Pair.create(01, 458));
+                villageCodeMap.put("তারাবাড়ী",Pair.create(05, 547));
                 break;
             case 71:
-                villageCodeMap.put("কাঞ্চনপুর",59);
-                villageCodeMap.put("কাশিল",71);
+                villageCodeMap.put("বাংড়া",Pair.create(01, 167));
+                villageCodeMap.put("পিচুরী",Pair.create(01, 816));
+                break;
+            case 16:
+                villageCodeMap.put("দক্ষিণমোহাম্মদপুর",Pair.create(01, 276));
+                //villageCodeMap.put("মিঠাপুকুর",Pair.create(02, 368));
                 break;
         }
         ArrayList<String> vilLIst = new ArrayList<String>();
-        unLIst.addAll(villageCodeMap.keySet());
+        vilLIst.addAll(villageCodeMap.keySet());
         ArrayAdapter<String> vilAdapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item, vilLIst);
         vilAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner spnVillage = (Spinner) findViewById(R.id.Clients_Village);
         spnVillage.setAdapter(vilAdapter);
         selectedVillageName = spnVillage.getSelectedItem().toString();
-        vilValue = villageCodeMap.get(selectedVillageName);
-        Log.e("selected Union Name", String.valueOf(selectedVillageName));
-        Log.e("selected Union Value", String.valueOf(vilValue));
+        vilValue = villageCodeMap.get(selectedVillageName).first;
+        mouzaValue = villageCodeMap.get(selectedVillageName).second;
+        Log.e("selected Village Name", String.valueOf(selectedVillageName));
+        if(vilValue<10)
+        {
+          vilStringValue = "0" + String.valueOf(vilValue);
+        }
+
+        Log.e("selected Village Value", String.valueOf(vilStringValue));
+        Log.e("selected mouza Value", String.valueOf(mouzaValue));
+
 
         addListenerOnButton();
 
@@ -192,7 +201,8 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
     private String getString(){
     Log.e("FoundSumOfStrings",cName.getText().toString()+"  " +cFatherName.getText().toString() + " " + cMotherName.getText().toString());
     //get username and password entered
-    getString= cName.getText().toString() + cFatherName.getText().toString() + cMotherName.getText().toString();
+    getString= cName.getText().toString() + cFatherName.getText().toString() + cMotherName.getText().toString() +
+                distValue + upValue + unValue + mouzaValue + vilStringValue;
     Log.e("FoundSumOfStrings!",getString);
         return getString;
     }
@@ -253,7 +263,11 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
                 "\"generatedId\":"  + computeMD5Hash(getString())  + "," +
                 "\"providerid\":" + String.valueOf(provider)+ "," +
                 "\"division\":" + String.valueOf(divValue)+ "," +
-                "\"district\":" + String.valueOf(distValue) +
+                "\"district\":" + String.valueOf(distValue) + "," +
+                "\"upazila\":" + String.valueOf(upValue)+ "," +
+                "\"union\":" + String.valueOf(unValue)+ "," +
+                "\"mouza\":" + String.valueOf(mouzaValue)+ "," +
+                "\"village\":" + String.valueOf(vilValue)+
                 "}";
        // Log.e("selected Item's Value", String.valueOf(distValue));
         Log.e("QueryStrig",queryString);
@@ -267,6 +281,8 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
             json = buildQueryHeader();
             Utilities.getEditTexts(jsonEditTextMap, json);
             Utilities.getSpinners(jsonSpinnerMap, json);
+
+            NRCInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
 
             Log.e("NRC JSON Sent2SERVLET", json.toString());
 
