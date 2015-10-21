@@ -157,7 +157,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
                 break;
             case 16:
                 villageCodeMap.put("দক্ষিণমোহাম্মদপুর",Pair.create(01, 276));
-                //villageCodeMap.put("মিঠাপুকুর",Pair.create(02, 368));
+                villageCodeMap.put("মিঠাপুকুর",Pair.create(02, 368));
                 break;
         }
         ArrayList<String> vilLIst = new ArrayList<String>();
