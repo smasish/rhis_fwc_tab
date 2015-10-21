@@ -246,8 +246,8 @@ public static void Visibility(Activity activity,int id)
 
     public static void getEditTextDates(HashMap<String, EditText> keyMap, JSONObject json) {
 
-        SimpleDateFormat iformat = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat oformat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat uiFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dbFormat = new SimpleDateFormat("yyyy-MM-dd");
         String currentDate;
         for (String key: keyMap.keySet()) {
             try {
@@ -255,11 +255,11 @@ public static void Visibility(Activity activity,int id)
                 if(!currentDate.equals("")) {
                     keyMap.get(key).setText(oformat.format(iformat.parse(json.getString(key))));
                 }*/
-                json.put(key, iformat.format(oformat.parse(keyMap.get(key).getText().toString())));
+                json.put(key, dbFormat.format(uiFormat.parse(keyMap.get(key).getText().toString())));
             } catch (JSONException jse) {
                 System.out.println("The JSON key: '" + key+ "' does not exist");
             } catch (ParseException pe) {
-                System.out.println("Parsing Exception: Could not parse date");
+                System.out.println("Parsing Exception: Could not parse date:\n" + pe.toString());
             } catch (NullPointerException NP) {
                 Log.i("Parse", NP.getMessage());
             }

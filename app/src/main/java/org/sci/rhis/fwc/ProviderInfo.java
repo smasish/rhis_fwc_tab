@@ -83,6 +83,8 @@ public class ProviderInfo implements Parcelable {
         return provider;
     }
 
+
+
     private String mProviderCode;
     private String mProviderName;
     private String mProviderFacility;

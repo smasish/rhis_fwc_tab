@@ -102,7 +102,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         //populateEditTextTimes();
 
         //custom date picker
-        datePickerDialog = new CustomDatePickerDialog(this);
+        datePickerDialog = new CustomDatePickerDialog(this, "dd/MM/yyyy");
         datePickerPair = new HashMap<Integer, EditText>();
         datePickerPair.put(R.id.imageViewDeliveryDate, (EditText)findViewById(R.id.id_delivery_date));
         datePickerPair.put(R.id.imageViewAdmissionDate, (EditText)findViewById(R.id.id_admissionDate));
@@ -262,11 +262,11 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         if(view.getId()==R.id.newbornAddButton){
         //Intent intent = new Intent(this, DeliveryNewbornActivity.class);
         passJson.putExtra("Layout", 1);
+        passJson.putExtra("DeliveryJson",dJson.toString());
 
             if(checkClientInfo() && mother.isEligibleFor(PregWoman.PREG_SERVICE.NEWBORN)) {
                 passJson.putExtra("PregWoman", mother);
                 passJson.putExtra("Provider", ProviderInfo.getProvider());
-                passJson.putExtra("DeliveryJson",dJson.toString());
                 Log.d("DeliveryJson", dJson.toString());
                 startActivity(passJson);
             } else {
@@ -275,15 +275,31 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
     }
         else  if(view.getId()==R.id.deathFreshButton){
-            Intent intent = new Intent(this, DeliveryNewbornActivity.class);
-            intent.putExtra("Layout", 2);
-            startActivity(intent);
+
+            passJson.putExtra("Layout", 2);
+            passJson.putExtra("DeliveryJson", dJson.toString());
+            if(checkClientInfo() && mother.isEligibleFor(PregWoman.PREG_SERVICE.NEWBORN)) {
+                passJson.putExtra("PregWoman", mother);
+                passJson.putExtra("Provider", ProviderInfo.getProvider());
+                Log.d("DeliveryJson", dJson.toString());
+                startActivity(passJson);
+            } else {
+                Toast.makeText(this, "Too Late for PNC, verify ...", Toast.LENGTH_LONG).show();
+            }
         }
 
         else if(view.getId()==R.id.deathmaceratedButton){
-            Intent intent = new Intent(this, DeliveryNewbornActivity.class);
-            intent.putExtra("Layout", 3);
-            startActivity(intent);
+
+            passJson.putExtra("Layout", 3);
+            passJson.putExtra("DeliveryJson", dJson.toString());
+            if(checkClientInfo() && mother.isEligibleFor(PregWoman.PREG_SERVICE.NEWBORN)) {
+                passJson.putExtra("PregWoman", mother);
+                passJson.putExtra("Provider", ProviderInfo.getProvider());
+                Log.d("DeliveryJson", dJson.toString());
+                startActivity(passJson);
+            } else {
+                Toast.makeText(this, "Too Late for PNC, verify ...", Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -434,7 +450,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             getSpecialCases(json);
             deliveryInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
            System.out.print("In Save, Delivery Json in Query:" + json.toString());
-            passJson.putExtra("DeliveryJson",json.toString());
+            passJson.putExtra("DeliveryJson", json.toString());
 
         } catch (JSONException jse) {
             Log.e("Delivery", "JSON Exception: " + jse.getMessage());

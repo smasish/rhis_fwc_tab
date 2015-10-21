@@ -1,6 +1,7 @@
 package org.sci.rhis.fwc;
 
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
@@ -15,11 +16,24 @@ import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.sci.rhis.utilities.CustomDatePickerDialog;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -193,8 +207,27 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
 
         String servlet = "pncmother";
         String jsonRootkey = "PNCMotherInfo";
+        Log.d("-->", "---=====>" + queryString);
+        sendPostReqAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, queryString, servlet, jsonRootkey);
+
+/*
+
+pnc child history
+ */
+
+
+        LongOperation sendPostReqAsyncTask_child = new LongOperation();
+
+        String queryString_child =   "{" +
+                "pregno:" + 3 + "," +
+                "healthid:" + "43366275025436" + "," +
+                "pncCLoad:" + "retrieve" +
+                "}";
+
+        String servlet_child = "pncchild";
+        String jsonRootkey_child = "PNCChildInfo";
         Log.d("-->","---=====>"+queryString);
-        sendPostReqAsyncTask.execute(queryString, servlet, jsonRootkey);
+       // sendPostReqAsyncTask_child.execute(queryString_child, servlet_child, jsonRootkey_child);
 
         getEditText(R.id.pncServiceDateValue).setOnClickListener(this);
         getEditText(R.id.pncChildServiceDateValue).setOnClickListener(this);
@@ -206,6 +239,214 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
         datePickerPair = new HashMap<Integer, EditText>();
         datePickerPair.put(R.id.Date_Picker_Button, (EditText) findViewById(R.id.pncServiceDateValue));
     }
+
+
+
+
+    private class LongOperation extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+
+            String paramUserDetails = params[0];
+            String paramPassword = params[1];
+            String queryString = params[0];
+            String servlet = params[1];
+            String jsonRootkey = params[2];
+            String queryString2 = "{sOpt:1,sStr:5833,providerid:6608}";
+            System.out.println("*** doInBackground ** query: " + queryString);
+
+            System.out.println(jsonRootkey+"*** servlet-------: " + servlet);
+            HttpClient httpClient = new DefaultHttpClient();
+            // In a POST request, we don't pass the values in the URL.
+            //Therefore we use only the web page URL as the parameter of the HttpPost argument
+
+
+            HttpPost httpPost = new HttpPost("http://119.148.6.215:8080/RHIS/"+servlet);
+            // HttpPost httpPost = new HttpPost("http://10.12.0.32:8080/RHIS/"+servlet);
+            // Because we are not passing values over the URL, we should have a mechanism to pass the values that can be
+            //uniquely separate by the other end.
+            //To achieve that we use BasicNameValuePair
+            //Things we need to pass with the POST request
+            BasicNameValuePair usernameBasicNameValuePair = new BasicNameValuePair(jsonRootkey, queryString);
+            //BasicNameValuePair passwordBasicNameValuePAir = new BasicNameValuePair("paramPassword", paramPassword);
+            // We add the content that we want to pass with the POST request to as name-value pairs
+            //Now we put those sending details to an ArrayList with type safe of NameValuePair
+            List<NameValuePair> nameValuePairList = new ArrayList<NameValuePair>();
+            nameValuePairList.add(usernameBasicNameValuePair);
+            //nameValuePairList.add(passwordBasicNameValuePAir);
+            try {
+                // UrlEncodedFormEntity is an entity composed of a list of url-encoded pairs.
+                //This is typically useful while sending an HTTP POST request.
+                UrlEncodedFormEntity urlEncodedFormEntity = new UrlEncodedFormEntity(nameValuePairList);
+                // setEntity() hands the entity (here it is urlEncodedFormEntity) to the request.
+                httpPost.setEntity(urlEncodedFormEntity);
+                try {
+                    // HttpResponse is an interface just like HttpPost.
+                    //Therefore we can't initialize them
+                    HttpResponse httpResponse = httpClient.execute(httpPost);
+                    // According to the JAVA API, InputStream constructor do nothing.
+                    //So we can't initialize InputStream although it is not an interface
+                    InputStream inputStream = httpResponse.getEntity().getContent();
+                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String bufferedStrChunk;
+                    while ((bufferedStrChunk = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(bufferedStrChunk);
+                    }
+                    return stringBuilder.toString();
+                } catch (ClientProtocolException cpe) {
+                    System.out.println("First Exception caz of HttpResponese :" + cpe);
+                    cpe.printStackTrace();
+                } catch (IOException ioe) {
+                    System.out.println("Second Exception caz of HttpResponse :" + ioe);
+                    ioe.printStackTrace();
+                }
+            } catch (UnsupportedEncodingException uee) {
+                System.out.println("An Exception given because of UrlEncodedFormEntity argument :" + uee);
+                uee.printStackTrace();
+            }
+            return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            try {
+                JSONObject jsonStr = new JSONObject(result);
+                String key;
+
+
+                // woman = PregWoman.CreatePregWoman(json);
+                Log.d("--:::>", "---complicationsign=====>" + result);
+                //DEBUG
+                Resources res = getResources();
+                // String[] mainlist = res.getStringArray(R.array.list_item);
+                Log.d("-->", "---=jsonStr.keys()====>" + jsonStr.keys());
+                for (Iterator<String> ii = jsonStr.keys(); ii.hasNext(); ) {
+                    key = ii.next();
+
+
+                    System.out.println("1.Key:" + key + " Value:\'" + jsonStr.get(key) + "\'");
+                    if(key.equalsIgnoreCase("childCount") || key.equalsIgnoreCase("outcomeDate")||
+                            key.equalsIgnoreCase("hasDeliveryInformation")||key.equalsIgnoreCase("pncStatus")){
+
+                    }else {
+
+
+                        JSONObject jsonObject1 = jsonStr.getJSONObject(key);
+                        for (Iterator<String> iii = jsonObject1.keys(); iii.hasNext(); ) {
+                            key = iii.next();
+
+                            Log.d("--:::>", "---key key=====>" + key);
+                            System.out.println("1.Key:" + key + " Value:\'" + jsonObject1.get(key) + "\'");
+
+                        if (key.equalsIgnoreCase("serviceCount") || key.equalsIgnoreCase("pncStatus")) {
+
+                        } else {
+                            //JSONObject jsonObject = jsonObject1.getJSONObject(key);
+                            //JSONObject jsonObject = jsonObject2.getJSONObject(key);
+
+                            JSONObject jsonObject = jsonObject1.getJSONObject(key);
+
+
+                            Log.d("--:::>", "---serviceSource=====>" + jsonObject.getString("serviceSource"));
+
+                            //String complicationsign = jsonRootObject.getString("serviceSource");
+                            // String serviceSource = jsonObject.getString("serviceSource");
+                            String weight = jsonObject.getString("weight");
+                            String referCenterName = jsonObject.getString("referCenterName");
+                            String childNo = jsonObject.getString("childNo");
+                            String treatment = jsonObject.getString("treatment");
+                            String breastFeedingOnly = jsonObject.getString("breastFeedingOnly");
+                            String visitDate = jsonObject.getString("visitDate");
+                            //String bpDiastolic = jsonRootObject.getString("bpDiastolic");
+                            String disease = jsonObject.getString("disease");
+//                    String bpSystolic = jsonRootObject.getString("bpSystolic");
+//                    String hematuria = jsonRootObject.getString("hematuria");
+//                    String temperature = jsonRootObject.getString("temperature");
+//                    String referReason = jsonRootObject.getString("referReason");
+//                    String refer = jsonRootObject.getString("refer");
+//                    String edema = jsonRootObject.getString("edema");
+//                    String serviceID = jsonRootObject.getString("serviceID");
+//                    String hemoglobin = jsonRootObject.getString("hemoglobin");
+//                    String FPMethod = jsonRootObject.getString("FPMethod");
+//                    String breastCondition = jsonRootObject.getString("breastCondition");
+//                    String advice = jsonRootObject.getString("advice");
+//                    String symptom = jsonRootObject.getString("symptom");
+                            // String  pncStatus= jsonRootObject.getString("pncStatus");
+                            //Log.d("--:::>", "---complicationsign=====>"+jsonStr.get(key));
+
+                            ArrayList<String> list = new ArrayList<String>();
+                            list.add("" + getString(R.string.visitDate) + " " + visitDate);
+                            //list.add("" + getString(R.string.temperature) + " " + serviceSource);
+                            list.add("" + getString(R.string.bpSystolic) + " " + weight);
+                            list.add("" + getString(R.string.anemia) + " " + childNo);
+                            list.add("" + getString(R.string.hemoglobin) + " " + breastFeedingOnly);
+//                    list.add("" + getString(R.string.edema) + " " + edema);
+//                    list.add("" + getString(R.string.breastCondition) + " " + breastCondition);
+//                    list.add("" + getString(R.string.uterusInvolution) + " " + uterusInvolution);
+//                    list.add("" + getString(R.string.hematuria) + " " + hematuria);
+//                    list.add("" + getString(R.string.perineum) + " " + perineum);
+//                    list.add("" + getString(R.string.family_planning_methods) + " " + FPMethod);
+//                    list.add("" + getString(R.string.danger_signs) + " " + complicationsign);
+                            list.add("" + getString(R.string.disease) + " " + disease);
+                            list.add("" + getString(R.string.treatment) + " " + treatment);
+//                    list.add("" + getString(R.string.advice) + " " + advice);
+//                    list.add("" + getString(R.string.referCenterName) + " " + referCenterName);
+//                    list.add("" + getString(R.string.referReason) + " " + referReason);
+
+
+                            try {
+                                // JSONArray jsonArray = jsonStr.getJSONArray(key);
+
+
+                                listDataHeader = new ArrayList<String>();
+                                listDataChild = new HashMap<String, List<String>>();
+
+
+                                // listDataHeader.add(getString(R.string.history_visit1) + "" + jsonArray.get(0).toString() + " :");
+                                listDataHeader.add("Visit " + key + ":");//jsonArray.get(0).toString()
+                                listDataChild.put(listDataHeader.get(0), list);
+
+                                listAdapter = new ExpandableListAdapterforPNC(PNCActivity.this, listDataHeader, listDataChild);
+
+
+                                initPage();
+
+                                ll.addView(expListView);
+                                expListView.setScrollingCacheEnabled(true);
+                                expListView.setAdapter(listAdapter);
+                                ll.invalidate();
+                                expListView.setAdapter(listAdapter);
+
+
+                            } catch (Exception e) {
+                                Log.e("::::", "onPostExecute > Try > JSONException => " + e);
+                                e.printStackTrace();
+                            }
+                        }
+                    }}
+                }
+
+
+            } catch (JSONException jse) {
+                System.out.println("JSON Exception Thrown::\n ");
+                jse.printStackTrace();
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+        }
+    }
+
+
 
     public void pickDate(View view) {
         datePickerDialog.show(datePickerPair.get(view.getId()));
@@ -237,116 +478,114 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
     public void callbackAsyncTask(String result) {
 
 
-        try {
-            JSONObject jsonStr = new JSONObject(result);
-            String key;
 
-            // woman = PregWoman.CreatePregWoman(json);
-            //Log.d("--:::>", "---complicationsign=====>"+result);
-            //DEBUG
-            Resources res = getResources();
-            String[] mainlist = res.getStringArray(R.array.list_item);
-            //Log.d("-->","---=jsonStr.keys()====>" +jsonStr.keys());
-            for ( Iterator<String> ii = jsonStr.keys(); ii.hasNext(); ) {
-                key = ii.next();
+      //  String a = TempValue.getServlet();
+//        if(a.equalsIgnoreCase("pncchild")){
+//            Log.d("--:::>", "---complicationsign=====>"+TempValue.getServlet());
+//        }else {
+            try {
+                JSONObject jsonStr = new JSONObject(result);
+                String key;
 
 
-                System.out.println("1.Key:" + key + " Value:\'" + jsonStr.get(key) + "\'");
-
-                JSONObject jsonRootObject = jsonStr.getJSONObject(key);
-                Log.d("--:::>", "---serviceSource=====>" + jsonRootObject.getString("serviceSource"));
-
-                String  complicationsign = jsonRootObject.getString("complicationsign");
-                String  serviceSource = jsonRootObject.getString("serviceSource");
-                String  anemia = jsonRootObject.getString("anemia");
-                String  referCenterName = jsonRootObject.getString("referCenterName");
-                String  treatment = jsonRootObject.getString("treatment");
-                String  perineum = jsonRootObject.getString("perineum");
-                String  uterusInvolution= jsonRootObject.getString("uterusInvolution");
-                String  visitDate = jsonRootObject.getString("visitDate");
-                String  bpDiastolic = jsonRootObject.getString("bpDiastolic");
-                String  disease = jsonRootObject.getString("disease");
-                String  bpSystolic = jsonRootObject.getString("bpSystolic");
-                String  hematuria = jsonRootObject.getString("hematuria");
-                String  temperature= jsonRootObject.getString("temperature");
-                String  referReason = jsonRootObject.getString("referReason");
-                String  refer = jsonRootObject.getString("refer");
-                String  edema = jsonRootObject.getString("edema");
-                String  serviceID = jsonRootObject.getString("serviceID");
-                String  hemoglobin = jsonRootObject.getString("hemoglobin");
-                String  FPMethod = jsonRootObject.getString("FPMethod");
-                String  breastCondition = jsonRootObject.getString("breastCondition");
-                String  advice = jsonRootObject.getString("advice");
-                String  symptom = jsonRootObject.getString("symptom");
-                // String  pncStatus= jsonRootObject.getString("pncStatus");
-                //Log.d("--:::>", "---complicationsign=====>"+jsonStr.get(key));
-
-                ArrayList<String> list = new ArrayList<String>();
-                list.add(""+getString(R.string.pnc_m_poridorshan)+" "+complicationsign);
-                list.add(""+getString(R.string.pnc_m_date)+" "+serviceSource);
-                list.add(anemia);
-                list.add(referCenterName);
-                list.add(""+getString(R.string.edema)+" "+anemia);
-                list.add(""+getString(R.string.pnc_m_date)+" "+referCenterName);
-                list.add(treatment);
-                list.add(perineum);
-                list.add(uterusInvolution);
-                list.add(disease);
-                list.add(bpSystolic);
-                list.add(hematuria);
-                list.add(temperature);
-                list.add(referReason);
-                list.add(refer);
-                list.add(edema);
-                list.add(""+getString(R.string.temperature)+" "+temperature);
-                list.add(""+getString(R.string.reason)+" "+referReason);
-                list.add(""+getString(R.string.refer)+" "+refer);
-                list.add(""+getString(R.string.edema)+" "+edema);
-                list.add(serviceID);
-                list.add(hemoglobin);
-                list.add(""+getString(R.string.hemoglobin)+" "+hemoglobin);
-                list.add(FPMethod);
-                list.add(breastCondition);
-                list.add(advice);
-                list.add(""+getString(R.string.advice)+" "+advice);
-                list.add(symptom);
-
-                try {
-                    // JSONArray jsonArray = jsonStr.getJSONArray(key);
+                // woman = PregWoman.CreatePregWoman(json);
+                Log.d("--:::>", "---complicationsign=====>" + result);
+                //DEBUG
+                Resources res = getResources();
+                // String[] mainlist = res.getStringArray(R.array.list_item);
+                Log.d("-->", "---=jsonStr.keys()====>" + jsonStr.keys());
+                for (Iterator<String> ii = jsonStr.keys(); ii.hasNext(); ) {
+                    key = ii.next();
 
 
-                    listDataHeader = new ArrayList<String>();
-                    listDataChild = new HashMap<String, List<String>>();
+                    System.out.println("1.Key:" + key + " Value:\'" + jsonStr.get(key) + "\'");
 
 
-                    // listDataHeader.add(getString(R.string.history_visit1) + "" + jsonArray.get(0).toString() + " :");
-                    listDataHeader.add("Visit "+key + ":");//jsonArray.get(0).toString()
-                    listDataChild.put(listDataHeader.get(0), list);
+                    JSONObject jsonRootObject = jsonStr.getJSONObject(key);
+                    Log.d("--:::>", "---serviceSource=====>" + jsonRootObject.getString("serviceSource"));
 
-                    listAdapter = new ExpandableListAdapterforPNC(this, listDataHeader, listDataChild);
+                    String complicationsign = jsonRootObject.getString("complicationsign");
+                    String serviceSource = jsonRootObject.getString("serviceSource");
+                    String anemia = jsonRootObject.getString("anemia");
+                    String referCenterName = jsonRootObject.getString("referCenterName");
+                    String treatment = jsonRootObject.getString("treatment");
+                    String perineum = jsonRootObject.getString("perineum");
+                    String uterusInvolution = jsonRootObject.getString("uterusInvolution");
+                    String visitDate = jsonRootObject.getString("visitDate");
+                    String bpDiastolic = jsonRootObject.getString("bpDiastolic");
+                    String disease = jsonRootObject.getString("disease");
+                    String bpSystolic = jsonRootObject.getString("bpSystolic");
+                    String hematuria = jsonRootObject.getString("hematuria");
+                    String temperature = jsonRootObject.getString("temperature");
+                    String referReason = jsonRootObject.getString("referReason");
+                    String refer = jsonRootObject.getString("refer");
+                    String edema = jsonRootObject.getString("edema");
+                    String serviceID = jsonRootObject.getString("serviceID");
+                    String hemoglobin = jsonRootObject.getString("hemoglobin");
+                    String FPMethod = jsonRootObject.getString("FPMethod");
+                    String breastCondition = jsonRootObject.getString("breastCondition");
+                    String advice = jsonRootObject.getString("advice");
+                    String symptom = jsonRootObject.getString("symptom");
+                    // String  pncStatus= jsonRootObject.getString("pncStatus");
+                    //Log.d("--:::>", "---complicationsign=====>"+jsonStr.get(key));
+
+                    ArrayList<String> list = new ArrayList<String>();
+                    list.add("" + getString(R.string.visitDate) + " " + visitDate);
+                    list.add("" + getString(R.string.temperature) + " " + temperature);
+                    list.add("" + getString(R.string.bpSystolic) + " " + bpSystolic);
+                    list.add("" + getString(R.string.anemia) + " " + anemia);
+                    list.add("" + getString(R.string.hemoglobin) + " " + hemoglobin);
+                    list.add("" + getString(R.string.edema) + " " + edema);
+                    list.add("" + getString(R.string.breastCondition) + " " + breastCondition);
+                    list.add("" + getString(R.string.uterusInvolution) + " " + uterusInvolution);
+                    list.add("" + getString(R.string.hematuria) + " " + hematuria);
+                    list.add("" + getString(R.string.perineum) + " " + perineum);
+                    list.add("" + getString(R.string.family_planning_methods) + " " + FPMethod);
+                    list.add("" + getString(R.string.danger_signs) + " " + complicationsign);
+                    list.add("" + getString(R.string.disease) + " " + disease);
+                    list.add("" + getString(R.string.treatment) + " " + treatment);
+                    list.add("" + getString(R.string.advice) + " " + advice);
+                    list.add("" + getString(R.string.referCenterName) + " " + referCenterName);
+                    list.add("" + getString(R.string.referReason) + " " + referReason);
 
 
-
-                    initPage();
-
-                    ll.addView(expListView);
-                    expListView.setScrollingCacheEnabled(true);
-                    expListView.setAdapter(listAdapter);
-                    ll.invalidate();
-                    expListView.setAdapter(listAdapter);
+                    try {
+                        // JSONArray jsonArray = jsonStr.getJSONArray(key);
 
 
-                } catch (Exception e) {
-                    Log.e("::::", "onPostExecute > Try > JSONException => " + e);
-                    e.printStackTrace();
+                        listDataHeader = new ArrayList<String>();
+                        listDataChild = new HashMap<String, List<String>>();
+
+
+                        // listDataHeader.add(getString(R.string.history_visit1) + "" + jsonArray.get(0).toString() + " :");
+                        listDataHeader.add("Visit " + key + ":");//jsonArray.get(0).toString()
+                        listDataChild.put(listDataHeader.get(0), list);
+
+                        listAdapter = new ExpandableListAdapterforPNC(this, listDataHeader, listDataChild);
+
+
+                        initPage();
+
+                        ll.addView(expListView);
+                        expListView.setScrollingCacheEnabled(true);
+                        expListView.setAdapter(listAdapter);
+                        ll.invalidate();
+                        expListView.setAdapter(listAdapter);
+
+
+                    } catch (Exception e) {
+                        Log.e("::::", "onPostExecute > Try > JSONException => " + e);
+                        e.printStackTrace();
+                    }
                 }
+
+
+            } catch (JSONException jse) {
+                System.out.println("JSON Exception Thrown::\n ");
+                jse.printStackTrace();
             }
 
-
-        } catch (JSONException jse) {
-            System.out.println("JSON Exception Thrown::\n " );
-            jse.printStackTrace();
-        }
+       // }
     }
 
     private void initPage() {

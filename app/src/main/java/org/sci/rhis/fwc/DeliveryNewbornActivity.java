@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,8 +64,10 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
         switch(integerRecd) {
             case 1:
+                Utilities.Visibility(this,R.id.notDetected);
                 break;
             case 2:
+                Utilities.Visibility(this,R.id.notDetected);
                 Utilities.Visibility(this,R.id.layout_only_for_neborn);
                 break;
 
@@ -235,6 +238,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     public void onClick(View v) {
         if(v.getId() == R.id.id_saveNewbornButton) {
             newbornSaveToJson();
+            Toast.makeText(this, "Newborn Saved Successfully", Toast.LENGTH_LONG).show();
             Log.e("Newborn", "Saved Newborn Successfully?");
 
         }
@@ -289,7 +293,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
                 "\"outcometype\":" + deliveryJsonObj.getInt("dType") +
                 "}";
 
-          Log.e("Is There have Actual Value?",queryString);
+          Log.e("Is there have Values?",queryString);
 
         return new JSONObject(queryString);
     }

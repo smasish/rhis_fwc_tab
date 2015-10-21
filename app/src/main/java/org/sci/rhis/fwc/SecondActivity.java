@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Vector;
 
-public class SecondActivity extends ClinicalServiceActivity {
+public class SecondActivity extends ClinicalServiceActivity  {
 
     private Button button;
     private PregWoman woman;
@@ -118,7 +118,7 @@ public class SecondActivity extends ClinicalServiceActivity {
         HashMap<String, Pair<Spinner, Integer>> clientSpinnerMap= new HashMap<>(1); //fixed capacity ??
         clientSpinnerMap.put("cBloodGroup", Pair.create((Spinner) findViewById(R.id.Blood_Group_Dropdown), R.array.Blood_Group_Dropdown));
 
-        manipulateJson(json);
+        //manipulateJson(json);
         Utilities.setSpinners(clientSpinnerMap, json, this);
         Utilities.setCheckboxes(jsonCheckboxMap, json);
     }
@@ -143,8 +143,11 @@ public class SecondActivity extends ClinicalServiceActivity {
 
                 if(json.get("False").toString().equals("")) { //Client exists
                     populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
+                if(woman != null) {
+                    manipulateJson(json);
                     populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
                     woman.UpdateUIField(this);
+                }
 
                     // To Make disable desired fields
                     Utilities.Disable(this, R.id.clients_intro_layout);
@@ -301,13 +304,11 @@ public class SecondActivity extends ClinicalServiceActivity {
     @Override
     protected void initiateTextViews() {
         jsonTextViewsMap.put("FacilityName",getTextView(R.id.fwc_heading));
-    }
-
+    };
     @Override
     protected void initiateSpinners(){
         jsonSpinnerMap.put("Blood_Group_Dropdown",getSpinner(R.id.Blood_Group_Dropdown));
-    }
-
+    };
     @Override
     protected void initiateEditTextDates(){
           jsonEditTextDateMap.put("lmp", getEditText(R.id.id_delivery_date));
@@ -315,7 +316,7 @@ public class SecondActivity extends ClinicalServiceActivity {
     }
 
     @Override
-    protected void initiateRadioGroups(){}
+    protected void initiateRadioGroups(){};
 
     private void saveClientToJson() {
        // Toast.makeText(this, "Clicked from here...", Toast.LENGTH_LONG).show();
