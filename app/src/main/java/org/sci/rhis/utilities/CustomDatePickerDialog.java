@@ -2,6 +2,7 @@ package org.sci.rhis.utilities;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
@@ -59,6 +60,31 @@ public class CustomDatePickerDialog implements DatePickerDialog.OnDateSetListene
         );
         editTextFielId = null;
     }
+
+    //May not be safe, no format validity checking
+    public CustomDatePickerDialog(Context context, String dateFormatString) throws NullPointerException {
+        calendar = Calendar.getInstance();
+        if(dateFormatString == null) {
+            throw new NullPointerException();
+        }
+        try {
+            dateFormat = new SimpleDateFormat(dateFormatString);
+        } catch (IllegalArgumentException IE) {
+            Log.e("Utility", "format string is not recognized using default format dd/mm/yyyy");
+            dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+        }
+        //calendar.set(year, monthOfYear, dayOfMonth);
+        //todays, date
+        datePickerDialog = new DatePickerDialog(
+                context,
+                this,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+        );
+        editTextFielId = null;
+    }
+
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         calendar.set(year, monthOfYear, dayOfMonth);

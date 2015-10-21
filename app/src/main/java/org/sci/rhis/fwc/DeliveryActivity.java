@@ -102,7 +102,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         //populateEditTextTimes();
 
         //custom date picker
-        datePickerDialog = new CustomDatePickerDialog(this);
+        datePickerDialog = new CustomDatePickerDialog(this, "dd/MM/yyyy");
         datePickerPair = new HashMap<Integer, EditText>();
         datePickerPair.put(R.id.imageViewDeliveryDate, (EditText)findViewById(R.id.id_delivery_date));
         datePickerPair.put(R.id.imageViewAdmissionDate, (EditText)findViewById(R.id.id_admissionDate));
