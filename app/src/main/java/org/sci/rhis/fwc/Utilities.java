@@ -22,6 +22,8 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -266,6 +268,28 @@ public static void Visibility(Activity activity,int id)
         }
     }
 
+    public static void getEditTextDates_withformat(HashMap<String, EditText> keyMap, JSONObject json) {
+
+        SimpleDateFormat uiFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dbFormat = new SimpleDateFormat("dd+MMM+yyyy");
+        String currentDate;
+        for (String key: keyMap.keySet()) {
+            try {
+                /*currentDate = json.getString(key);
+                if(!currentDate.equals("")) {
+                    keyMap.get(key).setText(oformat.format(iformat.parse(json.getString(key))));
+                }*/
+                json.put(key, dbFormat.format(uiFormat.parse(keyMap.get(key).getText().toString())));
+            } catch (JSONException jse) {
+                System.out.println("The JSON key: '" + key+ "' does not exist");
+            } catch (ParseException pe) {
+                System.out.println("Parsing Exception: Could not parse date:\n" + pe.toString());
+            } catch (NullPointerException NP) {
+                Log.i("Parse", NP.getMessage());
+            }
+        }
+    }
+
     public static void getRadioGroupButtons(HashMap<String, Pair<RadioGroup, Pair<RadioButton,RadioButton>>> keyMap, JSONObject json) {
         for (String key: keyMap.keySet()) {
             try {
@@ -303,5 +327,13 @@ public static void Visibility(Activity activity,int id)
                 Log.e("Null Pointer", NP.getMessage());
             }
         }
+    }
+
+    public static Date addDateOffset(Date given, int days) {
+        Calendar edd_cal = Calendar.getInstance();
+        edd_cal.setTime(given);
+
+        edd_cal.add(Calendar.DATE, days);
+        return edd_cal.getTime();
     }
 }

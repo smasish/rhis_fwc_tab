@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
@@ -19,6 +21,10 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigInteger;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Vector;
@@ -39,6 +45,11 @@ public class SecondActivity extends ClinicalServiceActivity  {
 
     final private String SERVLET = "handlepregwomen";
     final private String ROOTKEY = "pregWomen";
+
+    private BigInteger responseID= BigInteger.valueOf(0);
+    EditText lmpEditText;
+    EditText eddEditText;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,6 +76,38 @@ public class SecondActivity extends ClinicalServiceActivity  {
         // Apply the adapter to the spinner
         staticSpinner.setAdapter(staticAdapter);
         addListenerOnButton();
+        lmpEditText = (EditText) findViewById(R.id.lmpDate);
+        eddEditText = (EditText) findViewById(R.id.edd);
+
+        lmpEditText.addTextChangedListener(
+                new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        try {
+                            Date lmp = sdf.parse(lmpEditText.getText().toString());
+
+                            Date edd = Utilities.addDateOffset(lmp, 240);
+                            eddEditText.setText(sdf.format(edd));
+
+                        } catch (ParseException PE) {
+
+                        }
+
+                    }
+                }
+
+        );
 
     }
 
@@ -137,21 +180,24 @@ public class SecondActivity extends ClinicalServiceActivity  {
             }
 
 
+
             if(json.has("cNewMCHClient"))
             {
                 woman = PregWoman.CreatePregWoman(json);
 
                 if(json.get("False").toString().equals("")) { //Client exists
                     populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
+                    responseID= new BigInteger(json.get("cHealthID").toString());
                 if(woman != null) {
                     manipulateJson(json);
                     populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
                     woman.UpdateUIField(this);
+                    Utilities.Disable(this, R.id.clients_info_layout);
                 }
 
                     // To Make disable desired fields
                     Utilities.Disable(this, R.id.clients_intro_layout);
-                    Utilities.Disable(this, R.id.clients_info_layout);
+
                 }
 
             }
@@ -311,7 +357,10 @@ public class SecondActivity extends ClinicalServiceActivity  {
     };
     @Override
     protected void initiateEditTextDates(){
-          jsonEditTextDateMap.put("lmp", getEditText(R.id.id_delivery_date));
+          jsonEditTextDateMap.put("lmp", getEditText(R.id.lmpDate));
+        //  jsonEditTextDateMap2.put("edd", getEditText(R.id.edd));
+       //   SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+     //     Date dob_var = sdf.parse(dob.getText());
       //  jsonEditTextDateMap.put("edd", getEditText(R.id.id_admissionDate));
     }
 
@@ -325,14 +374,14 @@ public class SecondActivity extends ClinicalServiceActivity  {
         JSONObject json;
         try {
             json = buildQueryHeader(false);
-           // Log.d("How a json looks", "***************In progress b4 json:" + json);
            // Utilities.getCheckboxes(jsonCheckboxMap, json);
             Utilities.getEditTexts(jsonEditTextMap, json);
             Utilities.getEditTextDates(jsonEditTextDateMap, json);
+          //  Utilities.getEditTextDates_withformat(jsonEditTextDateMap2, json);
           //  Utilities.getSpinners(jsonSpinnerMap, json);
           //  Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
             getSpecialCases(json);
-            Log.d("Pregwomen", "***************In progress after:" + json.toString());
+            Log.e("Pregwomen", "***************In progress :" + json.toString());
            // clientInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
            String outputJSON;
             outputJSON="{\"pregNo\":\"\",\n" +              //done
@@ -355,11 +404,11 @@ public class SecondActivity extends ClinicalServiceActivity  {
 
             JSONObject z;
             z = new JSONObject(outputJSON);
-            Log.d("How the json looks", "***************In progress b4 json:" + z.toString());
+           // Log.d("How the json looks", "***************In progress b4 json:" + z.toString());
             // outputJSON={"pregNo":"","healthId":"38236987455329","providerId":"6608","houseGRHoldingNo":"","mobileNo":"01678945666","lmp":"2015-10-12","edd":"18+Jul+2016","para":"0","gravida":"1","boy":"0","girl":"0","lastChildAge":0,"height":64,"bloodGroup":"none","tt1":"","ttDate1":"","tt2":"","ttDate2":"","tt3":"","ttDate3":"","tt4":"","ttDate4":"","tt5":"","ttDate5":"","complicatedHistory":"","complicatedHistoryNote":"1,2,3,9"};
 
             clientInfoUpdateTask.execute(z.toString(), SERVLET, ROOTKEY);
-            System.out.print("In Save, Client Json in Query:" + json.toString());
+          //  System.out.print("In Save, Client Json in Query:" + json.toString());
         }
         catch (JSONException jse) {
             Log.e("Pregwomen", "JSON Exception: " + jse.getMessage());
@@ -370,9 +419,9 @@ public class SecondActivity extends ClinicalServiceActivity  {
     private JSONObject buildQueryHeader(boolean isRetrieval) throws JSONException {
         //get info from database
         String queryString =   "{" +
-                "healthid:\"" +woman.getHealthId() + "\"," +
-                "providerid:\""+ ProviderInfo.getProvider()+"\","+
-                "pregno:\"" +woman.getPregNo()+ "\","+
+                "healthid:\"" +responseID + "\"," +
+                "providerid:\""+ ProviderInfo.getProvider().getProviderCode()+"\","+
+                "pregno:\"\""+
                 "}";
         return new JSONObject(queryString);
     }
@@ -380,11 +429,11 @@ public class SecondActivity extends ClinicalServiceActivity  {
     public void getSpecialCases(JSONObject json) {
         try {
 
-            Integer month=Integer.parseInt(getEditText((R.id.lastChildYear)).toString())*12;
-            month+= Integer.parseInt(getEditText(R.id.lastChildMonth).toString());
+            Integer month = Integer.parseInt(getEditText(R.id.lastChildYear).getText().toString())*12;
+            month+= Integer.parseInt(getEditText(R.id.lastChildMonth).getText().toString());
 
-            Integer feet=Integer.parseInt(getEditText((R.id.heightFeet)).toString())*12;
-            feet+= Integer.parseInt(getEditText(R.id.heightInch).toString());
+            Integer feet=Integer.parseInt(getEditText((R.id.heightFeet)).getText().toString())*12;
+            feet+= Integer.parseInt(getEditText(R.id.heightInch).getText().toString());
 
             json.put("lastChildAge", month);
             json.put("height", feet);
