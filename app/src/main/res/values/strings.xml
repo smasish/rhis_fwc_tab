@@ -276,6 +276,18 @@
     <string name="perineum">"পেরিনিয়াম:"</string>
     <string name="family_planning_methods">"পরিবার পরিকল্পনা পদ্ধতি(পরামর্শ / পদ্ধতি প্রদান):"</string>
 
+
+
+    <string name="visitDate">"সেবাগ্রহনের তারিখ:"</string>
+    <string name="bpSystolic">"রক্তচাপ (মিঃ মিঃ মার্কারি) :"</string>
+    <string name="breastCondition">"স্তনের অবস্থা:"</string>
+    <string name="uterusInvolution">"জরায়ুর ইনভলিউশন:"</string>
+    <string name="hematuria">"স্রাব/ রক্তস্রাব:"</string>
+    <string name="serviceSource">"পরিবার পরিকল্পনা পদ্ধতি(পরামর্শ / পদ্ধতি প্রদান) :"</string>
+    <string name="referCenterName">"কেন্দ্রের নাম :"</string>
+    <string name="referReason">"কারণ:"</string>
+
+
     <string-array name="Breast_Condition_DropDown">
         <item> স্বাভাবিক </item>
         <item> ফোলা</item>
