@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Vector;
 
-public class SecondActivity extends ClinicalServiceActivity {
+public class SecondActivity extends ClinicalServiceActivity  {
 
     private Button button;
     private PregWoman woman;
@@ -83,7 +83,7 @@ public class SecondActivity extends ClinicalServiceActivity {
         mHealthIdLayout.setVisibility(View.VISIBLE);
 
         TextView healthId = (TextView) findViewById(R.id.health_id);
-        healthId.setText(String.valueOf(stringId) +": "+ String.valueOf(id));
+        healthId.setText(String.valueOf(stringId) + ": " + String.valueOf(id));
 
         System.out.println("sOpt: " + index
                 + /*Adding 1 to match HTML index where healthID starts from 1*/
@@ -110,7 +110,7 @@ public class SecondActivity extends ClinicalServiceActivity {
         HashMap<String, Pair<Spinner, Integer>> clientSpinnerMap= new HashMap<>(1); //fixed capacity ??
         clientSpinnerMap.put("cBloodGroup", Pair.create((Spinner) findViewById(R.id.Blood_Group_Dropdown), R.array.Blood_Group_Dropdown));
 
-        manipulateJson(json);
+        //manipulateJson(json);
         Utilities.setSpinners(clientSpinnerMap, json, this);
         Utilities.setCheckboxes(jsonCheckboxMap, json);
     }
@@ -131,8 +131,11 @@ public class SecondActivity extends ClinicalServiceActivity {
 
             if(json.get("False").toString().equals("")) { //Client exists
                 populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
-                populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
-                woman.UpdateUIField(this);
+                if(woman != null) {
+                    manipulateJson(json);
+                    populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
+                    woman.UpdateUIField(this);
+                }
 
             // To Make disable desired fields
                 Utilities.Disable(this, R.id.clients_intro_layout);
@@ -195,7 +198,8 @@ public class SecondActivity extends ClinicalServiceActivity {
         } else {
             Toast.makeText(this, "Too Late for PNC, verify ...", Toast.LENGTH_LONG).show();
         }
-    }    private boolean checkClientInfo() {
+    }
+    private boolean checkClientInfo() {
         if(woman == null ) {
             Toast.makeText(this, "No Client, Get Client Information first ...", Toast.LENGTH_LONG).show();
             return false;
@@ -267,7 +271,7 @@ public class SecondActivity extends ClinicalServiceActivity {
 
     @Override
     protected void initiateTextViews() {
-        jsonTextViewsMap.put("FacilityName",getTextView(R.id.fwc_heading));
+        //jsonTextViewsMap.put("FacilityName",getTextView(R.id.fwc_heading));
     };
     @Override
     protected void initiateSpinners(){

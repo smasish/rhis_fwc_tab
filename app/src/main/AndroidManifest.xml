@@ -50,6 +50,10 @@
             android:name=".DeliveryNewbornActivity"
             android:label="@string/title_activity_delivery_newborn" >
         </activity>
+        <activity
+            android:name=".DeathActivity"
+            android:label="@string/title_activity_death" >
+        </activity>
     </application>
 
 </manifest>

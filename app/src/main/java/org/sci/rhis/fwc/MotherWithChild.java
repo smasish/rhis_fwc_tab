@@ -18,7 +18,7 @@ import java.util.Date;
 
 public class MotherWithChild extends GeneralPerson implements Parcelable {
 
-    private Date actualDelivery;
+    private Date  actualDelivery;
     private String deliveryPlace;
     private String deliveryType;
     private String deliveryTime;
@@ -27,7 +27,7 @@ public class MotherWithChild extends GeneralPerson implements Parcelable {
     private String husbandName;
     private DateFormat df;
     private Calendar edd_cal;
-    private JSONObject Jso;
+    private JSONObject Json;
 
     //Parcelable overrides
     @Override
@@ -40,7 +40,6 @@ public class MotherWithChild extends GeneralPerson implements Parcelable {
         if (df == null) {
             df = new SimpleDateFormat("yyyy-MM-dd");
         }
-
 
         dest.writeLong(getHealthId());
         dest.writeString(df.format(actualDelivery));

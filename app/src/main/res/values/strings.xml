@@ -276,6 +276,18 @@
     <string name="perineum">"পেরিনিয়াম:"</string>
     <string name="family_planning_methods">"পরিবার পরিকল্পনা পদ্ধতি(পরামর্শ / পদ্ধতি প্রদান):"</string>
 
+
+
+    <string name="visitDate">"সেবাগ্রহনের তারিখ:"</string>
+    <string name="bpSystolic">"রক্তচাপ (মিঃ মিঃ মার্কারি) :"</string>
+    <string name="breastCondition">"স্তনের অবস্থা:"</string>
+    <string name="uterusInvolution">"জরায়ুর ইনভলিউশন:"</string>
+    <string name="hematuria">"স্রাব/ রক্তস্রাব:"</string>
+    <string name="serviceSource">"পরিবার পরিকল্পনা পদ্ধতি(পরামর্শ / পদ্ধতি প্রদান) :"</string>
+    <string name="referCenterName">"কেন্দ্রের নাম :"</string>
+    <string name="referReason">"কারণ:"</string>
+
+
     <string-array name="Breast_Condition_DropDown">
         <item> স্বাভাবিক </item>
         <item> ফোলা</item>
@@ -345,7 +357,13 @@
     <string name="history_c_name">কেন্দ্রের নাম:</string>
     <string name="history_cause">কারণ:</string>
     <string name="child_refer">রেফার </string>
-
+    <string name="death_info">মৃত্যু সংক্রান্ত তথ্য: </string>
+    <string name="reserve">সংরক্ষণ  </string>
+    <string name="change">পরিবর্তন </string>
+    <string name="mother_death">মাতৃ মৃত্যু  </string>
+    <string name="child_death">নবজাতক মৃত্যু</string>
+    <string name="date">তারিখ </string>
+    <string name="place">স্থান </string>
     <string-array name="Delivery_Newborn_Refer_Reason_DropDown">
         <item> জন্মগত শ্বাসরুদ্ধতা (asphyxia)	</item>
         <item> অপরিণত জন্ম (Prematurity)	</item>
@@ -630,4 +648,5 @@
     <string name="pac_service">PAC</string>
     <string name="death_service">মৃত্যু </string>
     <string name="title_activity_delivery_newborn">DeliveryNewbornActivity</string>
+    <string name="title_activity_death">DeathActivity</string>
 </resources>

@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,16 +42,14 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     private HashMap<Integer, EditText> datePickerPair;
     private int deliveryHour;
     private int deliveryMinute;
+    private JSONObject dJson;
     private PregWoman mother;
     private ProviderInfo provider;
-
+    private Intent passJson;
     final private String SERVLET = "delivery";
     final private String ROOTKEY = "deliveryInfo";
 
-    final private String servlet = "newborn";
-    final private String rootkey = "newbornInfo";
-    AsyncNewbornInfoUpdate newbornInfoQueryTask;
-    AsyncNewbornInfoUpdate newbornInfoUpdateTask;
+
 
     AsyncDeliveryInfoUpdate deliveryInfoQueryTask;
     AsyncDeliveryInfoUpdate deliveryInfoUpdateTask;
@@ -103,7 +102,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         //populateEditTextTimes();
 
         //custom date picker
-        datePickerDialog = new CustomDatePickerDialog(this);
+        datePickerDialog = new CustomDatePickerDialog(this, "dd/MM/yyyy");
         datePickerPair = new HashMap<Integer, EditText>();
         datePickerPair.put(R.id.imageViewDeliveryDate, (EditText)findViewById(R.id.id_delivery_date));
         datePickerPair.put(R.id.imageViewAdmissionDate, (EditText)findViewById(R.id.id_admissionDate));
@@ -129,6 +128,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         try {
             queryString = buildQueryHeader(true).toString();
             Log.e("Delivery", "build query String: " + "working properly");
+            Log.e("Delivery Json", queryString);
         } catch (JSONException JSE) {
             Log.e("Delivery", "Could not build query String: " + JSE.getMessage());
         }
@@ -137,7 +137,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
         LinearLayout mNewbornLayout = (LinearLayout) findViewById(R.id.newborn_Tabla_Layout);
         mNewbornLayout.setVisibility(View.VISIBLE);
-
+        passJson = new Intent(this, DeliveryNewbornActivity.class);
     }
 
     @Override
@@ -161,6 +161,8 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 Utilities.setEditTexts(jsonEditTextMap, json);
                 Utilities.setEditTextDates(jsonEditTextDateMap, json);
                 updateEditTextTimes(json);
+               Log.d("Delivery Json in Query:", json.toString());
+                dJson = json;
 
                 //TODO Make the fields non-modifiable
                 Utilities.Disable(this, R.id.delivery_info_layout);
@@ -258,21 +260,46 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         }
 
         if(view.getId()==R.id.newbornAddButton){
-        Intent intent = new Intent(this, DeliveryNewbornActivity.class);
-            intent.putExtra("Layout", 1);
-            startActivity(intent);
+        //Intent intent = new Intent(this, DeliveryNewbornActivity.class);
+        passJson.putExtra("Layout", 1);
+        passJson.putExtra("DeliveryJson",dJson.toString());
+
+            if(checkClientInfo() && mother.isEligibleFor(PregWoman.PREG_SERVICE.NEWBORN)) {
+                passJson.putExtra("PregWoman", mother);
+                passJson.putExtra("Provider", ProviderInfo.getProvider());
+                Log.d("DeliveryJson", dJson.toString());
+                startActivity(passJson);
+            } else {
+                Toast.makeText(this, "Too Late for PNC, verify ...", Toast.LENGTH_LONG).show();
+            }
 
     }
         else  if(view.getId()==R.id.deathFreshButton){
-            Intent intent = new Intent(this, DeliveryNewbornActivity.class);
-            intent.putExtra("Layout", 2);
-            startActivity(intent);
+
+            passJson.putExtra("Layout", 2);
+            passJson.putExtra("DeliveryJson", dJson.toString());
+            if(checkClientInfo() && mother.isEligibleFor(PregWoman.PREG_SERVICE.NEWBORN)) {
+                passJson.putExtra("PregWoman", mother);
+                passJson.putExtra("Provider", ProviderInfo.getProvider());
+                Log.d("DeliveryJson", dJson.toString());
+                startActivity(passJson);
+            } else {
+                Toast.makeText(this, "Too Late for PNC, verify ...", Toast.LENGTH_LONG).show();
+            }
         }
 
         else if(view.getId()==R.id.deathmaceratedButton){
-            Intent intent = new Intent(this, DeliveryNewbornActivity.class);
-            intent.putExtra("Layout", 3);
-            startActivity(intent);
+
+            passJson.putExtra("Layout", 3);
+            passJson.putExtra("DeliveryJson", dJson.toString());
+            if(checkClientInfo() && mother.isEligibleFor(PregWoman.PREG_SERVICE.NEWBORN)) {
+                passJson.putExtra("PregWoman", mother);
+                passJson.putExtra("Provider", ProviderInfo.getProvider());
+                Log.d("DeliveryJson", dJson.toString());
+                startActivity(passJson);
+            } else {
+                Toast.makeText(this, "Too Late for PNC, verify ...", Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -422,7 +449,9 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             getEditTextTime(json);
             getSpecialCases(json);
             deliveryInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
-            Log.e("Delivery", "Save Succeeded");
+           System.out.print("In Save, Delivery Json in Query:" + json.toString());
+            passJson.putExtra("DeliveryJson", json.toString());
+
         } catch (JSONException jse) {
             Log.e("Delivery", "JSON Exception: " + jse.getMessage());
         }
@@ -494,5 +523,12 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         //SendPostRequestAsyncTask retrieveDelivery = new AsyncDeliveryInfoUpdate(this);
         //retrieveDelivery.execute(queryString, SERVLET, ROOTKEY);
         return new JSONObject(queryString);
+    }
+    private boolean checkClientInfo() {
+        if(mother== null ) {
+            Toast.makeText(this, "No Client, Get Client Information first ...", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 }
