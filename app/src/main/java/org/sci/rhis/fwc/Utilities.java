@@ -2,6 +2,7 @@ package org.sci.rhis.fwc;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
@@ -135,6 +136,21 @@ public static void Visibility(Activity activity,int id)
         }
     }
 
+    //TODO: Error prone -> only handles keys related to treatment moduels, will get NullPointer Exception if the key does not exist.
+    public static JSONObject getMultiSelectSpinnerIndices( HashMap<String, MultiSelectionSpinner> treatmentSpinnerMap, JSONObject json) {
+        for (String key: treatmentSpinnerMap.keySet()) {
+            try {
+                json.put(key, "[\"" + TextUtils.join("\",\"", treatmentSpinnerMap.get(key).getSelectedIndicesInText()) + "\"]");
+            } catch (JSONException JSE) {
+                Log.e("Utilities", "JSON Exception:\n" + JSE.toString());
+            } catch (NullPointerException NPE) {
+                Log.e("Utilities", "Key does not exist in map: "+ key + "\n" +
+                        "NullPointerException Exception:\n" + NPE.toString());
+            }
+        }
+        return json;
+    }
+
     //update by position
     public static void setSpinners(HashMap<String, Spinner> keyMap, JSONObject json) {
         Spinner spinner;
@@ -227,14 +243,14 @@ public static void Visibility(Activity activity,int id)
 
     public static void setEditTextDates(HashMap<String, EditText> keyMap, JSONObject json) {
 
-        SimpleDateFormat iformat = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat oformat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dbFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat uiFormat = new SimpleDateFormat("dd/MM/yyyy");
         String currentDate;
         for (String key: keyMap.keySet()) {
             try {
                 currentDate = json.getString(key);
                 if(!currentDate.equals("")) {
-                    keyMap.get(key).setText(oformat.format(iformat.parse(json.getString(key))));
+                    keyMap.get(key).setText(uiFormat.format(dbFormat.parse(json.getString(key))));
                 }
             } catch (JSONException jse) {
                 System.out.println("The JSON key: '" + key+ "' does not exist");

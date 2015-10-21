@@ -128,6 +128,9 @@ public class NRCActivity extends ClinicalServiceActivity {
     }
 
     @Override
+    protected void initiateMultiSelectionSpinners(){}
+
+    @Override
     protected void initiateEditTextDates() {
 
     }

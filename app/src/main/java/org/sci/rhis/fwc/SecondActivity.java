@@ -45,7 +45,7 @@ public class SecondActivity extends ClinicalServiceActivity  {
         TextView FWCName = (TextView) findViewById(R.id.fwc_heading);
         FWCName.setText(provider.getProviderFacility());
 
-        Log.e("aaf", "" + provider.getProviderFacility());
+        Log.i("SecondActivity", "" + provider.getProviderFacility());
         initialize();//super class
         Spinner staticSpinner = (Spinner) findViewById(R.id.ClientsIdentityDropdown);
         // Create an ArrayAdapter using the string array and a default spinner
@@ -277,6 +277,8 @@ public class SecondActivity extends ClinicalServiceActivity  {
     protected void initiateSpinners(){
         jsonSpinnerMap.put("Blood_Group_Dropdown",getSpinner(R.id.Blood_Group_Dropdown));
     };
+    @Override
+    protected void initiateMultiSelectionSpinners(){}
     @Override
     protected void initiateEditTextDates(){};
     @Override

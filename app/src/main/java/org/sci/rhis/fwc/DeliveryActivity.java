@@ -357,6 +357,9 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     }
 
     @Override
+    protected void initiateMultiSelectionSpinners(){}
+
+    @Override
     protected void initiateEditTexts() {
         //admission details
         jsonEditTextMap.put("dWard", getEditText(R.id.id_ward));

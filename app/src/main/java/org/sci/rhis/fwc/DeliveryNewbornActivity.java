@@ -161,6 +161,9 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     }
 
     @Override
+    protected void initiateMultiSelectionSpinners(){}
+
+    @Override
     protected void initiateEditTextDates() {
 
     }
@@ -264,7 +267,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
             Utilities.getCheckboxes(jsonCheckboxMap, json);
             Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
             Log.d("DeliveryJsonFoundinSave", json.toString());
-           Log.e("Servlet and Rootkey",SERVLET + " " + ROOTKEY);
+           Log.e("Servlet and Rootkey", SERVLET + " " + ROOTKEY);
             newbornInfoQueryTask.execute(json.toString(), SERVLET, ROOTKEY);
         } catch (JSONException jse) {
 
@@ -293,7 +296,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
                 "\"outcometype\":" + deliveryJsonObj.getInt("dType") +
                 "}";
 
-          Log.e("Is there have Values?",queryString);
+          Log.e("Is there have Values?", queryString);
 
         return new JSONObject(queryString);
     }
