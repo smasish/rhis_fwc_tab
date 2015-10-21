@@ -1,13 +1,16 @@
 package org.sci.rhis.fwc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.util.Base64;
 import android.util.Log;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -20,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class NRCActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
@@ -28,7 +32,6 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
 
     AsyncNonRegisterClientInfoUpdate NRCInfoUpdateTask;
     AsyncNonRegisterClientInfoUpdate NRCInfoQueryTask;
-    private ProviderInfo provider;
     private String SERVLET = "nonRegisteredClient";
     private  String ROOTKEY = "nonRegisteredClientGeneralInfo";
 
@@ -36,8 +39,18 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
     public static int NO_OPTIONS=0;
     private String getString, md5Result;
     private Button computeMD5;
-    private HashMap<Integer,String> spinnerPair;
+    private HashMap<String, Pair<Integer, Integer>> districtCodeMap;
+    private HashMap<String, Integer> upazilaCodeMap;
+    private HashMap<String, Integer> unionCodeMap;
+    private HashMap<String, Integer> villageCodeMap;
     private long generatedId;
+    private  int flag=0, provider;
+    private String selectedDistName, selectedUpazilaName,selectedUnionName, selectedVillageName;
+    private int divValue, distValue, upValue, unValue, vilValue;
+
+    public NRCActivity() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,31 +59,120 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         // Remove Action Bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+        Intent intent = getIntent();
+         provider = intent.getIntExtra("Provider", flag);
+
+        Log.e("ProviderCode",String.valueOf(provider));
+
         initialize();
         Spinner sex = (Spinner)findViewById(R.id.ClientsSexSpinner);
-        final Spinner spnDist = (Spinner) findViewById(R.id.Clients_District);
-        final Spinner spnUpz = (Spinner) findViewById(R.id.Clients_Upazila);
-        final Spinner spnUN = (Spinner) findViewById(R.id.Clients_Union);
-        final Spinner spnVillage = (Spinner) findViewById(R.id.Clients_Village);
 
         cName=(EditText)findViewById(R.id.Client_name);
         cFatherName = (EditText) findViewById(R.id.Clients_Father);
         cMotherName = (EditText) findViewById(R.id.Clients_Mother);
         computeMD5=(Button)findViewById(R.id.btn2);
 
-        spinnerPair = new HashMap<Integer, String>();
-        //spinnerPair.put("zilla", (EditText)findViewById(R.id.id_delivery_date));
+        districtCodeMap = new HashMap<String,Pair<Integer, Integer>>();
+        districtCodeMap.put("ব্রাক্ষ্মণবাড়িয়া", Pair.create(12, 20));
+        districtCodeMap.put("হবিগঞ্জ",  Pair.create(36, 60));
+        districtCodeMap.put("টাঙ্গাইল",Pair.create(93, 30));
 
-        computeMD5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                //call method to compute MD5 hash
-                computeMD5Hash(getString());
-            }
-        });
 
-        provider = getIntent().getParcelableExtra("Provider");
+        ArrayList<String> distLIst = new ArrayList<String>();
+        distLIst.addAll(districtCodeMap.keySet());
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, distLIst);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner spnDist = (Spinner) findViewById(R.id.Clients_District);
+        spnDist.setAdapter(adapter);
+        selectedDistName = spnDist.getSelectedItem().toString();
+        distValue = districtCodeMap.get(selectedDistName).first;
+        divValue = districtCodeMap.get(selectedDistName).second;
+        Log.e("selected division Value", String.valueOf(divValue));
+        Log.e("selected district Value", String.valueOf(distValue));
+
+        upazilaCodeMap = new HashMap<String,Integer>();
+        switch(distValue) {
+            case 36:
+                upazilaCodeMap.put("মাধবপুর ", 71);
+                break;
+            case 93:
+                upazilaCodeMap.put("বাসাইল ", 36);
+                break;
+        }
+        ArrayList<String> upLIst = new ArrayList<String>();
+        upLIst.addAll(upazilaCodeMap.keySet());
+
+        ArrayAdapter<String> upAdapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, upLIst);
+        upAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        Spinner spnUpz = (Spinner) findViewById(R.id.Clients_Upazila);
+        spnUpz.setAdapter(upAdapter);
+        selectedUpazilaName = spnUpz.getSelectedItem().toString();
+        Log.e("selected Up Value", String.valueOf(selectedUpazilaName));
+        upValue = upazilaCodeMap.get(selectedUpazilaName);
+        Log.e("selected upazila Value", String.valueOf(upValue));
+
+
+        unionCodeMap = new HashMap<String,Integer>();
+        switch(upValue) {
+            case 71:
+                unionCodeMap.put("আদাঐর",16);
+                unionCodeMap.put("শাহজাহানপুর",94);
+                break;
+            case 36:
+                unionCodeMap.put("কাঞ্চনপুর",59);
+                unionCodeMap.put("কাশিল",71);
+                break;
+        }
+        ArrayList<String> unLIst = new ArrayList<String>();
+        unLIst.addAll(unionCodeMap.keySet());
+        ArrayAdapter<String> unAdapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, unLIst);
+        unAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner spnUN = (Spinner) findViewById(R.id.Clients_Union);
+        spnUN.setAdapter(unAdapter);
+        selectedUnionName = spnUN.getSelectedItem().toString();
+        unValue = unionCodeMap.get(selectedUnionName);
+        Log.e("selected Union Name", String.valueOf(selectedUnionName));
+        Log.e("selected Union Value", String.valueOf(unValue));
+
+
+        villageCodeMap = new HashMap<String,Integer>();
+        switch(upValue) {
+            case 16:
+                villageCodeMap.put("আদাঐর",16);
+                villageCodeMap.put("শাহজাহানপুর",94);
+                break;
+            case 94:
+                villageCodeMap.put("কাঞ্চনপুর",59);
+                villageCodeMap.put("কাশিল",71);
+                break;
+            case 59:
+                villageCodeMap.put("আদাঐর",16);
+                villageCodeMap.put("শাহজাহানপুর",94);
+                break;
+            case 71:
+                villageCodeMap.put("কাঞ্চনপুর",59);
+                villageCodeMap.put("কাশিল",71);
+                break;
+        }
+        ArrayList<String> vilLIst = new ArrayList<String>();
+        unLIst.addAll(villageCodeMap.keySet());
+        ArrayAdapter<String> vilAdapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, vilLIst);
+        vilAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner spnVillage = (Spinner) findViewById(R.id.Clients_Village);
+        spnVillage.setAdapter(vilAdapter);
+        selectedVillageName = spnVillage.getSelectedItem().toString();
+        vilValue = villageCodeMap.get(selectedVillageName);
+        Log.e("selected Union Name", String.valueOf(selectedVillageName));
+        Log.e("selected Union Value", String.valueOf(vilValue));
+
+        addListenerOnButton();
+
 
         //Get the JSON object from the data
         JSONObject parent = this.parseJSONData();
@@ -145,24 +247,28 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
     }
 
     private JSONObject buildQueryHeader() throws JSONException {
+        Log.e("Selected District Value",String.valueOf(distValue));
         //get info from database
         String queryString =   "{" +
-                "generatedId:" + computeMD5Hash(getString()) + "," +
-                "providerid:\"" + String.valueOf(provider.getProviderCode())+"\"," +
-
+                "\"generatedId\":"  + computeMD5Hash(getString())  + "," +
+                "\"providerid\":" + String.valueOf(provider)+ "," +
+                "\"division\":" + String.valueOf(divValue)+ "," +
+                "\"district\":" + String.valueOf(distValue) +
                 "}";
-
+       // Log.e("selected Item's Value", String.valueOf(distValue));
         Log.e("QueryStrig",queryString);
         return new JSONObject(queryString);
     }
 
-    private void saveToJson() {
+    private void nrcSaveToJson() {
         NRCInfoUpdateTask = new AsyncNonRegisterClientInfoUpdate(this);
         JSONObject json;
         try {
             json = buildQueryHeader();
+            Utilities.getEditTexts(jsonEditTextMap, json);
+            Utilities.getSpinners(jsonSpinnerMap, json);
 
-            Log.e("NRC JSON", json.toString());
+            Log.e("NRC JSON Sent2SERVLET", json.toString());
 
         } catch (JSONException jse) {
             Log.e("NRC", "JSON Exception: " + jse.getMessage());
@@ -272,12 +378,32 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
     }
+    public void addListenerOnButton() {
+
+        Button  button1 = (Button) findViewById(R.id.nrcProceed);
+
+        button1.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+              nrcSaveToJson();
+            }
+        });
+
+        computeMD5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //call method to compute MD5 hash
+                computeMD5Hash(getString());
+            }
+        });
+    }
 
     @Override
     public void onClick(View view) {
-        if(view.getId() == R.id.nrcProceed ) {
-        saveToJson();
-        }
+
     }
 
     @Override

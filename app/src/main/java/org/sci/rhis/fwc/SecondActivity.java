@@ -27,7 +27,7 @@ public class SecondActivity extends ClinicalServiceActivity  {
     private Button button;
     private PregWoman woman;
     private Vector<Pair<String, Integer>>  deliveryHistoryMapping;
-
+    private int providerCode;
 
     private View mClientIntroLayout;
     private View mClientInfoLayout;
@@ -45,7 +45,9 @@ public class SecondActivity extends ClinicalServiceActivity  {
         TextView FWCName = (TextView) findViewById(R.id.fwc_heading);
         FWCName.setText(provider.getProviderFacility());
 
-        Log.e("aaf", "" + provider.getProviderFacility());
+        providerCode = Integer.parseInt(String.valueOf(provider.getProviderCode()));
+
+        Log.e("aaf", "" + provider.getProviderFacility()+ providerCode);
         initialize();//super class
         Spinner staticSpinner = (Spinner) findViewById(R.id.ClientsIdentityDropdown);
         // Create an ArrayAdapter using the string array and a default spinner
@@ -158,6 +160,7 @@ public class SecondActivity extends ClinicalServiceActivity  {
             public void onClick(View arg0) {
 
                 Intent intent = new Intent(context, NRCActivity.class);
+                intent.putExtra("Provider",providerCode);
                 startActivity(intent);
             }
         });
