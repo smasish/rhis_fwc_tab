@@ -30,6 +30,8 @@ import java.util.HashMap;
  */
 public class Utilities {
 
+    public final static int SPINNER_INDEX_OFFSET = 1;
+
     // This method added by Al Amin on 10/09/2015 (dd/MM/yyyy)
     public static void Disable(Activity activity, int id) {
 
@@ -128,7 +130,7 @@ public static void Visibility(Activity activity,int id)
                 spinner = keyMap.get(key);
                 if(spinner != null) {
                     //spinner.setSelection((json.getInt(key) - 1));
-                    json.put(key, String.valueOf(spinner.getSelectedItemPosition() + 1));
+                    json.put(key, String.valueOf(spinner.getSelectedItemPosition() + SPINNER_INDEX_OFFSET));
                 }
             } catch (JSONException jse) {
                 System.out.println("The JSON key: '" + key+ "' does not exist");
@@ -136,11 +138,30 @@ public static void Visibility(Activity activity,int id)
         }
     }
 
-    //TODO: Error prone -> only handles keys related to treatment moduels, will get NullPointer Exception if the key does not exist.
+    //Get values instead of indices from spinner
+    public static void getSpinnersVelues(HashMap<String, Spinner> keyMap, JSONObject json) {
+        Spinner spinner;
+        for (String key: keyMap.keySet()) {
+            try {
+                spinner = keyMap.get(key);
+                if(spinner != null) {
+                    //spinner.setSelection((json.getInt(key) - 1));
+                    json.put(key, "\"" + String.valueOf(spinner.getSelectedItem()) + "\"");
+                }
+            } catch (JSONException jse) {
+                System.out.println("The JSON key: '" + key+ "' does not exist");
+            }
+        }
+    }
+
+    //TODO: Error prone -> only handles keys related to treatment modules, will get NullPointer Exception if the key does not exist.
     public static JSONObject getMultiSelectSpinnerIndices( HashMap<String, MultiSelectionSpinner> treatmentSpinnerMap, JSONObject json) {
         for (String key: treatmentSpinnerMap.keySet()) {
             try {
-                json.put(key, "[\"" + TextUtils.join("\",\"", treatmentSpinnerMap.get(key).getSelectedIndicesInText()) + "\"]");
+                json.put(key,
+                        "[\"" + TextUtils.join("\",\"",
+                            treatmentSpinnerMap.get(key).getSelectedIndicesInText(SPINNER_INDEX_OFFSET))
+                        + "\"]");
             } catch (JSONException JSE) {
                 Log.e("Utilities", "JSON Exception:\n" + JSE.toString());
             } catch (NullPointerException NPE) {
