@@ -4,7 +4,21 @@
     <string-array name="district_DropDown">
         <item>হবিগঞ্জ </item>
         <item> টাঙ্গাইল </item>
-        <item>কুমিল্লা </item>
+    </string-array>
+
+    <string-array name="upazila_DropDown">
+        <item>মাধবপুর </item>
+        <item>বাসাইল </item>
+    </string-array>
+
+    <string-array name="union_DropDown">
+        <item> আদাঐর </item>
+        <item>কাঞ্চনপুর </item>
+    </string-array>
+
+    <string-array name="village_DropDown">
+        <item>সুলতানপুর</item>
+        <item>বিলপাড়া </item>
     </string-array>
 
 
