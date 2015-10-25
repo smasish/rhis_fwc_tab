@@ -16,12 +16,14 @@ import java.util.HashMap;
 public abstract class ClinicalServiceActivity extends FWCServiceActivity {
 
     protected HashMap<String, CheckBox> jsonCheckboxMap;
+    protected HashMap<String, CheckBox> jsonCheckboxGroupMap;
     protected HashMap<String, Spinner> jsonSpinnerMap;
     protected HashMap<String, MultiSelectionSpinner> jsonMultiSpinnerMap;
     protected HashMap<String, Pair<RadioGroup, Pair<RadioButton,RadioButton>>> jsonRadioGroupButtonMap;
     protected HashMap<String, EditText> jsonEditTextMap;
+    protected HashMap<String, EditText> jsonEditTextRetrieveMap;
     protected HashMap<String, EditText> jsonEditTextDateMap;
-  //  protected HashMap<String, EditText> jsonEditTextDateMap2;
+    protected HashMap<String, EditText> jsonEditTextDatePlusFormatMap;
     protected HashMap<String, TextView> jsonTextViewsMap;
 
     @Override
@@ -29,9 +31,12 @@ public abstract class ClinicalServiceActivity extends FWCServiceActivity {
 
 
     protected void initialize() {
-//populate checkboxes
+        //populate checkboxes
         jsonCheckboxMap = new HashMap<>();
         initiateCheckboxes();
+
+        jsonCheckboxGroupMap = new HashMap<>();
+        initiateCheckboxesGroup();
 
         //populate Spinners
         jsonSpinnerMap = new HashMap<String, Spinner>();
@@ -54,12 +59,13 @@ public abstract class ClinicalServiceActivity extends FWCServiceActivity {
         jsonTextViewsMap = new HashMap<String, TextView>();
         initiateTextViews();
 
-        //populate EditTexts
+        //populate EditTextsDate
         jsonEditTextDateMap = new HashMap<String, EditText>();
         initiateEditTextDates();
 
-     //   jsonEditTextDateMap2 = new HashMap<String, EditText>();
-     //   initiateEditTextDates();
+        //populate EditTextsDate(edd)PlusFormat
+        jsonEditTextDatePlusFormatMap = new HashMap<String, EditText>();
+        initiateEditTextDatesPlusFormat();
 
     }
 
@@ -70,6 +76,8 @@ public abstract class ClinicalServiceActivity extends FWCServiceActivity {
     protected abstract void initiateSpinners();
     protected abstract void initiateMultiSelectionSpinners();
     protected abstract void initiateEditTextDates();
+    protected void initiateEditTextDatesPlusFormat() {};
+    protected void initiateCheckboxesGroup() {};
     protected abstract void initiateRadioGroups();
 
     public void RetriveHistory() {

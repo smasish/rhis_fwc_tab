@@ -50,7 +50,6 @@ public class SecondActivity extends ClinicalServiceActivity  {
     EditText lmpEditText;
     EditText eddEditText;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +77,6 @@ public class SecondActivity extends ClinicalServiceActivity  {
 
         // Apply the adapter to the spinner
         staticSpinner.setAdapter(staticAdapter);
-        addListenerOnButton();
         lmpEditText = (EditText) findViewById(R.id.lmpDate);
         eddEditText = (EditText) findViewById(R.id.edd);
 
@@ -196,10 +194,18 @@ public class SecondActivity extends ClinicalServiceActivity  {
                     populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
                     woman.UpdateUIField(this);
                     Utilities.Disable(this, R.id.clients_info_layout);
+
+                    EditText HouseGREditText = (EditText) findViewById(R.id.Clients_House_No);
+                    EditText MobileNoEditText = (EditText) findViewById(R.id.Clients_Mobile_no);
+
+                    HouseGREditText.setFocusable(false);
+                    MobileNoEditText.setFocusable(false);
+
                 }
 
                     // To Make disable desired fields
                     Utilities.Disable(this, R.id.clients_intro_layout);
+                    //Utilities.Enable(this, R.id.clients_intro_layout);
 
                 }
 
@@ -290,15 +296,15 @@ public class SecondActivity extends ClinicalServiceActivity  {
     private void initializeJsonManipulation() {
         deliveryHistoryMapping = new Vector<Pair<String, Integer>>(9);
         //The order is important
-    deliveryHistoryMapping.addElement(Pair.create("bleeding",            R.id.previousDeliveryBleedingCheckBox)); //0
+        deliveryHistoryMapping.addElement(Pair.create("bleeding",            R.id.previousDeliveryBleedingCheckBox)); //0
         deliveryHistoryMapping.addElement(Pair.create("delayedDelivery", R.id.delayedBirthCheckBox));//1
         deliveryHistoryMapping.addElement(Pair.create("blockedDelivery", R.id.blockedDeliveryCheckBox));//2
         deliveryHistoryMapping.addElement(Pair.create("blockedPlacenta", R.id.placentaInsideUterusCheckBox));//3
         deliveryHistoryMapping.addElement(Pair.create("deadBirth",       R.id.giveBirthDeadCheckBox));//4
         deliveryHistoryMapping.addElement(Pair.create("lived48Hour",     R.id.newbornDieWithin48hoursCheckBox));//5
-        deliveryHistoryMapping.addElement(Pair.create("edemaSwelling",   R.id.swellingLegsOrWholeBodyCheckBox));//6
-        deliveryHistoryMapping.addElement(Pair.create("convulsion",      R.id.withConvulsionSenselessCheckBox));//7
-        deliveryHistoryMapping.addElement(Pair.create("caesar",          R.id.caesarCheckBox));//8
+        deliveryHistoryMapping.addElement(Pair.create("edemaSwelling", R.id.swellingLegsOrWholeBodyCheckBox));//6
+        deliveryHistoryMapping.addElement(Pair.create("convulsion", R.id.withConvulsionSenselessCheckBox));//7
+        deliveryHistoryMapping.addElement(Pair.create("caesar", R.id.caesarCheckBox));//8
     }
 
     private void manipulateJson(JSONObject json) {
@@ -314,6 +320,21 @@ public class SecondActivity extends ClinicalServiceActivity  {
             jse.printStackTrace();
         }
     }
+/*
+    private void buildJson(JSONObject complicated) {
+        try {
+
+            for (int i = 1; i <= complicated.names().length(); i++) {
+                if (complicated.get(complicated.names().getString(i))==1)
+                // complicated.put(deliveryHistoryMapping.get(Integer.valueOf(array[i]) - 1).first, 1);
+            }
+
+        }catch (JSONException jse) {
+                jse.getMessage();
+                jse.printStackTrace();
+        }
+    }
+*/
     /////
 
     //The following methods are all required for all the activities that updates information
@@ -337,18 +358,14 @@ public class SecondActivity extends ClinicalServiceActivity  {
             jsonCheckboxMap.put(pair.first, getCheckbox(pair.second));
         }
     }
-
     @Override
     protected void initiateEditTexts(){
         jsonEditTextMap.put("para",getEditText(R.id.para));
         jsonEditTextMap.put("gravida",getEditText(R.id.gravida));
         jsonEditTextMap.put("boy",getEditText(R.id.SonNum));
         jsonEditTextMap.put("girl",getEditText(R.id.DaughterNum));
-        //jsonEditTextMap.put("lastChildAge", getEditText(R.id.lastChildYear));
-        //jsonEditTextMap.put("lastChildAge",getEditText(R.id.lastChildMonth));
-        //jsonEditTextMap.put("height", getEditText(R.id.heightFeet));
-        //jsonEditTextMap.put("height", getEditText(R.id.heightInch));
-
+        jsonEditTextMap.put("houseGRHoldingNo",getEditText(R.id.Clients_House_No));
+        jsonEditTextMap.put("mobileNo",getEditText(R.id.Clients_Mobile_no));
     }
 
     @Override
@@ -357,17 +374,17 @@ public class SecondActivity extends ClinicalServiceActivity  {
     };
     @Override
     protected void initiateSpinners(){
-        jsonSpinnerMap.put("Blood_Group_Dropdown",getSpinner(R.id.Blood_Group_Dropdown));
+        jsonSpinnerMap.put("bloodGroup",getSpinner(R.id.Blood_Group_Dropdown));
     };
     @Override
     protected void initiateMultiSelectionSpinners(){}
     @Override
     protected void initiateEditTextDates(){
           jsonEditTextDateMap.put("lmp", getEditText(R.id.lmpDate));
-        //  jsonEditTextDateMap2.put("edd", getEditText(R.id.edd));
-       //   SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-     //     Date dob_var = sdf.parse(dob.getText());
-      //  jsonEditTextDateMap.put("edd", getEditText(R.id.id_admissionDate));
+    }
+
+    protected void initiateEditTextDatesPlusFormat(){
+        jsonEditTextDatePlusFormatMap.put("edd", getEditText(R.id.edd));
     }
 
     @Override
@@ -378,14 +395,17 @@ public class SecondActivity extends ClinicalServiceActivity  {
        // AsyncClientInfoUpdate saveClient = new AsyncClientInfoUpdate(this);
        clientInfoUpdateTask = new AsyncClientInfoUpdate(this);
         JSONObject json;
+        JSONObject complicated = null;
         try {
             json = buildQueryHeader(false);
            // Utilities.getCheckboxes(jsonCheckboxMap, json);
             Utilities.getEditTexts(jsonEditTextMap, json);
             Utilities.getEditTextDates(jsonEditTextDateMap, json);
-          //  Utilities.getEditTextDates_withformat(jsonEditTextDateMap2, json);
-          //  Utilities.getSpinners(jsonSpinnerMap, json);
-          //  Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
+            Utilities.getEditTextDatesPlusFormat(jsonEditTextDatePlusFormatMap, json);
+            Utilities.getCheckboxes(jsonCheckboxMap, json);
+            //buildJson(complicated);
+            Utilities.getSpinnersValuesWithoutSlash(jsonSpinnerMap, json);
+            //  Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
             getSpecialCases(json);
             Log.e("Pregwomen", "***************In progress :" + json.toString());
            // clientInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
@@ -393,16 +413,16 @@ public class SecondActivity extends ClinicalServiceActivity  {
             outputJSON="{\"pregNo\":\"\",\n" +              //done
                     "\"healthId\":\"11332922450608\",\n" + //done
                     "\"providerId\":\"6608\",\n" +          //done
-                    "\"houseGRHoldingNo\":\"2\",\n" +
-                    "\"mobileNo\":\"0222\",\n" +
-                    "\"lmp\":\"2015-10-20\",\n" +
-                    "\"edd\":\"26+Jul+2016\",\n" +
-                    "\"para\":\"1\",\n" +   //
-                    "\"gravida\":\"4\",\n" + //
-                    "\"boy\":\"1\",\n" +
-                    "\"girl\":\"0\",\n" +
-                    "\"lastChildAge\":11,\n" + //
-                    "\"height\":64,\n" +  //
+                    "\"houseGRHoldingNo\":\"2\",\n" + //done
+                    "\"mobileNo\":\"0222\",\n" + //done
+                    "\"lmp\":\"2015-10-20\",\n" +   //done
+                    "\"edd\":\"26+Jul+2016\",\n" + //done
+                    "\"para\":\"1\",\n" +   //done
+                    "\"gravida\":\"4\",\n" + //done
+                    "\"boy\":\"1\",\n" +//done
+                    "\"girl\":\"0\",\n" +//done
+                    "\"lastChildAge\":11,\n" + //done
+                    "\"height\":64,\n" +  //done
                     "\"bloodGroup\":\"A+\",\n" +
                     "\"tt1\":1,\"ttDate1\":\"2015-10-20\",\"tt2\":\"\",\"ttDate2\":\"\",\"tt3\":\"\",\"ttDate3\":\"\",\"tt4\":\"\",\"ttDate4\":\"\",\"tt5\":\"\",\"ttDate5\":\"\",\n" +
                     "complicatedHistory\":\"\",\n" +

@@ -46,7 +46,10 @@ public class Utilities {
             }
             else if (view instanceof EditText )
             {
-                (view).setFocusable(false);
+                if(view.getId()==R.id.Clients_House_No || view.getId()==R.id.Clients_Mobile_no);
+                else
+                    (view).setFocusable(false);
+
                // (view).setEnabled(false);
             }
             else if (view instanceof ImageButton)
@@ -74,7 +77,6 @@ public class Utilities {
                 ((Spinner) view).setClickable(false);
                 //((Spinner) view).setKeyListener(null);
             }
-
             else {
                 System.out.print(testgroup);
             }
@@ -95,28 +97,38 @@ public static void Visibility(Activity activity,int id)
             View view = group.getChildAt(i);
 
             if(view instanceof LinearLayout) {
-                Disable(activity, view.getId());
+                Enable(activity, view.getId());
             }
             else if (view instanceof EditText )
             {
-                (view).setFocusable(true);
-                ((EditText)view).setText("");
-            }
 
+                (view).setFocusable(true);
+                // (view).setEnabled(true);
+            }
+            else if (view instanceof ImageButton)
+            {
+                (view).setClickable(true);
+
+            }
+            else if (view instanceof Button)
+            {
+                (view).setClickable(true);
+
+            }
             else if (view instanceof CheckBox) {
 
                 ((CheckBox) view).setCursorVisible(true);
-
+               // ((CheckBox) view).setKeyListener(null);
             }
             else if (view instanceof RadioButton) {
 
                 ((RadioButton) view).setCursorVisible(true);
-
+               // ((RadioButton) view).setKeyListener(null);
             }
             else if (view instanceof Spinner) {
 
                 ((Spinner) view).setClickable(true);
-
+                //((Spinner) view).setKeyListener(null);
             }
 
             else {
@@ -141,7 +153,7 @@ public static void Visibility(Activity activity,int id)
     }
 
     //Get values instead of indices from spinner
-    public static void getSpinnersVelues(HashMap<String, Spinner> keyMap, JSONObject json) {
+    public static void getSpinnersValues(HashMap<String, Spinner> keyMap, JSONObject json) {
         Spinner spinner;
         for (String key: keyMap.keySet()) {
             try {
@@ -149,6 +161,22 @@ public static void Visibility(Activity activity,int id)
                 if(spinner != null) {
                     //spinner.setSelection((json.getInt(key) - 1));
                     json.put(key, "\"" + String.valueOf(spinner.getSelectedItem()) + "\"");
+                }
+            } catch (JSONException jse) {
+                System.out.println("The JSON key: '" + key+ "' does not exist");
+            }
+        }
+    }
+
+    //Get values instead of indices from spinner
+    public static void getSpinnersValuesWithoutSlash(HashMap<String, Spinner> keyMap, JSONObject json) {
+        Spinner spinner;
+        for (String key: keyMap.keySet()) {
+            try {
+                spinner = keyMap.get(key);
+                if(spinner != null) {
+                    //spinner.setSelection((json.getInt(key) - 1));
+                    json.put(key, String.valueOf(spinner.getSelectedItem()) );
                 }
             } catch (JSONException jse) {
                 System.out.println("The JSON key: '" + key+ "' does not exist");
@@ -167,7 +195,7 @@ public static void Visibility(Activity activity,int id)
             } catch (JSONException JSE) {
                 Log.e("Utilities", "JSON Exception:\n" + JSE.toString());
             } catch (NullPointerException NPE) {
-                Log.e("Utilities", "Key does not exist in map: "+ key + "\n" +
+                Log.e("Utilities", "Key does not exist in map: " + key + "\n" +
                         "NullPointerException Exception:\n" + NPE.toString());
             }
         }
@@ -184,7 +212,7 @@ public static void Visibility(Activity activity,int id)
                     spinner.setSelection((json.getInt(key) - 1));
                 }
             } catch (JSONException jse) {
-                System.out.println("The JSON key: '" + key+ "' does not exist");
+                System.out.println("The JSON key: '" + key + "' does not exist");
             }
         }
     }
@@ -242,6 +270,27 @@ public static void Visibility(Activity activity,int id)
             }
         }
     }
+    public static void getCheckboxesBlank(HashMap<String, CheckBox> keyMap, JSONObject json) {
+        for (String key: keyMap.keySet()) {
+            try {
+                //keyMap.get(key).setChecked((json.getInt(key) == 1));
+                json.put(key, (keyMap.get(key).isChecked() ? 1 : ""));
+            } catch (JSONException jse) {
+                System.out.println("The JSON key: '" + key+ "' does not exist");
+            }
+        }
+    }
+    /*
+    public static void getCheckboxes(HashMap<String, CheckBox> keyMap, JSONObject json) {
+        for (String key: keyMap.keySet()) {
+            try {
+                //keyMap.get(key).setChecked((json.getInt(key) == 1));
+                json.put(key, (keyMap.get(key).isChecked() ? 1 : 2));
+            } catch (JSONException jse) {
+                System.out.println("The JSON key: '" + key+ "' does not exist");
+            }
+        }
+    }*/
 
     public static void getEditTexts(HashMap<String, EditText> keyMap, JSONObject json) {
         for (String key: keyMap.keySet()) {
@@ -305,14 +354,14 @@ public static void Visibility(Activity activity,int id)
         }
     }
 
-    public static void getEditTextDates_withformat(HashMap<String, EditText> keyMap, JSONObject json) {
+    public static void getEditTextDatesPlusFormat(HashMap<String, EditText> keyMap, JSONObject json) {
 
         SimpleDateFormat uiFormat = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat dbFormat = new SimpleDateFormat("dd+MMM+yyyy");
         String currentDate;
         for (String key: keyMap.keySet()) {
             try {
-                /*currentDate = json.getString(key);
+               /* currentDate = json.getString(key);
                 if(!currentDate.equals("")) {
                     keyMap.get(key).setText(oformat.format(iformat.parse(json.getString(key))));
                 }*/
