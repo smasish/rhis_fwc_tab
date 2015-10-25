@@ -247,6 +247,8 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         AsyncClientInfoUpdate client = new AsyncClientInfoUpdate(ANCActivity.this);
         //SendPostRequestAsyncTask
         AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(ANCActivity.this);
+
+        Log.d("-!!!!!!!!!!->"+provider.getProviderCode(), "---=keys()====>" + mother.getPregNo());
         String queryString =   "{" +
                 "pregNo:" + mother.getPregNo() + "," +
                 "healthid:" + mother.getHealthId() + "," +
