@@ -65,6 +65,7 @@ public class SecondActivity extends ClinicalServiceActivity  {
         FWCName.setText(provider.getProviderFacility());
 
         providerCode = Integer.parseInt(String.valueOf(provider.getProviderCode()));
+        Log.i("SecondActivity", "" + provider.getProviderFacility());
 
         Log.e("aaf", "" + provider.getProviderFacility()+ providerCode);
         initialize();//super class
@@ -358,6 +359,8 @@ public class SecondActivity extends ClinicalServiceActivity  {
     protected void initiateSpinners(){
         jsonSpinnerMap.put("Blood_Group_Dropdown",getSpinner(R.id.Blood_Group_Dropdown));
     };
+    @Override
+    protected void initiateMultiSelectionSpinners(){}
     @Override
     protected void initiateEditTextDates(){
           jsonEditTextDateMap.put("lmp", getEditText(R.id.lmpDate));

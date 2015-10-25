@@ -20,6 +20,10 @@ public abstract class FWCServiceActivity extends AppCompatActivity implements As
         return (Spinner)findViewById(id);
     }
 
+    protected MultiSelectionSpinner getMultiSelectionSpinner(int id) {
+        return (MultiSelectionSpinner)findViewById(id);
+    }
+
     protected RadioGroup getRadioGroup(int id) {
         return (RadioGroup)findViewById(id);
     }

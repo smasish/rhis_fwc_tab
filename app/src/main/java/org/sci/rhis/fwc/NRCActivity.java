@@ -381,6 +381,9 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
     }
 
     @Override
+    protected void initiateMultiSelectionSpinners(){}
+
+    @Override
     protected void initiateEditTextDates() {
 
     }

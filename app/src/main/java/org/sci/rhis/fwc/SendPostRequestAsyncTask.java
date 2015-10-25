@@ -60,6 +60,7 @@ public class SendPostRequestAsyncTask extends AsyncTask<String, Void, String> {
                 HttpClient httpClient = new DefaultHttpClient();
                 // In a POST request, we don't pass the values in the URL.
         //Therefore we use only the web page URL as the parameter of the HttpPost argument
+
         //http://10.12.0.32:8080/RHIS
         //http://119.148.6.215:8080/RHIS/
       //  HttpPost httpPost = new HttpPost("http://119.148.6.215:8080/RHIS/"+servlet);

@@ -226,7 +226,7 @@ pnc child history
 
         String servlet_child = "pncchild";
         String jsonRootkey_child = "PNCChildInfo";
-        Log.d("-->","---=====>"+queryString);
+        Log.d("-->", "---=====>" + queryString);
        // sendPostReqAsyncTask_child.execute(queryString_child, servlet_child, jsonRootkey_child);
 
         getEditText(R.id.pncServiceDateValue).setOnClickListener(this);
@@ -639,6 +639,8 @@ pnc child history
         jsonSpinnerMap.put("pncrefercentername", getSpinner(R.id.pncReferCenterNameSpinner));;
         jsonSpinnerMap.put("pncreferreason", getSpinner(R.id.pncChildReasonSpinner));
     }
+    @Override
+    protected void initiateMultiSelectionSpinners(){}
 
     @Override
     protected void initiateEditTexts() {
