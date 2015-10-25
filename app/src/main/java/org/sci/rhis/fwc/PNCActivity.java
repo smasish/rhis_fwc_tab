@@ -247,6 +247,7 @@ pnc child history
  */
 
 
+        Log.d("-->", "---=====>" + queryString);
 
         getEditText(R.id.pncServiceDateValue).setOnClickListener(this);
         getEditText(R.id.pncChildServiceDateValue).setOnClickListener(this);
@@ -663,6 +664,8 @@ pnc child history
         jsonSpinnerMap.put("pncrefercentername", getSpinner(R.id.pncReferCenterNameSpinner));;
         jsonSpinnerMap.put("pncreferreason", getSpinner(R.id.pncChildReasonSpinner));
     }
+    @Override
+    protected void initiateMultiSelectionSpinners(){}
 
     @Override
     protected void initiateEditTexts() {

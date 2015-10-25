@@ -181,6 +181,16 @@ public class MultiSelectionSpinner extends Spinner implements
         return selection;
     }
 
+    public List<String> getSelectedIndicesInText(int indexOffset) {
+        List<String> selection = new LinkedList<>();
+        for (int i = 0; i < _items.length; ++i) {
+            if (mSelection[i]) {
+                selection.add(String.valueOf(i + indexOffset));
+            }
+        }
+        return selection;
+    }
+
     private String buildSelectedItemString() {
         StringBuilder sb = new StringBuilder();
         boolean foundOne = false;

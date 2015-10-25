@@ -5,12 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,20 +21,36 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigInteger;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Vector;
 
-public class SecondActivity extends ClinicalServiceActivity {
+public class SecondActivity extends ClinicalServiceActivity  {
 
     private Button button;
     private PregWoman woman;
     private Vector<Pair<String, Integer>>  deliveryHistoryMapping;
-
+    private int providerCode;
 
     private View mClientIntroLayout;
     private View mClientInfoLayout;
     Boolean flag=false;
+
+    AsyncClientInfoUpdate clientInfoQueryTask;
+    AsyncClientInfoUpdate clientInfoUpdateTask;
+
+    final private String SERVLET = "handlepregwomen";
+    final private String ROOTKEY = "pregWomen";
+
+    private BigInteger responseID= BigInteger.valueOf(0);
+    EditText lmpEditText;
+    EditText eddEditText;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +64,10 @@ public class SecondActivity extends ClinicalServiceActivity {
         TextView FWCName = (TextView) findViewById(R.id.fwc_heading);
         FWCName.setText(provider.getProviderFacility());
 
-        Log.e("aaf", "" + provider.getProviderFacility());
+        providerCode = Integer.parseInt(String.valueOf(provider.getProviderCode()));
+        Log.i("SecondActivity", "" + provider.getProviderFacility());
+
+        Log.e("aaf", "" + provider.getProviderFacility()+ providerCode);
         initialize();//super class
         Spinner staticSpinner = (Spinner) findViewById(R.id.ClientsIdentityDropdown);
         // Create an ArrayAdapter using the string array and a default spinner
@@ -57,6 +79,38 @@ public class SecondActivity extends ClinicalServiceActivity {
         // Apply the adapter to the spinner
         staticSpinner.setAdapter(staticAdapter);
         addListenerOnButton();
+        lmpEditText = (EditText) findViewById(R.id.lmpDate);
+        eddEditText = (EditText) findViewById(R.id.edd);
+
+        lmpEditText.addTextChangedListener(
+                new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        try {
+                            Date lmp = sdf.parse(lmpEditText.getText().toString());
+
+                            Date edd = Utilities.addDateOffset(lmp, 240);
+                            eddEditText.setText(sdf.format(edd));
+
+                        } catch (ParseException PE) {
+
+                        }
+
+                    }
+                }
+
+        );
 
     }
 
@@ -83,7 +137,7 @@ public class SecondActivity extends ClinicalServiceActivity {
         mHealthIdLayout.setVisibility(View.VISIBLE);
 
         TextView healthId = (TextView) findViewById(R.id.health_id);
-        healthId.setText(String.valueOf(stringId) +": "+ String.valueOf(id));
+        healthId.setText(String.valueOf(stringId) + ": " + String.valueOf(id));
 
         System.out.println("sOpt: " + index
                 + /*Adding 1 to match HTML index where healthID starts from 1*/
@@ -110,7 +164,7 @@ public class SecondActivity extends ClinicalServiceActivity {
         HashMap<String, Pair<Spinner, Integer>> clientSpinnerMap= new HashMap<>(1); //fixed capacity ??
         clientSpinnerMap.put("cBloodGroup", Pair.create((Spinner) findViewById(R.id.Blood_Group_Dropdown), R.array.Blood_Group_Dropdown));
 
-        manipulateJson(json);
+        //manipulateJson(json);
         Utilities.setSpinners(clientSpinnerMap, json, this);
         Utilities.setCheckboxes(jsonCheckboxMap, json);
     }
@@ -121,23 +175,39 @@ public class SecondActivity extends ClinicalServiceActivity {
         try {
             JSONObject json = new JSONObject(result);
             String key;
-            woman = PregWoman.CreatePregWoman(json);
 
-            //DEBUG
+            //DEBUG response from servlet
             for ( Iterator<String> ii = json.keys(); ii.hasNext(); ) {
                 key = ii.next();
                 System.out.println("1.Key:" + key + " Value:\'" + json.get(key)+"\'");
             }
 
-            if(json.get("False").toString().equals("")) { //Client exists
-                populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
-                populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
-                woman.UpdateUIField(this);
 
-            // To Make disable desired fields
-                Utilities.Disable(this, R.id.clients_intro_layout);
-                Utilities.Disable(this, R.id.clients_info_layout);
 
+            if(json.has("cNewMCHClient"))
+            {
+                woman = PregWoman.CreatePregWoman(json);
+
+                if(json.get("False").toString().equals("")) { //Client exists
+                    populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
+                    responseID= new BigInteger(json.get("cHealthID").toString());
+                if(woman != null) {
+                    manipulateJson(json);
+                    populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
+                    woman.UpdateUIField(this);
+                    Utilities.Disable(this, R.id.clients_info_layout);
+                }
+
+                    // To Make disable desired fields
+                    Utilities.Disable(this, R.id.clients_intro_layout);
+
+                }
+
+            }
+            else
+            {
+
+                ////
             }
 
         } catch (JSONException jse) {
@@ -145,6 +215,7 @@ public class SecondActivity extends ClinicalServiceActivity {
             jse.printStackTrace();
         }
     }
+
 
     public void addListenerOnButton() {
 
@@ -158,6 +229,7 @@ public class SecondActivity extends ClinicalServiceActivity {
             public void onClick(View arg0) {
 
                 Intent intent = new Intent(context, NRCActivity.class);
+                intent.putExtra("Provider",providerCode);
                 startActivity(intent);
             }
         });
@@ -204,10 +276,21 @@ public class SecondActivity extends ClinicalServiceActivity {
         return true;
     }
 
+    public void onClickSaveClient(View view) {
+        /*
+        if(view.getTag() != null && view.getTag().equals("DateField")) {
+            datePickerDialog.show(datePickerPair.get(view.getId()));
+        }*/
+            saveClientToJson();
+            Toast.makeText(this, "Clicked...", Toast.LENGTH_LONG).show();
+            System.out.print("Clicked");
+    }
+
+   ////for complication history
     private void initializeJsonManipulation() {
         deliveryHistoryMapping = new Vector<Pair<String, Integer>>(9);
-        //The prder is important
-        deliveryHistoryMapping.addElement(Pair.create("bleeding", R.id.previousDeliveryBleedingCheckBox)); //0
+        //The order is important
+    deliveryHistoryMapping.addElement(Pair.create("bleeding",            R.id.previousDeliveryBleedingCheckBox)); //0
         deliveryHistoryMapping.addElement(Pair.create("delayedDelivery", R.id.delayedBirthCheckBox));//1
         deliveryHistoryMapping.addElement(Pair.create("blockedDelivery", R.id.blockedDeliveryCheckBox));//2
         deliveryHistoryMapping.addElement(Pair.create("blockedPlacenta", R.id.placentaInsideUterusCheckBox));//3
@@ -215,7 +298,7 @@ public class SecondActivity extends ClinicalServiceActivity {
         deliveryHistoryMapping.addElement(Pair.create("lived48Hour",     R.id.newbornDieWithin48hoursCheckBox));//5
         deliveryHistoryMapping.addElement(Pair.create("edemaSwelling",   R.id.swellingLegsOrWholeBodyCheckBox));//6
         deliveryHistoryMapping.addElement(Pair.create("convulsion",      R.id.withConvulsionSenselessCheckBox));//7
-        deliveryHistoryMapping.addElement(Pair.create("caesar", R.id.caesarCheckBox));//8
+        deliveryHistoryMapping.addElement(Pair.create("caesar",          R.id.caesarCheckBox));//8
     }
 
     private void manipulateJson(JSONObject json) {
@@ -231,6 +314,7 @@ public class SecondActivity extends ClinicalServiceActivity {
             jse.printStackTrace();
         }
     }
+    /////
 
     //The following methods are all required for all the activities that updates information
     //from user interface
@@ -252,7 +336,7 @@ public class SecondActivity extends ClinicalServiceActivity {
         for ( Pair<String, Integer> pair:deliveryHistoryMapping) {
             jsonCheckboxMap.put(pair.first, getCheckbox(pair.second));
         }
-    };
+    }
 
     @Override
     protected void initiateEditTexts(){
@@ -260,10 +344,11 @@ public class SecondActivity extends ClinicalServiceActivity {
         jsonEditTextMap.put("gravida",getEditText(R.id.gravida));
         jsonEditTextMap.put("boy",getEditText(R.id.SonNum));
         jsonEditTextMap.put("girl",getEditText(R.id.DaughterNum));
-        jsonEditTextMap.put("lastChildAge", getEditText(R.id.lastChildYear));
-        jsonEditTextMap.put("lastChildAge",getEditText(R.id.lastChildMonth));
-        jsonEditTextMap.put("height", getEditText(R.id.heightFeet));
-        jsonEditTextMap.put("height",getEditText(R.id.heightInch));
+        //jsonEditTextMap.put("lastChildAge", getEditText(R.id.lastChildYear));
+        //jsonEditTextMap.put("lastChildAge",getEditText(R.id.lastChildMonth));
+        //jsonEditTextMap.put("height", getEditText(R.id.heightFeet));
+        //jsonEditTextMap.put("height", getEditText(R.id.heightInch));
+
     }
 
     @Override
@@ -275,8 +360,92 @@ public class SecondActivity extends ClinicalServiceActivity {
         jsonSpinnerMap.put("Blood_Group_Dropdown",getSpinner(R.id.Blood_Group_Dropdown));
     };
     @Override
-    protected void initiateEditTextDates(){};
+    protected void initiateMultiSelectionSpinners(){}
+    @Override
+    protected void initiateEditTextDates(){
+          jsonEditTextDateMap.put("lmp", getEditText(R.id.lmpDate));
+        //  jsonEditTextDateMap2.put("edd", getEditText(R.id.edd));
+       //   SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+     //     Date dob_var = sdf.parse(dob.getText());
+      //  jsonEditTextDateMap.put("edd", getEditText(R.id.id_admissionDate));
+    }
+
     @Override
     protected void initiateRadioGroups(){};
 
+    private void saveClientToJson() {
+       // Toast.makeText(this, "Clicked from here...", Toast.LENGTH_LONG).show();
+       // AsyncClientInfoUpdate saveClient = new AsyncClientInfoUpdate(this);
+       clientInfoUpdateTask = new AsyncClientInfoUpdate(this);
+        JSONObject json;
+        try {
+            json = buildQueryHeader(false);
+           // Utilities.getCheckboxes(jsonCheckboxMap, json);
+            Utilities.getEditTexts(jsonEditTextMap, json);
+            Utilities.getEditTextDates(jsonEditTextDateMap, json);
+          //  Utilities.getEditTextDates_withformat(jsonEditTextDateMap2, json);
+          //  Utilities.getSpinners(jsonSpinnerMap, json);
+          //  Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
+            getSpecialCases(json);
+            Log.e("Pregwomen", "***************In progress :" + json.toString());
+           // clientInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
+           String outputJSON;
+            outputJSON="{\"pregNo\":\"\",\n" +              //done
+                    "\"healthId\":\"11332922450608\",\n" + //done
+                    "\"providerId\":\"6608\",\n" +          //done
+                    "\"houseGRHoldingNo\":\"2\",\n" +
+                    "\"mobileNo\":\"0222\",\n" +
+                    "\"lmp\":\"2015-10-20\",\n" +
+                    "\"edd\":\"26+Jul+2016\",\n" +
+                    "\"para\":\"1\",\n" +   //
+                    "\"gravida\":\"4\",\n" + //
+                    "\"boy\":\"1\",\n" +
+                    "\"girl\":\"0\",\n" +
+                    "\"lastChildAge\":11,\n" + //
+                    "\"height\":64,\n" +  //
+                    "\"bloodGroup\":\"A+\",\n" +
+                    "\"tt1\":1,\"ttDate1\":\"2015-10-20\",\"tt2\":\"\",\"ttDate2\":\"\",\"tt3\":\"\",\"ttDate3\":\"\",\"tt4\":\"\",\"ttDate4\":\"\",\"tt5\":\"\",\"ttDate5\":\"\",\n" +
+                    "complicatedHistory\":\"\",\n" +
+                    "\"complicatedHistoryNote\":\"9\"}";
+
+            JSONObject z;
+            z = new JSONObject(outputJSON);
+           // Log.d("How the json looks", "***************In progress b4 json:" + z.toString());
+            // outputJSON={"pregNo":"","healthId":"38236987455329","providerId":"6608","houseGRHoldingNo":"","mobileNo":"01678945666","lmp":"2015-10-12","edd":"18+Jul+2016","para":"0","gravida":"1","boy":"0","girl":"0","lastChildAge":0,"height":64,"bloodGroup":"none","tt1":"","ttDate1":"","tt2":"","ttDate2":"","tt3":"","ttDate3":"","tt4":"","ttDate4":"","tt5":"","ttDate5":"","complicatedHistory":"","complicatedHistoryNote":"1,2,3,9"};
+
+            clientInfoUpdateTask.execute(z.toString(), SERVLET, ROOTKEY);
+          //  System.out.print("In Save, Client Json in Query:" + json.toString());
+        }
+        catch (JSONException jse) {
+            Log.e("Pregwomen", "JSON Exception: " + jse.getMessage());
+        }
+
+    }
+
+    private JSONObject buildQueryHeader(boolean isRetrieval) throws JSONException {
+        //get info from database
+        String queryString =   "{" +
+                "healthid:\"" +responseID + "\"," +
+                "providerid:\""+ ProviderInfo.getProvider().getProviderCode()+"\","+
+                "pregno:\"\""+
+                "}";
+        return new JSONObject(queryString);
+    }
+
+    public void getSpecialCases(JSONObject json) {
+        try {
+
+            Integer month = Integer.parseInt(getEditText(R.id.lastChildYear).getText().toString())*12;
+            month+= Integer.parseInt(getEditText(R.id.lastChildMonth).getText().toString());
+
+            Integer feet=Integer.parseInt(getEditText((R.id.heightFeet)).getText().toString())*12;
+            feet+= Integer.parseInt(getEditText(R.id.heightInch).getText().toString());
+
+            json.put("lastChildAge", month);
+            json.put("height", feet);
+        }
+        catch (JSONException jse) {
+
+        }
+    }
 }

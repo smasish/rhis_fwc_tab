@@ -63,8 +63,7 @@
                 android:layout_height="50px"
                 android:id="@+id/Client_name"
                 android:paddingLeft="10dp"
-                android:focusable="false"
-                android:editable="false"/>
+                />
 
             <TextView
                 android:layout_marginLeft="60dp"
@@ -301,6 +300,7 @@
                 android:background="@drawable/gradient_spinner"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/Clients_Village"
+                android:entries="@array/village_DropDown"
                 android:paddingLeft="10dp"
                 />
         </LinearLayout>
@@ -365,7 +365,19 @@
                 android:paddingLeft="10dp"
                 />
             <Button
-                android:layout_marginLeft="150dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="60px"
+                android:id="@+id/btn2"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:ellipsize="start"
+                android:background="@drawable/button_style"
+                android:text="MD5result"/>
+
+            <Button
+                android:layout_marginLeft="40dp"
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="60px"

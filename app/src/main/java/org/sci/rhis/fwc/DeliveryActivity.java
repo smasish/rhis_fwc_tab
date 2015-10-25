@@ -49,10 +49,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     final private String SERVLET = "delivery";
     final private String ROOTKEY = "deliveryInfo";
 
-    final private String servlet = "newborn";
-    final private String rootkey = "newbornInfo";
-    AsyncNewbornInfoUpdate newbornInfoQueryTask;
-    AsyncNewbornInfoUpdate newbornInfoUpdateTask;
+
 
     AsyncDeliveryInfoUpdate deliveryInfoQueryTask;
     AsyncDeliveryInfoUpdate deliveryInfoUpdateTask;
@@ -98,14 +95,8 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         getEditText(R.id.id_admissionDate).setOnClickListener(this);
         getCheckbox(R.id.id_delivery_refer).setOnCheckedChangeListener(this);
 
-        //hourField = (EditText)findViewById(R.id.delivery_time_hour);
-        //minuteField = (EditText)findViewById(R.id.delivery_time_minute);
-
-
-        //populateEditTextTimes();
-
         //custom date picker
-        datePickerDialog = new CustomDatePickerDialog(this);
+        datePickerDialog = new CustomDatePickerDialog(this, "dd/MM/yyyy");
         datePickerPair = new HashMap<Integer, EditText>();
         datePickerPair.put(R.id.imageViewDeliveryDate, (EditText)findViewById(R.id.id_delivery_date));
         datePickerPair.put(R.id.imageViewAdmissionDate, (EditText)findViewById(R.id.id_admissionDate));
@@ -265,11 +256,11 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         if(view.getId()==R.id.newbornAddButton){
         //Intent intent = new Intent(this, DeliveryNewbornActivity.class);
         passJson.putExtra("Layout", 1);
+        passJson.putExtra("DeliveryJson",dJson.toString());
 
             if(checkClientInfo() && mother.isEligibleFor(PregWoman.PREG_SERVICE.NEWBORN)) {
                 passJson.putExtra("PregWoman", mother);
                 passJson.putExtra("Provider", ProviderInfo.getProvider());
-                passJson.putExtra("DeliveryJson",dJson.toString());
                 Log.d("DeliveryJson", dJson.toString());
                 startActivity(passJson);
             } else {
@@ -278,15 +269,31 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
     }
         else  if(view.getId()==R.id.deathFreshButton){
-            Intent intent = new Intent(this, DeliveryNewbornActivity.class);
-            intent.putExtra("Layout", 2);
-            startActivity(intent);
+
+            passJson.putExtra("Layout", 2);
+            passJson.putExtra("DeliveryJson", dJson.toString());
+            if(checkClientInfo() && mother.isEligibleFor(PregWoman.PREG_SERVICE.NEWBORN)) {
+                passJson.putExtra("PregWoman", mother);
+                passJson.putExtra("Provider", ProviderInfo.getProvider());
+                Log.d("DeliveryJson", dJson.toString());
+                startActivity(passJson);
+            } else {
+                Toast.makeText(this, "Too Late for PNC, verify ...", Toast.LENGTH_LONG).show();
+            }
         }
 
         else if(view.getId()==R.id.deathmaceratedButton){
-            Intent intent = new Intent(this, DeliveryNewbornActivity.class);
-            intent.putExtra("Layout", 3);
-            startActivity(intent);
+
+            passJson.putExtra("Layout", 3);
+            passJson.putExtra("DeliveryJson", dJson.toString());
+            if(checkClientInfo() && mother.isEligibleFor(PregWoman.PREG_SERVICE.NEWBORN)) {
+                passJson.putExtra("PregWoman", mother);
+                passJson.putExtra("Provider", ProviderInfo.getProvider());
+                Log.d("DeliveryJson", dJson.toString());
+                startActivity(passJson);
+            } else {
+                Toast.makeText(this, "Too Late for PNC, verify ...", Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -337,10 +344,15 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         //jsonSpinnerMap.put("dPlace", getSpinner(R.id.delivery_time_Dropdown)); //time
         jsonSpinnerMap.put("dCenterName", getSpinner(R.id.id_facility_name_Dropdown));
         jsonSpinnerMap.put("dAttendantDesignation", getSpinner(R.id.id_attendantTitleDropdown)); //deliveryAttendant
-        jsonSpinnerMap.put("dTreatment", getSpinner(R.id.id_spinner_treatment)); //treatment
-        jsonSpinnerMap.put("dAdvice", getSpinner(R.id.id_spinner_advice)); //advice
         jsonSpinnerMap.put("dReferCenter", getSpinner(R.id.id_spinner_refer_facilities)); //refercenter
         jsonSpinnerMap.put("dReferReason", getSpinner(R.id.id_spinner_refer_delivery_cause)); //refer reason
+    }
+
+    @Override
+    protected void initiateMultiSelectionSpinners(){
+        jsonMultiSpinnerMap.put("dTreatment", getMultiSelectionSpinner(R.id.id_spinner_treatment)); //treatment
+        jsonMultiSpinnerMap.put("dAdvice", getMultiSelectionSpinner(R.id.id_spinner_advice)); //advice
+        jsonMultiSpinnerMap.put("dReferReason", getMultiSelectionSpinner(R.id.id_spinner_refer_delivery_cause)); //refer reason
     }
 
     @Override
@@ -432,13 +444,14 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             Utilities.getEditTexts(jsonEditTextMap, json);
             Utilities.getEditTextDates(jsonEditTextDateMap, json);
             Utilities.getSpinners(jsonSpinnerMap, json);
+            Utilities.getMultiSelectSpinnerIndices(jsonMultiSpinnerMap, json);
             Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
             getEditTextTime(json);
             getSpecialCases(json);
             deliveryInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
-        System.out.print("In Save, Delivery Json in Query:" + json.toString());
-            passJson.putExtra("DeliveryJson",json.toString());
-            Log.e("Delivery", "Save Succeeded");
+           System.out.print("In Save, Delivery Json in Query:" + json.toString());
+            passJson.putExtra("DeliveryJson", json.toString());
+
         } catch (JSONException jse) {
             Log.e("Delivery", "JSON Exception: " + jse.getMessage());
         }

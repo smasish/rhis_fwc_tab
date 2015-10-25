@@ -51,14 +51,8 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     HashMap<String, List<String>> listDataChild;
     LinearLayout ll;
 
-
-    AsyncDeliveryInfoUpdate ancInfoUpdateTask;
-    final private String SERVLET = "anc";
-    final private String ROOTKEY = "ANCInfo";
-
-
     ANCListAdapter ancAdapter;
-
+    AsyncAncInfoUpdate ancInfoUpdate;
 
 
 //    ExpandableListAdapter listAdapter2;
@@ -70,6 +64,9 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 //    ExpandableListView expListView3;
 //    List<String> listDataHeader3;
 //    HashMap<String, List<String>> listDataChild3;
+
+    final private String SERVLET = "anc";
+    final private String ROOTKEY = "ANCInfo";
 
     private static final String TAG_VISIT_NO = "ancVisit01";
     private static final String TAG_DATE = "2015-07-02";
@@ -104,6 +101,8 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     String[] mainlist;
     ArrayList list1;
 
+    private int lastAncVisit;
+
     private Context con;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +112,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
        // Log.d("---woman---------",""+woman.toString());
         today = new Date();
+        lastAncVisit = 0; // assume no visit
 //        if( woman.getAncThreshold().after(today)) { // add ANC threshold
 //            Toast.makeText(this, "Too Late for ANC, ask delivery status ...", Toast.LENGTH_LONG).show();
 //        } else {
@@ -134,6 +134,8 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                 if(flag==false) {
                     mANCLayout.setVisibility(View.VISIBLE);
                     flag=true;
+                    getEditText(R.id.ancVisitValue).setText(String.valueOf(lastAncVisit + 1));
+                    getEditText(R.id.ancVisitValue).setClickable(false);
                     listView.setVisibility(View.GONE);
 
                 }
@@ -240,16 +242,15 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
         //create the mother
         mother = getIntent().getParcelableExtra("PregWoman");
-
         provider = getIntent().getParcelableExtra("Provider");
 
         AsyncClientInfoUpdate client = new AsyncClientInfoUpdate(ANCActivity.this);
         //SendPostRequestAsyncTask
         AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(ANCActivity.this);
         String queryString =   "{" +
-                "pregNo:" + 6 + "," +
-                "healthid:" + "43366275025436" + "," +
-                "ancLoad:" + "6608" +
+                "pregNo:" + mother.getPregNo() + "," +
+                "healthid:" + mother.getHealthId() + "," +
+                "ancLoad:" + provider.getProviderCode() +
                 "}";
         String servlet = "anc";
         String jsonRootkey = "ANCInfo";
@@ -274,7 +275,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         getEditText(R.id.ancServiceDateValue).setOnClickListener(this);
         getCheckbox(R.id.ancReferCheckBox).setOnCheckedChangeListener(this);
       //custom date picker Added By Al Amin
-        datePickerDialog = new CustomDatePickerDialog(this);
+        datePickerDialog = new CustomDatePickerDialog(this, "dd/MM/yyyy");
         datePickerPair = new HashMap<Integer, EditText>();
        datePickerPair.put(R.id.Date_Picker_Button, (EditText)findViewById(R.id.ancServiceDateValue));
 
@@ -289,10 +290,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     private void prepareListData() {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
-
-
         listDataHeader.add(getString(R.string.history_visit1));
-
 
        // listDataChild.put(listDataHeader.get(1), nowShowing);
        // listDataChild.put(listDataHeader.get(2), comingSoon);
@@ -312,14 +310,14 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
 
         try {
-             jsonStr = new JSONObject(result);
+            jsonStr = new JSONObject(result);
             String key;
-
-           // woman = PregWoman.CreatePregWoman(json);
+            lastAncVisit = jsonStr.length() -1 ; //each anc visit has 1 extra ket denoting current anc status
+            Log.d("ANC", "JSON Response:\n"+jsonStr.toString());
 
             //DEBUG
             Resources res = getResources();
-              mainlist = res.getStringArray(R.array.list_item);
+            mainlist = res.getStringArray(R.array.list_item);
             list = new ArrayList<String>();
             for ( Iterator<String> ii = jsonStr.keys(); ii.hasNext(); ) {
                 key = ii.next();
@@ -548,7 +546,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         }
 
         if(v.getId() == R.id.ancSaveButton){
-            saveToJson();
+            saveAnc(v);
 
         }
     }
@@ -573,27 +571,8 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
 
     }
-    private void saveToJson() {
-        ancInfoUpdateTask = new AsyncDeliveryInfoUpdate(this);
-        JSONObject json;
-        try {
-            json = buildQueryHeader(false);
-            Utilities.getCheckboxes(jsonCheckboxMap, json);
-            Utilities.getEditTexts(jsonEditTextMap, json);
-            Utilities.getEditTextDates(jsonEditTextDateMap, json);
-            Utilities.getSpinners(jsonSpinnerMap, json);
-            Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
-            //getEditTextTime(json);
-            //getSpecialCases(json);
-            System.out.print("Json Printed:"+ json.toString());
 
-            ancInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
-            Log.e("Delivery", "Save Succeeded");
-        } catch (JSONException jse) {
-            Log.e("Delivery", "JSON Exception: " + jse.getMessage());
-        }
 
-    }
     @Override
     protected void initiateCheckboxes(){
         jsonCheckboxMap.put("ancrefer", getCheckbox(R.id.ancReferCheckBox));
@@ -607,28 +586,39 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     protected void initiateSpinners() {
         jsonSpinnerMap.put("ancedema", getSpinner(R.id.ancEdemaSpinner));
         jsonSpinnerMap.put("ancfpresentation", getSpinner(R.id.ancFetalPresentationSpinner));
+        jsonSpinnerMap.put("ancanemia",getSpinner(R.id.ancAnemiaSpinner));
         jsonSpinnerMap.put("ancjaundice", getSpinner(R.id.ancJaundiceSpinner));
         jsonSpinnerMap.put("ancsugar", getSpinner(R.id.ancUrineSugarSpinner));
         jsonSpinnerMap.put("ancalbumin", getSpinner(R.id.ancUrineAlbuminSpinner));
-        jsonSpinnerMap.put("anccomplication", getSpinner(R.id.ancDangerSignsSpinner));
-        jsonSpinnerMap.put("ancsymptom", getSpinner(R.id.ancDrawbackSpinner));
-        jsonSpinnerMap.put("ancdisease", getSpinner(R.id.ancDiseaseSpinner));
-        jsonSpinnerMap.put("anctreatment", getSpinner(R.id.ancTreatmentSpinner));
-        jsonSpinnerMap.put("ancadvice", getSpinner(R.id.ancAdviceSpinner));
+        //jsonSpinnerMap.put("anccomplication", getSpinner(R.id.ancDangerSignsSpinner));
+        //jsonSpinnerMap.put("ancsymptom", getSpinner(R.id.ancDrawbackSpinner));
+        //jsonSpinnerMap.put("ancdisease", getSpinner(R.id.ancDiseaseSpinner));
+        //jsonSpinnerMap.put("anctreatment", getSpinner(R.id.ancTreatmentSpinner));
+        //jsonSpinnerMap.put("ancadvice", getSpinner(R.id.ancAdviceSpinner));
         jsonSpinnerMap.put("anccentername", getSpinner(R.id.ancReferCenterNameSpinner));
-        jsonSpinnerMap.put("ancreferreason", getSpinner(R.id.ancReasonSpinner));
+        //jsonSpinnerMap.put("ancreferreason", getSpinner(R.id.ancReasonSpinner));
+    }
+
+    //verride
+    protected void initiateMultiSelectionSpinners() {
+        jsonMultiSpinnerMap.put("anccomplication", getMultiSelectionSpinner(R.id.ancDangerSignsSpinner));
+        jsonMultiSpinnerMap.put("ancsymptom", getMultiSelectionSpinner(R.id.ancDrawbackSpinner));
+        jsonMultiSpinnerMap.put("ancdisease", getMultiSelectionSpinner(R.id.ancDiseaseSpinner));
+        jsonMultiSpinnerMap.put("anctreatment", getMultiSelectionSpinner(R.id.ancTreatmentSpinner));
+        jsonMultiSpinnerMap.put("ancadvice", getMultiSelectionSpinner(R.id.ancAdviceSpinner));
+        //jsonSpinnerMap.put("anccentername", getMultiSelectionSpinner(R.id.ancReferCenterNameSpinner));
+        jsonMultiSpinnerMap.put("ancreferreason", getMultiSelectionSpinner(R.id.ancReasonSpinner));
     }
 
     @Override
     protected void initiateEditTexts() {
         //anc visit
-        jsonEditTextMap.put("pregNo", getEditText(R.id.ancVisitValue));
+        //jsonEditTextMap.put("pregNo", getEditText(R.id.ancVisitValue));
         jsonEditTextMap.put("ancbpsys", getEditText(R.id.ancBloodPresserValueSystolic));
         jsonEditTextMap.put("ancbpdias", getEditText(R.id.ancBloodPresserValueDiastolic));
         jsonEditTextMap.put("ancweight", getEditText(R.id.ancWeightValue));
         jsonEditTextMap.put("ancuheight", getEditText(R.id.ancUterusHeightValue));
         jsonEditTextMap.put("anchrate", getEditText(R.id.ancHeartSpeedValue));
-
         jsonEditTextMap.put("anchemoglobin", getEditText(R.id.ancHemoglobinValue));
        }
 
@@ -649,12 +639,46 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
     }
 
+
+    public void saveAnc(View view) {
+        JSONObject json;
+        try {
+            json = buildQueryHeader(false);
+            Utilities.getCheckboxes(jsonCheckboxMap, json);
+            Utilities.getEditTexts(jsonEditTextMap, json);
+            Utilities.getEditTextDates(jsonEditTextDateMap, json);
+            Utilities.getSpinnersVelues(jsonSpinnerMap, json);
+            Utilities.getMultiSelectSpinnerIndices(jsonMultiSpinnerMap, json);
+            Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
+            //getEditTextTime(json);
+            getSpecialCases(json);
+            ancInfoUpdate = new AsyncAncInfoUpdate(this);
+            ancInfoUpdate.execute(json.toString(), SERVLET, ROOTKEY);
+
+            Log.i("ANC", "Save Succeeded");
+            Log.d("ANC", "JSON:\n" +json.toString());
+
+        } catch (JSONException jse) {
+            Log.e("ANC", "JSON Exception: " + jse.getMessage());
+        }
+    }
+
+    public void getSpecialCases(JSONObject json) {
+        try {
+            json.put("ancsatelitecentername", "GOV"); //If the service was given from satellite
+            json.put("ancservicesource", "1"); //anc service source
+
+        } catch (JSONException jse) {
+
+        }
+    }
+
     private JSONObject buildQueryHeader(boolean isRetrieval) throws JSONException {
         //get info from database
         String queryString =   "{" +
                 "healthid:" + mother.getHealthId() + "," +
                 (isRetrieval ? "": "providerid:\""+String.valueOf(provider.getProviderCode())+"\",") +
-                "pregno:" + mother.getPregNo() + "," +
+                "pregNo:\"" + String.valueOf(mother.getPregNo()) + "\"," +
                 "ancLoad:" + (isRetrieval? "retrieve":"\"\"") +
                 "}";
 
@@ -662,5 +686,4 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         //retrieveDelivery.execute(queryString, SERVLET, ROOTKEY);
         return new JSONObject(queryString);
     }
-
 }
