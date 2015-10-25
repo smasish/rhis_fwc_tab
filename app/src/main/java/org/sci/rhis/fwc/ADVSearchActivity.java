@@ -100,6 +100,32 @@ private int UpMapping(){
 
     Spinner spnUpz = (Spinner) findViewById(R.id.Clients_Upazila);
     spnUpz.setAdapter(upAdapter);
+
+    spnUpz.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+        @Override
+        public void onItemSelected(AdapterView<?> arg0, View view,
+                                   int position, long row_id) {
+            switch (position) {
+                case 1:
+                    break;
+                case 2:
+
+                    break;
+
+            }
+
+
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> arg0) {
+            // TODO Auto-generated method stub
+
+        }
+
+    });
+
     selectedUpazilaName = spnUpz.getSelectedItem().toString();
     Log.e("selected Up Value", String.valueOf(selectedUpazilaName));
     upValue = upazilaCodeMap.get(selectedUpazilaName);

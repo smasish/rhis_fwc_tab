@@ -64,7 +64,7 @@ public class SendPostRequestAsyncTask extends AsyncTask<String, Void, String> {
         //http://10.12.0.32:8080/RHIS
         //http://119.148.6.215:8080/RHIS/
         HttpPost httpPost = new HttpPost("http://119.148.6.215:8080/RHIS/"+servlet);
-        //HttpPost httpPost = new HttpPost("http://10.12.0.32:8080/RHIS/"+servlet);
+        //HttpPost httpPost = new HttpPost("http://10.12.5.219:8080/RHIS/"+servlet);
                 // Because we are not passing values over the URL, we should have a mechanism to pass the values that can be
         //uniquely separate by the other end.
         //To achieve that we use BasicNameValuePair

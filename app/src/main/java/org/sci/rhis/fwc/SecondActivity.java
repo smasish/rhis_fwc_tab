@@ -81,13 +81,6 @@ public class SecondActivity extends ClinicalServiceActivity  {
 
         staticSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-
-
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-            }
-
             @Override
             public void onItemSelected(AdapterView<?> arg0, View view,
                                        int position, long row_id) {
