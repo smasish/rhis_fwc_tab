@@ -344,10 +344,15 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         //jsonSpinnerMap.put("dPlace", getSpinner(R.id.delivery_time_Dropdown)); //time
         jsonSpinnerMap.put("dCenterName", getSpinner(R.id.id_facility_name_Dropdown));
         jsonSpinnerMap.put("dAttendantDesignation", getSpinner(R.id.id_attendantTitleDropdown)); //deliveryAttendant
-        jsonSpinnerMap.put("dTreatment", getSpinner(R.id.id_spinner_treatment)); //treatment
-        jsonSpinnerMap.put("dAdvice", getSpinner(R.id.id_spinner_advice)); //advice
         jsonSpinnerMap.put("dReferCenter", getSpinner(R.id.id_spinner_refer_facilities)); //refercenter
         jsonSpinnerMap.put("dReferReason", getSpinner(R.id.id_spinner_refer_delivery_cause)); //refer reason
+    }
+
+    @Override
+    protected void initiateMultiSelectionSpinners(){
+        jsonMultiSpinnerMap.put("dTreatment", getMultiSelectionSpinner(R.id.id_spinner_treatment)); //treatment
+        jsonMultiSpinnerMap.put("dAdvice", getMultiSelectionSpinner(R.id.id_spinner_advice)); //advice
+        jsonMultiSpinnerMap.put("dReferReason", getMultiSelectionSpinner(R.id.id_spinner_refer_delivery_cause)); //refer reason
     }
 
     @Override
@@ -439,6 +444,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             Utilities.getEditTexts(jsonEditTextMap, json);
             Utilities.getEditTextDates(jsonEditTextDateMap, json);
             Utilities.getSpinners(jsonSpinnerMap, json);
+            Utilities.getMultiSelectSpinnerIndices(jsonMultiSpinnerMap, json);
             Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
             getEditTextTime(json);
             getSpecialCases(json);

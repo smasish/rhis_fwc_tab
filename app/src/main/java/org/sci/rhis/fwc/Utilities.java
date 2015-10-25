@@ -2,6 +2,7 @@ package org.sci.rhis.fwc;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
@@ -22,12 +23,16 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
  * Created by jamil.zaman on 8/30/2015.
  */
 public class Utilities {
+
+    public final static int SPINNER_INDEX_OFFSET = 1;
 
     // This method added by Al Amin on 10/09/2015 (dd/MM/yyyy)
     public static void Disable(Activity activity, int id) {
@@ -127,12 +132,46 @@ public static void Visibility(Activity activity,int id)
                 spinner = keyMap.get(key);
                 if(spinner != null) {
                     //spinner.setSelection((json.getInt(key) - 1));
-                    json.put(key, String.valueOf(spinner.getSelectedItemPosition() + 1));
+                    json.put(key, String.valueOf(spinner.getSelectedItemPosition() + SPINNER_INDEX_OFFSET));
                 }
             } catch (JSONException jse) {
                 System.out.println("The JSON key: '" + key+ "' does not exist");
             }
         }
+    }
+
+    //Get values instead of indices from spinner
+    public static void getSpinnersVelues(HashMap<String, Spinner> keyMap, JSONObject json) {
+        Spinner spinner;
+        for (String key: keyMap.keySet()) {
+            try {
+                spinner = keyMap.get(key);
+                if(spinner != null) {
+                    //spinner.setSelection((json.getInt(key) - 1));
+                    json.put(key, "\"" + String.valueOf(spinner.getSelectedItem()) + "\"");
+                }
+            } catch (JSONException jse) {
+                System.out.println("The JSON key: '" + key+ "' does not exist");
+            }
+        }
+    }
+
+    //TODO: Error prone -> only handles keys related to treatment modules, will get NullPointer Exception if the key does not exist.
+    public static JSONObject getMultiSelectSpinnerIndices( HashMap<String, MultiSelectionSpinner> treatmentSpinnerMap, JSONObject json) {
+        for (String key: treatmentSpinnerMap.keySet()) {
+            try {
+                json.put(key,
+                        "[\"" + TextUtils.join("\",\"",
+                            treatmentSpinnerMap.get(key).getSelectedIndicesInText(SPINNER_INDEX_OFFSET))
+                        + "\"]");
+            } catch (JSONException JSE) {
+                Log.e("Utilities", "JSON Exception:\n" + JSE.toString());
+            } catch (NullPointerException NPE) {
+                Log.e("Utilities", "Key does not exist in map: "+ key + "\n" +
+                        "NullPointerException Exception:\n" + NPE.toString());
+            }
+        }
+        return json;
     }
 
     //update by position
@@ -227,14 +266,14 @@ public static void Visibility(Activity activity,int id)
 
     public static void setEditTextDates(HashMap<String, EditText> keyMap, JSONObject json) {
 
-        SimpleDateFormat iformat = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat oformat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dbFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat uiFormat = new SimpleDateFormat("dd/MM/yyyy");
         String currentDate;
         for (String key: keyMap.keySet()) {
             try {
                 currentDate = json.getString(key);
                 if(!currentDate.equals("")) {
-                    keyMap.get(key).setText(oformat.format(iformat.parse(json.getString(key))));
+                    keyMap.get(key).setText(uiFormat.format(dbFormat.parse(json.getString(key))));
                 }
             } catch (JSONException jse) {
                 System.out.println("The JSON key: '" + key+ "' does not exist");
@@ -248,6 +287,28 @@ public static void Visibility(Activity activity,int id)
 
         SimpleDateFormat uiFormat = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat dbFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String currentDate;
+        for (String key: keyMap.keySet()) {
+            try {
+                /*currentDate = json.getString(key);
+                if(!currentDate.equals("")) {
+                    keyMap.get(key).setText(oformat.format(iformat.parse(json.getString(key))));
+                }*/
+                json.put(key, dbFormat.format(uiFormat.parse(keyMap.get(key).getText().toString())));
+            } catch (JSONException jse) {
+                System.out.println("The JSON key: '" + key+ "' does not exist");
+            } catch (ParseException pe) {
+                System.out.println("Parsing Exception: Could not parse date:\n" + pe.toString());
+            } catch (NullPointerException NP) {
+                Log.i("Parse", NP.getMessage());
+            }
+        }
+    }
+
+    public static void getEditTextDates_withformat(HashMap<String, EditText> keyMap, JSONObject json) {
+
+        SimpleDateFormat uiFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dbFormat = new SimpleDateFormat("dd+MMM+yyyy");
         String currentDate;
         for (String key: keyMap.keySet()) {
             try {
@@ -303,5 +364,13 @@ public static void Visibility(Activity activity,int id)
                 Log.e("Null Pointer", NP.getMessage());
             }
         }
+    }
+
+    public static Date addDateOffset(Date given, int days) {
+        Calendar edd_cal = Calendar.getInstance();
+        edd_cal.setTime(given);
+
+        edd_cal.add(Calendar.DATE, days);
+        return edd_cal.getTime();
     }
 }
