@@ -87,6 +87,7 @@
         <item>National ID</item>
         <item>Birth Reg. No</item>
         <item>Mobile No </item>
+        <item>ADVANCE SEARCH</item>
     </string-array>
 
     <string-array name="nrcClientsSex">
@@ -649,4 +650,5 @@
     <string name="death_service">মৃত্যু </string>
     <string name="title_activity_delivery_newborn">DeliveryNewbornActivity</string>
     <string name="title_activity_death">DeathActivity</string>
+    <string name="title_activity_advsearch">ADVSearchActivity</string>
 </resources>
