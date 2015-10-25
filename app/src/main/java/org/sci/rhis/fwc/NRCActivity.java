@@ -3,7 +3,6 @@ package org.sci.rhis.fwc;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.util.Base64;
 import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
@@ -206,6 +205,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
     Log.e("FoundSumOfStrings!",getString);
         return getString;
     }
+    /*
     private static String convertToHex(byte[] data) throws java.io.IOException
     {
 
@@ -219,7 +219,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
 
         return sb.toString();
     }
-
+*/
     public String computeMD5Hash(String getString)
     {
 
