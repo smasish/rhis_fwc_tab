@@ -17,6 +17,39 @@
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal" />
 
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+           >
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Mother"
+                style="@style/rowHeading"
+                android:id="@+id/pncmother"
+
+                android:layout_gravity="center_horizontal" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Child"
+                style="@style/rowHeading"
+                android:id="@+id/pncchild"
+
+                android:layout_gravity="center_horizontal" />
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pnc_mother_frag"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            >
+
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/pnchistory_fragment"
             android:name="org.sci.rhis.fwc.PNCHistory" tools:layout="@layout/fragment_pnchistory"
@@ -24,12 +57,23 @@
             android:layout_height="250dp"
              />
 
+            </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pnc_child_frag"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:visibility="gone"
+            >
+
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/pnchistory_fragment_child"
-            android:name="org.sci.rhis.fwc.PNCHistory" tools:layout="@layout/fragment_pnc_child_history"
+            android:name="org.sci.rhis.fwc.PNC_Child_History" tools:layout="@layout/fragment_pnc_child_history"
             android:layout_width="wrap_content"
             android:layout_height="250dp"
+
             />
+        </LinearLayout>
 
         <Button
             android:layout_width="fill_parent"
@@ -470,7 +514,12 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/pncChildInfo" android:layout_marginLeft="10dp" android:layout_marginTop="10dp" android:paddingBottom="20dp" android:orientation="vertical" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="#FFFFFF">
+            android:id="@+id/pncChildInfo" android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp" android:paddingBottom="20dp"
+            android:orientation="vertical" android:layout_centerVertical="true"
+            android:layout_width="fill_parent" android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:background="#FFFFFF">
 
             <Button
                 android:id="@+id/pncInfoChildLabel"
