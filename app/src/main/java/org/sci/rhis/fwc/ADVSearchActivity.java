@@ -13,14 +13,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class ADVSearchActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
         View.OnClickListener,
@@ -31,12 +32,14 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
     private HashMap<String, Integer> unionCodeMap;
     private HashMap<String, Pair<Integer, Integer>> villageCodeMap;
 
-    private String selectedDistName, selectedUpazilaName,selectedUnionName, selectedVillageName, vilStringValue, villMouza;
-    private int divValue, distValue, upValue, unValue, vilValue, mouzaValue;
-    Button cancelBtn, searchBtn;
-    private String SERVLET = "advancesearch";
+    private  String selectedDistName, selectedUpazilaName,selectedUnionName, selectedVillageName, vilStringValue, villMouza, sumString="";
+    private  int divValue, distValue, upValue, unValue, vilValue, mouzaValue;
+    private  Button cancelBtn, searchBtn;
+    private  String SERVLET = "advancesearch";
     private  String ROOTKEY = "advanceSearch";
-
+    private String[] jsonString = new String[3];
+    private ListView searchListView ;
+    private ArrayAdapter<String> listAdapter ;
     AsyncADVSearchUpdate ADVSearchUpdateTask;
 
     @Override
@@ -57,6 +60,24 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
         villageMapping();
         addListenerOnButton();
     }
+
+
+
+    private void initList(){
+
+
+
+
+        ArrayList<String> clientsList = new ArrayList<String>();
+        clientsList.addAll(Arrays.asList(jsonString));
+
+        ArrayAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,  clientsList);
+        searchListView = (ListView) findViewById(R.id.search_result);
+
+        searchListView.setAdapter( listAdapter );
+    }
+
+
   private String  ZillaMapping(){
       districtCodeMap = new HashMap<String,Pair<Integer, Integer>>();
       districtCodeMap.put("ব্রাক্ষ্মণবাড়িয়া", Pair.create(12, 20));
@@ -180,7 +201,7 @@ private  int unionMapping(){
                 break;
             case 16:
                 //villageCodeMap.put("মিঠাপুকুর",Pair.create(02, 368));
-                villageCodeMap.put("দক্ষিণমোহাম্মদপুর",Pair.create(01, 276));
+               villageCodeMap.put("দক্ষিণমোহাম্মদপুর",Pair.create(01, 276));
                 break;
         }
         ArrayList<String> vilLIst = new ArrayList<String>();
@@ -201,9 +222,10 @@ private  int unionMapping(){
 
         Log.e("selected Village Value", String.valueOf(vilStringValue));
         Log.e("selected mouza Value", String.valueOf(mouzaValue));
-        villMouza = vilStringValue + "_" + mouzaValue;
+       // villMouza = vilStringValue + "_" + mouzaValue;
+        villMouza = "\"\"";
 
-        Log.e(String.valueOf(villMouza), "selected villMouza Value");
+                Log.e(String.valueOf(villMouza), "selected villMouza Value");
 
         return villMouza;
     }
@@ -263,6 +285,7 @@ private  int unionMapping(){
                 if(v.getId() == R.id.searchBtn)
                 {
                     advSearchSaveToJson();
+
                 }
             }
         });
@@ -294,16 +317,35 @@ private  int unionMapping(){
     @Override
     public void callbackAsyncTask(String result) {
         Log.e("Found result", result);
+        //String[] jsonString = new String[100];
         JSONObject json;
         try {
             json = new JSONObject(result);
             String key;
 
             //DEBUG
-            for (Iterator<String> ii = json.keys(); ii.hasNext(); ) {
-                key = ii.next();
-                System.out.println("1.Key:" + key + " Value:\'" + json.get(key) + "\'");
+            for (int i=1; i<= (json.getInt("count")); i++) {
+
+               // System.out.println("1.Key:" + key + " Value:\'" + json.get(key) + "\'");
+
+            JSONObject json1 = new JSONObject(json.getString(String.valueOf(i)));
+            JSONObject json2 = new JSONObject(json.getString(String.valueOf(i)));
+
+
+               String sss = json2.getString("name") + " | " + json1.getString("healthId") ;
+
+
+                jsonString[i-1] = sss;
+               // sumString = sumString + sss;
+                //Log.e("Found", sss);
+
             }
+
+
+         // for (int i=0; i< (json.getInt("count")); i++)
+            Log.e("Found", Arrays.toString(jsonString));
+
+            initList();
         }
             catch (JSONException jse) {
                 jse.printStackTrace();
