@@ -169,7 +169,7 @@ public class SecondActivity extends ClinicalServiceActivity  {
 
     @Override
     public void callbackAsyncTask(String result) { //Get results back from healthId search
-
+        Log.e("result:",result);
         try {
             JSONObject json = new JSONObject(result);
             String key;
@@ -348,6 +348,12 @@ public class SecondActivity extends ClinicalServiceActivity  {
         jsonCheckboxMap.put("cTT4", getCheckbox(R.id.Clients_TT_Tika4));
         jsonCheckboxMap.put("cTT5", getCheckbox(R.id.Clients_TT_Tika5));
 
+        jsonCheckboxMapSave.put("tt1", getCheckbox(R.id.Clients_TT_Tika1));
+        jsonCheckboxMapSave.put("tt2", getCheckbox(R.id.Clients_TT_Tika2));
+        jsonCheckboxMapSave.put("tt3", getCheckbox(R.id.Clients_TT_Tika3));
+        jsonCheckboxMapSave.put("tt4", getCheckbox(R.id.Clients_TT_Tika4));
+        jsonCheckboxMapSave.put("tt5", getCheckbox(R.id.Clients_TT_Tika5));
+
         //Complicated Delivery History
         //NOTE: These JSON keys are not present in the Servlet response
         //The response will be manipulated to trick Checkbox handlers
@@ -402,12 +408,12 @@ public class SecondActivity extends ClinicalServiceActivity  {
             Utilities.getEditTexts(jsonEditTextMap, json);
             Utilities.getEditTextDates(jsonEditTextDateMap, json);
             Utilities.getEditTextDatesPlusFormat(jsonEditTextDatePlusFormatMap, json);
-            Utilities.getCheckboxes(jsonCheckboxMap, json);
+            Utilities.getCheckboxesBlank(jsonCheckboxMapSave, json);
             //buildJson(complicated);
             Utilities.getSpinnersValuesWithoutSlash(jsonSpinnerMap, json);
             //  Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
             getSpecialCases(json);
-            Log.e("Pregwomen", "***************In progress :" + json.toString());
+            Log.e("Pregwomen", "***************In progress :" + json.toString());/*
            // clientInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
            String outputJSON;
             outputJSON="{\"pregNo\":\"\",\n" +              //done
@@ -432,9 +438,9 @@ public class SecondActivity extends ClinicalServiceActivity  {
             z = new JSONObject(outputJSON);
            // Log.d("How the json looks", "***************In progress b4 json:" + z.toString());
             // outputJSON={"pregNo":"","healthId":"38236987455329","providerId":"6608","houseGRHoldingNo":"","mobileNo":"01678945666","lmp":"2015-10-12","edd":"18+Jul+2016","para":"0","gravida":"1","boy":"0","girl":"0","lastChildAge":0,"height":64,"bloodGroup":"none","tt1":"","ttDate1":"","tt2":"","ttDate2":"","tt3":"","ttDate3":"","tt4":"","ttDate4":"","tt5":"","ttDate5":"","complicatedHistory":"","complicatedHistoryNote":"1,2,3,9"};
-
-            clientInfoUpdateTask.execute(z.toString(), SERVLET, ROOTKEY);
-          //  System.out.print("In Save, Client Json in Query:" + json.toString());
+            */
+            clientInfoUpdateTask.execute(json.toString(), "handlepregwomen", ROOTKEY);
+            System.out.print("In Save, Client Json in Query:" + json.toString());
         }
         catch (JSONException jse) {
             Log.e("Pregwomen", "JSON Exception: " + jse.getMessage());
@@ -447,8 +453,15 @@ public class SecondActivity extends ClinicalServiceActivity  {
         String queryString =   "{" +
                 "healthid:\"" +responseID + "\"," +
                 "providerid:\""+ ProviderInfo.getProvider().getProviderCode()+"\","+
-                "pregno:\"\""+
-                "}";
+                "pregNo:\"\","+
+                "complicatedHistory:\"\"," +
+                "complicatedHistoryNote:\"9\",";
+
+        for (int i=1;i<=5;i++)
+            queryString+= "ttDate"+i+":\"\",";
+
+        queryString = queryString.substring(0, queryString.length()-1);
+        queryString+="}";
         return new JSONObject(queryString);
     }
 

@@ -16,6 +16,7 @@ import java.util.HashMap;
 public abstract class ClinicalServiceActivity extends FWCServiceActivity {
 
     protected HashMap<String, CheckBox> jsonCheckboxMap;
+    protected HashMap<String, CheckBox> jsonCheckboxMapSave;
     protected HashMap<String, CheckBox> jsonCheckboxGroupMap;
     protected HashMap<String, Spinner> jsonSpinnerMap;
     protected HashMap<String, MultiSelectionSpinner> jsonMultiSpinnerMap;
@@ -33,6 +34,7 @@ public abstract class ClinicalServiceActivity extends FWCServiceActivity {
     protected void initialize() {
         //populate checkboxes
         jsonCheckboxMap = new HashMap<>();
+        jsonCheckboxMapSave = new HashMap<>();
         initiateCheckboxes();
 
         jsonCheckboxGroupMap = new HashMap<>();
