@@ -24,6 +24,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class NRCActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
                                                                     View.OnClickListener,
@@ -349,7 +350,21 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
 
     @Override
     public void callbackAsyncTask(String result) {
+        Log.e("Found result", result);
+        JSONObject json;
+        try {
+            json = new JSONObject(result);
+            String key;
 
+            //DEBUG
+            for (Iterator<String> ii = json.keys(); ii.hasNext(); ) {
+                key = ii.next();
+                System.out.println("1.Key:" + key + " Value:\'" + json.get(key) + "\'");
+            }
+        }
+        catch (JSONException jse) {
+            jse.printStackTrace();
+        }
     }
 
     @Override

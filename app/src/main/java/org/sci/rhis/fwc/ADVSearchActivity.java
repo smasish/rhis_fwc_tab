@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class ADVSearchActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
         View.OnClickListener,
@@ -33,7 +34,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
     private String selectedDistName, selectedUpazilaName,selectedUnionName, selectedVillageName, vilStringValue, villMouza;
     private int divValue, distValue, upValue, unValue, vilValue, mouzaValue;
     Button cancelBtn, searchBtn;
-    private String SERVLET = "ClientAdvanceSearchServlet";
+    private String SERVLET = "advancesearch";
     private  String ROOTKEY = "advanceSearch";
 
     AsyncADVSearchUpdate ADVSearchUpdateTask;
@@ -292,6 +293,21 @@ private  int unionMapping(){
 
     @Override
     public void callbackAsyncTask(String result) {
+        Log.e("Found result", result);
+        JSONObject json;
+        try {
+            json = new JSONObject(result);
+            String key;
+
+            //DEBUG
+            for (Iterator<String> ii = json.keys(); ii.hasNext(); ) {
+                key = ii.next();
+                System.out.println("1.Key:" + key + " Value:\'" + json.get(key) + "\'");
+            }
+        }
+            catch (JSONException jse) {
+                jse.printStackTrace();
+            }
 
     }
 
