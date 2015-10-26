@@ -56,7 +56,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
         villageMapping();
         addListenerOnButton();
     }
-  private int ZillaMapping(){
+  private String  ZillaMapping(){
       districtCodeMap = new HashMap<String,Pair<Integer, Integer>>();
       districtCodeMap.put("ব্রাক্ষ্মণবাড়িয়া", Pair.create(12, 20));
       districtCodeMap.put("হবিগঞ্জ", Pair.create(36, 60));
@@ -77,7 +77,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
       Log.e("selected division Value", String.valueOf(divValue));
       Log.e("selected district Value", String.valueOf(distValue));
 
-        return  distValue;
+        return  (distValue + "_" + divValue);
   }
 
 
