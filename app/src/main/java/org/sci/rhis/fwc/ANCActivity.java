@@ -247,6 +247,8 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         AsyncClientInfoUpdate client = new AsyncClientInfoUpdate(ANCActivity.this);
         //SendPostRequestAsyncTask
         AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(ANCActivity.this);
+
+        Log.d("-!!!!!!!!!!->"+provider.getProviderCode(), "---=keys()====>" + mother.getPregNo());
         String queryString =   "{" +
                 "pregNo:" + mother.getPregNo() + "," +
                 "healthid:" + mother.getHealthId() + "," +
@@ -399,7 +401,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                             jsonArray = jsonStr.getJSONArray(list.get(in-1));
 
                             list1 = new ArrayList<String>();
-                            for (int i = 1; i < jsonArray.length(); i++) {
+                            for (int i = 1; i < jsonArray.length()-3; i++) {
 
 
                                 list1.add(""+mainlist[i-1]+"" + jsonArray.get(i).toString());
