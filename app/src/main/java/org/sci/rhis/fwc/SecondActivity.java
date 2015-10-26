@@ -49,6 +49,8 @@ public class SecondActivity extends ClinicalServiceActivity  {
     private BigInteger responseID= BigInteger.valueOf(0);
     EditText lmpEditText;
     EditText eddEditText;
+    EditText HouseGREditText = (EditText) findViewById(R.id.Clients_House_No);
+    EditText MobileNoEditText = (EditText) findViewById(R.id.Clients_Mobile_no);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -195,9 +197,6 @@ public class SecondActivity extends ClinicalServiceActivity  {
                     woman.UpdateUIField(this);
                     Utilities.Disable(this, R.id.clients_info_layout);
 
-                    EditText HouseGREditText = (EditText) findViewById(R.id.Clients_House_No);
-                    EditText MobileNoEditText = (EditText) findViewById(R.id.Clients_Mobile_no);
-
                     HouseGREditText.setFocusable(false);
                     MobileNoEditText.setFocusable(false);
 
@@ -212,7 +211,10 @@ public class SecondActivity extends ClinicalServiceActivity  {
             }
             else
             {
+                Utilities.Disable(this, R.id.clients_info_layout);
 
+                HouseGREditText.setFocusable(false);
+                MobileNoEditText.setFocusable(false);
                 ////
             }
 
@@ -288,8 +290,7 @@ public class SecondActivity extends ClinicalServiceActivity  {
             datePickerDialog.show(datePickerPair.get(view.getId()));
         }*/
             saveClientToJson();
-            Toast.makeText(this, "Clicked...", Toast.LENGTH_LONG).show();
-            System.out.print("Clicked");
+
     }
 
    ////for complication history
@@ -387,10 +388,11 @@ public class SecondActivity extends ClinicalServiceActivity  {
     @Override
     protected void initiateEditTextDates(){
           jsonEditTextDateMap.put("lmp", getEditText(R.id.lmpDate));
+          jsonEditTextDateMap.put("edd", getEditText(R.id.edd));
     }
 
     protected void initiateEditTextDatesPlusFormat(){
-        jsonEditTextDatePlusFormatMap.put("edd", getEditText(R.id.edd));
+
     }
 
     @Override
@@ -407,7 +409,7 @@ public class SecondActivity extends ClinicalServiceActivity  {
            // Utilities.getCheckboxes(jsonCheckboxMap, json);
             Utilities.getEditTexts(jsonEditTextMap, json);
             Utilities.getEditTextDates(jsonEditTextDateMap, json);
-            Utilities.getEditTextDatesPlusFormat(jsonEditTextDatePlusFormatMap, json);
+           // Utilities.getEditTextDatesPlusFormat(jsonEditTextDatePlusFormatMap, json);
             Utilities.getCheckboxesBlank(jsonCheckboxMapSave, json);
             //buildJson(complicated);
             Utilities.getSpinnersValuesWithoutSlash(jsonSpinnerMap, json);
@@ -451,8 +453,8 @@ public class SecondActivity extends ClinicalServiceActivity  {
     private JSONObject buildQueryHeader(boolean isRetrieval) throws JSONException {
         //get info from database
         String queryString =   "{" +
-                "healthid:\"" +responseID + "\"," +
-                "providerid:\""+ ProviderInfo.getProvider().getProviderCode()+"\","+
+                "healthId:\"" +responseID + "\"," +
+                "providerId:\""+ ProviderInfo.getProvider().getProviderCode()+"\","+
                 "pregNo:\"\","+
                 "complicatedHistory:\"\"," +
                 "complicatedHistoryNote:\"9\",";
