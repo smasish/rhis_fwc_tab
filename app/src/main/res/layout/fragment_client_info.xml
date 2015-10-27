@@ -574,7 +574,8 @@
                 android:text="Add new pregnancy info"
                 android:background="@drawable/button_style"
                 android:id="@+id/New_Button"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:onClick="resetFields"/>
 
         </LinearLayout>
     </LinearLayout>

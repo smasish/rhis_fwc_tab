@@ -45,7 +45,7 @@ public class Utilities {
                 Disable(activity, view.getId());
             }
             else if (view instanceof EditText )
-            {
+            {  Log.e("s", String.valueOf(view.getClass()));
                 if(view.getId()==R.id.Clients_House_No || view.getId()==R.id.Clients_Mobile_no);
                 else
                     (view).setFocusable(false);
@@ -63,7 +63,6 @@ public class Utilities {
 
             }
             else if (view instanceof CheckBox) {
-
                 ((CheckBox) view).setCursorVisible(false);
                 ((CheckBox) view).setKeyListener(null);
             }
@@ -82,13 +81,14 @@ public class Utilities {
             }
         }
     }
-public static void Visibility(Activity activity,int id)
-{
-    ViewGroup visibility = (ViewGroup)activity.findViewById(id);
-    int view =visibility.getId();
 
-            visibility.setVisibility(View.GONE);
-}
+    public static void Visibility(Activity activity,int id)
+    {
+        ViewGroup visibility = (ViewGroup)activity.findViewById(id);
+        int view =visibility.getId();
+
+                visibility.setVisibility(View.GONE);
+    }
 
     public static void Enable(Activity activity, int id) {
 
@@ -101,8 +101,9 @@ public static void Visibility(Activity activity,int id)
             }
             else if (view instanceof EditText )
             {
-
+                (view).setFocusableInTouchMode(true);
                 (view).setFocusable(true);
+                ((EditText)view).setText("");
                 // (view).setEnabled(true);
             }
             else if (view instanceof ImageButton)
@@ -116,13 +117,15 @@ public static void Visibility(Activity activity,int id)
 
             }
             else if (view instanceof CheckBox) {
-
                 ((CheckBox) view).setCursorVisible(true);
+                if(((CheckBox) view).isChecked())
+                ((CheckBox) view).setChecked(false);
                // ((CheckBox) view).setKeyListener(null);
             }
             else if (view instanceof RadioButton) {
 
                 ((RadioButton) view).setCursorVisible(true);
+                 ((RadioButton) view).setChecked(false);
                // ((RadioButton) view).setKeyListener(null);
             }
             else if (view instanceof Spinner) {
@@ -135,6 +138,16 @@ public static void Visibility(Activity activity,int id)
                 System.out.print(group);
             }
         }
+    }
+
+    public static void EnableEditText(EditText e){
+        e.setFocusableInTouchMode(true);
+        e.setFocusable(true);
+        e.setText("");
+    }
+
+    public static void DisableEditText(EditText e){
+        e.setFocusable(false);
     }
 
     public static void getSpinners(HashMap<String, Spinner> keyMap, JSONObject json) {
@@ -179,7 +192,7 @@ public static void Visibility(Activity activity,int id)
                     json.put(key, String.valueOf(spinner.getSelectedItem()) );
                 }
             } catch (JSONException jse) {
-                System.out.println("The JSON key: '" + key+ "' does not exist");
+                System.out.println("The JSON key: '" + key + "' does not exist");
             }
         }
     }
@@ -340,28 +353,6 @@ public static void Visibility(Activity activity,int id)
         for (String key: keyMap.keySet()) {
             try {
                 /*currentDate = json.getString(key);
-                if(!currentDate.equals("")) {
-                    keyMap.get(key).setText(oformat.format(iformat.parse(json.getString(key))));
-                }*/
-                json.put(key, dbFormat.format(uiFormat.parse(keyMap.get(key).getText().toString())));
-            } catch (JSONException jse) {
-                System.out.println("The JSON key: '" + key+ "' does not exist");
-            } catch (ParseException pe) {
-                System.out.println("Parsing Exception: Could not parse date:\n" + pe.toString());
-            } catch (NullPointerException NP) {
-                Log.i("Parse", NP.getMessage());
-            }
-        }
-    }
-
-    public static void getEditTextDatesPlusFormat(HashMap<String, EditText> keyMap, JSONObject json) {
-
-        SimpleDateFormat uiFormat = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat dbFormat = new SimpleDateFormat("dd+MMM+yyyy");
-        String currentDate;
-        for (String key: keyMap.keySet()) {
-            try {
-               /* currentDate = json.getString(key);
                 if(!currentDate.equals("")) {
                     keyMap.get(key).setText(oformat.format(iformat.parse(json.getString(key))));
                 }*/

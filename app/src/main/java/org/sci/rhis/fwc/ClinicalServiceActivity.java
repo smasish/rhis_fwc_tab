@@ -24,7 +24,6 @@ public abstract class ClinicalServiceActivity extends FWCServiceActivity {
     protected HashMap<String, EditText> jsonEditTextMap;
     protected HashMap<String, EditText> jsonEditTextRetrieveMap;
     protected HashMap<String, EditText> jsonEditTextDateMap;
-    protected HashMap<String, EditText> jsonEditTextDatePlusFormatMap;
     protected HashMap<String, TextView> jsonTextViewsMap;
 
     @Override
@@ -65,10 +64,6 @@ public abstract class ClinicalServiceActivity extends FWCServiceActivity {
         jsonEditTextDateMap = new HashMap<String, EditText>();
         initiateEditTextDates();
 
-        //populate EditTextsDate(edd)PlusFormat
-        jsonEditTextDatePlusFormatMap = new HashMap<String, EditText>();
-        initiateEditTextDatesPlusFormat();
-
     }
 
 
@@ -78,7 +73,6 @@ public abstract class ClinicalServiceActivity extends FWCServiceActivity {
     protected abstract void initiateSpinners();
     protected abstract void initiateMultiSelectionSpinners();
     protected abstract void initiateEditTextDates();
-    protected void initiateEditTextDatesPlusFormat() {};
     protected void initiateCheckboxesGroup() {};
     protected abstract void initiateRadioGroups();
 
