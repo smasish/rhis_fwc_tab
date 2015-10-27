@@ -141,7 +141,7 @@ public static void Visibility(Activity activity,int id)
     }
 
     //Get values instead of indices from spinner
-    public static void getSpinnersVelues(HashMap<String, Spinner> keyMap, JSONObject json) {
+    public static void getSpinnerValues(HashMap<String, Spinner> keyMap, JSONObject json) {
         Spinner spinner;
         for (String key: keyMap.keySet()) {
             try {

@@ -586,7 +586,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
             Utilities.getCheckboxes(jsonCheckboxMap, json);
             Utilities.getEditTexts(jsonEditTextMap, json);
             Utilities.getEditTextDates(jsonEditTextDateMap, json);
-            Utilities.getSpinnersVelues(jsonSpinnerMap, json);
+            Utilities.getSpinnerValues(jsonSpinnerMap, json);
             Utilities.getMultiSelectSpinnerIndices(jsonMultiSpinnerMap, json);
             Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
             //getEditTextTime(json);

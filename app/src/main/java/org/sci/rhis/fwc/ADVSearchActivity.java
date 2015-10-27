@@ -15,12 +15,13 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class ADVSearchActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
@@ -41,7 +42,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
     private ListView searchListView ;
     private ArrayAdapter<String> listAdapter ;
     AsyncADVSearchUpdate ADVSearchUpdateTask;
-
+    ArrayList<String> clientsList = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,16 +66,29 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
 
     private void initList(){
 
-
-
-
-        ArrayList<String> clientsList = new ArrayList<String>();
-        clientsList.addAll(Arrays.asList(jsonString));
-
         ArrayAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,  clientsList);
         searchListView = (ListView) findViewById(R.id.search_result);
 
         searchListView.setAdapter( listAdapter );
+        final Context context = this;
+
+        searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+
+                String item = ((TextView) view).getText().toString();
+                Toast.makeText(getBaseContext(),"You have clicked on " + item, Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(context, SecondActivity.class);
+                intent.putExtra("HealthId", item);
+                startActivity(intent);
+
+
+            }
+        });
+
     }
 
 
@@ -91,8 +105,10 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
       ArrayAdapter<String> adapter = new ArrayAdapter<String>(
               this, android.R.layout.simple_spinner_item, distLIst);
       adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
       Spinner spnDist = (Spinner) findViewById(R.id.Clients_District);
       spnDist.setAdapter(adapter);
+
       selectedDistName = spnDist.getSelectedItem().toString();
       distValue = districtCodeMap.get(selectedDistName).first;
       divValue = districtCodeMap.get(selectedDistName).second;
@@ -251,7 +267,8 @@ private  int unionMapping(){
         try {
             json = buildQueryHeader();
             Utilities.getEditTexts(jsonEditTextMap, json);
-            Utilities.getSpinners(jsonSpinnerMap, json);
+            Utilities.getSpinners(jsonSpinnerMap, json);      // for sex Spinner
+            //Utilities.getSpinnerValues(jsonSpinnerMap, json); // for upz, union Spinner
 
             Log.e("ADVSearch JSON 2SERVLET", json.toString());
 
@@ -317,35 +334,25 @@ private  int unionMapping(){
     @Override
     public void callbackAsyncTask(String result) {
         Log.e("Found result", result);
-        //String[] jsonString = new String[100];
         JSONObject json;
         try {
             json = new JSONObject(result);
-            String key;
 
-            //DEBUG
             for (int i=1; i<= (json.getInt("count")); i++) {
 
-               // System.out.println("1.Key:" + key + " Value:\'" + json.get(key) + "\'");
+                String sss= (json.getJSONObject(String.valueOf(i)).getString("name") + " || "
+                              + json.getJSONObject(String.valueOf(i)).getString("healthId"));
 
-            JSONObject json1 = new JSONObject(json.getString(String.valueOf(i)));
-            JSONObject json2 = new JSONObject(json.getString(String.valueOf(i)));
-
-
-               String sss = json2.getString("name") + " | " + json1.getString("healthId") ;
+                             clientsList.add(sss);
+                            Log.e("Found", sss);
 
 
-                jsonString[i-1] = sss;
-               // sumString = sumString + sss;
-                //Log.e("Found", sss);
 
             }
 
-
-         // for (int i=0; i< (json.getInt("count")); i++)
-            Log.e("Found", Arrays.toString(jsonString));
-
             initList();
+
+
         }
             catch (JSONException jse) {
                 jse.printStackTrace();
@@ -371,7 +378,10 @@ private  int unionMapping(){
     @Override
     protected void initiateSpinners() {
         jsonSpinnerMap.put("gender", getSpinner(R.id.advClientsSexSpinner));
-
+       // jsonSpinnerMap.put("zilla", getSpinner(R.id.Clients_District));
+        //jsonSpinnerMap.put("upz", getSpinner(R.id.Clients_Upazila));
+        //jsonSpinnerMap.put("union", getSpinner(R.id.Clients_Union));
+        //jsonSpinnerMap.put("villagemouza", getSpinner(R.id.Clients_Village));
     }
 
     @Override
