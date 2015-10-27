@@ -67,7 +67,14 @@ public class SecondActivity extends ClinicalServiceActivity  {
         providerCode = Integer.parseInt(String.valueOf(provider.getProviderCode()));
         Log.i("SecondActivity", "" + provider.getProviderFacility());
 
-        Log.e("aaf", "" + provider.getProviderFacility()+ providerCode);
+
+
+        Intent intent = getIntent();
+        String str = intent.getStringExtra("HealthId");
+        if(str!=null)
+        Log.d("Get Health Id From ADVS", str);
+
+
         initialize();//super class
         Spinner staticSpinner = (Spinner) findViewById(R.id.ClientsIdentityDropdown);
         // Create an ArrayAdapter using the string array and a default spinner
