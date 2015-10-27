@@ -623,12 +623,7 @@ pnc child history
         jsonSpinnerMap.put("pncperineum", getSpinner(R.id.pncPerineumSpinner));
         //jsonSpinnerMap.put("pncanemia", getSpinner(R.id.pncAnemiaSpinner));
         jsonSpinnerMap.put("pncfpmethod", getSpinner(R.id.pncFamilyPlanningMethodsSpinner));
-        jsonSpinnerMap.put("pncsymptom", getSpinner(R.id.pncDrawbackSpinner));
-        jsonSpinnerMap.put("pncdisease", getSpinner(R.id.pncDiseaseSpinner));
-        jsonSpinnerMap.put("pnctreatment", getSpinner(R.id.pncTreatmentSpinner));
-        jsonSpinnerMap.put("pncadvice", getSpinner(R.id.pncAdviceSpinner));
         jsonSpinnerMap.put("pncrefercentername", getSpinner(R.id.pncReferCenterNameSpinner));
-        jsonSpinnerMap.put("pncreferreason", getSpinner(R.id.pncReasonSpinner));
 
         // PNC Child Info
         jsonSpinnerMap.put("pncdangersign", getSpinner(R.id.pncChildDangerSignsSpinner));
@@ -640,7 +635,13 @@ pnc child history
         jsonSpinnerMap.put("pncreferreason", getSpinner(R.id.pncChildReasonSpinner));
     }
     @Override
-    protected void initiateMultiSelectionSpinners(){}
+    protected void initiateMultiSelectionSpinners(){
+        jsonMultiSpinnerMap.put("pncsymptom", getMultiSelectionSpinner(R.id.pncDrawbackSpinner));
+        jsonMultiSpinnerMap.put("pncdisease", getMultiSelectionSpinner(R.id.pncDiseaseSpinner));
+        jsonMultiSpinnerMap.put("pnctreatment", getMultiSelectionSpinner(R.id.pncTreatmentSpinner));
+        jsonMultiSpinnerMap.put("pncadvice", getMultiSelectionSpinner(R.id.pncAdviceSpinner));
+        jsonMultiSpinnerMap.put("pncreferreason", getMultiSelectionSpinner(R.id.pncReasonSpinner));
+    }
 
     @Override
     protected void initiateEditTexts() {
