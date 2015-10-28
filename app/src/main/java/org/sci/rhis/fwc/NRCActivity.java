@@ -3,7 +3,6 @@ package org.sci.rhis.fwc;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.util.Base64;
 import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
@@ -25,6 +24,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class NRCActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
                                                                     View.OnClickListener,
@@ -206,6 +206,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
     Log.e("FoundSumOfStrings!",getString);
         return getString;
     }
+    /*
     private static String convertToHex(byte[] data) throws java.io.IOException
     {
 
@@ -219,7 +220,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
 
         return sb.toString();
     }
-
+*/
     public String computeMD5Hash(String getString)
     {
 
@@ -349,7 +350,21 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
 
     @Override
     public void callbackAsyncTask(String result) {
+        Log.e("Found result", result);
+        JSONObject json;
+        try {
+            json = new JSONObject(result);
+            String key;
 
+            //DEBUG
+            for (Iterator<String> ii = json.keys(); ii.hasNext(); ) {
+                key = ii.next();
+                System.out.println("1.Key:" + key + " Value:\'" + json.get(key) + "\'");
+            }
+        }
+        catch (JSONException jse) {
+            jse.printStackTrace();
+        }
     }
 
     @Override

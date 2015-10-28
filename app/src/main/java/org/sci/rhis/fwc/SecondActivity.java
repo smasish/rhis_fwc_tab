@@ -10,11 +10,11 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,7 +70,14 @@ public class SecondActivity extends ClinicalServiceActivity {
         providerCode = Integer.parseInt(String.valueOf(provider.getProviderCode()));
         Log.i("SecondActivity", "" + provider.getProviderFacility());
 
-        Log.e("aaf", "" + provider.getProviderFacility() + providerCode);
+
+
+        Intent intent = getIntent();
+        String str = intent.getStringExtra("HealthId");
+        if(str!=null)
+        Log.d("Get Health Id From ADVS", str);
+
+
         initialize();//super class
         Spinner staticSpinner = (Spinner) findViewById(R.id.ClientsIdentityDropdown);
         // Create an ArrayAdapter using the string array and a default spinner
@@ -81,6 +88,28 @@ public class SecondActivity extends ClinicalServiceActivity {
 
         // Apply the adapter to the spinner
         staticSpinner.setAdapter(staticAdapter);
+
+        staticSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View view,
+                                       int position, long row_id) {
+                final Intent intent;
+               if (position==5) {
+                   intent = new Intent(SecondActivity.this, ADVSearchActivity.class);
+                   startActivity(intent);
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
         lmpEditText = (EditText) findViewById(R.id.lmpDate);
         eddEditText = (EditText) findViewById(R.id.edd);
 

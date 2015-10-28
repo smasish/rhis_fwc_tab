@@ -23,6 +23,7 @@ import org.sci.rhis.utilities.CustomTimePickerDialog;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public class DeliveryNewbornActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
@@ -128,7 +129,21 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
     @Override
     public void callbackAsyncTask(String result) {
+        Log.e("Found result", result);
+        JSONObject json;
+        try {
+            json = new JSONObject(result);
+            String key;
 
+            //DEBUG
+            for (Iterator<String> ii = json.keys(); ii.hasNext(); ) {
+                key = ii.next();
+                System.out.println("1.Key:" + key + " Value:\'" + json.get(key) + "\'");
+            }
+        }
+        catch (JSONException jse) {
+            jse.printStackTrace();
+        }
     }
 
     @Override

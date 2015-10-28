@@ -166,7 +166,7 @@ public class Utilities {
     }
 
     //Get values instead of indices from spinner
-    public static void getSpinnersValues(HashMap<String, Spinner> keyMap, JSONObject json) {
+    public static void getSpinnerValues(HashMap<String, Spinner> keyMap, JSONObject json) {
         Spinner spinner;
         for (String key: keyMap.keySet()) {
             try {

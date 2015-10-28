@@ -87,6 +87,7 @@
         <item>National ID</item>
         <item>Birth Reg. No</item>
         <item>Mobile No </item>
+        <item>ADVANCE SEARCH</item>
     </string-array>
 
     <string-array name="nrcClientsSex">
@@ -105,33 +106,31 @@
 
 
     <string-array name="list_item">
+
         <item>সেবাগ্রহনের তারিখ:</item>
         <item>রক্তচাপ (মিঃ মিঃ মার্কারি):</item>
         <item>ওজন (কেজি):</item>
         <item>ইডিমা:</item>
-        <item>জরায়ুর উচ্চতা (সপ্তাহ):</item>
+        <item>জরায়ুর উচ্চতা (সপ্তাহ):</item>
         <item>ফিটাসের হৃদপিণ্ডের গতি (প্রতি মিনিটে):</item>
         <item>ফিটাল প্রেজেনটেশন:</item>
-        <item>রক্তস্বল্পতা / হিমোগ্লোবিন:</item>
+        <item>রক্তস্বল্পতা :</item>
+        <item>হিমোগ্লোবিন:</item>
         <item>জন্ডিস:</item>
         <item>প্রস্রাব পরীক্ষা: সুগার:</item>
         <item>প্রস্রাব পরীক্ষা: এলবুমিন:</item>
         <item>বিপদ চিহ্ন / জটিলতা:</item>
-        <item>অসুবিধা:</item>
         <item>রোগ:</item>
         <item>চিকিৎসা:</item>
         <item>পরামর্শ:</item>
         <item>রেফার:</item>
         <item>কেন্দ্রের নাম:</item>
         <item>কারণ:</item>
-        <item>প্রসবোত্তর সেবা</item>
-        <item>বর্তমান সেবার তথ্য: মা</item>
-        <item>তাপমাত্রা:</item>
-        <item>স্তনের অবস্থা:</item>
-        <item>জরায়ুর ইনভলিউশন:</item>
-        <item>স্রাব/ রক্তস্রাব:</item>
-        <item>পেরিনিয়াম:</item>
-        <item>পরিবার পরিকল্পনা পদ্ধতি(পরামর্শ / পদ্ধতি প্রদান):</item>
+
+        <item>রেফার:</item>
+        <item>কেন্দ্রের নাম:</item>
+        <item>কারণ:</item>
+
     </string-array>
 
     <string name="pnc_m_poridorshan">পরিদর্শন</string>
@@ -649,4 +648,5 @@
     <string name="death_service">মৃত্যু </string>
     <string name="title_activity_delivery_newborn">DeliveryNewbornActivity</string>
     <string name="title_activity_death">DeathActivity</string>
+    <string name="title_activity_advsearch">ADVSearchActivity</string>
 </resources>

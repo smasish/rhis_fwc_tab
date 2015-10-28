@@ -54,6 +54,10 @@
             android:name=".DeathActivity"
             android:label="@string/title_activity_death" >
         </activity>
+        <activity
+            android:name=".ADVSearchActivity"
+            android:label="@string/title_activity_advsearch" >
+        </activity>
     </application>
 
 </manifest>

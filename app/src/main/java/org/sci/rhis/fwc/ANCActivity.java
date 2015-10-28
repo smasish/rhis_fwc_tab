@@ -68,25 +68,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     final private String SERVLET = "anc";
     final private String ROOTKEY = "ANCInfo";
 
-    private static final String TAG_VISIT_NO = "ancVisit01";
-    private static final String TAG_DATE = "2015-07-02";
-    private static final String TAG_BLOOD_PRESSURE = "120";
-    private static final String TAG_WEIGHT = "22";
-    private static final String TAG_EDIMA = "22";
-    private static final String TAG_J_HEIGHT = "5.6";
-    private static final String TAG_FITNESS_PM = "FIT";
-    private static final String TAG_PHITAL_PRESENTATION = "GOOD";
-    private static final String TAG_HIMOGLOBIN = "2";
-    private static final String TAG_JONDIS = "3";
-    private static final String TAG_URIN_SUGAR = "3";
-    private static final String TAG_URIN_TEST = "3";
-    private static final String TAG_DANGER_SIGN = "OFF";
-    private static final String TAG_DISADVANTAGE = "NA";
-    private static final String TAG_DISEASE = "FEVER";
-    private static final String TAG_TREATMENT = "OK";
-    private static final String TAG_REFER = "DR";
-    private static final String TAG_CENTER_NAME = "DHAKA";
-    private static final String TAG_CAUSE = "MAN";
+
 
     //JSONArray visits = null;
 
@@ -247,6 +229,8 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         AsyncClientInfoUpdate client = new AsyncClientInfoUpdate(ANCActivity.this);
         //SendPostRequestAsyncTask
         AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(ANCActivity.this);
+
+        Log.d("-!!!!!!!!!!->"+provider.getProviderCode(), "---=keys()====>" + mother.getPregNo());
         String queryString =   "{" +
                 "pregNo:" + mother.getPregNo() + "," +
                 "healthid:" + mother.getHealthId() + "," +
@@ -399,7 +383,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                             jsonArray = jsonStr.getJSONArray(list.get(in-1));
 
                             list1 = new ArrayList<String>();
-                            for (int i = 1; i < jsonArray.length(); i++) {
+                            for (int i = 1; i < jsonArray.length()-3; i++) {
 
 
                                 list1.add(""+mainlist[i-1]+"" + jsonArray.get(i).toString());
@@ -476,52 +460,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
     }
 
-//
-//    private class VOTWAdapter extends ArrayAdapter<Data> {
-//        // StateListActivty context;
-//        private Context con;
-//
-//        public VOTWAdapter(final Context c) {
-//            super(c, R.layout.list_item, list.size());// locallist
-//
-//            con = c;
-//        }
-//
-//        @Override
-//        public View getView(final int position, final View convertView,
-//                            final ViewGroup parent) {
-//            View v = convertView;
-//
-//            if (v == null) {
-//                final LayoutInflater vi = (LayoutInflater) con
-//                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//                v = vi.inflate(R.layout.list_item, null);
-//                //Log.d("**************. ", "--v--");
-//            }
-//            //Log.d("**************. ", "out----" + position);
-//
-//
-//
-//            Log.d("*****first********. ", "===" +datasource.getAllComments().get(position).getFirst_name().toString());
-//            String user = datasource.getAllComments().get(position).getUser_name();
-//            Log.d("******ss***user*****. ", "===" +user);
-//
-//            Log.d("******last name********. ", "===" +datasource.getAllComments().get(position).getLast_name().toString());
-//
-//            String first = datasource.getAllComments().get(position).getFirst_name().toString();
-////String ss2 = datasource.getAllComments().get(position).getTitle();
-////String im = datasource.getAllComments().get(position).getSound();
-//            //Log.d("******im*******. ", "===" +im);
-//            final TextView textView = (TextView) v.findViewById(R.id.name_id);
-//            textView.setText(first);
-//
-//
-//
-//
-//            return v;
-//
-//        }
-//    }
+
 
 
     // added by Al Amin
@@ -647,7 +586,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
             Utilities.getCheckboxes(jsonCheckboxMap, json);
             Utilities.getEditTexts(jsonEditTextMap, json);
             Utilities.getEditTextDates(jsonEditTextDateMap, json);
-            Utilities.getSpinnersValues(jsonSpinnerMap, json);
+            Utilities.getSpinnerValues(jsonSpinnerMap, json);
             Utilities.getMultiSelectSpinnerIndices(jsonMultiSpinnerMap, json);
             Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
             //getEditTextTime(json);
