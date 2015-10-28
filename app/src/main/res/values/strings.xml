@@ -305,11 +305,21 @@
         <item> অন্যান্য জটিলতা </item>
     </string-array>
 
+    <string-array name="Cervix_Involution_DropDown">
+        <item> নাভি বরাবর </item>
+        <item> নাভি হতে ২-৩ ইঞ্চি নিচে  </item>
+        <item> অনুভব করা যাচ্ছে না </item>
+    </string-array>
+
     <string-array name="Family_Planning_Methods_DropDown">
         <item> পরামর্শ </item>
-        <item> FP Method Name 1 </item>
-        <item> FP Method Name 2 </item>
+        <item> Condom </item>
+        <item> IUD </item>
+        <item> Emergency Contraceptive Pill (ECP) </item>
+        <item> Injectable </item>
+        <item> Implant </item>
     </string-array>
+
     <string name="pncInfo_child">"বর্তমান সেবার তথ্য: সন্তান "</string>
     <string name="new_born">" নবজাতক: "</string>
     <string name="breath_per_minute">" শ্বাস (মিনিটে কতবার): "</string>
@@ -336,7 +346,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_delevery">" প্রসবকালীন সেবা "</string>
     <string name="title_activity_pnc">প্রসবোত্তর সেবা (PNC)</string>
-
+    <string name="pnc_others">অন্যান্য</string>
 
     <string name="history_visit1">পরিদর্শন</string>
     <string name="history_date">সেবাগ্রহনের তারিখ:</string>
@@ -629,6 +639,11 @@
     </string-array>
     <string-array name="Urine_Test_Albumin_Dropdown">
         <item> নাই </item>
+        <item> +  </item>
+        <item> ++  </item>
+        <item> +++  </item>
+    </string-array>
+    <string-array name="pnc_Anemia_Dropdown">
         <item> +  </item>
         <item> ++  </item>
         <item> +++  </item>

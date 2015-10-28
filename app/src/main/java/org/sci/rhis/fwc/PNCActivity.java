@@ -145,7 +145,7 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
         spinners[2] = (Spinner) findViewById(R.id.pncPerineumSpinner);
         spinners[3] = (Spinner) findViewById(R.id.pncFamilyPlanningMethodsSpinner);
         spinners[4] = (Spinner) findViewById(R.id.pncReferCenterNameSpinner);
-        //spinners[5] = (Spinner) findViewById(R.id.pncAnemiaSpinner);
+        spinners[5] = (Spinner) findViewById(R.id.pncAnemiaSpinner);
         for(int i = 0; i < spinners.length; ++i) {
           //  spinners[i].setOnItemSelectedListener(this);
         }
@@ -253,6 +253,7 @@ pnc child history
         getEditText(R.id.pncChildServiceDateValue).setOnClickListener(this);
         getCheckbox(R.id.pncReferCheckBox).setOnCheckedChangeListener(this);
         getCheckbox(R.id.pncChildReferCheckBox).setOnCheckedChangeListener(this);
+        getCheckbox(R.id.pncOthersCheckBox).setOnCheckedChangeListener(this);
 
 //custom date picker Added By Al Amin
         datePickerDialog = new CustomDatePickerDialog(this);
@@ -638,8 +639,10 @@ pnc child history
     @Override
     protected void initiateCheckboxes(){
         jsonCheckboxMap.put("pncrefer", getCheckbox(R.id.pncReferCheckBox));
-        jsonCheckboxMap.put("pncbreastfeedingonly", getCheckbox(R.id.pncChildOnlyBreastFeedingCheckBox));
-        jsonCheckboxMap.put("pncrefer", getCheckbox(R.id.pncChildReferCheckBox));
+        jsonCheckboxMap.put("pncservicesource", getCheckbox(R.id.pncOthersCheckBox));
+       // for Child
+        //jsonCheckboxMap.put("pncbreastfeedingonly", getCheckbox(R.id.pncChildOnlyBreastFeedingCheckBox));
+        //jsonCheckboxMap.put("pncrefer", getCheckbox(R.id.pncChildReferCheckBox));
     };
 
     @Override
@@ -649,21 +652,18 @@ pnc child history
     @Override
     protected void initiateSpinners() {
         // PNC Mother Info
+        jsonSpinnerMap.put("pncservicesource", getSpinner(R.id.pncServiceOthersSpinner));
         jsonSpinnerMap.put("pncbreastcondition", getSpinner(R.id.pncBreastConditionSpinner));
         jsonSpinnerMap.put("pnchematuria", getSpinner(R.id.pncDischargeBleedingSpinner));
+        jsonSpinnerMap.put("pncanemia", getSpinner(R.id.pncAnemiaSpinner));
         jsonSpinnerMap.put("pncperineum", getSpinner(R.id.pncPerineumSpinner));
-        //jsonSpinnerMap.put("pncanemia", getSpinner(R.id.pncAnemiaSpinner));
+        jsonSpinnerMap.put("pncedema", getSpinner(R.id.pncEdemaSpinner));
         jsonSpinnerMap.put("pncfpmethod", getSpinner(R.id.pncFamilyPlanningMethodsSpinner));
-        jsonSpinnerMap.put("pncsymptom", getSpinner(R.id.pncDrawbackSpinner));
-        jsonSpinnerMap.put("pncdisease", getSpinner(R.id.pncDiseaseSpinner));
-        jsonSpinnerMap.put("pnctreatment", getSpinner(R.id.pncTreatmentSpinner));
-        jsonSpinnerMap.put("pncadvice", getSpinner(R.id.pncAdviceSpinner));
         jsonSpinnerMap.put("pncrefercentername", getSpinner(R.id.pncReferCenterNameSpinner));
-        jsonSpinnerMap.put("pncreferreason", getSpinner(R.id.pncReasonSpinner));
+        jsonSpinnerMap.put("pncuterusinvolution",getSpinner(R.id.pncCervixInvolutionSpinner));
 
         // PNC Child Info
         jsonSpinnerMap.put("pncdangersign", getSpinner(R.id.pncChildDangerSignsSpinner));
-        jsonSpinnerMap.put("pncsymptom", getSpinner(R.id.pncChildDrawbackSpinner));
         jsonSpinnerMap.put("pncdisease", getSpinner(R.id.pncChildDiseaseSpinner));
         jsonSpinnerMap.put("pnctreatment", getSpinner(R.id.pncChildTreatmentSpinner));
         jsonSpinnerMap.put("pncadvice", getSpinner(R.id.pncChildAdviceSpinner));
@@ -671,19 +671,27 @@ pnc child history
         jsonSpinnerMap.put("pncreferreason", getSpinner(R.id.pncChildReasonSpinner));
     }
     @Override
-    protected void initiateMultiSelectionSpinners(){}
+    protected void initiateMultiSelectionSpinners(){
+       // for mother
+        jsonMultiSpinnerMap.put("pncsymptom",  getMultiSelectionSpinner(R.id.pncDrawbackSpinner));
+        jsonMultiSpinnerMap.put("pnccomplicationsign",  getMultiSelectionSpinner(R.id.pncDangerSignsSpinner));
+        jsonMultiSpinnerMap.put("pncdisease",  getMultiSelectionSpinner(R.id.pncDiseaseSpinner));
+        jsonMultiSpinnerMap.put("pnctreatment",  getMultiSelectionSpinner(R.id.pncTreatmentSpinner));
+        jsonMultiSpinnerMap.put("pncadvice",  getMultiSelectionSpinner(R.id.pncAdviceSpinner));
+        jsonMultiSpinnerMap.put("pncreferreason",  getMultiSelectionSpinner(R.id.pncReasonSpinner));
+        // for Child
+        jsonMultiSpinnerMap.put("pncsymptom", getMultiSelectionSpinner(R.id.pncChildDrawbackSpinner));
+
+    }
 
     @Override
     protected void initiateEditTexts() {
         //PNC Mother visit
-
-        jsonEditTextMap.put("serviceId", getEditText(R.id.pncVisitValue));
+       // jsonEditTextMap.put("serviceId", getEditText(R.id.pncVisitValue));
         jsonEditTextMap.put("pnctemperature", getEditText(R.id.pncTemperatureValue));
-        jsonEditTextMap.put("pncbpsys", getEditText(R.id.pncBloodPresserValueS));
+        jsonEditTextMap.put("pncbpsys", getEditText(R.id.pncBloodPresserValue));
         jsonEditTextMap.put("pncbpdias",getEditText(R.id.pncBloodPresserValueD));
-        //jsonEditTextMap.put("pnchemoglobin",getEditText(R.id.pncAnemiaValue));
-       // jsonEditTextMap.put("pnchemoglobin",getEditText(R.id.pncHemoglobinValue));
-        jsonEditTextMap.put("pncCervixInvolutionValue",getEditText(R.id.pncCervixInvolutionValue));
+        jsonEditTextMap.put("pnchemoglobin",getEditText(R.id.pncHemoglobinValue));
 
         //PNC Child visit
         jsonEditTextMap.put("childNo", getEditText(R.id.pncNewBornNumber));
@@ -711,12 +719,19 @@ pnc child history
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+        if (buttonView.getId() == R.id.pncOthersCheckBox) {
+            int visibility = isChecked? View.VISIBLE: View.GONE;
+            getSpinner(R.id.pncServiceOthersSpinner).setVisibility(visibility);
+
+        }
         if (buttonView.getId() == R.id.pncReferCheckBox) {
             int visibility = isChecked? View.VISIBLE: View.GONE;
             getTextView(R.id.pncReferCenterNameLabel).setVisibility(visibility);
             getSpinner(R.id.pncReferCenterNameSpinner).setVisibility(visibility);
             getTextView(R.id.pncReasonLabel).setVisibility(visibility);
             getSpinner(R.id.pncReasonSpinner).setVisibility(visibility);
+
         }
         if (buttonView.getId() == R.id.pncChildReferCheckBox) {
             int visibility = isChecked? View.VISIBLE: View.GONE;
