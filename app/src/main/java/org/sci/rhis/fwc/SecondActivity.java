@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
+
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -151,6 +151,14 @@ public class SecondActivity extends ClinicalServiceActivity {
         Iterator<String> i = fieldMapping.keySet().iterator();
         String key;
 
+        try {
+            String mobileNumber=json.get("cMobileNo").toString();
+            mobileNumber="0"+mobileNumber;
+            json.put("cMobileNo",mobileNumber);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         while (i.hasNext()) {
             key = i.next();
             if (fieldMapping.get(key) != null) { //If the field exist in the mapping table
@@ -221,8 +229,6 @@ public class SecondActivity extends ClinicalServiceActivity {
             }
 
             else {  //callback for PregInfo servlet
-             //   ImageButton search = (ImageButton) findViewById(R.id.searchButton);
-             //   search.performClick();
 
                 client.put("regSerialNo", json.get("regSerialNo"));
                 client.put("regDate", json.get("regDate"));
@@ -317,12 +323,7 @@ public class SecondActivity extends ClinicalServiceActivity {
     }
 
     public void onClickSaveClient(View view) {
-        /*
-        if(view.getTag() != null && view.getTag().equals("DateField")) {
-            datePickerDialog.show(datePickerPair.get(view.getId()));
-        }*/
         saveClientToJson();
-
     }
 
     ////for complication history
@@ -353,7 +354,8 @@ public class SecondActivity extends ClinicalServiceActivity {
             jse.printStackTrace();
         }
     }
-/*
+/* May be used for building Json key complication note
+
     private void buildJson(JSONObject complicated) {
         try {
 
@@ -368,7 +370,6 @@ public class SecondActivity extends ClinicalServiceActivity {
         }
     }
 */
-    /////
 
     //The following methods are all required for all the activities that updates information
     //from user interface
@@ -413,14 +414,10 @@ public class SecondActivity extends ClinicalServiceActivity {
         jsonTextViewsMap.put("FacilityName", getTextView(R.id.fwc_heading));
     }
 
-    ;
-
     @Override
     protected void initiateSpinners() {
         jsonSpinnerMap.put("bloodGroup", getSpinner(R.id.Blood_Group_Dropdown));
     }
-
-    ;
 
     @Override
     protected void initiateMultiSelectionSpinners() {
@@ -436,12 +433,10 @@ public class SecondActivity extends ClinicalServiceActivity {
     protected void initiateRadioGroups() {
     }
 
-    ;
-
     private void saveClientToJson() {
         clientInfoUpdateTask = new AsyncClientInfoUpdate(this);
         JSONObject json;
-        JSONObject complicated = null;
+        //JSONObject complicated = null;
         try {
             json = buildQueryHeader(false);
             Utilities.getEditTexts(jsonEditTextMap, json);
@@ -450,11 +445,11 @@ public class SecondActivity extends ClinicalServiceActivity {
             //buildJson(complicated);
             Utilities.getSpinnersValuesWithoutSlash(jsonSpinnerMap, json);
             getSpecialCases(json);
-            Log.e("Pregwomen", "***************In progress :" + json.toString());
+            Log.d("Pregwomen", "***************In progress :" + json.toString());
             storeInfoToJsonfirst(json);
             clientInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
-            System.out.print("In Save, Client Json in Query:" + json.toString());
-        } catch (JSONException jse) {
+        }
+        catch (JSONException jse) {
             Log.e("Pregwomen", "JSON Exception: " + jse.getMessage());
         }
 
@@ -496,8 +491,8 @@ public class SecondActivity extends ClinicalServiceActivity {
                 "healthId:\"" + responseID + "\"," +
                 "providerId:\"" + ProviderInfo.getProvider().getProviderCode() + "\"," +
                 "pregNo:\"\"," +
-                "complicatedHistory:\"\"," +
-                "complicatedHistoryNote:\"9\",";
+                "complicatedHistory:\"\"," +  //temp
+                "complicatedHistoryNote:\"9\",";    //temp
 
         for (int i = 1; i <= 5; i++)
             queryString += "ttDate" + i + ":\"\",";
