@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -38,11 +39,16 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
     private  Button cancelBtn, searchBtn;
     private  String SERVLET = "advancesearch";
     private  String ROOTKEY = "advanceSearch";
-    private String[] jsonString = new String[3];
+
+
     private ListView searchListView ;
     private ArrayAdapter<String> listAdapter ;
-    AsyncADVSearchUpdate ADVSearchUpdateTask;
+    ListAdapter adapter;
+    ArrayList<String> dataItems = new ArrayList<String>();
     ArrayList<String> clientsList = new ArrayList<String>();
+
+    AsyncADVSearchUpdate ADVSearchUpdateTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,11 +72,12 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
 
     private void initList(){
 
-        ArrayAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,  clientsList);
+        ArrayAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.textview_for_listview, R.id.lblListItem,  clientsList);
         searchListView = (ListView) findViewById(R.id.search_result);
 
         searchListView.setAdapter( listAdapter );
         final Context context = this;
+        Button searchbtn = (Button ) findViewById(R.id.lblListItembtn);
 
         searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

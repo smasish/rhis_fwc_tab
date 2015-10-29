@@ -6,6 +6,13 @@
         <item> টাঙ্গাইল </item>
     </string-array>
 
+    <!--
+    <string-array name="district_DropDown">
+        <item name= 60_36 >হবিগঞ্জ </item>
+        <item name= 30_93 > টাঙ্গাইল </item>
+        <item name= 20_12 > ব্রাক্ষ্মণবাড়িয়া </item>
+    </string-array>    !-->
+
     <string-array name="upazila_DropDown">
         <item>মাধবপুর </item>
         <item>বাসাইল </item>

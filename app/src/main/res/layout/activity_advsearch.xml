@@ -33,6 +33,7 @@
             android:id="@+id/name_age"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
+            android:paddingBottom="10dp"
             android:orientation="horizontal"
             android:layout_marginBottom="10dp"
             android:layout_centerVertical="true"
@@ -117,7 +118,7 @@
         <TextView
             android:textSize="20dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="100dp"
+            android:layout_marginLeft="110dp"
             android:id="@+id/ClientsUpazila"
             android:text="@string/ClientsUpazila"
             android:layout_width="90dp"
@@ -171,7 +172,7 @@
         <TextView
             android:textSize="20dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="70dp"
+            android:layout_marginLeft="80dp"
             android:id="@+id/TextViewClientsVillage"
             android:text="@string/ClientsVillage"
             android:layout_width="120dp"
