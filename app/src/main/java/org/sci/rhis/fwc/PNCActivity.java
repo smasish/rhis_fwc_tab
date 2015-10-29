@@ -59,31 +59,12 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
     LinearLayout ll,ll_pnc_child;
 
 
-    private static final String TAG_VISIT_NO = "ancVisit01";
-    private static final String TAG_DATE = "2015-07-02";
-    private static final String TAG_BLOOD_PRESSURE = "120";
-    private static final String TAG_WEIGHT = "22";
-    private static final String TAG_EDIMA = "22";
-    private static final String TAG_J_HEIGHT = "5.6";
-    private static final String TAG_FITNESS_PM = "FIT";
-    private static final String TAG_PHITAL_PRESENTATION = "GOOD";
-    private static final String TAG_HIMOGLOBIN = "2";
-    private static final String TAG_JONDIS = "3";
-    private static final String TAG_URIN_SUGAR = "3";
-    private static final String TAG_URIN_TEST = "3";
-    private static final String TAG_DANGER_SIGN = "OFF";
-    private static final String TAG_DISADVANTAGE = "NA";
-    private static final String TAG_DISEASE = "FEVER";
-    private static final String TAG_TREATMENT = "OK";
-    private static final String TAG_REFER = "DR";
-    private static final String TAG_CENTER_NAME = "DHAKA";
-    private static final String TAG_CAUSE = "MAN";
 
     ArrayList<HashMap<String, String>> contactList;
     JSONArray contacts = null;
 
     private View mPNCLayout;
-    Boolean flag=false,mother_flag=false,child_flag=false;
+    Boolean flag=false,mother_flag=false,child_flag=false,child_tree=true;
 
     private Button pnc_mother,pnc_child;
     private LinearLayout pnclay_child,pnclay_mother,lay_frag_mother,lay_frag_child;
@@ -122,7 +103,7 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
         pnc_mother.setOnClickListener(this);
         pnc_child.setOnClickListener(this);
 
-
+        child_tree=true;
 
         pnclay_child = (LinearLayout)findViewById(R.id.pncChildInfo);
         pnclay_mother = (LinearLayout)findViewById(R.id.pncMotherInfo);
@@ -375,7 +356,7 @@ pnc child history
                             Log.d("--:::>", "---serviceSource=====>" + jsonObject.getString("serviceSource"));
 
                             //String complicationsign = jsonRootObject.getString("serviceSource");
-                            // String serviceSource = jsonObject.getString("serviceSource");
+                             //String complicationsign = jsonObject.getString("complicationsign");
                             String visitDate = jsonObject.getString("visitDate");
                             String weight = jsonObject.getString("weight");
                             String referCenterName = jsonObject.getString("referCenterName");
@@ -392,38 +373,24 @@ pnc child history
                     String advice = jsonObject.getString("advice");
                     String refer = jsonObject.getString("refer");
                     String referReason = jsonObject.getString("referReason");
-//                    String serviceID = jsonRootObject.getString("serviceID");
-//                    String hemoglobin = jsonRootObject.getString("hemoglobin");
-//                    String FPMethod = jsonRootObject.getString("FPMethod");
-//                    String breastCondition = jsonRootObject.getString("breastCondition");
-
-//                    String symptom = jsonRootObject.getString("symptom");
-                            // String  pncStatus= jsonRootObject.getString("pncStatus");
-                            //Log.d("--:::>", "---complicationsign=====>"+jsonStr.get(key));
 
                             ArrayList<String> list = new ArrayList<String>();
                             list.add("" + getString(R.string.visitDate) + " " + visitDate);
+                           // list.add("" + getString(R.string.complicationsign) + " " + complicationsign);
                             list.add("" + getString(R.string.temperature) + " " + temperature);
                             list.add("" + getString(R.string.weight) + " " + weight);
                             list.add("" + getString(R.string.breath_per_minute) + " " + breathingPerMinute);
                             list.add("" + getString(R.string.danger_signs) + " " + dangerSign);
 
                             list.add("" + getString(R.string.breast_feeding) + " " + breastFeedingOnly);
-//                    list.add("" + getString(R.string.edema) + " " + edema);
-//                    list.add("" + getString(R.string.breastCondition) + " " + breastCondition);
-//                    list.add("" + getString(R.string.uterusInvolution) + " " + uterusInvolution);
-//                    list.add("" + getString(R.string.hematuria) + " " + hematuria);
-//                    list.add("" + getString(R.string.perineum) + " " + perineum);
-//                    list.add("" + getString(R.string.family_planning_methods) + " " + FPMethod);
-//                    list.add("" + getString(R.string.danger_signs) + " " + complicationsign);
+
                             list.add("" + getString(R.string.disease) + " " + disease);
                             list.add("" + getString(R.string.treatment) + " " + treatment);
                     list.add("" + getString(R.string.advice) + " " + advice);
                     list.add("" + getString(R.string.refer) + " " + refer);
                             list.add("" + getString(R.string.referCenterName) + " " + referCenterName);
                             list.add("" + getString(R.string.referReason) + " " + referReason);
-                          //  list.add("" + getString(R.string.anemia) + " " + childNo);
-//                    list.add("" + getString(R.string.referReason) + " " + referReason);
+
 
 
                             try {
@@ -449,7 +416,7 @@ pnc child history
                                 expListView.setScrollingCacheEnabled(true);
                                 expListView.setAdapter(listAdapter_child);
                                 ll_pnc_child.invalidate();
-                                expListView.setAdapter(listAdapter_child);
+                                //expListView.setAdapter(listAdapter_child);
 
 
                             } catch (Exception e) {
@@ -562,6 +529,7 @@ pnc child history
 
                     ArrayList<String> list = new ArrayList<String>();
                     list.add("" + getString(R.string.visitDate) + " " + visitDate);
+                    list.add("" + getString(R.string.complicationsign) + " " + complicationsign);
                     list.add("" + getString(R.string.temperature) + " " + temperature);
                     list.add("" + getString(R.string.bpSystolic) + " " + bpSystolic);
                     list.add("" + getString(R.string.anemia) + " " + anemia);
@@ -602,7 +570,7 @@ pnc child history
                         expListView.setScrollingCacheEnabled(true);
                         expListView.setAdapter(listAdapter);
                         ll.invalidate();
-                        expListView.setAdapter(listAdapter);
+                       // expListView.setAdapter(listAdapter);
 
 
                     } catch (Exception e) {
@@ -660,7 +628,6 @@ pnc child history
         jsonSpinnerMap.put("pncedema", getSpinner(R.id.pncEdemaSpinner));
         jsonSpinnerMap.put("pncfpmethod", getSpinner(R.id.pncFamilyPlanningMethodsSpinner));
         jsonSpinnerMap.put("pncrefercentername", getSpinner(R.id.pncReferCenterNameSpinner));
-        jsonSpinnerMap.put("pncuterusinvolution",getSpinner(R.id.pncCervixInvolutionSpinner));
 
         // PNC Child Info
         jsonSpinnerMap.put("pncdangersign", getSpinner(R.id.pncChildDangerSignsSpinner));
@@ -789,26 +756,29 @@ pnc child history
 //            lay_frag_child.setVisibility(View.VISIBLE);
 //            pnclay_child.setVisibility(View.VISIBLE);
 
-            expListView = new ExpandableListView(this);
-            ll_pnc_child = (LinearLayout)findViewById(R.id.llay_frag);
+            if(child_tree) {
+                child_tree=false;
+                expListView = new ExpandableListView(this);
+                ll_pnc_child = (LinearLayout) findViewById(R.id.llay_frag);
 
-            //ll_pnc_child.addView(expListView);
+                //ll_pnc_child.addView(expListView);
 
 
-            AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(PNCActivity.this);
-            LongOperation sendPostReqAsyncTask_child = new LongOperation();
+                AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(PNCActivity.this);
+                LongOperation sendPostReqAsyncTask_child = new LongOperation();
 
-            String queryString_child =   "{" +
-                    "pregno:" + 3 + "," +
-                    "healthid:" + "43366275025436" + "," +
-                    "pncCLoad:" + "retrieve" +
-                    "}";
+                String queryString_child = "{" +
+                        "pregno:" + 3 + "," +
+                        "healthid:" + "43366275025436" + "," +
+                        "pncCLoad:" + "retrieve" +
+                        "}";
 
-            String servlet_child = "pncchild";
-            String jsonRootkey_child = "PNCChildInfo";
-            Log.d("-->", "---=====>" + queryString_child);
-             sendPostReqAsyncTask_child.execute(queryString_child, servlet_child, jsonRootkey_child);
+                String servlet_child = "pncchild";
+                String jsonRootkey_child = "PNCChildInfo";
+                Log.d("-->", "---=====>" + queryString_child);
+                sendPostReqAsyncTask_child.execute(queryString_child, servlet_child, jsonRootkey_child);
 
+            }
         }
     }
 

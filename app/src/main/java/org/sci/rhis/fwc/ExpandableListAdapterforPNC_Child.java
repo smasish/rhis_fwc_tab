@@ -1,6 +1,7 @@
 package org.sci.rhis.fwc;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,7 +61,25 @@ public class ExpandableListAdapterforPNC_Child extends BaseExpandableListAdapter
 			public void onClick(View v) {
 
 
-				Toast.makeText(_context,""+childText, Toast.LENGTH_SHORT).show();
+				String[] details;
+				Resources res1 = _context.getResources();
+				details = res1.getStringArray(R.array.PNC_Child_Danger_Sign_DropDown);
+
+				//Toast.makeText(_context,">>"+childText, Toast.LENGTH_SHORT).show();
+
+//				if(childPosition == 2)
+//					AlertMessage.showMessage(_context,"Details",details[0]);
+//				else
+				if(childPosition == 4) {
+					AlertMessage.showMessage(_context, "Details", details[0]);
+					Toast.makeText(_context,">><<"+childText, Toast.LENGTH_SHORT).show();
+				}
+				else if(childPosition == 6)
+					AlertMessage.showMessage(_context,"Details",details[3]);
+				else if(childPosition == 8)
+					AlertMessage.showMessage(_context,"Details",details[4]+"\n"+details[5]);
+				else if(childPosition == 16)
+					AlertMessage.showMessage(_context,"Details",details[5]+"\n"+details[6]);
 
 				//here I need to do some things that require me to manipulate the categoriesList from the Activity class - but it is out of scope
 			}
