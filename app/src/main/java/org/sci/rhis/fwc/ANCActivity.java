@@ -85,7 +85,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     ArrayList list1;
 
     private int lastAncVisit;
-
+    JSONArray json_Array = null;
     private Context con;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -379,15 +379,15 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                     public void onClick(View v) {
                         Log.i("TAG", "The index is" + in);
 
-                        JSONArray jsonArray = null;
+
                         try {
-                            jsonArray = jsonStr.getJSONArray(list.get(in-1));
+                            json_Array = jsonStr.getJSONArray(list.get(in-1));
 
                             list1 = new ArrayList<String>();
-                            for (int i = 1; i < jsonArray.length()-2; i++) {
+                            for (int i = 1; i < json_Array.length()-2; i++) {
 
 
-                                list1.add(""+mainlist[i-1]+"" + jsonArray.get(i).toString());
+                                list1.add(""+mainlist[i-1]+"" + json_Array.get(i).toString());
 
 
                             }//end
@@ -404,24 +404,99 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                                 public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                                         long arg3) {
                                     // TODO Auto-generated method stub
-                                    Log.d("******arg2********. "+list1.get(arg2), "--v--" + arg2);
+                                    Log.d("******arg2********. " + list1.get(arg2), "--v--" + arg2);
                                     //Toast.makeText(con,""+list1.get(arg2), Toast.LENGTH_SHORT).show();
                                     //Intent i = new Intent(UserListActivity.this, ChangepassActivity.class);
                                     //i.putExtra("no", "" + arg2);
                                    // startActivity(i);
+                                    String str = null;
+
                                     Resources res1 = getResources();
-                                    details = res1.getStringArray(R.array.ANC_Danger_Sign_DropDown);
-                                   // mainlist = res.getStringArray(R.array.list_item);
-                                    if(arg2 == 12)
-                                        AlertMessage.showMessage(con,"Details",details[0]);
-                                    else if(arg2 == 13)
-                                        AlertMessage.showMessage(con,"Details",details[1]+"\n"+details[2]);
-                                    else if(arg2 == 14)
-                                        AlertMessage.showMessage(con,"Details",details[3]);
-                                    else if(arg2 == 15)
-                                        AlertMessage.showMessage(con,"Details",details[4]);
-                                    else if(arg2 == 16)
-                                        AlertMessage.showMessage(con,"Details",details[5]+"\n"+details[6]);
+
+                                    if(arg2 == 12) {
+                                        str = parseString(arg2 + 1);
+
+                                        String[] animals = str.split(" ");
+                                        String temp = "";
+                                        details = res1.getStringArray(R.array.ANC_Danger_Sign_DropDown);
+                                        for (String animal : animals) {
+                                            System.out.println(animal);
+                                            if(animal.length()>0)
+                                                temp = temp+"\n"+details[Integer.parseInt(animal)-1];
+                                        }
+                                        Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
+                                        //System.out.println(Arrays.asList(s.trim().split(" ")));
+
+                                        AlertMessage.showMessage(con, "Details", temp);
+                                    }
+                                    else if(arg2 == 13) {
+
+                                        str = parseString(arg2 + 1);
+
+                                        String[] animals = str.split(" ");
+                                        String temp = "";
+                                        details = res1.getStringArray(R.array.ANC_Drawback_DropDown);
+                                        for (String animal : animals) {
+                                            System.out.println(animal);
+                                            if(animal.length()>0)
+                                                temp = temp+"\n"+details[Integer.parseInt(animal)-1];
+                                        }
+                                        Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
+
+
+                                        AlertMessage.showMessage(con, "Details", temp);
+
+
+                                    }else if(arg2 == 14) {
+                                        str = parseString(arg2 + 1);
+
+                                        String[] animals = str.split(" ");
+                                        String temp = "";
+                                        details = res1.getStringArray(R.array.ANC_Disease_DropDown);
+                                        for (String animal : animals) {
+                                            System.out.println(animal);
+                                            if (animal.length() > 0)
+                                                temp = temp + "\n" + details[Integer.parseInt(animal) - 1];
+                                        }
+                                        Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
+
+
+                                        AlertMessage.showMessage(con, "Details", temp);
+                                    }
+                                    else if(arg2 == 15) {
+                                        str = parseString(arg2 + 1);
+
+                                        String[] animals = str.split(" ");
+                                        String temp = "";
+                                        details = res1.getStringArray(R.array.Treatment_DropDown);
+                                        for (String animal : animals) {
+                                            System.out.println(animal);
+                                            if(animal.length()>0)
+                                                temp = temp+"\n"+details[Integer.parseInt(animal)-1];
+                                        }
+                                        Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
+
+
+                                        AlertMessage.showMessage(con, "Details", temp);
+
+                                    }
+                                    else if(arg2 == 16) {
+                                        str = parseString(arg2 + 1);
+
+                                        String[] animals = str.split(" ");
+                                        String temp = "";
+                                        details = res1.getStringArray(R.array.ANC_Advice_DropDown);
+                                        for (String animal : animals) {
+                                            System.out.println(animal);
+                                            if(animal.length()>0)
+                                                temp = temp+"\n"+details[Integer.parseInt(animal)-1];
+                                        }
+                                        Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
+
+
+                                        AlertMessage.showMessage(con, "Details", temp);
+
+                                    }
 
 
 
@@ -460,6 +535,19 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
             System.out.println("JSON Exception Thrown::\n " );
             jse.printStackTrace();
         }
+    }
+
+    private String parseString(int arg2) {
+
+        String s = null;
+        try {
+            s = ""+json_Array.get(arg2).toString();
+            s = s.replaceAll("[^0-9]+", " ");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        //AlertMessage.showMessage(con,"Details",temp);
+        return s;
     }
 
 
