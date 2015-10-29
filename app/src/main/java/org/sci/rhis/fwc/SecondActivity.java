@@ -152,7 +152,14 @@ public class SecondActivity extends ClinicalServiceActivity {
         //TODO - remove
         long index = (searchOptions.getSelectedItemId() + 1);
         String stringId = (String) searchOptions.getSelectedItem();
-        long id = Long.valueOf(searchableId.getText().toString());
+        long id;
+        try {
+            id = Long.valueOf(searchableId.getText().toString());
+        } catch (NumberFormatException nfe) {
+            Log.e("Search", "-- Invalid ID --\n" + nfe.toString());
+            Toast.makeText(this, "Invalid ID typed. Please provide valid ID ...", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         String queryString = "{" +
                 "sOpt:" + String.valueOf(index) + "," +
