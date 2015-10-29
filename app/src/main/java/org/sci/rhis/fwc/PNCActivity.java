@@ -356,7 +356,7 @@ pnc child history
                             Log.d("--:::>", "---serviceSource=====>" + jsonObject.getString("serviceSource"));
 
                             //String complicationsign = jsonRootObject.getString("serviceSource");
-                            // String serviceSource = jsonObject.getString("serviceSource");
+                             //String complicationsign = jsonObject.getString("complicationsign");
                             String visitDate = jsonObject.getString("visitDate");
                             String weight = jsonObject.getString("weight");
                             String referCenterName = jsonObject.getString("referCenterName");
@@ -376,6 +376,7 @@ pnc child history
 
                             ArrayList<String> list = new ArrayList<String>();
                             list.add("" + getString(R.string.visitDate) + " " + visitDate);
+                           // list.add("" + getString(R.string.complicationsign) + " " + complicationsign);
                             list.add("" + getString(R.string.temperature) + " " + temperature);
                             list.add("" + getString(R.string.weight) + " " + weight);
                             list.add("" + getString(R.string.breath_per_minute) + " " + breathingPerMinute);
@@ -528,6 +529,7 @@ pnc child history
 
                     ArrayList<String> list = new ArrayList<String>();
                     list.add("" + getString(R.string.visitDate) + " " + visitDate);
+                    list.add("" + getString(R.string.complicationsign) + " " + complicationsign);
                     list.add("" + getString(R.string.temperature) + " " + temperature);
                     list.add("" + getString(R.string.bpSystolic) + " " + bpSystolic);
                     list.add("" + getString(R.string.anemia) + " " + anemia);

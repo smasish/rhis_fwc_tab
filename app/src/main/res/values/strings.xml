@@ -108,6 +108,7 @@
     <string-array name="list_item">
 
         <item>সেবাগ্রহনের তারিখ:</item>
+
         <item>রক্তচাপ (মিঃ মিঃ মার্কারি):</item>
         <item>ওজন (কেজি):</item>
         <item>ইডিমা:</item>
@@ -120,6 +121,7 @@
         <item>প্রস্রাব পরীক্ষা: সুগার:</item>
         <item>প্রস্রাব পরীক্ষা: এলবুমিন:</item>
         <item>বিপদ চিহ্ন / জটিলতা:</item>
+        <item>অসুবিধা:</item>
         <item>রোগ:</item>
         <item>চিকিৎসা:</item>
         <item>পরামর্শ:</item>
@@ -129,7 +131,7 @@
 
         <item>রেফার:</item>
         <item>কেন্দ্রের নাম:</item>
-        <item>কারণ:</item>
+
 
     </string-array>
 
@@ -323,6 +325,8 @@
     <string name="pncInfo_child">"বর্তমান সেবার তথ্য: সন্তান "</string>
     <string name="new_born">" নবজাতক: "</string>
     <string name="breath_per_minute">" শ্বাস (মিনিটে কতবার): "</string>
+    <string name="complicationsign">" অসুবিধা: "</string>
+
     <string name="only_breast_feeding">" শুধুমাত্র বুকের দুধ খাওয়ানো:"</string>
     <string name="delevery_service">"প্রসবকালীন সেবা "</string>
     <string name="delevery_related_info">"প্রসব সংক্রান্ত তথ্য "</string>

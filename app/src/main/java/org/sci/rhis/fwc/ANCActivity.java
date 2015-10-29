@@ -81,6 +81,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
     JSONObject jsonStr;
     String[] mainlist;
+    String[] details;
     ArrayList list1;
 
     private int lastAncVisit;
@@ -383,7 +384,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                             jsonArray = jsonStr.getJSONArray(list.get(in-1));
 
                             list1 = new ArrayList<String>();
-                            for (int i = 1; i < jsonArray.length()-3; i++) {
+                            for (int i = 1; i < jsonArray.length()-2; i++) {
 
 
                                 list1.add(""+mainlist[i-1]+"" + jsonArray.get(i).toString());
@@ -404,10 +405,28 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                                                         long arg3) {
                                     // TODO Auto-generated method stub
                                     Log.d("******arg2********. "+list1.get(arg2), "--v--" + arg2);
-                                    Toast.makeText(con,""+list1.get(arg2), Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(con,""+list1.get(arg2), Toast.LENGTH_SHORT).show();
                                     //Intent i = new Intent(UserListActivity.this, ChangepassActivity.class);
                                     //i.putExtra("no", "" + arg2);
                                    // startActivity(i);
+                                    Resources res1 = getResources();
+                                    details = res1.getStringArray(R.array.ANC_Danger_Sign_DropDown);
+                                   // mainlist = res.getStringArray(R.array.list_item);
+                                    if(arg2 == 12)
+                                        AlertMessage.showMessage(con,"Details",details[0]);
+                                    else if(arg2 == 13)
+                                        AlertMessage.showMessage(con,"Details",details[1]+"\n"+details[2]);
+                                    else if(arg2 == 14)
+                                        AlertMessage.showMessage(con,"Details",details[3]);
+                                    else if(arg2 == 15)
+                                        AlertMessage.showMessage(con,"Details",details[4]);
+                                    else if(arg2 == 16)
+                                        AlertMessage.showMessage(con,"Details",details[5]+"\n"+details[6]);
+
+
+
+
+
                                 }
                             });
 
