@@ -3,6 +3,7 @@ package org.sci.rhis.fwc;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,23 +64,91 @@ public class ExpandableListAdapterforPNC_Child extends BaseExpandableListAdapter
 
 				String[] details;
 				Resources res1 = _context.getResources();
-				details = res1.getStringArray(R.array.PNC_Child_Danger_Sign_DropDown);
+				String str = childText;
+
+				str = str.replaceAll("[^0-9]+", " ");
 
 				//Toast.makeText(_context,">>"+childText, Toast.LENGTH_SHORT).show();
 
-//				if(childPosition == 2)
-//					AlertMessage.showMessage(_context,"Details",details[0]);
-//				else
-				if(childPosition == 4) {
-					AlertMessage.showMessage(_context, "Details", details[0]);
-					Toast.makeText(_context,">><<"+childText, Toast.LENGTH_SHORT).show();
+
+				if(childPosition == 1) {
+					String[] animals = str.split(" ");
+					String temp = "";
+					details = res1.getStringArray(R.array.PNC_Child_Drawback_DropDown);
+					for (String animal : animals) {
+						System.out.println(animal);
+						if(animal.length()>0)
+							temp = temp+"\n"+details[Integer.parseInt(animal)];
+					}
+					Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
+
+
+					if(temp.length()>5)
+						AlertMessage.showMessage(_context, "Details", temp);
 				}
-				else if(childPosition == 6)
-					AlertMessage.showMessage(_context,"Details",details[3]);
-				else if(childPosition == 8)
-					AlertMessage.showMessage(_context,"Details",details[4]+"\n"+details[5]);
-				else if(childPosition == 16)
-					AlertMessage.showMessage(_context,"Details",details[5]+"\n"+details[6]);
+				else if(childPosition == 5){
+					String[] animals = str.split(" ");
+					String temp = "";
+					details = res1.getStringArray(R.array.PNC_Child_Danger_Sign_DropDown);
+					for (String animal : animals) {
+						System.out.println(animal);
+						if(animal.length()>0)
+							temp = temp+"\n"+details[Integer.parseInt(animal)];
+					}
+					Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
+
+
+					if(temp.length()>=2)
+						AlertMessage.showMessage(_context, "Details", temp);
+				}
+
+				else if(childPosition == 7){
+					String[] animals = str.split(" ");
+					String temp = "";
+					details = res1.getStringArray(R.array.PNC_Child_Disease_DropDown);
+					for (String animal : animals) {
+						System.out.println(animal);
+						if(animal.length()>0)
+							temp = temp+"\n"+details[Integer.parseInt(animal)];
+					}
+					Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
+
+
+					if(temp.length()>5)
+						AlertMessage.showMessage(_context, "Details", temp);
+				}
+
+				else if(childPosition == 9){
+					String[] animals = str.split(" ");
+					String temp = "";
+					details = res1.getStringArray(R.array.PNC_Child_Advice_DropDown);
+					for (String animal : animals) {
+						System.out.println(animal);
+						if(animal.length()>0)
+							temp = temp+"\n"+details[Integer.parseInt(animal)];
+					}
+					Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
+
+
+					if(temp.length()>5)
+						AlertMessage.showMessage(_context, "Details", temp);
+				}
+				else if(childPosition == 12){
+					String[] animals = str.split(" ");
+					String temp = "";
+					details = res1.getStringArray(R.array.PNC_Child_Refer_Reason_DropDown);
+					for (String animal : animals) {
+						System.out.println(animal);
+						if(animal.length()>0)
+							temp = temp+"\n"+details[Integer.parseInt(animal)];
+					}
+					Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
+
+
+					if(temp.length()>5)
+						AlertMessage.showMessage(_context, "Details", temp);
+				}
+
 
 				//here I need to do some things that require me to manipulate the categoriesList from the Activity class - but it is out of scope
 			}

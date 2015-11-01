@@ -358,6 +358,7 @@ pnc child history
                             //String complicationsign = jsonRootObject.getString("serviceSource");
                              //String complicationsign = jsonObject.getString("complicationsign");
                             String visitDate = jsonObject.getString("visitDate");
+                            String symptom = jsonObject.getString("symptom");
                             String weight = jsonObject.getString("weight");
                             String referCenterName = jsonObject.getString("referCenterName");
                             String childNo = jsonObject.getString("childNo");
@@ -376,7 +377,7 @@ pnc child history
 
                             ArrayList<String> list = new ArrayList<String>();
                             list.add("" + getString(R.string.visitDate) + " " + visitDate);
-                           // list.add("" + getString(R.string.complicationsign) + " " + complicationsign);
+                            list.add("" + getString(R.string.complicationsign) + " " + symptom);
                             list.add("" + getString(R.string.temperature) + " " + temperature);
                             list.add("" + getString(R.string.weight) + " " + weight);
                             list.add("" + getString(R.string.breath_per_minute) + " " + breathingPerMinute);
@@ -386,8 +387,8 @@ pnc child history
 
                             list.add("" + getString(R.string.disease) + " " + disease);
                             list.add("" + getString(R.string.treatment) + " " + treatment);
-                    list.add("" + getString(R.string.advice) + " " + advice);
-                    list.add("" + getString(R.string.refer) + " " + refer);
+                            list.add("" + getString(R.string.advice) + " " + advice);
+                            list.add("" + getString(R.string.refer) + " " + refer);
                             list.add("" + getString(R.string.referCenterName) + " " + referCenterName);
                             list.add("" + getString(R.string.referReason) + " " + referReason);
 
