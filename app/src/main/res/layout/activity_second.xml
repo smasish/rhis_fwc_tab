@@ -121,7 +121,8 @@
             android:background="@drawable/button_style"
             android:layout_gravity="center"
             android:textAlignment="center"
-            android:text="Non-Register Client"/>
+            android:text="Non-Register Client"
+            android:onClick="startNRC"/>
 
     </LinearLayout>
     <View

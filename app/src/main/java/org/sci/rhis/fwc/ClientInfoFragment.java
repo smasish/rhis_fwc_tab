@@ -1,9 +1,11 @@
 package org.sci.rhis.fwc;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -53,5 +55,10 @@ public class ClientInfoFragment extends Fragment implements OnClickListener {
             datePickerDialog.show(datePickerPair.get(v.getId()));
 
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, final Intent data) {
+        Log.d("ClientInfo", "OnActivityResult");
     }
 }

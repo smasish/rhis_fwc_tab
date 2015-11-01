@@ -83,10 +83,10 @@
 
     <string-array name="Health_Id">
         <item>Health ID</item>
-        <item>Name</item>
+        <item>Mobile No </item>
         <item>National ID</item>
         <item>Birth Reg. No</item>
-        <item>Mobile No </item>
+        <item>NRC ID</item>
         <item>ADVANCE SEARCH</item>
     </string-array>
 

@@ -72,7 +72,8 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
 
     private void initList(){
 
-        ArrayAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.textview_for_listview, R.id.lblListItem,  clientsList);
+        /*ArrayAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.textview_for_listview, R.id.lblListItem,  clientsList);*/
+        ArrayAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,  clientsList);
         searchListView = (ListView) findViewById(R.id.search_result);
 
         searchListView.setAdapter( listAdapter );
@@ -88,10 +89,14 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
                 String item = ((TextView) view).getText().toString();
                 Toast.makeText(getBaseContext(),"You have clicked on " + item, Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(context, SecondActivity.class);
+                /*Intent intent = new Intent(context, SecondActivity.class);
                 intent.putExtra("HealthId", item);
-                startActivity(intent);
-
+                startActivity(intent);*/
+                Intent intent = new Intent();
+                intent.putExtra("HealthId", item);
+                setResult(RESULT_OK, intent);
+                finishActivity(ActivityResultCodes.ADV_SEARCH_ACTIVITY);
+                finish();
 
             }
         });

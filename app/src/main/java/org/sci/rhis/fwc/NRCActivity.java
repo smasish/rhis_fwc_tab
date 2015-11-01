@@ -44,6 +44,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
     private HashMap<String, Integer> unionCodeMap;
     private HashMap<String, Pair<Integer, Integer>> villageCodeMap;
     private long generatedId;
+
     private  int flag=0, provider;
     private String selectedDistName, selectedUpazilaName,selectedUnionName, selectedVillageName;
     private int divValue, distValue, upValue, unValue, vilValue, mouzaValue;
@@ -111,9 +112,9 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         Spinner spnUpz = (Spinner) findViewById(R.id.Clients_Upazila);
         spnUpz.setAdapter(upAdapter);
         selectedUpazilaName = spnUpz.getSelectedItem().toString();
-        Log.e("selected Up Value", String.valueOf(selectedUpazilaName));
+        Log.d("selected Up Value", String.valueOf(selectedUpazilaName));
         upValue = upazilaCodeMap.get(selectedUpazilaName);
-        Log.e("selected upazila Value", String.valueOf(upValue));
+        Log.d("selected upazila Value", String.valueOf(upValue));
 
 
         unionCodeMap = new HashMap<String,Integer>();
@@ -136,8 +137,8 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         spnUN.setAdapter(unAdapter);
         selectedUnionName = spnUN.getSelectedItem().toString();
         unValue = unionCodeMap.get(selectedUnionName);
-        Log.e("selected Union Name", String.valueOf(selectedUnionName));
-        Log.e("selected Union Value", String.valueOf(unValue));
+        Log.d("selected Union Name", String.valueOf(selectedUnionName));
+        Log.d("selected Union Value", String.valueOf(unValue));
 
 
         villageCodeMap = new HashMap<String,Pair<Integer, Integer>>();
@@ -170,40 +171,36 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         selectedVillageName = spnVillage.getSelectedItem().toString();
         vilValue = villageCodeMap.get(selectedVillageName).first;
         mouzaValue = villageCodeMap.get(selectedVillageName).second;
-        Log.e("selected Village Name", String.valueOf(selectedVillageName));
+        Log.d("selected Village Name", String.valueOf(selectedVillageName));
         if(vilValue<10)
         {
           vilStringValue = "0" + String.valueOf(vilValue);
         }
 
-        Log.e("selected Village Value", String.valueOf(vilStringValue));
-        Log.e("selected mouza Value", String.valueOf(mouzaValue));
-
+        Log.d("selected Village Value", String.valueOf(vilStringValue));
+        Log.d("selected mouza Value", String.valueOf(mouzaValue));
 
         addListenerOnButton();
-
 
         //Get the JSON object from the data
         JSONObject parent = this.parseJSONData();
 
 //THis will store all the values inside "Hydrogen" in a element string
         try {
-            String element = parent.getString("79");
-
-            //Log.e("Get Json",element);
-
-
+            String element = parent.getString("79");            //Log.e("Get Json",element);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+        generatedId = 0;
+
     }
     private String getString(){
-    Log.e("FoundSumOfStrings",cName.getText().toString()+"  " +cFatherName.getText().toString() + " " + cMotherName.getText().toString());
-    //get username and password entered
-    getString= cName.getText().toString() + cFatherName.getText().toString() + cMotherName.getText().toString() +
+        Log.d("FoundSumOfStrings", cName.getText().toString() + "  " + cFatherName.getText().toString() + " " + cMotherName.getText().toString());
+        //get username and password entered
+        getString= cName.getText().toString() + cFatherName.getText().toString() + cMotherName.getText().toString() +
                 distValue + upValue + unValue + mouzaValue + vilStringValue;
-    Log.e("FoundSumOfStrings!",getString);
+        Log.d("FoundSumOfStrings!", getString);
         return getString;
     }
     /*
@@ -258,7 +255,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
     }
 
     private JSONObject buildQueryHeader() throws JSONException {
-        Log.e("Selected District Value",String.valueOf(distValue));
+        Log.d("Selected District Value", String.valueOf(distValue));
         //get info from database
         String queryString =   "{" +
                 "\"generatedId\":"  + computeMD5Hash(getString())  + "," +
@@ -271,7 +268,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
                 "\"village\":" + String.valueOf(vilValue)+
                 "}";
        // Log.e("selected Item's Value", String.valueOf(distValue));
-        Log.e("QueryStrig",queryString);
+        Log.d("QueryStrig", queryString);
         return new JSONObject(queryString);
     }
 
@@ -285,7 +282,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
 
             NRCInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
 
-            Log.e("NRC JSON Sent2SERVLET", json.toString());
+            Log.d("NRC JSON Sent2SERVLET", json.toString());
 
         } catch (JSONException jse) {
             Log.e("NRC", "JSON Exception: " + jse.getMessage());
@@ -414,14 +411,17 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
     }
     public void addListenerOnButton() {
 
-        Button  button1 = (Button) findViewById(R.id.nrcProceed);
+        Button  proceedButton = (Button) findViewById(R.id.nrcProceed);
 
-        button1.setOnClickListener(new View.OnClickListener() {
+        proceedButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-
-              nrcSaveToJson();
+                nrcSaveToJson();
+                Intent intent = new Intent();
+                intent.putExtra("generatedId", generatedId);
+                setResult(RESULT_OK, intent);
+                finishActivity(ActivityResultCodes.REGISTRATION_ACTIVITY);
             }
         });
 
