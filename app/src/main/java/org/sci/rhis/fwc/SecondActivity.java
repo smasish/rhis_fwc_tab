@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,14 +67,6 @@ public class SecondActivity extends ClinicalServiceActivity {
 
         providerCode = Integer.parseInt(String.valueOf(provider.getProviderCode()));
         Log.i("SecondActivity", "" + provider.getProviderFacility());
-
-
-
-        Intent intent = getIntent();
-        String str = intent.getStringExtra("HealthId");
-        if(str!=null)
-        Log.d("Get Health Id From ADVS", str);
-
 
         initialize();//super class
         Spinner staticSpinner = (Spinner) findViewById(R.id.ClientsIdentityDropdown);
@@ -139,6 +132,14 @@ public class SecondActivity extends ClinicalServiceActivity {
 
         );
 
+        Intent intent = getIntent();
+        String str = intent.getStringExtra("HealthId");
+        if(intent.hasExtra("HealthId")) {
+            str = intent.getStringExtra("HealthId");
+            getSpinner(R.id.ClientsIdentityDropdown).setSelection(0);
+            getEditText(R.id.searchableTextId).setText(str.substring(str.indexOf("||")+3));
+            startSearch((ImageButton)findViewById(R.id.searchButton));
+        }
     }
 
     public void startSearch(View view) {
@@ -147,7 +148,14 @@ public class SecondActivity extends ClinicalServiceActivity {
         //TODO - remove
         long index = (searchOptions.getSelectedItemId() + 1);
         String stringId = (String) searchOptions.getSelectedItem();
-        long id = Long.valueOf(searchableId.getText().toString());
+        long id;
+        try {
+            id = Long.valueOf(searchableId.getText().toString());
+        } catch (NumberFormatException nfe) {
+            Log.e("Search", "-- Invalid ID --\n" + nfe.toString());
+            Toast.makeText(this, "Invalid ID typed. Please provide valid ID ...", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         String queryString = "{" +
                 "sOpt:" + String.valueOf(index) + "," +
