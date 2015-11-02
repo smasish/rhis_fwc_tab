@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -84,6 +85,9 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     String[] details;
     ArrayList list1;
 
+    private LinearLayout history_layout;
+
+
     private int lastAncVisit;
     JSONArray json_Array = null;
     private Context con;
@@ -108,6 +112,10 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+
+        history_layout = (LinearLayout)(findViewById(R.id.history_lay));
+
+
         // Find the view whose visibility will change
         mANCLayout = findViewById(R.id.ancLayoutScrollview);
         newanc = (Button)findViewById(R.id.newanc_id);
@@ -301,7 +309,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     @Override
     public void callbackAsyncTask(String result) {
 
-
+        ll.removeAllViews();
         try {
             jsonStr = new JSONObject(result);
             String key;
@@ -341,34 +349,13 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                 }
 
 
-                  //  listDataHeader.add(getString(R.string.history_visit1) + "" + jsonArray.get(0).toString() + " :");
-//                    listDataHeader.add("Visit "+jsonArray.get(0).toString() + ":");
-//                    listDataChild.put(listDataHeader.get(0), list);
-//
-//                    listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
-//
-//                    ancAdapter = new ANCListAdapter(this,list);
-                   // expListView = new ExpandableListView(this);
-                   // expListView.setAdapter(listAdapter);
-
-
-
-                    // Assign adapter to ListView
-
-//                    expListView = new ExpandableListView(this);
-//                    expListView.setTranscriptMode(ExpandableListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
-//
-//                    expListView.setIndicatorBounds(0, 0);
-//                    expListView.setChildIndicatorBounds(0, 0);
-//                    expListView.setStackFromBottom(true);
-//                    expListView.smoothScrollToPosition(expListView.getCount() - 1);
 
 
                     LinearLayout.LayoutParams lprams = new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.WRAP_CONTENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT);
 
-
+           // ((ViewGroup) lprams.getParent()).removeView(lprams);
 
                     initPage();
 
@@ -578,6 +565,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         expListView.setStackFromBottom(true);
 
 
+        ll.addView(expListView);
       //  expListView.smoothScrollToPosition(expListView.getCount() - 1);
 
 
@@ -610,8 +598,10 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         }
 
         if(v.getId() == R.id.ancSaveButton){
+            ll.removeAllViews();
             saveAnc(v);
-           // loadANCHistory();
+            //initPage();
+            //loadANCHistory();
         }
     }
 
