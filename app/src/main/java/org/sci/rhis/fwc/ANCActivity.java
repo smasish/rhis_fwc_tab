@@ -228,18 +228,11 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         provider = getIntent().getParcelableExtra("Provider");
 
         AsyncClientInfoUpdate client = new AsyncClientInfoUpdate(ANCActivity.this);
-        //SendPostRequestAsyncTask
-        AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(ANCActivity.this);
 
-        Log.d("-!!!!!!!!!!->"+provider.getProviderCode(), "---=keys()====>" + mother.getPregNo());
-        String queryString =   "{" +
-                "pregNo:" + mother.getPregNo() + "," +
-                "healthid:" + mother.getHealthId() + "," +
-                "ancLoad:" + provider.getProviderCode() +
-                "}";
-        String servlet = "anc";
-        String jsonRootkey = "ANCInfo";
-        sendPostReqAsyncTask.execute(queryString, servlet, jsonRootkey);
+
+        loadANCHistory();
+
+
 
 
     // Initialize Spinner added By Al Amin
@@ -280,6 +273,21 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
        // listDataChild.put(listDataHeader.get(1), nowShowing);
        // listDataChild.put(listDataHeader.get(2), comingSoon);
 
+    }
+
+    private void loadANCHistory() {
+        //SendPostRequestAsyncTask
+        AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(ANCActivity.this);
+
+        Log.d("-!!!!!!!!!!->"+provider.getProviderCode(), "---=keys()====>" + mother.getPregNo());
+        String queryString =   "{" +
+                "pregNo:" + mother.getPregNo() + "," +
+                "healthid:" + mother.getHealthId() + "," +
+                "ancLoad:" + provider.getProviderCode() +
+                "}";
+        String servlet = "anc";
+        String jsonRootkey = "ANCInfo";
+        sendPostReqAsyncTask.execute(queryString, servlet, jsonRootkey);
     }
 
 
@@ -386,8 +394,13 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                             list1 = new ArrayList<String>();
                             for (int i = 1; i < json_Array.length()-2; i++) {
 
-
-                                list1.add(""+mainlist[i-1]+"" + json_Array.get(i).toString());
+                                String det = json_Array.get(i).toString();
+                                if(( i == 13|| i == 14 || i == 15 || i == 16 || i == 17) && det.length() >3) {
+                                    Log.d("------------->>"+det, ""+i);
+                                    list1.add("" + mainlist[i - 1] + "" + getString(R.string.detail));
+                                }
+                                else
+                                 list1.add(""+mainlist[i-1]+"" + json_Array.get(i).toString());
 
 
                             }//end
@@ -413,9 +426,16 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
                                     Resources res1 = getResources();
 
-                                    if(arg2 == 12) {
-                                        str = parseString(arg2 + 1);
+                                    try {
+                                        str = ""+json_Array.get(arg2).toString();
+                                        Log.d("----------lenth---||" + str, "" + str.length());
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
 
+                                    if(arg2 == 12 && str.length()>4) {
+                                        str = parseString(arg2 + 1);
+                                        Log.d("-------------||" + str, "" + str.trim().split(" "));
                                         String[] animals = str.split(" ");
                                         String temp = "";
                                         details = res1.getStringArray(R.array.ANC_Danger_Sign_DropDown);
@@ -426,10 +446,10 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                                         }
                                         Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
                                         //System.out.println(Arrays.asList(s.trim().split(" ")));
-
+                                        if(temp.length()>5)
                                         AlertMessage.showMessage(con, "Details", temp);
                                     }
-                                    else if(arg2 == 13) {
+                                    else if(arg2 == 13 && str.length()>4) {
 
                                         str = parseString(arg2 + 1);
 
@@ -443,11 +463,11 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                                         }
                                         Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
 
-
+                                        if(temp.length()>5)
                                         AlertMessage.showMessage(con, "Details", temp);
 
 
-                                    }else if(arg2 == 14) {
+                                    }else if(arg2 == 14 && str.length()>4) {
                                         str = parseString(arg2 + 1);
 
                                         String[] animals = str.split(" ");
@@ -460,10 +480,10 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                                         }
                                         Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
 
-
+                                        if(temp.length()>5)
                                         AlertMessage.showMessage(con, "Details", temp);
                                     }
-                                    else if(arg2 == 15) {
+                                    else if(arg2 == 15 && str.length()>4) {
                                         str = parseString(arg2 + 1);
 
                                         String[] animals = str.split(" ");
@@ -476,11 +496,11 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                                         }
                                         Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
 
-
+                                        if(temp.length()>5)
                                         AlertMessage.showMessage(con, "Details", temp);
 
                                     }
-                                    else if(arg2 == 16) {
+                                    else if(arg2 == 16 && str.length()>4) {
                                         str = parseString(arg2 + 1);
 
                                         String[] animals = str.split(" ");
@@ -493,12 +513,10 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                                         }
                                         Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
 
-
+                                        if(temp.length()>5)
                                         AlertMessage.showMessage(con, "Details", temp);
 
                                     }
-
-
 
 
 
@@ -593,7 +611,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
         if(v.getId() == R.id.ancSaveButton){
             saveAnc(v);
-
+           // loadANCHistory();
         }
     }
 

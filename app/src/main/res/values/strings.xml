@@ -327,6 +327,8 @@
     <string name="breath_per_minute">" শ্বাস (মিনিটে কতবার): "</string>
     <string name="complicationsign">" অসুবিধা: "</string>
 
+    <string name="detail">" বিস্তারিত "</string>
+
     <string name="only_breast_feeding">" শুধুমাত্র বুকের দুধ খাওয়ানো:"</string>
     <string name="delevery_service">"প্রসবকালীন সেবা "</string>
     <string name="delevery_related_info">"প্রসব সংক্রান্ত তথ্য "</string>

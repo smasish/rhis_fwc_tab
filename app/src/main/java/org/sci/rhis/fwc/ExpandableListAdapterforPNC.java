@@ -23,11 +23,14 @@ public class ExpandableListAdapterforPNC extends BaseExpandableListAdapter {
 	// child data in format of header title, child title
 	private HashMap<String, List<String>> _listDataChild;
 
+
 	public ExpandableListAdapterforPNC(Context context, List<String> listDataHeader,
 									   HashMap<String, List<String>> listChildData) {
 		this._context = context;
 		this._listDataHeader = listDataHeader;
 		this._listDataChild = listChildData;
+
+
 	}
 
 	@Override
@@ -56,6 +59,19 @@ public class ExpandableListAdapterforPNC extends BaseExpandableListAdapter {
 		TextView txtListChild = (TextView) convertView
 				.findViewById(R.id.lblListItem);
 
+		if (childPosition == 1 && childText.length()>2 ) {
+			txtListChild.setText("" + _context.getString(R.string.complicationsign) +  _context.getString(R.string.detail));
+		}else if (childPosition == 12 && childText.length()>2) {
+			txtListChild.setText("" + _context.getString(R.string.danger_signs) + _context.getString(R.string.detail));
+		}else if (childPosition == 13 && childText.length()>2) {
+			txtListChild.setText("" + _context.getString(R.string.disease) +  _context.getString(R.string.detail));
+		}else if (childPosition == 14 && childText.length()>2) {
+			txtListChild.setText("" + _context.getString(R.string.treatment) +  _context.getString(R.string.detail));
+		}else if (childPosition == 15 && childText.length()>2) {
+			txtListChild.setText("" + _context.getString(R.string.advice) +  _context.getString(R.string.detail));
+		}else if (childPosition == 17 && childText.length()>2) {
+			txtListChild.setText("" + _context.getString(R.string.referReason) +  _context.getString(R.string.detail));
+		}else
 		txtListChild.setText(childText);
 
 		convertView.setOnClickListener(new View.OnClickListener() {
@@ -69,12 +85,12 @@ public class ExpandableListAdapterforPNC extends BaseExpandableListAdapter {
 
 				//Toast.makeText(_context, "" + childText, Toast.LENGTH_SHORT).show();
 				String str = childText;
-
+				Log.d("childText","========="+childText.length());
 				str = str.replaceAll("[^0-9]+", " ");
 				//Log.d("oooooooooo13+++" + s, "" + s.trim().split(" "));
 
 
-				if (childPosition == 1) {
+				if (childPosition == 1 && childText.length()>2) {
 
 
 					String[] animals = str.split(" ");
@@ -93,7 +109,7 @@ public class ExpandableListAdapterforPNC extends BaseExpandableListAdapter {
 
 
 				}
-				else if (childPosition == 12){
+				else if (childPosition == 12 && childText.length()>2){
 					String[] animals = str.split(" ");
 					String temp = "";
 					details = res1.getStringArray(R.array.PNC_Mother_Danger_Sign_DropDown);
@@ -109,7 +125,7 @@ public class ExpandableListAdapterforPNC extends BaseExpandableListAdapter {
 						AlertMessage.showMessage(_context, "Details", temp);
 				}
 
-				else if (childPosition == 13){
+				else if (childPosition == 13 && childText.length()>2){
 					String[] animals = str.split(" ");
 					String temp = "";
 					details = res1.getStringArray(R.array.PNC_Mother_Disease_DropDown);
@@ -125,7 +141,7 @@ public class ExpandableListAdapterforPNC extends BaseExpandableListAdapter {
 						AlertMessage.showMessage(_context, "Details", temp);
 				}
 
-				else if (childPosition == 14){
+				else if (childPosition == 14 && childText.length()>2){
 					String[] animals = str.split(" ");
 					String temp = "";
 					details = res1.getStringArray(R.array.Treatment_DropDown);
@@ -141,7 +157,7 @@ public class ExpandableListAdapterforPNC extends BaseExpandableListAdapter {
 						AlertMessage.showMessage(_context, "Details", temp);
 				}
 
-				else if (childPosition == 15){
+				else if (childPosition == 15 && childText.length()>2){
 					String[] animals = str.split(" ");
 					String temp = "";
 					details = res1.getStringArray(R.array.PNC_Mother_Advice_DropDown);
@@ -156,7 +172,9 @@ public class ExpandableListAdapterforPNC extends BaseExpandableListAdapter {
 					if(temp.length()>5)
 						AlertMessage.showMessage(_context, "Details", temp);
 				}
-				else if (childPosition == 17){
+				else if (childPosition == 17 && childText.length()>2){
+
+
 					String[] animals = str.split(" ");
 					String temp = "";
 					details = res1.getStringArray(R.array.PNC_Mother_Refer_Reason_DropDown);
