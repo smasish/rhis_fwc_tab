@@ -160,7 +160,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
                 //TODO Make the fields non-modifiable
                 Utilities.Disable(this, R.id.delivery_info_layout);
-               Utilities.Visibility(this,R.id.btn_save_add_child);
+                Utilities.InVisible(this,R.id.btn_save_add_child);
             }
 
         } catch (JSONException jse) {

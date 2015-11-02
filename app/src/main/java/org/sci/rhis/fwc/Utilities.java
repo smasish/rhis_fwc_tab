@@ -2,6 +2,8 @@ package org.sci.rhis.fwc;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.widget.TextViewCompat;
+import android.text.Layout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
@@ -44,110 +46,237 @@ public class Utilities {
             if(view instanceof LinearLayout) {
                 Disable(activity, view.getId());
             }
-            else if (view instanceof EditText )
-            {  Log.e("s", String.valueOf(view.getClass()));
-                if(view.getId()==R.id.Clients_House_No || view.getId()==R.id.Clients_Mobile_no);
-                else
-                    (view).setFocusable(false);
 
-               // (view).setEnabled(false);
-            }
-            else if (view instanceof ImageButton)
-            {
-                (view).setClickable(false);
-
-            }
-            else if (view instanceof Button)
-            {
-                (view).setClickable(false);
-
-            }
             else if (view instanceof CheckBox) {
-                ((CheckBox) view).setCursorVisible(false);
-                ((CheckBox) view).setKeyListener(null);
-            }
-            else if (view instanceof RadioButton) {
 
-                ((RadioButton) view).setCursorVisible(false);
-                ((RadioButton) view).setKeyListener(null);
+                view.setClickable(false);
+                view.setEnabled(false);
             }
+
             else if (view instanceof Spinner) {
 
-                ((Spinner) view).setClickable(false);
-                //((Spinner) view).setKeyListener(null);
+                (view).setClickable(false);
+                (view).setEnabled(false);
             }
+
+            else if (view instanceof RadioButton) {
+
+                view.setClickable(false);
+                view.setEnabled(false);
+             }
+
+            else if (view instanceof ImageButton) {
+
+                (view).setClickable(false);
+                (view).setEnabled(false);
+            }
+
+            else if (view instanceof Button) {
+
+                view.setEnabled(false);
+                (view).setClickable(false);
+            }
+
+            else if (view instanceof EditText )
+            {
+                if(view.getId()==R.id.Clients_House_No || view.getId()==R.id.Clients_Mobile_no);
+                else
+                {   (view).setFocusable(false);
+                    (view).setEnabled(false);
+                }
+            }
+
+            else if (view instanceof TextView)
+            {
+                (view).setFocusable(false);
+            }
+
             else {
                 System.out.print(testgroup);
             }
         }
     }
 
-    public static void Visibility(Activity activity,int id)
+    public static void Visible(Activity activity,int id)
     {
         ViewGroup visibility = (ViewGroup)activity.findViewById(id);
-        int view =visibility.getId();
-
-                visibility.setVisibility(View.GONE);
+        visibility.setVisibility(View.VISIBLE);
     }
 
-    public static void Enable(Activity activity, int id) {
+    public static void InVisible(Activity activity,int id)
+    {
+        ViewGroup visibility = (ViewGroup)activity.findViewById(id);
+        visibility.setVisibility(View.GONE);
+    }
 
-        ViewGroup group = (ViewGroup)activity.findViewById(id);
-        for(int i = 0, count = group != null ? group.getChildCount(): 0; i <count; i++) {
-            View view = group.getChildAt(i);
+    public static void VisibleButton(Activity activity,int id)
+    {
+        Button visibility = (Button)activity.findViewById(id);
+        visibility.setVisibility(Button.VISIBLE);
+    }
+
+    public static void InVisibleButton(Activity activity,int id)
+    {
+        Button visibility = (Button)activity.findViewById(id);
+        visibility.setVisibility(Button.GONE);
+    }
+
+    public static void VisibleLayout(Activity activity,int id)
+    {
+        LinearLayout visibility = (LinearLayout)activity.findViewById(id);
+        visibility.setVisibility(View.VISIBLE);
+    }
+
+    public static void InVisibleLayout(Activity activity,int id)
+    {
+        LinearLayout visibility = (LinearLayout)activity.findViewById(id);
+        visibility.setVisibility(View.GONE);
+    }
+
+    public static void Reset(Activity activity, int id) {
+
+        ViewGroup testgroup = (ViewGroup)activity.findViewById(id);
+        for(int i = 0, count = testgroup != null ? testgroup.getChildCount(): 0; i <count; i++) {
+            View view = testgroup.getChildAt(i);
 
             if(view instanceof LinearLayout) {
-                Enable(activity, view.getId());
+                Reset(activity, view.getId());
             }
-            else if (view instanceof EditText )
-            {
-                (view).setFocusableInTouchMode(true);
-                (view).setFocusable(true);
-                ((EditText)view).setText("");
-                // (view).setEnabled(true);
-            }
-            else if (view instanceof ImageButton)
-            {
-                (view).setClickable(true);
 
-            }
-            else if (view instanceof Button)
-            {
-                (view).setClickable(true);
-
-            }
             else if (view instanceof CheckBox) {
-                ((CheckBox) view).setCursorVisible(true);
-                if(((CheckBox) view).isChecked())
-                ((CheckBox) view).setChecked(false);
-               // ((CheckBox) view).setKeyListener(null);
-            }
-            else if (view instanceof RadioButton) {
 
-                ((RadioButton) view).setCursorVisible(true);
-                 ((RadioButton) view).setChecked(false);
-               // ((RadioButton) view).setKeyListener(null);
+                ((CheckBox) view).setChecked(false);
+                view.setClickable(true);
+                view.setEnabled(true);
             }
             else if (view instanceof Spinner) {
 
-                ((Spinner) view).setClickable(true);
-                //((Spinner) view).setKeyListener(null);
+                (view).setClickable(true);
+                (view).setEnabled(true);
+            }
+
+            else if (view instanceof RadioButton) {
+
+                ((RadioButton) view).setChecked(false);
+                (view).setClickable(true);
+                (view).setEnabled(true);
+             }
+
+            else if (view instanceof ImageButton) {
+
+                (view).setClickable(true);
+                (view).setEnabled(true);
+            }
+
+            else if (view instanceof Button) {
+
+                (view).setEnabled(true);
+                (view).setClickable(true);
+            }
+
+            else if (view instanceof EditText ) {
+
+                if(view.getId()==R.id.Clients_House_No || view.getId()==R.id.Clients_Mobile_no);
+                else
+                {
+                    (view).setFocusable(true);
+                    (view).setFocusableInTouchMode(true);
+                    (view).setEnabled(true);
+                    ((EditText)view).setText("");
+                }
+            }
+
+            else if (view instanceof TextView) {
+
+                (view).setFocusable(true);
+                (view).setFocusableInTouchMode(true);
             }
 
             else {
-                System.out.print(group);
+                System.out.print(testgroup);
             }
         }
     }
 
-    public static void EnableEditText(EditText e){
-        e.setFocusableInTouchMode(true);
-        e.setFocusable(true);
-        e.setText("");
+    public static void Enable(Activity activity, int id) {
+
+        ViewGroup testgroup = (ViewGroup)activity.findViewById(id);
+        for(int i = 0, count = testgroup != null ? testgroup.getChildCount(): 0; i <count; i++) {
+            View view = testgroup.getChildAt(i);
+
+            if(view instanceof LinearLayout) {
+                Enable(activity, view.getId());
+            }
+
+            else if (view instanceof CheckBox) {
+
+                view.setClickable(true);
+                view.setEnabled(true);
+            }
+            else if (view instanceof Spinner) {
+
+                (view).setClickable(true);
+                (view).setEnabled(true);
+            }
+
+            else if (view instanceof RadioButton) {
+
+                (view).setClickable(true);
+                (view).setEnabled(true);
+            }
+
+            else if (view instanceof ImageButton) {
+
+                (view).setClickable(true);
+                (view).setEnabled(true);
+            }
+
+            else if (view instanceof Button) {
+
+                (view).setEnabled(true);
+                (view).setClickable(true);
+            }
+
+            else if (view instanceof EditText ) {
+
+                if(view.getId()==R.id.Clients_House_No || view.getId()==R.id.Clients_Mobile_no);
+                else
+                {
+                    (view).setFocusable(true);
+                    (view).setFocusableInTouchMode(true);
+                    (view).setEnabled(true);
+                }
+            }
+
+            else if (view instanceof TextView) {
+
+                (view).setFocusable(true);
+                (view).setFocusableInTouchMode(true);
+            }
+
+            else {
+                System.out.print(testgroup);
+            }
+        }
     }
 
-    public static void DisableEditText(EditText e){
+    public static void EnableField(Activity activity,int id,String type)
+    {
+        EditText e = (EditText)activity.findViewById(id);
+
+        e.setFocusableInTouchMode(true);
+        e.setFocusable(true);
+        e.setEnabled(true);
+        if(type=="reset")
+            (e).setText("");
+    }
+
+    public static void DisableField(Activity activity,int id)
+    {
+        EditText e = (EditText)activity.findViewById(id);
+
         e.setFocusable(false);
+        e.setEnabled(false);
     }
 
     public static void getSpinners(HashMap<String, Spinner> keyMap, JSONObject json) {

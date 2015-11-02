@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,8 +49,6 @@ public class SecondActivity extends ClinicalServiceActivity {
     private BigInteger responseID = BigInteger.valueOf(0);
     EditText lmpEditText;
     EditText eddEditText;
-    EditText HouseGREditText;
-    EditText MobileNoEditText;
     JSONObject client;
 
     @Override
@@ -95,11 +92,10 @@ public class SecondActivity extends ClinicalServiceActivity {
             public void onItemSelected(AdapterView<?> arg0, View view,
                                        int position, long row_id) {
                 final Intent intent;
-               if (position==5) {
-                   intent = new Intent(SecondActivity.this, ADVSearchActivity.class);
-                   startActivity(intent);
+                if (position == 5) {
+                    intent = new Intent(SecondActivity.this, ADVSearchActivity.class);
+                    startActivity(intent);
                 }
-
 
             }
 
@@ -212,11 +208,10 @@ public class SecondActivity extends ClinicalServiceActivity {
     public void callbackAsyncTask(String result) { //Get results back from healthId search
         Log.e("result:", result);
 
-        try {
-
+        try
+        {
             JSONObject json = new JSONObject(result);
             String key;
-
 
             //DEBUG response from servlet
             for (Iterator<String> ii = json.keys(); ii.hasNext(); ) {
@@ -233,27 +228,41 @@ public class SecondActivity extends ClinicalServiceActivity {
                 if (json.get("False").toString().equals("")) { //Client exists
                     populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
                     responseID = new BigInteger(json.get("cHealthID").toString());
+
                     if (woman != null) {
+
                         manipulateJson(json);
                         populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
                         woman.UpdateUIField(this);
                         Utilities.Disable(this, R.id.clients_info_layout);
+                        Utilities.DisableField(this, R.id.Clients_House_No);
+                        Utilities.DisableField(this, R.id.Clients_Mobile_no);
 
-                        HouseGREditText = (EditText) findViewById(R.id.Clients_House_No);
-                        MobileNoEditText = (EditText) findViewById(R.id.Clients_Mobile_no);
+                        Utilities.InVisibleButton(this, R.id.client_Save_Button);
+                        Utilities.InVisibleButton(this, R.id.client_update_Button);
+                        Utilities.VisibleButton(this, R.id.client_edit_Button);
+                        Utilities.VisibleButton(this, R.id.client_New_preg_Button);
 
-                        Utilities.DisableEditText(HouseGREditText);
-                        Utilities.DisableEditText(MobileNoEditText);
 
                     }
 
-                    // To Make disable desired fields
+                    else {
+                        Utilities.VisibleButton(this, R.id.client_Save_Button);
+                        Utilities.InVisibleButton(this, R.id.client_update_Button);
+                        Utilities.InVisibleButton(this, R.id.client_edit_Button);
+                        Utilities.InVisibleButton(this, R.id.client_New_preg_Button);
+                    }
+
                     Utilities.Disable(this, R.id.clients_intro_layout);
-                    //Utilities.Enable(this, R.id.clients_intro_layout);
+                    Utilities.VisibleLayout(this, R.id.clients_info_layout);
 
                 }
-                else
+
+                else {
+
                     Toast.makeText(this, "Provided information is not valid! Please try again....", Toast.LENGTH_LONG).show();
+                    Utilities.InVisibleLayout(this, R.id.clients_info_layout);
+                }
 
             }
 
@@ -274,16 +283,15 @@ public class SecondActivity extends ClinicalServiceActivity {
                 manipulateJson(json);
                 populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
                 woman.UpdateUIField(this);
+
                 Utilities.Disable(this, R.id.clients_info_layout);
-
-                HouseGREditText = (EditText) findViewById(R.id.Clients_House_No);
-                MobileNoEditText = (EditText) findViewById(R.id.Clients_Mobile_no);
-
-                Utilities.DisableEditText(HouseGREditText);
-                Utilities.DisableEditText(MobileNoEditText);
+                Utilities.DisableField(this, R.id.Clients_House_No);
+                Utilities.DisableField(this, R.id.Clients_Mobile_no);
 
             }
-        } catch (JSONException jse) {
+        }
+
+        catch (JSONException jse) {
             System.out.println("JSON Exception Thrown( At callbackAsyncTask ):\n ");
             jse.printStackTrace();
         }
@@ -548,9 +556,16 @@ public class SecondActivity extends ClinicalServiceActivity {
     }
 
     public void resetFields(View view){
-        Utilities.Enable(this, R.id.clients_info_layout);
-        Utilities.EnableEditText(HouseGREditText);
-        Utilities.EnableEditText(MobileNoEditText);
+        Utilities.Reset(this, R.id.clients_info_layout);
+        Utilities.EnableField(this, R.id.Clients_House_No, "reset");
+        Utilities.EnableField(this, R.id.Clients_Mobile_no, "reset");
     }
 
+    public void editFields(View view){
+        Utilities.Enable(this, R.id.clients_info_layout);
+        Utilities.EnableField(this, R.id.Clients_House_No, "edit");
+        Utilities.EnableField(this, R.id.Clients_Mobile_no, "edit");
+        Utilities.InVisibleButton(this, R.id.client_edit_Button);
+        Utilities.VisibleButton(this, R.id.client_update_Button);
+    }
 }

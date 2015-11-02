@@ -65,16 +65,16 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
         switch(integerRecd) {
             case 1:
-                Utilities.Visibility(this,R.id.notDetected);
+                Utilities.InVisible(this,R.id.notDetected);
                 break;
             case 2:
-                Utilities.Visibility(this,R.id.notDetected);
-                Utilities.Visibility(this,R.id.layout_only_for_neborn);
+                Utilities.InVisible(this,R.id.notDetected);
+                Utilities.InVisible(this,R.id.layout_only_for_neborn);
                 break;
 
             case 3:
-                Utilities.Visibility(this,R.id.deliveryWipe);
-                Utilities.Visibility(this,R.id.layout_only_for_neborn);
+                Utilities.InVisible(this,R.id.deliveryWipe);
+                Utilities.InVisible(this,R.id.layout_only_for_neborn);
                 break;
         }
 
