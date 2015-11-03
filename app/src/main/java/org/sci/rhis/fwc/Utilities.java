@@ -82,12 +82,11 @@ public class Utilities {
         }
     }
 
-    public static void Visibility(Activity activity,int id)
+    public static void MakeInvisible(Activity activity, int id)
     {
         ViewGroup visibility = (ViewGroup)activity.findViewById(id);
-        int view =visibility.getId();
-
-                visibility.setVisibility(View.GONE);
+        int view = visibility.getId();
+        visibility.setVisibility(View.GONE);
     }
 
     public static void Enable(Activity activity, int id) {
