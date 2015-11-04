@@ -186,6 +186,7 @@ public class SecondActivity extends ClinicalServiceActivity {
 
         try {
             String mobileNumber=json.get("cMobileNo").toString();
+            if(mobileNumber.charAt(0)!='0')
             mobileNumber="0"+mobileNumber;
             json.put("cMobileNo",mobileNumber);
         } catch (JSONException e) {
@@ -204,11 +205,8 @@ public class SecondActivity extends ClinicalServiceActivity {
             }
         }
 
-        HashMap<String, Pair<Spinner, Integer>> clientSpinnerMap = new HashMap<>(1); //fixed capacity ??
-        clientSpinnerMap.put("cBloodGroup", Pair.create((Spinner) findViewById(R.id.Blood_Group_Dropdown), R.array.Blood_Group_Dropdown));
-
-        //manipulateJson(json);
-        Utilities.setSpinners(clientSpinnerMap, json, this);
+        manipulateJson(json);
+        Utilities.setSpinners(jsonSpinnerMap, json);
         Utilities.setCheckboxes(jsonCheckboxMap, json);
     }
 
@@ -228,7 +226,7 @@ public class SecondActivity extends ClinicalServiceActivity {
             }
 
 
-            if (json.has("False")) //callback for client servlet
+            if (!json.has("responseType")) //callback for client servlet
             {
                 client = json;
                 woman = PregWoman.CreatePregWoman(json);
@@ -293,6 +291,8 @@ public class SecondActivity extends ClinicalServiceActivity {
                 woman.UpdateUIField(this);
 
                 Utilities.Disable(this, R.id.clients_info_layout);
+                Utilities.InVisibleButton(this, R.id.client_update_Button);
+                Utilities.VisibleButton(this, R.id.client_edit_Button);
                 Utilities.DisableField(this, R.id.Clients_House_No);
                 Utilities.DisableField(this, R.id.Clients_Mobile_no);
 
@@ -461,7 +461,8 @@ public class SecondActivity extends ClinicalServiceActivity {
 
     @Override
     protected void initiateSpinners() {
-        jsonSpinnerMap.put("bloodGroup", getSpinner(R.id.Blood_Group_Dropdown));
+        jsonSpinnerMapSave.put("bloodGroup", getSpinner(R.id.Blood_Group_Dropdown));
+        jsonSpinnerMap.put("cBloodGroup", getSpinner(R.id.Blood_Group_Dropdown));
     }
 
     @Override
@@ -488,7 +489,7 @@ public class SecondActivity extends ClinicalServiceActivity {
             Utilities.getEditTextDates(jsonEditTextDateMap, json);
             Utilities.getCheckboxesBlank(jsonCheckboxMapSave, json);
             //buildJson(complicated);
-            Utilities.getSpinnersValuesWithoutSlash(jsonSpinnerMap, json);
+            Utilities.getSpinners(jsonSpinnerMapSave, json);
             getSpecialCases(json);
             Log.d("Pregwomen", "***************In progress :" + json.toString());
             storeInfoToJsonfirst(json);
@@ -535,7 +536,6 @@ public class SecondActivity extends ClinicalServiceActivity {
         String queryString = "{" +
                 "healthId:\"" + responseID + "\"," +
                 "providerId:\"" + ProviderInfo.getProvider().getProviderCode() + "\"," +
-                "pregNo:\"\"," +
                 "complicatedHistory:\"\"," +  //temp
                 "complicatedHistoryNote:\"9\",";    //temp
 
@@ -549,6 +549,11 @@ public class SecondActivity extends ClinicalServiceActivity {
 
     public void getSpecialCases(JSONObject json) {
         try {
+            if (woman != null) {
+                json.put("pregNo", woman.getPregNo());
+            }
+            else
+                json.put("pregNo","\"\"");
 
             Integer month = Integer.parseInt(getEditText(R.id.lastChildYear).getText().toString()) * 12;
             month += Integer.parseInt(getEditText(R.id.lastChildMonth).getText().toString());
@@ -558,6 +563,7 @@ public class SecondActivity extends ClinicalServiceActivity {
 
             json.put("lastChildAge", month);
             json.put("height", feet);
+                 // To trace save or update
         } catch (JSONException jse) {
 
         }

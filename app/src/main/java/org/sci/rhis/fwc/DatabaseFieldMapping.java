@@ -34,6 +34,8 @@ public class DatabaseFieldMapping {
         CLIENT_INFO.put("cGravida", R.id.gravida);
         CLIENT_INFO.put("cBoy", R.id.SonNum);
         CLIENT_INFO.put("cGirl", R.id.DaughterNum);
+        CLIENT_INFO.put("chGRHNo", R.id.Clients_House_No);
+        CLIENT_INFO.put("cMobileNo", R.id.Clients_Mobile_no);
         //CLIENT_INTRO.put("cMouza", R.id.Client_);
         //CLIENT_INFO.put("cLastChildAge", R.id.);
         //CLIENT_INTRO.put("cHealthID", R.id.Clients_HealthId);

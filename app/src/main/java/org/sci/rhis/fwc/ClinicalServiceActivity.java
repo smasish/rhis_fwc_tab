@@ -19,6 +19,7 @@ public abstract class ClinicalServiceActivity extends FWCServiceActivity {
     protected HashMap<String, CheckBox> jsonCheckboxMapSave;
     protected HashMap<String, CheckBox> jsonCheckboxGroupMap;
     protected HashMap<String, Spinner> jsonSpinnerMap;
+    protected HashMap<String, Spinner> jsonSpinnerMapSave;
     protected HashMap<String, MultiSelectionSpinner> jsonMultiSpinnerMap;
     protected HashMap<String, Pair<RadioGroup, Pair<RadioButton,RadioButton>>> jsonRadioGroupButtonMap;
     protected HashMap<String, EditText> jsonEditTextMap;
@@ -41,6 +42,7 @@ public abstract class ClinicalServiceActivity extends FWCServiceActivity {
 
         //populate Spinners
         jsonSpinnerMap = new HashMap<String, Spinner>();
+        jsonSpinnerMapSave = new HashMap<String, Spinner>();
         initiateSpinners();
 
         //populate Spinners
