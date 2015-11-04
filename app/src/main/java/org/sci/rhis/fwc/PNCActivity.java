@@ -58,6 +58,7 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
+
     LinearLayout ll,ll_pnc_child;
 
     private PregWoman mother;
@@ -397,9 +398,7 @@ pnc child history
                             list.add("" + getString(R.string.weight) + " " + weight);
                             list.add("" + getString(R.string.breath_per_minute) + " " + breathingPerMinute);
                             list.add("" + getString(R.string.danger_signs) + " " + dangerSign);
-
                             list.add("" + getString(R.string.breast_feeding) + " " + breastFeedingOnly);
-
                             list.add("" + getString(R.string.disease) + " " + disease);
                             list.add("" + getString(R.string.treatment) + " " + treatment);
                             list.add("" + getString(R.string.advice) + " " + advice);
@@ -415,7 +414,6 @@ pnc child history
 
                                 listDataHeader = new ArrayList<String>();
                                 listDataChild = new HashMap<String, List<String>>();
-
 
                                 // listDataHeader.add(getString(R.string.history_visit1) + "" + jsonArray.get(0).toString() + " :");
                                 listDataHeader.add("Visit " + num + ":");//jsonArray.get(0).toString()
@@ -540,7 +538,7 @@ pnc child history
 
                     ArrayList<String> list = new ArrayList<String>();
                     list.add("" + getString(R.string.visitDate) + " " + visitDate);
-                    list.add("" + getString(R.string.complicationsign) + " " + complicationsign);
+                    list.add("" + getString(R.string.complicationsign) + " " + symptom);
                     list.add("" + getString(R.string.temperature) + " " + temperature);
                     list.add("" + getString(R.string.bpSystolic) + " " + bpSystolic);
                     list.add("" + getString(R.string.anemia) + " " + anemia);
