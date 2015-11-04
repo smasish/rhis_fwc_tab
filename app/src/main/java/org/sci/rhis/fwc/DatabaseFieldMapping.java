@@ -28,8 +28,6 @@ public class DatabaseFieldMapping {
 
     public static void InitializeClientInformation() {
         CLIENT_INFO = new HashMap<String, Integer>();
-        CLIENT_INFO.put("cLMP", R.id.lmpDate);
-        CLIENT_INFO.put("cEDD", R.id.edd);
         CLIENT_INFO.put("cPara", R.id.para);
         CLIENT_INFO.put("cGravida", R.id.gravida);
         CLIENT_INFO.put("cBoy", R.id.SonNum);

@@ -116,7 +116,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
                     @Override
                     public void afterTextChanged(Editable s) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
                         try {
                             Date lmp = sdf.parse(lmpEditText.getText().toString());
 
@@ -187,10 +187,12 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         String key;
 
         try {
-            String mobileNumber=json.get("cMobileNo").toString();
-            if(mobileNumber.charAt(0)!='0')
-            mobileNumber="0"+mobileNumber;
-            json.put("cMobileNo",mobileNumber);
+            if(!json.get("cMobileNo").toString().isEmpty()){
+                String mobileNumber=json.get("cMobileNo").toString();
+                if(mobileNumber.charAt(0)!='0')
+                mobileNumber="0"+mobileNumber;
+                json.put("cMobileNo",mobileNumber);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -210,11 +212,12 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         manipulateJson(json);
         Utilities.setSpinners(jsonSpinnerMap, json);
         Utilities.setCheckboxes(jsonCheckboxMap, json);
+        Utilities.setEditTextDates(jsonEditTextDateMap, json);
     }
 
     @Override
     public void callbackAsyncTask(String result) { //Get results back from healthId search
-        Log.e("result:", result);
+        Log.d("result:", result);
 
         try
         {
@@ -264,24 +267,25 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                     Utilities.Disable(this, R.id.clients_intro_layout);
                     Utilities.VisibleLayout(this, R.id.clients_info_layout);
 
-                } else {
+                }
 
                 else {
 
                     Toast.makeText(this, "Provided information is not valid! Please try again....", Toast.LENGTH_LONG).show();
                     Utilities.InVisibleLayout(this, R.id.clients_info_layout);
                 }
-                }
+            }
 
-            } else {  //callback for PregInfo servlet
+            else
 
+            {  //callback for PregInfo servlet
                 client.put("regSerialNo", json.get("regSerialNo"));
                 client.put("regDate", json.get("regDate"));
                 client.put("highRiskPreg", json.get("highRiskPreg"));
                 client.put("cPregNo", json.get("pregNo"));
                 client.put("cNewMCHClient", "false");
 
-                Log.e("json", client.toString());
+                Log.d("json", client.toString());
 
                 woman = PregWoman.CreatePregWoman(client);
                 populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
@@ -500,8 +504,11 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
     @Override
     protected void initiateEditTextDates() {
-        jsonEditTextDateMap.put("lmp", getEditText(R.id.lmpDate));
-        jsonEditTextDateMap.put("edd", getEditText(R.id.edd));
+        jsonEditTextDateMap.put("cLMP", getEditText(R.id.lmpDate));
+        jsonEditTextDateMap.put("cEDD", getEditText(R.id.edd));
+
+        jsonEditTextDateMapSave.put("lmp", getEditText(R.id.lmpDate));
+        jsonEditTextDateMapSave.put("edd", getEditText(R.id.edd));
     }
 
     @Override
@@ -515,7 +522,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         try {
             json = buildQueryHeader(false);
             Utilities.getEditTexts(jsonEditTextMap, json);
-            Utilities.getEditTextDates(jsonEditTextDateMap, json);
+            Utilities.getEditTextDates(jsonEditTextDateMapSave, json);
             Utilities.getCheckboxesBlank(jsonCheckboxMapSave, json);
             //buildJson(complicated);
             Utilities.getSpinners(jsonSpinnerMapSave, json);
@@ -584,15 +591,18 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             else
                 json.put("pregNo","\"\"");
 
-            Integer month = Integer.parseInt(getEditText(R.id.lastChildYear).getText().toString()) * 12;
-            month += Integer.parseInt(getEditText(R.id.lastChildMonth).getText().toString());
+            //To enter 0 if ""
+            Integer year= (getEditText(R.id.lastChildYear).getText().toString()).isEmpty()?0:Integer.parseInt(getEditText(R.id.lastChildYear).getText().toString());
+            Integer month= (getEditText(R.id.lastChildMonth).getText().toString()).isEmpty()?0:Integer.parseInt(getEditText(R.id.lastChildMonth).getText().toString());
+            Integer feet= (getEditText(R.id.heightFeet).getText().toString()).isEmpty()?0:Integer.parseInt(getEditText(R.id.heightFeet).getText().toString());
+            Integer inch= (getEditText(R.id.heightInch).getText().toString()).isEmpty()?0:Integer.parseInt(getEditText(R.id.heightInch).getText().toString());
 
-            Integer feet = Integer.parseInt(getEditText((R.id.heightFeet)).getText().toString()) * 12;
-            feet += Integer.parseInt(getEditText(R.id.heightInch).getText().toString());
+            month=year*12+month;
+            feet=feet*12+inch;
 
             json.put("lastChildAge", month);
             json.put("height", feet);
-                 // To trace save or update
+
         } catch (JSONException jse) {
 
         }

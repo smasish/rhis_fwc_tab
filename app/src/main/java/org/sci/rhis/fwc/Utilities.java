@@ -457,13 +457,15 @@ public class Utilities {
     public static void setEditTextDates(HashMap<String, EditText> keyMap, JSONObject json) {
 
         SimpleDateFormat dbFormat = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat uiFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat uiFormat = new SimpleDateFormat("dd-MMM-yyyy");
         String currentDate;
         for (String key: keyMap.keySet()) {
             try {
                 currentDate = json.getString(key);
                 if(!currentDate.equals("")) {
-                    keyMap.get(key).setText(uiFormat.format(dbFormat.parse(json.getString(key))));
+                    Date k=dbFormat.parse(currentDate);
+                    String v=uiFormat.format(k);
+                    keyMap.get(key).setText(v);
                 }
             } catch (JSONException jse) {
                 System.out.println("The JSON key: '" + key+ "' does not exist");
@@ -475,15 +477,17 @@ public class Utilities {
 
     public static void getEditTextDates(HashMap<String, EditText> keyMap, JSONObject json) {
 
-        SimpleDateFormat uiFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat uiFormat = new SimpleDateFormat("dd-MMM-yyyy");
         SimpleDateFormat dbFormat = new SimpleDateFormat("yyyy-MM-dd");
         String currentDate;
         for (String key: keyMap.keySet()) {
             try {
-                /*currentDate = json.getString(key);
+                currentDate = (keyMap.get(key).getText()).toString();
                 if(!currentDate.equals("")) {
-                    keyMap.get(key).setText(oformat.format(iformat.parse(json.getString(key))));
-                }*/
+                    Date k=uiFormat.parse(currentDate);
+                    String v=dbFormat.format(k);
+                    json.put(key, v);
+                }
                 json.put(key, dbFormat.format(uiFormat.parse(keyMap.get(key).getText().toString())));
             } catch (JSONException jse) {
                 System.out.println("The JSON key: '" + key+ "' does not exist");

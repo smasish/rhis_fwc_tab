@@ -243,8 +243,6 @@ public class PregWoman extends GeneralPerson implements Parcelable{
 
     public void UpdateUIField(Activity activity) {
 
-        ((EditText)activity.findViewById(R.id.lmpDate)).setText(df.format(lmp));
-        ((EditText)activity.findViewById(R.id.edd)).setText(df.format(edd));
         ((EditText)activity.findViewById(R.id.gravida)).setText(gravida);
         ((EditText)activity.findViewById(R.id.para)).setText(para);
         ((EditText)activity.findViewById(R.id.SonNum)).setText(nBoy);
