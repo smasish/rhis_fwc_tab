@@ -21,10 +21,14 @@ import org.json.JSONObject;
 import org.sci.rhis.utilities.CustomDatePickerDialog;
 import org.sci.rhis.utilities.CustomTimePickerDialog;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class DeliveryNewbornActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
                                                                                 View.OnClickListener,
@@ -38,7 +42,9 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     private PregWoman mother;
     private  JSONObject deliveryJsonObj;
     private ProviderInfo provider;
-    int flag =0;
+    private int flag =0;
+    private int integerRecd;
+    private int currentChildNo = 0;
 
     final private String SERVLET = "newborn";
     final private String ROOTKEY= "newbornInfo";
@@ -56,25 +62,29 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         // Remove Action Bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-
+        initialize(); //initialize the inherited maps
         /**get the intent*/
         Intent intent = getIntent();
         System.out.print("Get Intent?" + "Under this");
 
-        int integerRecd = intent.getIntExtra("Layout", flag);
+        integerRecd = intent.getIntExtra("Layout", flag);
 
         switch(integerRecd) {
             case 1:
-                Utilities.InVisible(this,R.id.notDetected);
+                Utilities.MakeInvisible(this, R.id.notDetected);
+                jsonEditTextMap.get("birthStatus").setText("1");
+
                 break;
             case 2:
-                Utilities.InVisible(this,R.id.notDetected);
-                Utilities.InVisible(this,R.id.layout_only_for_neborn);
+                Utilities.MakeInvisible(this, R.id.notDetected);
+                Utilities.MakeInvisible(this, R.id.layout_only_for_neborn);
+                jsonEditTextMap.get("birthStatus").setText("2");
                 break;
 
             case 3:
-                Utilities.InVisible(this,R.id.deliveryWipe);
-                Utilities.InVisible(this,R.id.layout_only_for_neborn);
+                Utilities.MakeInvisible(this, R.id.deliveryWipe);
+                Utilities.MakeInvisible(this, R.id.layout_only_for_neborn);
+                jsonEditTextMap.get("birthStatus").setText("3");
                 break;
         }
 
@@ -90,19 +100,28 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         multiSelectionSpinner.setSelection(new int[]{});
 
         getCheckbox(R.id.deliveryChildReferCheckBox).setOnCheckedChangeListener(this);
-        buildQueryHeader();
 
         //create the mother
         mother = getIntent().getParcelableExtra("PregWoman");
+        provider = getIntent().getParcelableExtra("Provider");
 
         try {
             deliveryJsonObj = new JSONObject(str);
+            if(isImmature(mother, deliveryJsonObj.get("dDate").toString())){
+                jsonTextViewsMap.get("immature").setVisibility(View.VISIBLE);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        provider = getIntent().getParcelableExtra("Provider");
-        initialize();
+        //Get the existing information
+        newbornInfoQueryTask = new AsyncNewbornInfoUpdate(this);
+        try{
+            JSONObject jso = buildQueryHeader(true);
+            newbornInfoQueryTask.execute(jso.toString(), SERVLET, ROOTKEY);
+        } catch (JSONException JSE) {
+            JSE.printStackTrace();
+        }
     }
 
     @Override
@@ -129,17 +148,30 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
     @Override
     public void callbackAsyncTask(String result) {
-        Log.e("Found result", result);
+        Log.d("Delivery-Newborn", result);
         JSONObject json;
         try {
             json = new JSONObject(result);
             String key;
+            if(json.has("result")) { //if result key is present
+               if(json.getString("result").equals("true")) {//then see if children exist i.e. result:true
+                   currentChildNo = Integer.valueOf(json.getString("count"));
+               } else { // no child information is available
+                   currentChildNo = 0;
+               }
+                jsonEditTextMap.get("childno").setText(String.valueOf(currentChildNo+1));
+                //Utilities.Disable(this, jsonEditTextMap.get("childno").getId());
+            }
 
-            //DEBUG
+            //int size = json.names().length();
+
+
             for (Iterator<String> ii = json.keys(); ii.hasNext(); ) {
                 key = ii.next();
-                System.out.println("1.Key:" + key + " Value:\'" + json.get(key) + "\'");
+                Log.d("Delivery-Newborn", "1.Key:" + key + " Value:\'" + json.get(key) + "\'");
             }
+
+            //currentChildNo = size2;
         }
         catch (JSONException jse) {
             jse.printStackTrace();
@@ -157,14 +189,14 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     @Override
     protected void initiateEditTexts() {
         // for New born layout
-        jsonEditTextMap.put("immature",  getEditText(R.id.deliveryNewBornNo));
+        jsonEditTextMap.put("childno",  getEditText(R.id.deliveryNewBornNo));
         jsonEditTextMap.put("birthStatus", getEditText(R.id.deliveryNewBornConditionValue));
         jsonEditTextMap.put("weight",getEditText(R.id.deliveryNewBornWeightValue));
     }
 
     @Override
     protected void initiateTextViews() {
-        jsonTextViewsMap.put("immature",  getTextView(R.id.deliveryNewBornNo));
+        jsonTextViewsMap.put("immature",  getTextView(R.id.deliveryNewBornMaturity));
         jsonTextViewsMap.put("birthStatus",getTextView(R.id.deliveryNewBornConditionValue));
     }
 
@@ -172,11 +204,12 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     protected void initiateSpinners() {
         // for New born Layout
         jsonSpinnerMap.put("newBornReferCenter", getSpinner(R.id.deliveryChildReferCenterNameSpinner));
-        jsonSpinnerMap.put("newBornReferReason", getSpinner(R.id.deliveryChildReferReasonSpinner));
     }
 
     @Override
-    protected void initiateMultiSelectionSpinners(){}
+    protected void initiateMultiSelectionSpinners(){
+        jsonMultiSpinnerMap.put("newBornReferReason", getMultiSelectionSpinner(R.id.deliveryChildReferReasonSpinner));
+    }
 
     @Override
     protected void initiateEditTextDates() {
@@ -273,7 +306,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     }
     private void newbornSaveToJson() {
 
-        newbornInfoQueryTask = new AsyncNewbornInfoUpdate(this);
+        newbornInfoUpdateTask = new AsyncNewbornInfoUpdate(this);
         JSONObject json;
         try {
             json = buildQueryHeader(false);
@@ -281,22 +314,30 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
             Utilities.getEditTexts(jsonEditTextMap, json);
             Utilities.getCheckboxes(jsonCheckboxMap, json);
             Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
+            getSpecialCases(json);
             Log.d("DeliveryJsonFoundinSave", json.toString());
            Log.e("Servlet and Rootkey", SERVLET + " " + ROOTKEY);
-            newbornInfoQueryTask.execute(json.toString(), SERVLET, ROOTKEY);
+            newbornInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
         } catch (JSONException jse) {
 
             Log.d("Newborn", "JSON Exception: " + jse.getMessage());
         }
-
+        finish();
     }
 
-    private String buildQueryHeader()
-    {
-        Log.e("Test buildQuery", "Hello World" );
+    public void getSpecialCases(JSONObject json) {
+        try {
+           json.put("immature", (jsonTextViewsMap.get("immature").getVisibility()==View.VISIBLE) ? "1" : "2");
+           json.put("outcomeplace", deliveryJsonObj.getInt("dPlace"));
+           json.put("outcomedate", deliveryJsonObj.getString("dDate"));
+           json.put("outcometime", deliveryJsonObj.getString("dTime"));
+           json.put("outcometype", deliveryJsonObj.getInt("dType"));
+        } catch (JSONException jse) {
 
-        return null;
+        }
     }
+
+
     private JSONObject buildQueryHeader(boolean isRetrieval) throws JSONException {
 
         //get info from database
@@ -304,15 +345,24 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
                 "healthid:" + mother.getHealthId() + "," +
                "providerid:"+ String.valueOf(provider.getProviderCode()) + "," +
                 "pregno:" + mother.getPregNo() + "," +
-                "newbornLoad:" + "\"\"" + "," +
-                "\"outcomeplace\":" + deliveryJsonObj.getInt("dPlace")+ "," +
-                "\"outcomedate\":" + "\"" +deliveryJsonObj.getString("dDate") + "\"" +"," +
-                "\"outcometime\":" + "\"" +deliveryJsonObj.getString("dTime")+ "\"" + "," +
-                "\"outcometype\":" + deliveryJsonObj.getInt("dType") +
+                "newbornLoad:" + (isRetrieval? "retrieve":"\"\"") +
                 "}";
 
           Log.e("Is there have Values?", queryString);
 
         return new JSONObject(queryString);
+    }
+
+    private boolean isImmature(PregWoman mother, String date) { // receive date in json format that is
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        long days = 0;
+        try {
+            Date deliveryDate = sdf.parse(date);
+            days = TimeUnit.DAYS.convert(mother.getLmp().getTime() - deliveryDate.getTime(), TimeUnit.DAYS);
+
+        } catch (ParseException PE) {
+
+        }
+        return (days < (37 * 7) );
     }
 }

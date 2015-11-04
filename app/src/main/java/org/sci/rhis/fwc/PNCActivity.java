@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -58,7 +59,12 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
     HashMap<String, List<String>> listDataChild;
     LinearLayout ll,ll_pnc_child;
 
+    private PregWoman mother;
+    private ProviderInfo provider;
+    AsyncPNCInfoUpdate pncInfoUpdateTask;
 
+    final private String SERVLET = "pncmother";
+    final private String ROOTKEY = "PNCMotherInfo";
 
     ArrayList<HashMap<String, String>> contactList;
     JSONArray contacts = null;
@@ -96,6 +102,9 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
             }
         };
 
+        mother = getIntent().getParcelableExtra("PregWoman");
+
+        provider = getIntent().getParcelableExtra("Provider");
 
         pnc_mother = (Button)findViewById(R.id.pncmother);
         pnc_child = (Button)findViewById(R.id.pncchild);
@@ -358,6 +367,7 @@ pnc child history
                             //String complicationsign = jsonRootObject.getString("serviceSource");
                              //String complicationsign = jsonObject.getString("complicationsign");
                             String visitDate = jsonObject.getString("visitDate");
+                            String symptom = jsonObject.getString("symptom");
                             String weight = jsonObject.getString("weight");
                             String referCenterName = jsonObject.getString("referCenterName");
                             String childNo = jsonObject.getString("childNo");
@@ -376,7 +386,7 @@ pnc child history
 
                             ArrayList<String> list = new ArrayList<String>();
                             list.add("" + getString(R.string.visitDate) + " " + visitDate);
-                           // list.add("" + getString(R.string.complicationsign) + " " + complicationsign);
+                            list.add("" + getString(R.string.complicationsign) + " " + symptom);
                             list.add("" + getString(R.string.temperature) + " " + temperature);
                             list.add("" + getString(R.string.weight) + " " + weight);
                             list.add("" + getString(R.string.breath_per_minute) + " " + breathingPerMinute);
@@ -386,8 +396,8 @@ pnc child history
 
                             list.add("" + getString(R.string.disease) + " " + disease);
                             list.add("" + getString(R.string.treatment) + " " + treatment);
-                    list.add("" + getString(R.string.advice) + " " + advice);
-                    list.add("" + getString(R.string.refer) + " " + refer);
+                            list.add("" + getString(R.string.advice) + " " + advice);
+                            list.add("" + getString(R.string.refer) + " " + refer);
                             list.add("" + getString(R.string.referCenterName) + " " + referCenterName);
                             list.add("" + getString(R.string.referReason) + " " + referReason);
 
@@ -604,10 +614,48 @@ pnc child history
 
     }
 
+    private void pncMotherSaveToJson() {
+        pncInfoUpdateTask = new AsyncPNCInfoUpdate(this);
+        JSONObject json;
+        try {
+            json = buildQueryHeader(false);
+            Utilities.getCheckboxes(jsonCheckboxMap, json);
+            Utilities.getEditTexts(jsonEditTextMap, json);
+            Utilities.getEditTextDates(jsonEditTextDateMap, json);
+            Utilities.getSpinners(jsonSpinnerMap, json);
+            Utilities.getMultiSelectSpinnerIndices(jsonMultiSpinnerMap, json);
+
+           pncInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
+
+            System.out.print("Delivery Save Json in Servlet:" + ROOTKEY +":{"+ json.toString()+"}");
+
+
+        } catch (JSONException jse) {
+            Log.e("PNC JSON Exception: ", jse.getMessage());
+        }
+
+    }
+    private JSONObject buildQueryHeader(boolean isRetrieval) throws JSONException {
+        //get info from database
+        String queryString =   "{" +
+                "healthid:" + mother.getHealthId() + "," +
+                (isRetrieval ? "": "providerid:\""+String.valueOf(provider.getProviderCode())+"\",") +
+                "pregno:" + mother.getPregNo() + "," +
+                "pncMLoad:" + (isRetrieval? "retrieve":"\"\"") +
+                "}";
+
+        return new JSONObject(queryString);
+    }
+    public void savePnc(View view) {
+            pncMotherSaveToJson();
+        Toast.makeText(this, "Save Button onClick performed", Toast.LENGTH_LONG).show();
+
+    }
+
     @Override
     protected void initiateCheckboxes(){
         jsonCheckboxMap.put("pncrefer", getCheckbox(R.id.pncReferCheckBox));
-        jsonCheckboxMap.put("pncservicesource", getCheckbox(R.id.pncOthersCheckBox));
+        //jsonCheckboxMap.put("pncservicesource", getCheckbox(R.id.pncOthersCheckBox));
        // for Child
         //jsonCheckboxMap.put("pncbreastfeedingonly", getCheckbox(R.id.pncChildOnlyBreastFeedingCheckBox));
         //jsonCheckboxMap.put("pncrefer", getCheckbox(R.id.pncChildReferCheckBox));
@@ -621,14 +669,16 @@ pnc child history
     protected void initiateSpinners() {
         // PNC Mother Info
         jsonSpinnerMap.put("pncservicesource", getSpinner(R.id.pncServiceOthersSpinner));
-        jsonSpinnerMap.put("pncbreastcondition", getSpinner(R.id.pncBreastConditionSpinner));
-        jsonSpinnerMap.put("pnchematuria", getSpinner(R.id.pncDischargeBleedingSpinner));
         jsonSpinnerMap.put("pncanemia", getSpinner(R.id.pncAnemiaSpinner));
-        jsonSpinnerMap.put("pncperineum", getSpinner(R.id.pncPerineumSpinner));
         jsonSpinnerMap.put("pncedema", getSpinner(R.id.pncEdemaSpinner));
+        jsonSpinnerMap.put("pncbreastcondition", getSpinner(R.id.pncBreastConditionSpinner));
+        jsonSpinnerMap.put("pncuterusinvolution", getSpinner(R.id.pncCervixInvolutionSpinner));
+        jsonSpinnerMap.put("pnchematuria", getSpinner(R.id.pncDischargeBleedingSpinner));
+        jsonSpinnerMap.put("pncperineum", getSpinner(R.id.pncPerineumSpinner));
         jsonSpinnerMap.put("pncfpmethod", getSpinner(R.id.pncFamilyPlanningMethodsSpinner));
         jsonSpinnerMap.put("pncrefercentername", getSpinner(R.id.pncReferCenterNameSpinner));
 
+        /*
         // PNC Child Info
         jsonSpinnerMap.put("pncdangersign", getSpinner(R.id.pncChildDangerSignsSpinner));
         jsonSpinnerMap.put("pncdisease", getSpinner(R.id.pncChildDiseaseSpinner));
@@ -636,6 +686,7 @@ pnc child history
         jsonSpinnerMap.put("pncadvice", getSpinner(R.id.pncChildAdviceSpinner));
         jsonSpinnerMap.put("pncrefercentername", getSpinner(R.id.pncReferCenterNameSpinner));;
         jsonSpinnerMap.put("pncreferreason", getSpinner(R.id.pncChildReasonSpinner));
+        */
     }
     @Override
     protected void initiateMultiSelectionSpinners(){
@@ -646,9 +697,11 @@ pnc child history
         jsonMultiSpinnerMap.put("pnctreatment",  getMultiSelectionSpinner(R.id.pncTreatmentSpinner));
         jsonMultiSpinnerMap.put("pncadvice",  getMultiSelectionSpinner(R.id.pncAdviceSpinner));
         jsonMultiSpinnerMap.put("pncreferreason",  getMultiSelectionSpinner(R.id.pncReasonSpinner));
+
+        /*
         // for Child
         jsonMultiSpinnerMap.put("pncsymptom", getMultiSelectionSpinner(R.id.pncChildDrawbackSpinner));
-
+        */
     }
 
     @Override
@@ -660,15 +713,16 @@ pnc child history
         jsonEditTextMap.put("pncbpdias",getEditText(R.id.pncBloodPresserValueD));
         jsonEditTextMap.put("pnchemoglobin",getEditText(R.id.pncHemoglobinValue));
 
+        /*
         //PNC Child visit
         jsonEditTextMap.put("childNo", getEditText(R.id.pncNewBornNumber));
         jsonEditTextMap.put("serviceCount", getEditText(R.id.pncChildVisitValue));
         jsonEditTextMap.put("pncchildno", getEditText(R.id.pncNewBornNumber));
-        // jsonEditTextMap.put("pregno", getEditText(R.id.pncChildVisitValue));
         jsonEditTextMap.put("pnctemperature", getEditText(R.id.pncChildTemperatureValue));
         jsonEditTextMap.put("pncweight", getEditText(R.id.pncChildWeightValue));
         jsonEditTextMap.put("pncbreathingperminute", getEditText(R.id.pncChildBreathValue));
 
+        */
     }
 
     @Override
@@ -681,7 +735,7 @@ pnc child history
         // PNC Mother Service Date
         jsonEditTextDateMap.put("pncdate", getEditText(R.id.pncServiceDateValue));
         // PNC Child Service Date
-        jsonEditTextDateMap.put("pncdate", getEditText(R.id.pncChildServiceDateValue));
+      //  jsonEditTextDateMap.put("pncdate", getEditText(R.id.pncChildServiceDateValue));
     }
 
     @Override

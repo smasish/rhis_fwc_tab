@@ -1,6 +1,7 @@
 
 package org.sci.rhis.fwc;
 
+import android.app.Instrumentation;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,7 +31,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Vector;
 
-public class SecondActivity extends ClinicalServiceActivity {
+public class SecondActivity extends ClinicalServiceActivity implements ArrayIndexValues{
 
     private Button button;
     private PregWoman woman;
@@ -85,11 +86,10 @@ public class SecondActivity extends ClinicalServiceActivity {
             public void onItemSelected(AdapterView<?> arg0, View view,
                                        int position, long row_id) {
                 final Intent intent;
-                if (position == 5) {
+                if (position == ADV_SEARCH_INDEX) {
                     intent = new Intent(SecondActivity.this, ADVSearchActivity.class);
-                    startActivity(intent);
+                   startActivityForResult(intent, ActivityResultCodes.ADV_SEARCH_ACTIVITY);
                 }
-
             }
 
             @Override
@@ -132,14 +132,16 @@ public class SecondActivity extends ClinicalServiceActivity {
 
         );
 
-        Intent intent = getIntent();
+        addListenerOnButton();
+
+        /*Intent intent = getIntent();
         String str = intent.getStringExtra("HealthId");
         if(intent.hasExtra("HealthId")) {
             str = intent.getStringExtra("HealthId");
             getSpinner(R.id.ClientsIdentityDropdown).setSelection(0);
             getEditText(R.id.searchableTextId).setText(str.substring(str.indexOf("||")+3));
             startSearch((ImageButton)findViewById(R.id.searchButton));
-        }
+        }*/
     }
 
     public void startSearch(View view) {
@@ -262,17 +264,16 @@ public class SecondActivity extends ClinicalServiceActivity {
                     Utilities.Disable(this, R.id.clients_intro_layout);
                     Utilities.VisibleLayout(this, R.id.clients_info_layout);
 
-                }
+                } else {
 
                 else {
 
                     Toast.makeText(this, "Provided information is not valid! Please try again....", Toast.LENGTH_LONG).show();
                     Utilities.InVisibleLayout(this, R.id.clients_info_layout);
                 }
+                }
 
-            }
-
-            else {  //callback for PregInfo servlet
+            } else {  //callback for PregInfo servlet
 
                 client.put("regSerialNo", json.get("regSerialNo"));
                 client.put("regDate", json.get("regDate"));
@@ -317,11 +318,18 @@ public class SecondActivity extends ClinicalServiceActivity {
             @Override
             public void onClick(View arg0) {
 
-                Intent intent = new Intent(context, NRCActivity.class);
+                /*Intent intent = new Intent(context, NRCActivity.class);
                 intent.putExtra("Provider", providerCode);
-                startActivity(intent);
+                startActivity(intent);*/
             }
         });
+    }
+
+    public void startNRC(View view) {
+        Intent intent = new Intent(this, NRCActivity.class);
+        intent.putExtra("PregWoman", woman);
+        intent.putExtra("Provider", ProviderInfo.getProvider());
+        startActivityForResult(intent, ActivityResultCodes.REGISTRATION_ACTIVITY);
     }
 
     public void startANC(View view) {
@@ -365,6 +373,27 @@ public class SecondActivity extends ClinicalServiceActivity {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ActivityResultCodes.REGISTRATION_ACTIVITY) {
+            if (resultCode == RESULT_OK) {
+                long healthId = data.getLongExtra("generatedId", -1);
+                getSpinner(R.id.ClientsIdentityDropdown).setSelection(NRC_ID_INDEX);
+                getEditText(R.id.searchableTextId).setText(String.valueOf(healthId));
+                startSearch((ImageButton)findViewById(R.id.searchButton));
+            }
+        } else if (requestCode == ActivityResultCodes.ADV_SEARCH_ACTIVITY) {
+            if (resultCode == RESULT_OK) {
+
+                String str = data.getStringExtra("HealthId");
+                getSpinner(R.id.ClientsIdentityDropdown).setSelection(0);
+                getEditText(R.id.searchableTextId).setText(str.substring(str.indexOf("||") + 3));
+                startSearch((ImageButton)findViewById(R.id.searchButton));
+            }
+        }
     }
 
     public void onClickSaveClient(View view) {

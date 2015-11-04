@@ -160,7 +160,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
                 //TODO Make the fields non-modifiable
                 Utilities.Disable(this, R.id.delivery_info_layout);
-                Utilities.InVisible(this,R.id.btn_save_add_child);
+               Utilities.MakeInvisible(this, R.id.btn_save_add_child);
             }
 
         } catch (JSONException jse) {
@@ -264,10 +264,10 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 Log.d("DeliveryJson", dJson.toString());
                 startActivity(passJson);
             } else {
-                Toast.makeText(this, "Too Late for PNC, verify ...", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Newborn cannot be added, verify ...", Toast.LENGTH_LONG).show();
             }
 
-    }
+        }
         else  if(view.getId()==R.id.deathFreshButton){
 
             passJson.putExtra("Layout", 2);

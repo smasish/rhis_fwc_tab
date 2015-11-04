@@ -3,12 +3,15 @@ package org.sci.rhis.fwc;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -64,18 +67,112 @@ public class ExpandableListAdapterforPNC extends BaseExpandableListAdapter {
 				Resources res1 = _context.getResources();
 				details = res1.getStringArray(R.array.PNC_Mother_Danger_Sign_DropDown);
 
-				//Toast.makeText(_context,""+childText, Toast.LENGTH_SHORT).show();
+				//Toast.makeText(_context, "" + childText, Toast.LENGTH_SHORT).show();
+				String str = childText;
 
-				if(childPosition == 1)
-					AlertMessage.showMessage(_context,"Details",details[0]);
-				else if(childPosition == 12)
-					AlertMessage.showMessage(_context,"Details",details[1]);
-				else if(childPosition == 13)
-					AlertMessage.showMessage(_context,"Details",details[3]);
-				else if(childPosition == 14)
-					AlertMessage.showMessage(_context,"Details",details[4]);
-				else if(childPosition == 16)
-					AlertMessage.showMessage(_context,"Details",details[5]+"\n"+details[6]);
+				str = str.replaceAll("[^0-9]+", " ");
+				//Log.d("oooooooooo13+++" + s, "" + s.trim().split(" "));
+
+
+				if (childPosition == 1) {
+
+
+					String[] animals = str.split(" ");
+					String temp = "";
+					details = res1.getStringArray(R.array.PNC_Mother_Drawback_DropDown);
+					for (String animal : animals) {
+						System.out.println(animal);
+						if(animal.length()>0)
+							temp = temp+"\n"+details[Integer.parseInt(animal)];
+					}
+					Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
+
+
+					if(temp.length()>5)
+					AlertMessage.showMessage(_context, "Details", temp);
+
+
+				}
+				else if (childPosition == 12){
+					String[] animals = str.split(" ");
+					String temp = "";
+					details = res1.getStringArray(R.array.PNC_Mother_Danger_Sign_DropDown);
+					for (String animal : animals) {
+						System.out.println(animal);
+						if(animal.length()>0)
+							temp = temp+"\n"+details[Integer.parseInt(animal)];
+					}
+					Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
+
+
+					if(temp.length()>5)
+						AlertMessage.showMessage(_context, "Details", temp);
+				}
+
+				else if (childPosition == 13){
+					String[] animals = str.split(" ");
+					String temp = "";
+					details = res1.getStringArray(R.array.PNC_Mother_Disease_DropDown);
+					for (String animal : animals) {
+						System.out.println(animal);
+						if(animal.length()>0)
+							temp = temp+"\n"+details[Integer.parseInt(animal)];
+					}
+					Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
+
+
+					if(temp.length()>5)
+						AlertMessage.showMessage(_context, "Details", temp);
+				}
+
+				else if (childPosition == 14){
+					String[] animals = str.split(" ");
+					String temp = "";
+					details = res1.getStringArray(R.array.Treatment_DropDown);
+					for (String animal : animals) {
+						System.out.println(animal);
+						if(animal.length()>0)
+							temp = temp+"\n"+details[Integer.parseInt(animal)];
+					}
+					Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
+
+
+					if(temp.length()>5)
+						AlertMessage.showMessage(_context, "Details", temp);
+				}
+
+				else if (childPosition == 15){
+					String[] animals = str.split(" ");
+					String temp = "";
+					details = res1.getStringArray(R.array.PNC_Mother_Advice_DropDown);
+					for (String animal : animals) {
+						System.out.println(animal);
+						if(animal.length()>0)
+							temp = temp+"\n"+details[Integer.parseInt(animal)];
+					}
+					Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
+
+
+					if(temp.length()>5)
+						AlertMessage.showMessage(_context, "Details", temp);
+				}
+				else if (childPosition == 17){
+					String[] animals = str.split(" ");
+					String temp = "";
+					details = res1.getStringArray(R.array.PNC_Mother_Refer_Reason_DropDown);
+					for (String animal : animals) {
+						System.out.println(animal);
+						if(animal.length()>0)
+							temp = temp+"\n"+details[Integer.parseInt(animal)];
+					}
+					Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
+
+
+					if(temp.length()>5)
+						AlertMessage.showMessage(_context, "Details", temp);
+				}
+
+
 
 
 				//here I need to do some things that require me to manipulate the categoriesList from the Activity class - but it is out of scope
@@ -84,6 +181,8 @@ public class ExpandableListAdapterforPNC extends BaseExpandableListAdapter {
 
 		return convertView;
 	}
+
+
 
 	@Override
 	public int getChildrenCount(int groupPosition) {
