@@ -67,15 +67,17 @@
         <EditText
             android:layout_marginTop="10dp"
             android:ellipsize="start"
-            android:inputType="text"
-            android:textSize="20dp"
+            android:inputType="textNoSuggestions"
             android:background="@drawable/edittext_round"
+            android:textSize="20dp"
             android:layout_width="200dp"
             android:layout_height="50px"
             android:id="@+id/Client_name"
             android:paddingLeft="10dp"
             android:focusable="false"
-            android:editable="false"/>
+            android:editable="false"
+            style="@style/styleEdittext"
+            />
 
           <TextView
               android:layout_marginLeft="50dp"
@@ -90,13 +92,14 @@
           <EditText
               android:layout_marginTop="10dp"
               android:ellipsize="start"
+              android:background="@drawable/edittext_round"
               android:textSize="20dp"
               android:layout_width="40dp"
               android:layout_height="50px"
-              android:background="@drawable/edittext_round"
               android:id="@+id/Clients_Age"
               android:inputType="number"
               android:paddingLeft="10dp"
+              style="@style/styleEdittext"
               />
 
 
@@ -124,7 +127,7 @@
         <EditText
             android:layout_marginTop="10dp"
             android:ellipsize="start"
-            android:inputType="text"
+            android:inputType="textNoSuggestions"
             android:textSize="20dp"
             android:layout_width="200dp"
             android:layout_height="50px"
@@ -132,6 +135,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/Clients_Husband"
             android:paddingLeft="10dp"
+            style="@style/styleEdittext"
             />
 
         <TextView
@@ -155,6 +159,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/Clients_District"
         android:paddingLeft="10dp"
+        style="@style/styleEdittext"
         />
     </LinearLayout>
         <LinearLayout
@@ -185,6 +190,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/Clients_Upazila"
         android:paddingLeft="10dp"
+        style="@style/styleEdittext"
         />
         <TextView
             android:layout_marginLeft="110dp"
@@ -207,6 +213,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/Clients_Union"
         android:paddingLeft="10dp"
+        style="@style/styleEdittext"
         />
 </LinearLayout>
 
@@ -238,6 +245,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/Clients_Village"
         android:paddingLeft="10dp"
+        style="@style/styleEdittext"
         />
 
         <TextView
@@ -260,6 +268,7 @@
         android:id="@+id/Clients_Word_No"
         android:inputType="number"
         android:paddingLeft="10dp"
+        style="@style/styleEdittext"
        />
         </LinearLayout>
 
@@ -288,10 +297,10 @@
         android:layout_width="40dp"
         android:layout_height="50px"
         android:background="@drawable/edittext_round"
-
         android:id="@+id/Clients_Unite_No"
         android:inputType="number"
         android:paddingLeft="10dp"
+        style="@style/styleEdittext"
         />
 
             <TextView
@@ -315,6 +324,7 @@
                 android:inputType="number"
                 android:paddingLeft="10dp"
                 android:background="@drawable/edittext_round"
+                style="@style/styleEdittext"
                 />
 
     </LinearLayout>
@@ -349,6 +359,7 @@
         android:id="@+id/Clients_ElcoNo"
         android:inputType="number"
         android:paddingLeft="10dp"
+        style="@style/styleEdittext"
          />
 
         <TextView
@@ -371,6 +382,7 @@
         android:id="@+id/Clients_Mobile_no"
         android:inputType="number"
         android:paddingLeft="10dp"
+        style="@style/styleEdittext"
        />
     </LinearLayout>
 

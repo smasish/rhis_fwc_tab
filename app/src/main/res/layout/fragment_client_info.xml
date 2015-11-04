@@ -10,7 +10,8 @@
         tools:context="org.sci.rhis.fwc.ClientInfoFragment"
         android:orientation="vertical"
         android:background="@drawable/fragmentborder"
-        android:id = "@+id/clients_info_layout">
+        android:id = "@+id/clients_info_layout"
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/client_info_title"
@@ -77,7 +78,8 @@
                 android:editable="false"
                 android:paddingLeft="10dp"
                 android:hint="dd/mm/yyyy"
-                android:background="@drawable/edittext_round"/>
+                android:background="@drawable/edittext_round"
+                style="@style/styleEdittext"/>
 
             <ImageButton
                 android:id="@+id/Date_Picker_Button"
@@ -106,6 +108,7 @@
                 android:background="@drawable/edittext_round"
                 android:id="@+id/para"
                 android:paddingLeft="10dp"
+                style="@style/styleEdittext"
                 />
         </LinearLayout>
         <LinearLayout
@@ -135,6 +138,7 @@
                 android:id="@+id/edd"
                 android:inputType="date"
                 android:paddingLeft="10dp"
+                style="@style/styleEdittext"
                 />
 
             <TextView
@@ -155,6 +159,7 @@
                 android:background="@drawable/edittext_round"
                 android:id="@+id/gravida"
                 android:paddingLeft="10dp"
+                style="@style/styleEdittext"
                 />
 
         </LinearLayout>
@@ -194,6 +199,7 @@
                 android:background="@drawable/edittext_round"
                 android:id="@+id/SonNum"
                 android:paddingLeft="10dp"
+                style="@style/styleEdittext"
                 />
 
             <TextView
@@ -214,6 +220,7 @@
                 android:background="@drawable/edittext_round"
                 android:id="@+id/DaughterNum"
                 android:paddingLeft="10dp"
+                style="@style/styleEdittext"
                 />
 
         </LinearLayout>
@@ -244,6 +251,7 @@
                 android:background="@drawable/edittext_round"
                 android:id="@+id/lastChildYear"
                 android:paddingLeft="10dp"
+                style="@style/styleEdittext"
                 />
 
             <TextView
@@ -264,6 +272,7 @@
                 android:background="@drawable/edittext_round"
                 android:id="@+id/lastChildMonth"
                 android:paddingLeft="10dp"
+                style="@style/styleEdittext"
                 />
             <TextView
                 android:textSize="20dp"
@@ -305,6 +314,7 @@
                 android:background="@drawable/edittext_round"
                 android:id="@+id/heightFeet"
                 android:paddingLeft="10dp"
+                style="@style/styleEdittext"
                 />
 
             <TextView
@@ -326,6 +336,7 @@
                 android:background="@drawable/edittext_round"
                 android:id="@+id/heightInch"
                 android:paddingLeft="10dp"
+                style="@style/styleEdittext"
                 />
 
             <TextView
@@ -354,7 +365,8 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:entries="@array/Blood_Group_Dropdown"
-                android:background="@drawable/gradient_spinner"/>
+                android:background="@drawable/gradient_spinner"
+                style="@style/styleEdittext"/>
 
         </LinearLayout>
 
@@ -383,7 +395,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="১ "
-                android:id="@+id/Clients_TT_Tika1" />
+                android:id="@+id/Clients_TT_Tika1"
+                style="@style/styleEdittext"/>
 
             <CheckBox
                 android:textSize="20dp"
@@ -391,7 +404,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="২ "
-                android:id="@+id/Clients_TT_Tika2" />
+                android:id="@+id/Clients_TT_Tika2"
+                style="@style/styleEdittext"/>
 
             <CheckBox
                 android:textSize="20dp"
@@ -399,7 +413,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="৩ "
-                android:id="@+id/Clients_TT_Tika3" />
+                android:id="@+id/Clients_TT_Tika3"
+                style="@style/styleEdittext"/>
 
             <CheckBox
                 android:textSize="20dp"
@@ -407,14 +422,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="৪ "
-                android:id="@+id/Clients_TT_Tika4" />
+                android:id="@+id/Clients_TT_Tika4"
+                style="@style/styleEdittext"/>
             <CheckBox
                 android:textSize="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="৫ "
-                android:id="@+id/Clients_TT_Tika5" />
+                android:id="@+id/Clients_TT_Tika5"
+                style="@style/styleEdittext"/>
 
 
         </LinearLayout>
@@ -446,7 +463,8 @@
                     android:textSize="20dp"
                     android:layout_height="50px"
                     android:text="@string/bleeding"
-                    android:id="@+id/previousDeliveryBleedingCheckBox" />
+                    android:id="@+id/previousDeliveryBleedingCheckBox"
+                    style="@style/styleEdittext"/>
 
                 <CheckBox
                     android:layout_marginLeft="10dp"
@@ -454,7 +472,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/delayed_birth"
-                    android:id="@+id/delayedBirthCheckBox" />
+                    android:id="@+id/delayedBirthCheckBox"
+                    style="@style/styleEdittext"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/second_layout"
@@ -467,7 +486,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/lines_birth"
-                    android:id="@+id/blockedDeliveryCheckBox" />
+                    android:id="@+id/blockedDeliveryCheckBox"
+                    style="@style/styleEdittext"/>
 
                 <CheckBox
                     android:textSize="20dp"
@@ -475,7 +495,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/placenta_inside_uterus"
-                    android:id="@+id/placentaInsideUterusCheckBox" />
+                    android:id="@+id/placentaInsideUterusCheckBox"
+                    style="@style/styleEdittext"/>
 
             </LinearLayout>
             <LinearLayout
@@ -490,14 +511,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50px"
                     android:text="@string/give_birth_as_dead"
-                    android:id="@+id/giveBirthDeadCheckBox" />
+                    android:id="@+id/giveBirthDeadCheckBox"
+                    style="@style/styleEdittext"/>
                 <CheckBox
                     android:textSize="20dp"
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_height="50px"
                     android:text="@string/newborn_die_within_48hours"
-                    android:id="@+id/newbornDieWithin48hoursCheckBox" />
+                    android:id="@+id/newbornDieWithin48hoursCheckBox"
+                    style="@style/styleEdittext"/>
 
             </LinearLayout>
             <LinearLayout
@@ -511,7 +534,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50px"
                     android:text="@string/swelling_legs_or_whole_body"
-                    android:id="@+id/swellingLegsOrWholeBodyCheckBox" />
+                    android:id="@+id/swellingLegsOrWholeBodyCheckBox"
+                    style="@style/styleEdittext"/>
             </LinearLayout>
 
             <LinearLayout
@@ -525,7 +549,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50px"
                     android:text="@string/with_convulsion_senseless"
-                    android:id="@+id/withConvulsionSenselessCheckBox" />
+                    android:id="@+id/withConvulsionSenselessCheckBox"
+                    style="@style/styleEdittext"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/caesar_layout"
@@ -540,7 +565,8 @@
                     android:layout_height="80px"
                     android:paddingBottom="10dp"
                     android:text="@string/caesar"
-                    android:id="@+id/caesarCheckBox" />
+                    android:id="@+id/caesarCheckBox"
+                    style="@style/styleEdittext"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -573,9 +599,33 @@
                 android:paddingLeft="10dp"
                 android:text="Add new pregnancy info"
                 android:background="@drawable/button_style"
-                android:id="@+id/New_Button"
+                android:id="@+id/client_New_preg_Button"
                 android:layout_gravity="center_horizontal"
                 android:onClick="resetFields"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:text="Edit"
+                android:background="@drawable/button_style"
+                android:id="@+id/client_edit_Button"
+                android:layout_gravity="center_horizontal"
+                android:onClick="editFields"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:text="Update"
+                android:background="@drawable/button_style"
+                android:id="@+id/client_update_Button"
+                android:layout_gravity="center_horizontal"
+                android:onClick="onClickSaveClient"/>
 
         </LinearLayout>
     </LinearLayout>
