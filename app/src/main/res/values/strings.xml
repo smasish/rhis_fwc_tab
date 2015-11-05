@@ -87,7 +87,7 @@
         <item>National ID</item>
         <item>Birth Reg. No</item>
         <item>NRC ID</item>
-        <item>ADVANCE SEARCH</item>
+        <item>Advance Search</item>
     </string-array>
 
     <string-array name="nrcClientsSex">

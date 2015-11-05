@@ -202,30 +202,30 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <Button
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="60px"
-        android:id="@+id/cancelBtn"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp"
-        android:ellipsize="start"
-        android:background="@drawable/button_style"
-        android:text="CANCEL"/>
+        <Button
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="60px"
+            android:id="@+id/cancelBtn"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:ellipsize="start"
+            android:background="@drawable/button_style"
+            android:text="CANCEL"/>
 
-    <Button
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="60px"
-        android:id="@+id/searchBtn"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp"
-        android:ellipsize="start"
-        android:background="@drawable/button_style"
-        android:text="SEARCH"/>
+        <Button
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="60px"
+            android:id="@+id/searchBtn"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:ellipsize="start"
+            android:background="@drawable/button_style"
+            android:text="SEARCH"/>
 
-        </LinearLayout>
+    </LinearLayout>
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
