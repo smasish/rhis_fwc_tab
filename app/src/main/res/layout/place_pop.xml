@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/popUpLayout"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:id="@+id/client_intro_title"
+        android:paddingTop="10sp"
+        android:paddingBottom="10sp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        style="@style/rowHeading">
+
+        <TextView
+            android:id="@+id/TextViewClient_info_tab"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:text="@string/ProviderPlaceTittle"
+            android:layout_width="fill_parent"
+            android:textColor="#FFFFFF"
+            android:layout_height="wrap_content"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/ProviderPlaceTip"
+        android:textSize="18sp"
+        android:textColor="@color/text_color"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:id="@+id/radioGroupPlace">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/PlaceFacility"
+            android:id="@+id/radioButtonFacility" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/PlaceSatellite"
+            android:id="@+id/radioButtonSatellite" />
+
+    </RadioGroup>
+
+    <EditText
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/SatelliteName"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:ellipsize="start"
+        android:background="@drawable/edittext_round"
+        style="@style/styleEdittext"/>
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:orientation="horizontal"
+    android:layout_marginTop="20dp">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select"
+        android:id="@+id/buttonPlacePopUpOK"
+        android:padding="10dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_style"
+        android:onClick="PlacePopUpOK"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:id="@+id/buttonPlacePopUpCancel"
+        android:padding="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_style"
+        android:onClick="PlacePopUpCancel"
+        />
+
+</LinearLayout>
+
+</LinearLayout>
