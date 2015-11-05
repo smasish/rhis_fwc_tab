@@ -253,8 +253,6 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                         Utilities.InVisibleButton(this, R.id.client_update_Button);
                         Utilities.VisibleButton(this, R.id.client_edit_Button);
                         Utilities.VisibleButton(this, R.id.client_New_preg_Button);
-
-
                     }
 
                     else {
@@ -393,8 +391,8 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             if (resultCode == RESULT_OK) {
 
                 String str = data.getStringExtra("HealthId");
-                getSpinner(R.id.ClientsIdentityDropdown).setSelection(0);
-                getEditText(R.id.searchableTextId).setText(str.substring(str.indexOf("||") + 3));
+                getSpinner(R.id.ClientsIdentityDropdown).setSelection(data.getIntExtra("HealthIdType",0));
+                getEditText(R.id.searchableTextId).setText(str);
                 startSearch((ImageButton)findViewById(R.id.searchButton));
             }
         }
@@ -421,8 +419,11 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
     private void manipulateJson(JSONObject json) {
         try {
-            String[] array = json.getString("cHistoryComplicatedContent").split(",");
-            int length = array.length;
+            String history = json.getString("cHistoryComplicatedContent");
+            String[] array = {};
+            if(!history.equals("")) {
+              array  = history.split(",");
+            } 
 
             for (int i = 0; i < array.length; i++) {
                 json.put(deliveryHistoryMapping.get(Integer.valueOf(array[i]) - 1).first, 1);// 1- checked, 2 - unchecked
