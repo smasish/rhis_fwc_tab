@@ -234,9 +234,9 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             if (!json.has("responseType")) //callback for client servlet
             {
                 client = json;
-                woman = PregWoman.CreatePregWoman(json);
 
                 if (json.get("False").toString().equals("")) { //Client exists
+                    woman = PregWoman.CreatePregWoman(json);
                     populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
                     responseID = new BigInteger(json.get("cHealthID").toString());
 
@@ -423,7 +423,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             String[] array = {};
             if(!history.equals("")) {
               array  = history.split(",");
-            } 
+            }
 
             for (int i = 0; i < array.length; i++) {
                 json.put(deliveryHistoryMapping.get(Integer.valueOf(array[i]) - 1).first, 1);// 1- checked, 2 - unchecked
