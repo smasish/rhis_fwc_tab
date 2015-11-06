@@ -34,23 +34,29 @@ public class Person {
         this.idIndex = idIndex;
     }
 
+    public String getFatherName() {
+        return fatherName;
+    }
+
+    public void setFatherName(String fatherName) {
+        this.fatherName = fatherName;
+    }
+
     public Person(){
         super();
     }
 
-    public Person(String name, String healthId, int idIndex, int icon) {
+    public Person(String name, String fatherName, String healthId, int idIndex, int icon) {
         this.name = name;
+        this.fatherName = fatherName;
         this.healthId = healthId;
         this.idIndex = idIndex;
         this.icon = icon;
     }
 
     private String name;
+    private String fatherName;
     private String healthId;
-
-
-
-    private int icon;
     private int idIndex;
-
+    private int icon;
 }

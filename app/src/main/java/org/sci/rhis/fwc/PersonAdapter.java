@@ -49,6 +49,7 @@ public class PersonAdapter extends ArrayAdapter<Person> {
             holder = new PersonHolder();
             holder.imgIcon = (ImageView)row.findViewById(R.id.imgIcon);
             holder.name = (TextView)row.findViewById(R.id.advSearch_name);
+            holder.fatherName = (TextView)row.findViewById(R.id.advSearch_fatherName);
             holder.healthId = (TextView)row.findViewById(R.id.advSearch_healthId);
 
             row.setTag(holder);
@@ -59,7 +60,8 @@ public class PersonAdapter extends ArrayAdapter<Person> {
         }
 
         Person person = personData[position];
-        holder.name.setText(person.getName());
+        holder.name.setText(person.getName()+",");
+        holder.fatherName.setText(person.getFatherName()+",");
         holder.healthId.setText(person.getHealthId());
         holder.imgIcon.setImageResource(person.getIcon());
 
@@ -70,6 +72,7 @@ public class PersonAdapter extends ArrayAdapter<Person> {
     {
         ImageView imgIcon;
         TextView name;
+        TextView fatherName;
         TextView healthId;
     }
 

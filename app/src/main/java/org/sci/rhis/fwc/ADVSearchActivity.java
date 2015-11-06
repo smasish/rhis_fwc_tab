@@ -366,6 +366,7 @@ private  int unionMapping(){
                 clientsList.add(sss);
                 jsonPerson = json.getJSONObject(String.valueOf(i));
                 personsList.add(new Person( jsonPerson.getString("name"),
+                                            jsonPerson.getString("fatherName"),
                                             jsonPerson.getString("healthId"),
                                             jsonPerson.getInt("healthIdPop") == 1? 0: 4, R.drawable.man));
                 Log.d(LOGTAG, sss);
