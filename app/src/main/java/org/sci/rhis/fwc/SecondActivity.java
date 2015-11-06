@@ -47,6 +47,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
     final private String SERVLET = "handlepregwomen";
     final private String ROOTKEY = "pregWomen";
+    private  final String LOGTAG    = "FWC-INFO";
 
     private BigInteger responseID = BigInteger.valueOf(0);
     EditText lmpEditText;
@@ -116,7 +117,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
                     @Override
                     public void afterTextChanged(Editable s) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                         try {
                             Date lmp = sdf.parse(lmpEditText.getText().toString());
 
@@ -187,11 +188,12 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         String key;
 
         try {
-            if(!json.get("cMobileNo").toString().isEmpty()){
-                String mobileNumber=json.get("cMobileNo").toString();
-                if(mobileNumber.charAt(0)!='0')
-                mobileNumber="0"+mobileNumber;
-                json.put("cMobileNo",mobileNumber);
+            if(json.has("cMobileNo")){
+                String mobileNumber = json.getString("cMobileNo");
+                if(!mobileNumber.equals("") && mobileNumber.charAt(0)!='0') {
+                    mobileNumber = "0" + mobileNumber;
+                    json.put("cMobileNo", mobileNumber);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -201,9 +203,10 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             key = i.next();
             if (fieldMapping.get(key) != null) { //If the field exist in the mapping table
                 try {
-                    ((EditText) findViewById(fieldMapping.get(key))).setText(json.get(key).toString());
+                    //((EditText) findViewById(fieldMapping.get(key))).setText(json.get(key).toString());
+                    ((EditText) findViewById(fieldMapping.get(key))).setText(json.getString(key));
                 } catch (JSONException jse) {
-                    System.out.println("JSON Exception Thrown(test):\n ");
+                    Log.e(LOGTAG, "JSON Exception Thrown(test):\n ");
                     jse.printStackTrace();
                 }
             }
@@ -227,7 +230,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             //DEBUG response from servlet
             for (Iterator<String> ii = json.keys(); ii.hasNext(); ) {
                 key = ii.next();
-                System.out.println("1.Key:" + key + " Value:\'" + json.get(key) + "\'");
+                Log.d(LOGTAG, "Key:" + key + " Value:\'" + json.get(key) + "\'");
             }
 
 
@@ -584,6 +587,23 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         return new JSONObject(queryString);
     }
 
+    private void getSpecialCheckBoxes(JSONObject json) {
+        String complicatedHistories = "";
+        for(int i = 0; i < deliveryHistoryMapping.size(); i++) {
+            if(getCheckbox(deliveryHistoryMapping.get(i).second).isChecked()) {
+                complicatedHistories += String.valueOf(i+1)+",";
+            }
+        }
+        if(!complicatedHistories.equals("")) {
+            complicatedHistories = complicatedHistories.substring(0,complicatedHistories.length()-1 );
+        }
+        try{
+            json.put("complicatedHistoryNote", complicatedHistories);
+        } catch (JSONException JSE) {
+            Log.e(LOGTAG, "Error:\n\t" + JSE.getStackTrace());
+        }
+    }
+
     public void getSpecialCases(JSONObject json) {
         try {
             if (woman != null) {
@@ -593,16 +613,17 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                 json.put("pregNo","\"\"");
 
             //To enter 0 if ""
-            Integer year= (getEditText(R.id.lastChildYear).getText().toString()).isEmpty()?0:Integer.parseInt(getEditText(R.id.lastChildYear).getText().toString());
-            Integer month= (getEditText(R.id.lastChildMonth).getText().toString()).isEmpty()?0:Integer.parseInt(getEditText(R.id.lastChildMonth).getText().toString());
-            Integer feet= (getEditText(R.id.heightFeet).getText().toString()).isEmpty()?0:Integer.parseInt(getEditText(R.id.heightFeet).getText().toString());
-            Integer inch= (getEditText(R.id.heightInch).getText().toString()).isEmpty()?0:Integer.parseInt(getEditText(R.id.heightInch).getText().toString());
+            int year = (getEditText(R.id.lastChildYear).getText().toString()).isEmpty()?0:Integer.parseInt(getEditText(R.id.lastChildYear).getText().toString());
+            int month = (getEditText(R.id.lastChildMonth).getText().toString()).isEmpty()?0:Integer.parseInt(getEditText(R.id.lastChildMonth).getText().toString());
+            int feet = (getEditText(R.id.heightFeet).getText().toString()).isEmpty()?0:Integer.parseInt(getEditText(R.id.heightFeet).getText().toString());
+            int inch = (getEditText(R.id.heightInch).getText().toString()).isEmpty()?0:Integer.parseInt(getEditText(R.id.heightInch).getText().toString());
 
-            month=year*12+month;
-            feet=feet*12+inch;
+            month = year * 12 + month;
+            feet = feet * 12 + inch;
 
             json.put("lastChildAge", month);
             json.put("height", feet);
+            getSpecialCheckBoxes(json);
 
         } catch (JSONException jse) {
 
