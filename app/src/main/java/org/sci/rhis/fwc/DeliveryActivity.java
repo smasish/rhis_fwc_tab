@@ -29,8 +29,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class DeliveryActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
-        View.OnClickListener,
-        CompoundButton.OnCheckedChangeListener{
+                                                                               View.OnClickListener,
+                                                                               CompoundButton.OnCheckedChangeListener{
 
     //UI References
     //private DatePickerDialog fromDatePickerDialog;
@@ -48,7 +48,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     private Intent passJson;
     final private String SERVLET = "delivery";
     final private String ROOTKEY = "deliveryInfo";
-
+    private  final String LOGTAG = "FWC-DELIVERY";
 
 
     AsyncDeliveryInfoUpdate deliveryInfoQueryTask;
@@ -121,8 +121,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         //String
         try {
             queryString = buildQueryHeader(true).toString();
-            Log.e("Delivery", "build query String: " + "working properly");
-            Log.e("Delivery Json", queryString);
+            Log.d(LOGTAG, "Sending JSON:\n\t" + queryString);
         } catch (JSONException JSE) {
             Log.e("Delivery", "Could not build query String: " + JSE.getMessage());
         }
@@ -144,7 +143,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             //DEBUG
             for (Iterator<String> ii = json.keys(); ii.hasNext(); ) {
                 key = ii.next();
-                System.out.println("1.Key:" + key + " Value:\'" + json.get(key) + "\'");
+                Log.d(LOGTAG, "Rcvd Key:" + key + " Value:\'" + json.get(key) + "\'");
             }
 
             //populate the fields if the previous delivery information exist
@@ -155,12 +154,12 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 Utilities.setEditTexts(jsonEditTextMap, json);
                 Utilities.setEditTextDates(jsonEditTextDateMap, json);
                 updateEditTextTimes(json);
-               Log.d("Delivery Json in Query:", json.toString());
+                Log.d(LOGTAG, "Delivery Response Received:\n\t" + json.toString());
                 dJson = json;
 
                 //TODO Make the fields non-modifiable
                 Utilities.Disable(this, R.id.delivery_info_layout);
-               Utilities.MakeInvisible(this, R.id.btn_save_add_child);
+                Utilities.MakeInvisible(this, R.id.btn_save_add_child);
             }
 
         } catch (JSONException jse) {
@@ -178,7 +177,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
+        // autom-atically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
@@ -196,7 +195,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         LinearLayout [] section;
         switch (parent.getId()) {
             case R.id.delivery_placeDropdown:
-                System.out.println("Hit the Place Spinner");
+
                 section = new LinearLayout[3];
                 section [0] = (LinearLayout) findViewById(R.id.id_facililties_section_layout);
                 section [1] = (LinearLayout) findViewById(R.id.id_facililties_admission_layout);
@@ -207,7 +206,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 }
                 break;
             case R.id.id_facility_name_Dropdown:
-                System.out.println("Hit the Facility Spinner");
+
                 LinearLayout  faclityAdmission = (LinearLayout) findViewById(R.id.id_facililties_admission_layout);
                 faclityAdmission.setVisibility((position == 4 || position == 5) ? View.GONE:View.VISIBLE);
                 //4 - UH&FWC 5 - CC
@@ -222,7 +221,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 for(int i = 0; i < section.length; ++i) {
                     section[i].setVisibility( position == 2? View.GONE:View.VISIBLE); //0 - abortion
                 }
-                System.out.println("Hit the Delivery Type");
+
                 break;
         }
     }
@@ -247,7 +246,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
         if(view.getId() == R.id.id_saveDeliveryButton) {
             saveToJson();
-            System.out.print("saved Delivery?");
+
             LinearLayout mNewbornLayout = (LinearLayout) findViewById(R.id.newborn_Tabla_Layout);
             mNewbornLayout.setVisibility(View.VISIBLE);
 
@@ -261,7 +260,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             if(checkClientInfo() && mother.isEligibleFor(PregWoman.PREG_SERVICE.NEWBORN)) {
                 passJson.putExtra("PregWoman", mother);
                 passJson.putExtra("Provider", ProviderInfo.getProvider());
-                Log.d("DeliveryJson", dJson.toString());
+                Log.d(LOGTAG, dJson.toString());
                 startActivity(passJson);
             } else {
                 Toast.makeText(this, "Newborn cannot be added, verify ...", Toast.LENGTH_LONG).show();
@@ -275,7 +274,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             if(checkClientInfo() && mother.isEligibleFor(PregWoman.PREG_SERVICE.NEWBORN)) {
                 passJson.putExtra("PregWoman", mother);
                 passJson.putExtra("Provider", ProviderInfo.getProvider());
-                Log.d("DeliveryJson", dJson.toString());
+                Log.d(LOGTAG, dJson.toString());
                 startActivity(passJson);
             } else {
                 Toast.makeText(this, "Too Late for PNC, verify ...", Toast.LENGTH_LONG).show();
@@ -289,7 +288,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             if(checkClientInfo() && mother.isEligibleFor(PregWoman.PREG_SERVICE.NEWBORN)) {
                 passJson.putExtra("PregWoman", mother);
                 passJson.putExtra("Provider", ProviderInfo.getProvider());
-                Log.d("DeliveryJson", dJson.toString());
+                Log.d(LOGTAG, dJson.toString());
                 startActivity(passJson);
             } else {
                 Toast.makeText(this, "Too Late for PNC, verify ...", Toast.LENGTH_LONG).show();
@@ -449,7 +448,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             getEditTextTime(json);
             getSpecialCases(json);
             deliveryInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
-           System.out.print("In Save, Delivery Json in Query:" + json.toString());
+            Log.d(LOGTAG, "In Save, Delivery Json in Query:" + json.toString());
             passJson.putExtra("DeliveryJson", json.toString());
 
         } catch (JSONException jse) {
