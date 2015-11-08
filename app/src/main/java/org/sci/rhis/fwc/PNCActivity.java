@@ -60,6 +60,7 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
     ExpandableListAdapterforPNC listAdapter;
     ExpandableListAdapterforPNC_Child listAdapter_child;
     ExpandableListView expListView;
+    ExpandableListView expListView_child;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
 
@@ -251,6 +252,10 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
         });
         //LongOperation sendPostReqAsyncTask_child = new LongOperation();
 
+
+
+
+
         String queryString_child = "{" +
                 "pregno:" + mother.getPregNo() + "," +
                 "healthid:" + mother.getHealthId() + "," +
@@ -261,6 +266,11 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
         String jsonRootkey_child = "PNCChildInfo";
         Log.d("PNC", "Child Part:\n" +  queryString_child);
         sendPostReqAsyncTaskChild.execute(queryString_child, servlet_child, jsonRootkey_child);
+
+        expListView_child = new ExpandableListView(this);
+        ll_pnc_child.addView(expListView_child);
+
+
 /*
 
 pnc child history
@@ -446,9 +456,11 @@ pnc child history
                                 initPage();
                                 //ll_pnc_child = (LinearLayout)findViewById(R.id.llay_frag);
 
-                                ll_pnc_child.addView(expListView);
-                                expListView.setScrollingCacheEnabled(true);
-                                expListView.setAdapter(listAdapter_child);
+
+
+                                ll_pnc_child.addView(expListView_child);
+                                expListView_child.setScrollingCacheEnabled(true);
+                                expListView_child.setAdapter(listAdapter_child);
                                 ll_pnc_child.invalidate();
                                 //expListView.setAdapter(listAdapter_child);
 
@@ -626,6 +638,16 @@ pnc child history
         expListView.setStackFromBottom(true);
         //  expListView.smoothScrollToPosition(expListView.getCount() - 1);
     }
+    private void initPage_child() {
+        expListView_child = new ExpandableListView(this);
+        expListView_child.setTranscriptMode(ExpandableListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+
+        expListView_child.setIndicatorBounds(0, 0);
+        expListView_child.setChildIndicatorBounds(0, 0);
+        expListView_child.setStackFromBottom(true);
+        //  expListView.smoothScrollToPosition(expListView.getCount() - 1);
+    }
+
 
     private void pncMotherSaveToJson() {
         pncInfoUpdateTask = new AsyncPNCInfoUpdate(this);
@@ -817,7 +839,7 @@ pnc child history
                             JSONObject jsonObject = jsonObject1.getJSONObject(""+num);
 
 
-                            Log.d("--:::>", "---serviceSource=====>" + jsonObject.getString("serviceSource"));
+                            Log.d("--:::>", "---serviceSource child=====>" + jsonObject.getString("serviceSource"));
 
                             //String complicationsign = jsonRootObject.getString("serviceSource");
                             //String complicationsign = jsonObject.getString("complicationsign");
@@ -874,12 +896,12 @@ pnc child history
 
 
                                 num++;
-                                initPage();
+                                initPage_child();
                                 //ll_pnc_child = (LinearLayout)findViewById(R.id.llay_frag);
 
-                                ll_pnc_child.addView(expListView);
-                                expListView.setScrollingCacheEnabled(true);
-                                expListView.setAdapter(listAdapter_child);
+                                ll_pnc_child.addView(expListView_child);
+                                expListView_child.setScrollingCacheEnabled(true);
+                                expListView_child.setAdapter(listAdapter_child);
                                 ll_pnc_child.invalidate();
                                 //expListView.setAdapter(listAdapter_child);
 
@@ -945,6 +967,8 @@ pnc child history
             if(child_flag==false) {
                 lay_frag_child.setVisibility(View.VISIBLE);
                 pnclay_child.setVisibility(View.VISIBLE);
+
+                ll_pnc_child.invalidate();
                 child_flag = true;
             }
             else
@@ -952,16 +976,17 @@ pnc child history
                 lay_frag_child.setVisibility(View.GONE);
                 pnclay_child.setVisibility(View.GONE);
                 child_flag = false;
+                ll_pnc_child.invalidate();
             }
 
 //            lay_frag_mother.setVisibility(View.GONE);
 //            lay_frag_child.setVisibility(View.VISIBLE);
 //            pnclay_child.setVisibility(View.VISIBLE);
 
-            if(child_tree) {
-                child_tree=false;
-                expListView = new ExpandableListView(this);
-                ll_pnc_child = (LinearLayout) findViewById(R.id.llay_frag);
+//            if(child_tree) {
+//                child_tree=false;
+//                expListView = new ExpandableListView(this);
+//                ll_pnc_child = (LinearLayout) findViewById(R.id.llay_frag);
 
                 //ll_pnc_child.addView(expListView);
                 //ll_pnc_child.invalidate();
@@ -985,7 +1010,7 @@ pnc child history
 //                Log.d("-->", "---=====>" + queryString_child);
 //                sendPostReqAsyncTask_child.execute(queryString_child, servlet_child, jsonRootkey_child);
 
-            }
+ //          }
         }
     }
 

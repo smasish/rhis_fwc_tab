@@ -58,20 +58,62 @@ public class ExpandableListAdapterforPNC extends BaseExpandableListAdapter {
 
 		TextView txtListChild = (TextView) convertView
 				.findViewById(R.id.lblListItem);
+		String str = childText;
 
-		if (childPosition == 1 && childText.length()>2 ) {
+		str = str.replaceAll("[^0-9]+", " ");
+		str = str.trim();
+		if (childPosition == 1 && str.length()>0 ) {
 			txtListChild.setText("" + _context.getString(R.string.complicationsign) +  _context.getString(R.string.detail));
-		}else if (childPosition == 12 && childText.length()>2) {
+		}else if (childPosition == 1 && str.length()<1 ) {
+			txtListChild.setText("" + _context.getString(R.string.complicationsign));
+		}
+		else if (childPosition == 12 && str.length()>0) {
 			txtListChild.setText("" + _context.getString(R.string.danger_signs) + _context.getString(R.string.detail));
-		}else if (childPosition == 13 && childText.length()>2) {
+		}else if (childPosition == 12 && str.length()<1) {
+			txtListChild.setText("" + _context.getString(R.string.danger_signs));
+		}
+		else if (childPosition == 13 && str.length()>0) {
 			txtListChild.setText("" + _context.getString(R.string.disease) +  _context.getString(R.string.detail));
-		}else if (childPosition == 14 && childText.length()>2) {
+		}else if (childPosition == 13 && str.length()<1) {
+			txtListChild.setText("" + _context.getString(R.string.disease));
+		}
+		else if (childPosition == 14 && str.length()>0) {
 			txtListChild.setText("" + _context.getString(R.string.treatment) +  _context.getString(R.string.detail));
-		}else if (childPosition == 15 && childText.length()>2) {
+		}else if (childPosition == 14 && str.length()<1) {
+			txtListChild.setText("" + _context.getString(R.string.treatment));
+		}
+		else if (childPosition == 15 && str.length()>0) {
 			txtListChild.setText("" + _context.getString(R.string.advice) +  _context.getString(R.string.detail));
-		}else if (childPosition == 17 && childText.length()>2) {
+		}else if (childPosition == 15 && str.length()<1) {
+			txtListChild.setText("" + _context.getString(R.string.advice));
+		}
+		else if (childPosition == 16) {
+
+			String[] details;
+			Resources res1 = _context.getResources();
+			String str1 = childText;
+
+			str1 = str1.replaceAll("[^0-9]+", " ");
+			String[] animals = str1.split(" ");
+			String temp = "";
+			details = res1.getStringArray(R.array.FacilityType_DropDown);
+			for (String animal : animals) {
+				System.out.println(animal);
+				if(animal.length()>0)
+					temp = temp+"\n"+details[Integer.parseInt(animal)];
+			}
+			txtListChild.setText("" + _context.getString(R.string.referCenterName)+temp);
+		}
+		else if (childPosition == 17 && str.length()>0) {
 			txtListChild.setText("" + _context.getString(R.string.referReason) +  _context.getString(R.string.detail));
-		}else
+		}else if (childPosition == 17 && str.length()<1) {
+			txtListChild.setText("" + _context.getString(R.string.referReason));
+		}
+//		else if ((childPosition == 1 || childPosition == 12 ||childPosition == 13 || childPosition == 14 ||childPosition == 15 || childPosition == 17 )
+//				&& childText.length()<=7) {
+//			txtListChild.setText("" + _context.getString(R.string.danger_signs) + _context.getString(R.string.detail));
+//		}
+		else
 		txtListChild.setText(childText);
 
 		convertView.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +127,7 @@ public class ExpandableListAdapterforPNC extends BaseExpandableListAdapter {
 
 				//Toast.makeText(_context, "" + childText, Toast.LENGTH_SHORT).show();
 				String str = childText;
-				Log.d("childText","========="+childText.length());
+				Log.d("childText","========="+childText+"---"+childText.length());
 				str = str.replaceAll("[^0-9]+", " ");
 				//Log.d("oooooooooo13+++" + s, "" + s.trim().split(" "));
 

@@ -663,6 +663,8 @@
         <item> প্রাইভেট ক্লিনিক</item>
         <item> এনজিও হাসপাতাল/ সেবা কেন্দ্র</item>
         <item> অন্যান্য  </item>
+        <item> অন্যান্য  </item>
+        <item> অন্যান্য  </item>
     </string-array>
     <string name="title_activity_nrc">NRCActivity</string>
     <string name="mr_service">এম আর সেবা</string>
