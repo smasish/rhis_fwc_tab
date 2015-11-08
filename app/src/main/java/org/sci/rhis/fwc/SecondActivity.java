@@ -289,11 +289,11 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                 Log.d("json", client.toString());
 
                 woman = PregWoman.CreatePregWoman(client);
-                populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
+                //populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
                 responseID = new BigInteger(client.get("cHealthID").toString());
 
-                manipulateJson(json);
-                populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
+                //manipulateJson(json);
+                //populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
                 woman.UpdateUIField(this);
 
                 Utilities.Disable(this, R.id.clients_info_layout);
