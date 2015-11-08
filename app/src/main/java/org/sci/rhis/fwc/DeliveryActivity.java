@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,6 +24,7 @@ import org.json.JSONObject;
 import org.sci.rhis.utilities.CustomDatePickerDialog;
 import org.sci.rhis.utilities.CustomTimePickerDialog;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -45,7 +47,10 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     private JSONObject dJson;
     private PregWoman mother;
     private ProviderInfo provider;
+    private ArrayAdapter<String> childAdapter;
+    private ArrayList<String> childList;
     private Intent passJson;
+    private String existingChildInfo;
     final private String SERVLET = "delivery";
     final private String ROOTKEY = "deliveryInfo";
     private  final String LOGTAG = "FWC-DELIVERY";
@@ -120,13 +125,16 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 "}"*/
         //String
         try {
-            queryString = buildQueryHeader(true).toString();
+            boolean isMother = true; //just being verbose for better readability
+            boolean retireve = true; //just being verbose for better readability
+            queryString = buildQueryHeader(isMother, retireve).toString();
             Log.d(LOGTAG, "Sending JSON:\n\t" + queryString);
         } catch (JSONException JSE) {
             Log.e("Delivery", "Could not build query String: " + JSE.getMessage());
         }
         deliveryInfoQueryTask = new AsyncDeliveryInfoUpdate(this);
-        deliveryInfoQueryTask.execute(queryString, SERVLET, ROOTKEY);
+        deliveryInfoQueryTask.execute(queryString, SERVLET, ROOTKEY); //Get Mother Info
+        getExistingChild();  //get child Info
 
         LinearLayout mNewbornLayout = (LinearLayout) findViewById(R.id.newborn_Tabla_Layout);
         mNewbornLayout.setVisibility(View.VISIBLE);
@@ -344,7 +352,6 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         jsonSpinnerMap.put("dCenterName", getSpinner(R.id.id_facility_name_Dropdown));
         jsonSpinnerMap.put("dAttendantDesignation", getSpinner(R.id.id_attendantTitleDropdown)); //deliveryAttendant
         jsonSpinnerMap.put("dReferCenter", getSpinner(R.id.id_spinner_refer_facilities)); //refercenter
-        jsonSpinnerMap.put("dReferReason", getSpinner(R.id.id_spinner_refer_delivery_cause)); //refer reason
     }
 
     @Override
@@ -438,7 +445,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         deliveryInfoUpdateTask = new AsyncDeliveryInfoUpdate(this);
         JSONObject json;
         try {
-            json = buildQueryHeader(false);
+            json = buildQueryHeader(true, false); //mother, no retireve
             Utilities.getCheckboxes(jsonCheckboxMap, json);
             Utilities.getEditTexts(jsonEditTextMap, json);
             Utilities.getEditTextDates(jsonEditTextDateMap, json);
@@ -510,13 +517,13 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         return temp;
     }
 
-    private JSONObject buildQueryHeader(boolean isRetrieval) throws JSONException {
+    private JSONObject buildQueryHeader(boolean isMother, boolean isRetrieval) throws JSONException {
         //get info from database
         String queryString =   "{" +
                 "healthid:" + mother.getHealthId() + "," +
                 (isRetrieval ? "": "providerid:\""+String.valueOf(provider.getProviderCode())+"\",") +
                 "pregno:" + mother.getPregNo() + "," +
-                "deliveryLoad:" + (isRetrieval? "retrieve":"\"\"") +
+                (isMother ?"deliveryLoad:":"newbornLoad:") + (isRetrieval? "retrieve":"\"\"") +
                 "}";
 
         //SendPostRequestAsyncTask retrieveDelivery = new AsyncDeliveryInfoUpdate(this);
@@ -529,5 +536,86 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             return false;
         }
         return true;
+    }
+
+    private void getExistingChild() {
+        boolean isMother = false; //just being verbose for better readability
+        boolean retireve = true; //just being verbose for better readability
+        try {
+            JSONObject childJson = buildQueryHeader(isMother, retireve);
+            AsyncDeliveryInfoUpdate childInfoUpdate = new AsyncDeliveryInfoUpdate(new AsyncCallback() {
+                @Override
+                public void callbackAsyncTask(String result) {
+                    Log.d(LOGTAG, "NEWBORN Response Received:\n\t" + result);
+                    handleExistingChild(result);
+                }
+            });
+
+            childInfoUpdate.execute(childJson.toString(), "newborn", "newbornInfo");
+            //queryString, SERVLET, ROOTKEY
+        } catch (JSONException JSE) {
+            Log.e(LOGTAG, "Building child query\n\t:" + JSE.getStackTrace().toString());
+        }
+    }
+
+    private void startChildActivity(int index, JSONObject child) throws JSONException{
+        child.put("childno", index);
+        passJson.putExtra("Layout", child.getInt("birthStatus"));
+        passJson.putExtra("DeliveryJson", dJson.toString());
+        passJson.putExtra("NewbornJson", child.toString());
+
+        if(checkClientInfo() && mother.isEligibleFor(PregWoman.PREG_SERVICE.NEWBORN)) {
+            passJson.putExtra("PregWoman", mother);
+            passJson.putExtra("Provider", ProviderInfo.getProvider());
+            Log.d(LOGTAG, dJson.toString());
+
+            startActivity(passJson);
+        } else {
+            Toast.makeText(this, "Newborn cannot be added, verify ...", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void handleExistingChild(String result) {
+        existingChildInfo = result;
+        try {
+            final JSONObject childJson = new JSONObject(result);
+            if (childJson.has("hasNewbornInfo") &&
+                childJson.getString("hasNewbornInfo").equals("Yes") ) {
+                Spinner childDropdown = getSpinner(R.id.id_childListDropdown);
+                childList  = new ArrayList<>();
+                childDropdown.setVisibility(View.VISIBLE);
+                //childDropdown.setAdapter();
+                int count = childJson.getInt("count");
+                childList.add("");
+                for (int i  = 0; i < count; i++) {
+                    childList.add("Child:" + String.valueOf(i+1));
+                }
+
+                childAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,childList);
+                childAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                childDropdown.setAdapter(childAdapter);
+                childDropdown.setSelection(0);
+
+                childDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        try {
+                            if(position != 0)
+                            startChildActivity(position, childJson.getJSONObject(String.valueOf(position)));
+                        } catch (JSONException JSE) {
+                            JSE.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
+            }
+        } catch (JSONException JSE) {
+
+        }
     }
 }
