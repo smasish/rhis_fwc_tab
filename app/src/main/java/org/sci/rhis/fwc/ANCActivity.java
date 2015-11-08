@@ -125,8 +125,6 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                 if(flag==false) {
                     mANCLayout.setVisibility(View.VISIBLE);
                     flag=true;
-                    getEditText(R.id.ancVisitValue).setText(String.valueOf(lastAncVisit + 1));
-                    getEditText(R.id.ancVisitValue).setClickable(false);
                     listView.setVisibility(View.GONE);
 
                 }
@@ -324,6 +322,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
             jsonStr = new JSONObject(result);
             String key;
             lastAncVisit = jsonStr.length() -1 ; //each anc visit has 1 extra ket denoting current anc status
+            getTextView(R.id.ancVisitValue).setText(String.valueOf(lastAncVisit >= 0 ?lastAncVisit + 1 : 1));
             Log.d("ANC", "JSON Response:\n"+jsonStr.toString());
 
             //DEBUG
