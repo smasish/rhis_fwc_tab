@@ -37,8 +37,9 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
     private  String selectedDistName, selectedUpazilaName,selectedUnionName, selectedVillageName, vilStringValue, villMouza, sumString="";
     private  int divValue, distValue, upValue, unValue, vilValue, mouzaValue;
     private  Button cancelBtn, searchBtn;
-    private  String SERVLET = "advancesearch";
-    private  String ROOTKEY = "advanceSearch";
+    private  final String SERVLET   = "advancesearch";
+    private  final String ROOTKEY   = "advanceSearch";
+    private  final String LOGTAG    = "FWC-ADV-SEARCH";
 
 
     private ListView searchListView ;
@@ -46,6 +47,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
     ListAdapter adapter;
     ArrayList<String> dataItems = new ArrayList<String>();
     ArrayList<String> clientsList = new ArrayList<String>();
+    ArrayList<Person> personsList = new ArrayList<Person>();
 
     AsyncADVSearchUpdate ADVSearchUpdateTask;
 
@@ -68,7 +70,15 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
         addListenerOnButton();
     }
 
+    private void handlePersonListClick( Person person) {
+        Intent intent = new Intent();
+        intent.putExtra("HealthId", person.getHealthId());
+        intent.putExtra("HealthIdType", person.getIdIndex());
+        setResult(RESULT_OK, intent);
+        finishActivity(ActivityResultCodes.ADV_SEARCH_ACTIVITY);
+        finish();
 
+    }
 
     private void initList(){
 
@@ -76,7 +86,12 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
         ArrayAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,  clientsList);
         searchListView = (ListView) findViewById(R.id.search_result);
 
-        searchListView.setAdapter( listAdapter );
+        PersonAdapter personAdapter = new PersonAdapter(this, R.layout.listview_item_row, personsList);
+        View header = getLayoutInflater().inflate(R.layout.listview_header_row, null);
+
+        searchListView.addHeaderView(header);
+        searchListView.setAdapter(personAdapter);
+        //searchListView.setAdapter( listAdapter );
         final Context context = this;
         Button searchbtn = (Button ) findViewById(R.id.lblListItembtn);
 
@@ -86,17 +101,10 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
 
-                String item = ((TextView) view).getText().toString();
-                Toast.makeText(getBaseContext(),"You have clicked on " + item, Toast.LENGTH_LONG).show();
+                //String item = ((TextView) view).getText().toString();
+                //Toast.makeText(getBaseContext(),"You have clicked on " + item, Toast.LENGTH_LONG).show();
 
-                /*Intent intent = new Intent(context, SecondActivity.class);
-                intent.putExtra("HealthId", item);
-                startActivity(intent);*/
-                Intent intent = new Intent();
-                intent.putExtra("HealthId", item);
-                setResult(RESULT_OK, intent);
-                finishActivity(ActivityResultCodes.ADV_SEARCH_ACTIVITY);
-                finish();
+                handlePersonListClick(personsList.get(position - 1));
 
             }
         });
@@ -124,8 +132,8 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
       selectedDistName = spnDist.getSelectedItem().toString();
       distValue = districtCodeMap.get(selectedDistName).first;
       divValue = districtCodeMap.get(selectedDistName).second;
-      Log.e("selected division Value", String.valueOf(divValue));
-      Log.e("selected district Value", String.valueOf(distValue));
+      Log.d(LOGTAG, "selected division Value:\t" + String.valueOf(divValue));
+      Log.d(LOGTAG, "selected district Value:\t" + String.valueOf(distValue));
 
         return  (distValue + "_" + divValue);
   }
@@ -177,9 +185,9 @@ private int UpMapping(){
     });
 
     selectedUpazilaName = spnUpz.getSelectedItem().toString();
-    Log.e("selected Up Value", String.valueOf(selectedUpazilaName));
+    Log.d(LOGTAG, "selected Up Value:\t" + String.valueOf(selectedUpazilaName));
     upValue = upazilaCodeMap.get(selectedUpazilaName);
-    Log.e("selected upazila Value", String.valueOf(upValue));
+    Log.d(LOGTAG, "selected upazila Value:\t" + String.valueOf(upValue));
 
     return upValue;
 }
@@ -206,8 +214,8 @@ private  int unionMapping(){
     spnUN.setAdapter(unAdapter);
     selectedUnionName = spnUN.getSelectedItem().toString();
     unValue = unionCodeMap.get(selectedUnionName);
-    Log.e("selected Union Name", String.valueOf(selectedUnionName));
-    Log.e("selected Union Value", String.valueOf(unValue));
+    Log.d(LOGTAG, "selected Union Name:\t" + String.valueOf(selectedUnionName));
+    Log.d(LOGTAG, "selected Union Value:\t" + String.valueOf(unValue));
 
     return unValue;
 }
@@ -314,7 +322,6 @@ private  int unionMapping(){
                 if(v.getId() == R.id.searchBtn)
                 {
                     advSearchSaveToJson();
-
                 }
             }
         });
@@ -345,8 +352,9 @@ private  int unionMapping(){
 
     @Override
     public void callbackAsyncTask(String result) {
-        Log.e("Found result", result);
+        Log.d(LOGTAG, result);
         JSONObject json;
+        JSONObject jsonPerson;
         try {
             json = new JSONObject(result);
 
@@ -355,23 +363,19 @@ private  int unionMapping(){
                 String sss= (json.getJSONObject(String.valueOf(i)).getString("name") + " || "
                               + json.getJSONObject(String.valueOf(i)).getString("healthId"));
 
-                             clientsList.add(sss);
-                            Log.e("Found", sss);
-
-
-
+                clientsList.add(sss);
+                jsonPerson = json.getJSONObject(String.valueOf(i));
+                personsList.add(new Person( jsonPerson.getString("name"),
+                                            jsonPerson.getString("fatherName"),
+                                            jsonPerson.getString("healthId"),
+                                            jsonPerson.getInt("healthIdPop") == 1? 0: 4, R.drawable.man));
+                Log.d(LOGTAG, sss);
             }
-
             initList();
-
-
         }
-            catch (JSONException jse) {
-                jse.printStackTrace();
-            }
-
-    }
-
+        catch (JSONException jse) {
+            jse.printStackTrace();
+        }            }
     @Override
     protected void initiateCheckboxes() {
 

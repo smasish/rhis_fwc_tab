@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -84,6 +85,9 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     String[] details;
     ArrayList list1;
 
+    private LinearLayout history_layout;
+
+
     private int lastAncVisit;
     JSONArray json_Array = null;
     private Context con;
@@ -108,6 +112,10 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+
+        history_layout = (LinearLayout)(findViewById(R.id.history_lay));
+
+
         // Find the view whose visibility will change
         mANCLayout = findViewById(R.id.ancLayoutScrollview);
         newanc = (Button)findViewById(R.id.newanc_id);
@@ -228,18 +236,11 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         provider = getIntent().getParcelableExtra("Provider");
 
         AsyncClientInfoUpdate client = new AsyncClientInfoUpdate(ANCActivity.this);
-        //SendPostRequestAsyncTask
-        AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(ANCActivity.this);
 
-        Log.d("-!!!!!!!!!!->"+provider.getProviderCode(), "---=keys()====>" + mother.getPregNo());
-        String queryString =   "{" +
-                "pregNo:" + mother.getPregNo() + "," +
-                "healthid:" + mother.getHealthId() + "," +
-                "ancLoad:" + provider.getProviderCode() +
-                "}";
-        String servlet = "anc";
-        String jsonRootkey = "ANCInfo";
-        sendPostReqAsyncTask.execute(queryString, servlet, jsonRootkey);
+
+        loadANCHistory();
+
+
 
 
     // Initialize Spinner added By Al Amin
@@ -282,6 +283,21 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
     }
 
+    private void loadANCHistory() {
+        //SendPostRequestAsyncTask
+        AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(ANCActivity.this);
+
+        Log.d("-!!!!!!!!!!->"+provider.getProviderCode(), "---=keys()====>" + mother.getPregNo());
+        String queryString =   "{" +
+                "pregNo:" + mother.getPregNo() + "," +
+                "healthid:" + mother.getHealthId() + "," +
+                "ancLoad:" + provider.getProviderCode() +
+                "}";
+        String servlet = "anc";
+        String jsonRootkey = "ANCInfo";
+        sendPostReqAsyncTask.execute(queryString, servlet, jsonRootkey);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -293,7 +309,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     @Override
     public void callbackAsyncTask(String result) {
 
-
+        ll.removeAllViews();
         try {
             jsonStr = new JSONObject(result);
             String key;
@@ -333,34 +349,13 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                 }
 
 
-                  //  listDataHeader.add(getString(R.string.history_visit1) + "" + jsonArray.get(0).toString() + " :");
-//                    listDataHeader.add("Visit "+jsonArray.get(0).toString() + ":");
-//                    listDataChild.put(listDataHeader.get(0), list);
-//
-//                    listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
-//
-//                    ancAdapter = new ANCListAdapter(this,list);
-                   // expListView = new ExpandableListView(this);
-                   // expListView.setAdapter(listAdapter);
-
-
-
-                    // Assign adapter to ListView
-
-//                    expListView = new ExpandableListView(this);
-//                    expListView.setTranscriptMode(ExpandableListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
-//
-//                    expListView.setIndicatorBounds(0, 0);
-//                    expListView.setChildIndicatorBounds(0, 0);
-//                    expListView.setStackFromBottom(true);
-//                    expListView.smoothScrollToPosition(expListView.getCount() - 1);
 
 
                     LinearLayout.LayoutParams lprams = new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.WRAP_CONTENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT);
 
-
+           // ((ViewGroup) lprams.getParent()).removeView(lprams);
 
                     initPage();
 
@@ -386,8 +381,13 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                             list1 = new ArrayList<String>();
                             for (int i = 1; i < json_Array.length()-2; i++) {
 
-
-                                list1.add(""+mainlist[i-1]+"" + json_Array.get(i).toString());
+                                String det = json_Array.get(i).toString();
+                                if(( i == 13|| i == 14 || i == 15 || i == 16 || i == 17) && det.length() >3) {
+                                    Log.d("------------->>"+det, ""+i);
+                                    list1.add("" + mainlist[i - 1] + "" + getString(R.string.detail));
+                                }
+                                else
+                                 list1.add(""+mainlist[i-1]+"" + json_Array.get(i).toString());
 
 
                             }//end
@@ -413,9 +413,16 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
                                     Resources res1 = getResources();
 
-                                    if(arg2 == 12) {
-                                        str = parseString(arg2 + 1);
+                                    try {
+                                        str = ""+json_Array.get(arg2).toString();
+                                        Log.d("----------lenth---||" + str, "" + str.length());
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
 
+                                    if(arg2 == 12 && str.length()>4) {
+                                        str = parseString(arg2 + 1);
+                                        Log.d("-------------||" + str, "" + str.trim().split(" "));
                                         String[] animals = str.split(" ");
                                         String temp = "";
                                         details = res1.getStringArray(R.array.ANC_Danger_Sign_DropDown);
@@ -426,10 +433,10 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                                         }
                                         Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
                                         //System.out.println(Arrays.asList(s.trim().split(" ")));
-
+                                        if(temp.length()>5)
                                         AlertMessage.showMessage(con, "Details", temp);
                                     }
-                                    else if(arg2 == 13) {
+                                    else if(arg2 == 13 && str.length()>4) {
 
                                         str = parseString(arg2 + 1);
 
@@ -443,11 +450,11 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                                         }
                                         Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
 
-
+                                        if(temp.length()>5)
                                         AlertMessage.showMessage(con, "Details", temp);
 
 
-                                    }else if(arg2 == 14) {
+                                    }else if(arg2 == 14 && str.length()>4) {
                                         str = parseString(arg2 + 1);
 
                                         String[] animals = str.split(" ");
@@ -460,10 +467,10 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                                         }
                                         Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
 
-
+                                        if(temp.length()>5)
                                         AlertMessage.showMessage(con, "Details", temp);
                                     }
-                                    else if(arg2 == 15) {
+                                    else if(arg2 == 15 && str.length()>4) {
                                         str = parseString(arg2 + 1);
 
                                         String[] animals = str.split(" ");
@@ -476,11 +483,11 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                                         }
                                         Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
 
-
+                                        if(temp.length()>5)
                                         AlertMessage.showMessage(con, "Details", temp);
 
                                     }
-                                    else if(arg2 == 16) {
+                                    else if(arg2 == 16 && str.length()>4) {
                                         str = parseString(arg2 + 1);
 
                                         String[] animals = str.split(" ");
@@ -493,12 +500,10 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                                         }
                                         Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
 
-
+                                        if(temp.length()>5)
                                         AlertMessage.showMessage(con, "Details", temp);
 
                                     }
-
-
 
 
 
@@ -560,6 +565,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         expListView.setStackFromBottom(true);
 
 
+        ll.addView(expListView);
       //  expListView.smoothScrollToPosition(expListView.getCount() - 1);
 
 
@@ -592,8 +598,10 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         }
 
         if(v.getId() == R.id.ancSaveButton){
+            ll.removeAllViews();
             saveAnc(v);
-
+            //initPage();
+            //loadANCHistory();
         }
     }
 

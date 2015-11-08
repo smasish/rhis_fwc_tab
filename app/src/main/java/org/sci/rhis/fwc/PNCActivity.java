@@ -1,5 +1,6 @@
 package org.sci.rhis.fwc;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -57,6 +58,7 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
+
     LinearLayout ll,ll_pnc_child;
 
     private PregWoman mother;
@@ -103,7 +105,6 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
         };
 
         mother = getIntent().getParcelableExtra("PregWoman");
-
         provider = getIntent().getParcelableExtra("Provider");
 
         pnc_mother = (Button)findViewById(R.id.pncmother);
@@ -208,34 +209,42 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
         expListView = new ExpandableListView(this);
         ll.addView(expListView);
 
-
-
-
-        AsyncClientInfoUpdate client = new AsyncClientInfoUpdate(PNCActivity.this);
         //SendPostRequestAsyncTask
-        AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(PNCActivity.this);
-//        String queryString =   "{" +
-//                "pregNo:" + 3 + "," +
-//                "healthid:" + "43366275025436" + "," +
-//                "pncMLoad:" + ProviderInfo.getProvider().getProviderCode() +
-//                "}";
+        AsyncPNCInfoUpdate sendPostReqAsyncTask = new AsyncPNCInfoUpdate(PNCActivity.this);
 
         String queryString =   "{" +
-                "pregno:" + 3 + "," +
-                "healthid:" + "43366275025436" + "," +
+                "pregno:" + mother.getPregNo() + "," +
+                "healthid:" + mother.getHealthId() + "," +
                 "pncMLoad:" + "retrieve" +
                 "}";
 
         String servlet = "pncmother";
         String jsonRootkey = "PNCMotherInfo";
-        Log.d("-->", "---=====>" + queryString);
+        Log.d("PNC", "Mother Part:\n" + queryString);
         sendPostReqAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, queryString, servlet, jsonRootkey);
 
+        AsyncLoginTask sendPostReqAsyncTaskChild = new AsyncLoginTask(new AsyncCallback() {
+            @Override
+            public void callbackAsyncTask(String result) {
+                handleChild(result);
+            }
+        });
+        //LongOperation sendPostReqAsyncTask_child = new LongOperation();
+
+        String queryString_child = "{" +
+                "pregno:" + mother.getPregNo() + "," +
+                "healthid:" + mother.getHealthId() + "," +
+                "pncCLoad:" + "retrieve" +
+                "}";
+
+        String servlet_child = "pncchild";
+        String jsonRootkey_child = "PNCChildInfo";
+        Log.d("PNC", "Child Part:\n" +  queryString_child);
+        sendPostReqAsyncTaskChild.execute(queryString_child, servlet_child, jsonRootkey_child);
 /*
 
 pnc child history
  */
-
 
         Log.d("-->", "---=====>" + queryString);
 
@@ -250,8 +259,6 @@ pnc child history
         datePickerPair = new HashMap<Integer, EditText>();
         datePickerPair.put(R.id.Date_Picker_Button, (EditText) findViewById(R.id.pncServiceDateValue));
     }
-
-
 
 
     private class LongOperation extends AsyncTask<String, Void, String> {
@@ -391,9 +398,7 @@ pnc child history
                             list.add("" + getString(R.string.weight) + " " + weight);
                             list.add("" + getString(R.string.breath_per_minute) + " " + breathingPerMinute);
                             list.add("" + getString(R.string.danger_signs) + " " + dangerSign);
-
                             list.add("" + getString(R.string.breast_feeding) + " " + breastFeedingOnly);
-
                             list.add("" + getString(R.string.disease) + " " + disease);
                             list.add("" + getString(R.string.treatment) + " " + treatment);
                             list.add("" + getString(R.string.advice) + " " + advice);
@@ -409,7 +414,6 @@ pnc child history
 
                                 listDataHeader = new ArrayList<String>();
                                 listDataChild = new HashMap<String, List<String>>();
-
 
                                 // listDataHeader.add(getString(R.string.history_visit1) + "" + jsonArray.get(0).toString() + " :");
                                 listDataHeader.add("Visit " + num + ":");//jsonArray.get(0).toString()
@@ -483,13 +487,8 @@ pnc child history
 
     @Override
     public void callbackAsyncTask(String result) {
+        Log.d("PNC", "Handle Mother:\n" + result);
 
-
-
-      //  String a = TempValue.getServlet();
-//        if(a.equalsIgnoreCase("pncchild")){
-//            Log.d("--:::>", "---complicationsign=====>"+TempValue.getServlet());
-//        }else {
             try {
                 JSONObject jsonStr = new JSONObject(result);
                 String key;
@@ -539,7 +538,7 @@ pnc child history
 
                     ArrayList<String> list = new ArrayList<String>();
                     list.add("" + getString(R.string.visitDate) + " " + visitDate);
-                    list.add("" + getString(R.string.complicationsign) + " " + complicationsign);
+                    list.add("" + getString(R.string.complicationsign) + " " + symptom);
                     list.add("" + getString(R.string.temperature) + " " + temperature);
                     list.add("" + getString(R.string.bpSystolic) + " " + bpSystolic);
                     list.add("" + getString(R.string.anemia) + " " + anemia);
@@ -605,13 +604,7 @@ pnc child history
         expListView.setIndicatorBounds(0, 0);
         expListView.setChildIndicatorBounds(0, 0);
         expListView.setStackFromBottom(true);
-
-
         //  expListView.smoothScrollToPosition(expListView.getCount() - 1);
-
-
-
-
     }
 
     private void pncMotherSaveToJson() {
@@ -764,6 +757,126 @@ pnc child history
 
     }
 
+    private void handleChild(String result) {
+        try {
+            JSONObject jsonStr = new JSONObject(result);
+            String key;
+            int num=1;
+
+            Log.d("PNC", "Handle Child\n" + result);
+            // woman = PregWoman.CreatePregWoman(json);
+            Log.d("--:::>", "---complicationsign=====>" + result);
+            //DEBUG
+            Resources res = getResources();
+            // String[] mainlist = res.getStringArray(R.array.list_item);
+
+            for (Iterator<String> ii = jsonStr.keys(); ii.hasNext(); ) {
+                key = ii.next();
+
+                Log.d("-->", "---=keys()====>" + key);
+                System.out.println("1.Key:" + key + " Value:\'" + jsonStr.get(key) + "\'");
+                if(key.equalsIgnoreCase("childCount") || key.equalsIgnoreCase("outcomeDate")||
+                        key.equalsIgnoreCase("hasDeliveryInformation")||key.equalsIgnoreCase("pncStatus")){
+
+                }else {
+
+
+                    JSONObject jsonObject1 = jsonStr.getJSONObject(""+num);
+                    for (Iterator<String> iii = jsonObject1.keys(); iii.hasNext(); ) {
+                        key = iii.next();
+
+                        Log.d("--:::>", "---key key=====>" + key);
+                        System.out.println("1.Key:" + key + " Value:\'" + jsonObject1.get(key) + "\'");
+
+                        if (key.equalsIgnoreCase("serviceCount") || key.equalsIgnoreCase("pncStatus")) {
+
+                        } else {
+                            //JSONObject jsonObject = jsonObject1.getJSONObject(key);
+                            //JSONObject jsonObject = jsonObject2.getJSONObject(key);
+
+                            JSONObject jsonObject = jsonObject1.getJSONObject(""+num);
+
+
+                            Log.d("--:::>", "---serviceSource=====>" + jsonObject.getString("serviceSource"));
+
+                            //String complicationsign = jsonRootObject.getString("serviceSource");
+                            //String complicationsign = jsonObject.getString("complicationsign");
+                            String visitDate = jsonObject.getString("visitDate");
+                            String symptom = jsonObject.getString("symptom");
+                            String weight = jsonObject.getString("weight");
+                            String referCenterName = jsonObject.getString("referCenterName");
+                            String childNo = jsonObject.getString("childNo");
+                            String treatment = jsonObject.getString("treatment");
+                            String breastFeedingOnly = jsonObject.getString("breastFeedingOnly");
+
+                            String breathingPerMinute = jsonObject.getString("breathingPerMinute");
+                            String disease = jsonObject.getString("disease");
+                            String dangerSign = jsonObject.getString("dangerSign");
+//                    String hematuria = jsonRootObject.getString("hematuria");
+                            String temperature = jsonObject.getString("temperature");
+//                    String referReason = jsonRootObject.getString("referReason");
+                            String advice = jsonObject.getString("advice");
+                            String refer = jsonObject.getString("refer");
+                            String referReason = jsonObject.getString("referReason");
+
+                            ArrayList<String> list = new ArrayList<String>();
+                            list.add("" + getString(R.string.visitDate) + " " + visitDate);
+                            list.add("" + getString(R.string.complicationsign) + " " + symptom);
+                            list.add("" + getString(R.string.temperature) + " " + temperature);
+                            list.add("" + getString(R.string.weight) + " " + weight);
+                            list.add("" + getString(R.string.breath_per_minute) + " " + breathingPerMinute);
+                            list.add("" + getString(R.string.danger_signs) + " " + dangerSign);
+
+                            list.add("" + getString(R.string.breast_feeding) + " " + breastFeedingOnly);
+
+                            list.add("" + getString(R.string.disease) + " " + disease);
+                            list.add("" + getString(R.string.treatment) + " " + treatment);
+                            list.add("" + getString(R.string.advice) + " " + advice);
+                            list.add("" + getString(R.string.refer) + " " + refer);
+                            list.add("" + getString(R.string.referCenterName) + " " + referCenterName);
+                            list.add("" + getString(R.string.referReason) + " " + referReason);
+
+
+
+                            try {
+                                // JSONArray jsonArray = jsonStr.getJSONArray(key);
+
+
+                                listDataHeader = new ArrayList<String>();
+                                listDataChild = new HashMap<String, List<String>>();
+
+
+                                // listDataHeader.add(getString(R.string.history_visit1) + "" + jsonArray.get(0).toString() + " :");
+                                listDataHeader.add("Visit " + num + ":");//jsonArray.get(0).toString()
+                                listDataChild.put(listDataHeader.get(0), list);
+
+                                listAdapter_child = new ExpandableListAdapterforPNC_Child(PNCActivity.this, listDataHeader, listDataChild);
+
+
+                                num++;
+                                initPage();
+                                //ll_pnc_child = (LinearLayout)findViewById(R.id.llay_frag);
+
+                                ll_pnc_child.addView(expListView);
+                                expListView.setScrollingCacheEnabled(true);
+                                expListView.setAdapter(listAdapter_child);
+                                ll_pnc_child.invalidate();
+                                //expListView.setAdapter(listAdapter_child);
+
+                            } catch (Exception e) {
+                                Log.e("::::", "onPostExecute > Try > JSONException => " + e);
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (JSONException jse) {
+            System.out.println("JSON Exception Thrown::\n ");
+            jse.printStackTrace();
+        }
+    }
+
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.pncServiceDateValue || v.getId() == R.id.Date_Picker_Button) {
@@ -787,8 +900,6 @@ pnc child history
                 pnclay_mother.setVisibility(View.GONE);
                 mother_flag = false;
             }
-
-
         }
         else if(v.getId() == R.id.pncchild){
             lay_frag_mother.setVisibility(View.GONE);
@@ -818,12 +929,17 @@ pnc child history
                 //ll_pnc_child.addView(expListView);
 
 
-                AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(PNCActivity.this);
+                AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(new AsyncCallback() {
+                    @Override
+                    public void callbackAsyncTask(String result) {
+                        handleChild(result);
+                    }
+                });
                 LongOperation sendPostReqAsyncTask_child = new LongOperation();
 
                 String queryString_child = "{" +
-                        "pregno:" + 3 + "," +
-                        "healthid:" + "43366275025436" + "," +
+                        "pregno:" + mother.getPregNo() + "," +
+                        "healthid:" + mother.getHealthId() + "," +
                         "pncCLoad:" + "retrieve" +
                         "}";
 
