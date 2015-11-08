@@ -109,10 +109,7 @@ public class ExpandableListAdapterforPNC extends BaseExpandableListAdapter {
 		}else if (childPosition == 17 && str.length()<1) {
 			txtListChild.setText("" + _context.getString(R.string.referReason));
 		}
-//		else if ((childPosition == 1 || childPosition == 12 ||childPosition == 13 || childPosition == 14 ||childPosition == 15 || childPosition == 17 )
-//				&& childText.length()<=7) {
-//			txtListChild.setText("" + _context.getString(R.string.danger_signs) + _context.getString(R.string.detail));
-//		}
+
 		else
 		txtListChild.setText(childText);
 
