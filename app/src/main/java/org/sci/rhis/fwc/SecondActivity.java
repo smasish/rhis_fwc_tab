@@ -155,7 +155,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         try {
             id = Long.valueOf(searchableId.getText().toString());
         } catch (NumberFormatException nfe) {
-            Log.e("Search", "-- Invalid ID --\n" + nfe.toString());
+            Log.e(LOGTAG, "Invalid ID \n\t" + nfe.toString());
             Toast.makeText(this, "Invalid ID typed. Please provide valid ID ...", Toast.LENGTH_LONG).show();
             return;
         }
@@ -169,6 +169,10 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         String jsonRootkey = "sClient";
         AsyncClientInfoUpdate retrieveClient = new AsyncClientInfoUpdate(this);
 
+        //TODO- setting woman to null before executing next search, but seems hacky
+        //      need better alternative eventually, getting messy
+        Utilities.Reset(this, R.id.clients_intro_layout);
+        Utilities.Reset(this, R.id.clients_info_layout);
         retrieveClient.execute(queryString, servlet, jsonRootkey);
 
         TextView mHealthIdLayout = (TextView) findViewById(R.id.health_id);
@@ -176,10 +180,6 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
         TextView healthId = (TextView) findViewById(R.id.health_id);
         healthId.setText(String.valueOf(stringId) + ": " + String.valueOf(id));
-
-        System.out.println("sOpt: " + index
-                + /*Adding 1 to match HTML index where healthID starts from 1*/
-                " text: " + id);
 
     }
 
@@ -212,10 +212,12 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             }
         }
 
-        manipulateJson(json);
+        //manipulateJson(json);
+
         Utilities.setSpinners(jsonSpinnerMap, json);
         Utilities.setCheckboxes(jsonCheckboxMap, json);
         Utilities.setEditTextDates(jsonEditTextDateMap, json);
+
     }
 
     @Override
@@ -239,8 +241,8 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                 client = json;
 
                 if (json.get("False").toString().equals("")) { //Client exists
-                    woman = PregWoman.CreatePregWoman(json);
                     populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
+                    woman = PregWoman.CreatePregWoman(json);
                     responseID = new BigInteger(json.get("cHealthID").toString());
 
                     if (woman != null) {
@@ -272,6 +274,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
                 else {
 
+                    Toast.makeText(this, "Provided information is not valid! Please try again....", Toast.LENGTH_LONG).show();
                     Toast.makeText(this, "Provided information is not valid! Please try again....", Toast.LENGTH_LONG).show();
                     Utilities.InVisibleLayout(this, R.id.clients_info_layout);
                 }
