@@ -148,7 +148,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
     @Override
     public void callbackAsyncTask(String result) {
-        Log.d("Delivery-Newborn", result);
+        Log.d("Delivery-Newborn", result != null ? result: "NO RESPONSE");
         JSONObject json;
         try {
             json = new JSONObject(result);
@@ -183,7 +183,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 // For New born
         jsonCheckboxMap.put("stimulation", getCheckbox(R.id.stimulation));
         jsonCheckboxMap.put("bagNMask", getCheckbox(R.id.bag_n_mask));
-        jsonCheckboxMap.put("newBornRefer", getCheckbox(R.id.deliveryChildReferCheckBox));
+        jsonCheckboxMap.put("refer", getCheckbox(R.id.deliveryChildReferCheckBox));
     }
 
     @Override
@@ -203,12 +203,12 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     @Override
     protected void initiateSpinners() {
         // for New born Layout
-        jsonSpinnerMap.put("newBornReferCenter", getSpinner(R.id.deliveryChildReferCenterNameSpinner));
+        jsonSpinnerMap.put("referCenterName", getSpinner(R.id.deliveryChildReferCenterNameSpinner));
     }
 
     @Override
     protected void initiateMultiSelectionSpinners(){
-        jsonMultiSpinnerMap.put("newBornReferReason", getMultiSelectionSpinner(R.id.deliveryChildReferReasonSpinner));
+        jsonMultiSpinnerMap.put("referReason", getMultiSelectionSpinner(R.id.deliveryChildReferReasonSpinner));
     }
 
     @Override
