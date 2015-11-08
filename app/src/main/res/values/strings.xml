@@ -116,6 +116,7 @@
 
         <item>রক্তচাপ (মিঃ মিঃ মার্কারি):</item>
         <item>ওজন (কেজি):</item>
+        <item>ওজন (কেজি):</item>
         <item>ইডিমা:</item>
         <item>জরায়ুর উচ্চতা (সপ্তাহ):</item>
         <item>ফিটাসের হৃদপিণ্ডের গতি (প্রতি মিনিটে):</item>
@@ -668,6 +669,8 @@
         <item> জেলা সদর হাসপাতাল </item>
         <item> প্রাইভেট ক্লিনিক</item>
         <item> এনজিও হাসপাতাল/ সেবা কেন্দ্র</item>
+        <item> অন্যান্য  </item>
+        <item> অন্যান্য  </item>
         <item> অন্যান্য  </item>
     </string-array>
     <string name="title_activity_nrc">NRCActivity</string>

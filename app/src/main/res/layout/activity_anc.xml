@@ -25,21 +25,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/history_lay"
-        android:orientation="horizontal"
+        android:orientation="vertical"
        >
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="New ANC"
-        android:id="@+id/newanc_id"
-        style="@style/rowHeading"
-        android:gravity="center"
-        android:layout_marginRight="1dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginLeft="3dp"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center_horizontal" />
+
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -47,7 +35,23 @@
         android:name="org.sci.rhis.fwc.ANCActivityFragment"
         tools:layout="@layout/fragment_anchistory"
         android:layout_width="wrap_content"
-        android:layout_height="100dp" />
+        android:layout_height="80dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="New ANC"
+            android:id="@+id/newanc_id"
+            style="@style/rowHeading"
+            android:gravity="center"
+            android:layout_marginRight="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginBottom="2dp"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_horizontal" />
+
 </LinearLayout>
 
 <LinearLayout
