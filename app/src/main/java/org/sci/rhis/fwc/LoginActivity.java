@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +20,9 @@ import java.util.Iterator;
 public class LoginActivity extends FWCServiceActivity {
 
     Button button;
-    int index;
+    int placeIndex=0;
+    String placeName="";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,7 +32,7 @@ public class LoginActivity extends FWCServiceActivity {
      // Remove Action Bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-        //Set deafult bang;a font
+        //Set deafult bangla font
         //Typeface tf = Typeface.createFromAsset(getApplicationContext().getAssets(),"Nikosh.ttf");
         //TextView textview = (TextView)findViewById(R.id.providerLabelId);
         //textview.setTypeface(tf);
@@ -78,18 +81,7 @@ public class LoginActivity extends FWCServiceActivity {
                 provider.setProviderCode(json.getString("ProvCode"));
                 provider.setProviderFacility(json.getString("FacilityName"));
 
-
-                /**/
-
-               /* Intent intent = new Intent(this, PopUp.class);
-                startActivity(intent);*/
-
-
                 popUpDialog();
-
-
-
-
 
                 Log.d("aaf",""+provider.getProviderFacility());
                 System.out.println("Post Response: " + result);
@@ -104,22 +96,65 @@ public class LoginActivity extends FWCServiceActivity {
     }
 
     public void popUpDialog() {
+
         final Dialog dialog = new Dialog(this);
 
         dialog.setContentView(R.layout.place_pop);
         dialog.show();
+        dialog.setCanceledOnTouchOutside(false);
 
-        Button ok=(Button)dialog.findViewById(R.id.buttonPlacePopUpOK);
-        Button cancel=(Button)dialog.findViewById(R.id.buttonPlacePopUpCancel);
+        DisplayMetrics dm =new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+        int w=dm.widthPixels;
+        int h=dm.heightPixels;
+
+        dialog.getWindow().setLayout((int) (w * 0.7), (int) (h * 0.5));
+
+
+        final Button ok=(Button)dialog.findViewById(R.id.buttonPlacePopUpOK);
+        final Button cancel=(Button)dialog.findViewById(R.id.buttonPlacePopUpCancel);
+        final RadioGroup RadioPlaceGroupListener = (RadioGroup) dialog.findViewById(R.id.radioGroupPlace);
+        final EditText SatelliteName=(EditText)dialog.findViewById(R.id.SatelliteName);
+
+
+            RadioPlaceGroupListener.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                    if (checkedId == R.id.radioButtonSatellite) {
+                        placeIndex =1;
+                        SatelliteName.setVisibility(EditText.VISIBLE);
+
+                    }
+
+                    else {
+                        placeIndex =0;
+                        SatelliteName.setVisibility(EditText.GONE);
+                    }
+                }
+            });
 
         ok.setOnClickListener(new Button.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                RadioGroup RadioPlaceGroup = (RadioGroup) dialog.findViewById(R.id.radioGroupPlace);
-                index = RadioPlaceGroup.indexOfChild(dialog.findViewById(RadioPlaceGroup.getCheckedRadioButtonId()));
-                Log.d("place", String.valueOf(index));
+                //to get the place of service
+                //  0 facility
+                //  1 satellite
+
+                Log.d("placeIndex", String.valueOf(placeIndex));
+                if (placeIndex ==1) {
+                    placeName = SatelliteName.getText().toString();
+                }
+
+                else if (placeIndex ==0){
+                    placeName = "";
+
+                }
+
+                Log.d("placeName", placeName);
 
                 startSecondActivity();
                 dialog.dismiss();
@@ -136,8 +171,6 @@ public class LoginActivity extends FWCServiceActivity {
 
             }
         });
-
-
 
     }
 
