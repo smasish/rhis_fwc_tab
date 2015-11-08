@@ -34,7 +34,7 @@ import java.util.HashMap;
  */
 public class Utilities {
 
-    public final static int SPINNER_INDEX_OFFSET = 1;
+    public final static int SPINNER_INDEX_OFFSET = 0; //no offset is required
     private final static String LOGTAG = "FWC-UTILITIES";
 
     // This method added by Al Amin on 10/09/2015 (dd/MM/yyyy)

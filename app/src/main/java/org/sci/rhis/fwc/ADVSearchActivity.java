@@ -126,7 +126,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
               this, android.R.layout.simple_spinner_item, distLIst);
       adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-      Spinner spnDist = (Spinner) findViewById(R.id.Clients_District);
+      Spinner spnDist = getSpinner(R.id.Clients_District);
       spnDist.setAdapter(adapter);
 
       selectedDistName = spnDist.getSelectedItem().toString();

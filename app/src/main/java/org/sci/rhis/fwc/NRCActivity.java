@@ -377,7 +377,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         jsonEditTextMap.put("fathername", getEditText(R.id.Clients_Father));
         jsonEditTextMap.put("mothername", getEditText(R.id.Clients_Mother));
         jsonEditTextMap.put("hhgrholdingno", getEditText(R.id.Clients_House_No));
-        jsonEditTextMap.put("cellno", getEditText(R.id.Clients_Mobile_no));
+        jsonEditTextMap.put("cellno", getEditText(R.id.NrcClients_Mobile_no));
     }
 
     @Override

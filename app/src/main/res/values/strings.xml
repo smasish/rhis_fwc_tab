@@ -208,11 +208,11 @@
     <string name="onlyHead">"মাথা ছাড়া অন্য কোন অঙ্গ বের হওয়া"</string>
     <string name="convulsion">"খিচুঁনি "</string>
     <string name="deliveryExtra">"অন্যান্য"</string>
-    <string name="newborn_add">"নবজাতক সংযোজন"</string>
-    <string name="death_fresh_add">"মৃত জন্ম সংযোজন: ফ্রেশ"</string>
-    <string name="death_macerated_add">"মৃত জন্ম সংযোজন:ম্যাসারেটেড"</string>
+    <string name="newborn_add">"নবজাতক\nসংযোজন"</string>
+    <string name="death_fresh_add">"মৃত জন্ম \nসংযোজন: ফ্রেশ"</string>
+    <string name="death_macerated_add">"মৃত জন্ম \nসংযোজন:ম্যাসারেটেড"</string>
     <string-array name="FacilityType_DropDown">
-        <item>\'\'</item>
+        <item></item>
         <item> মেডিকেল কলেজ হাসপাতাল </item>
         <item> জেলা সদর হাসপাতাল </item>
         <item>মা ও শিশু কল্যাণ কেন্দ্র</item>

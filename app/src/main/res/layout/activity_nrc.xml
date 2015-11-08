@@ -360,7 +360,7 @@
                 android:layout_width="150dp"
                 android:layout_height="50px"
                 android:background="@drawable/edittext_round"
-                android:id="@+id/Clients_Mobile_no"
+                android:id="@+id/NrcClients_Mobile_no"
                 android:inputType="number"
                 android:paddingLeft="10dp"
                 />
