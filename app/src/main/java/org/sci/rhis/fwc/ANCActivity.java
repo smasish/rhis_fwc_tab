@@ -164,6 +164,16 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
         // Wire each button to a click listener
         visibleButton.setOnClickListener(mVisibleListener);
+        getCheckbox(R.id.ancOtherCheckBox).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                switch(buttonView.getId()) {
+                    case R.id.ancOtherCheckBox :
+                        setItemVisible(R.id.ancOtherCenterNameSpinner, isChecked);
+                        break;
+                }
+            }
+        });
 
 //        GridView gv = (GridView)findViewById(R.id.gridAncVisit);
  //       gv.setAdapter(new CustomGridAdapter(ANCActivity.this));
@@ -574,7 +584,9 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     }
 
 
-
+    void setItemVisible(int ItemId, boolean isChecked) {
+        findViewById(ItemId).setVisibility(isChecked? View.VISIBLE : View.INVISIBLE);
+    }
 
     // added by Al Amin
     @Override
@@ -701,7 +713,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
             Utilities.getCheckboxes(jsonCheckboxMap, json);
             Utilities.getEditTexts(jsonEditTextMap, json);
             Utilities.getEditTextDates(jsonEditTextDateMap, json);
-            Utilities.getSpinnerValues(jsonSpinnerMap, json);
+            Utilities.getSpinners(jsonSpinnerMap, json);
             Utilities.getMultiSelectSpinnerIndices(jsonMultiSpinnerMap, json);
             Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
             //getEditTextTime(json);
@@ -719,8 +731,8 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
     public void getSpecialCases(JSONObject json) {
         try {
-            json.put("ancsatelitecentername", "GOV"); //If the service was given from satellite
-            json.put("ancservicesource", "1"); //anc service source
+            json.put("ancsatelitecentername", "4"); //If the service was given from satellite
+            json.put("ancservicesource", "3"); //anc service source
 
         } catch (JSONException jse) {
 
