@@ -212,6 +212,7 @@
     <string name="death_fresh_add">"মৃত জন্ম সংযোজন: ফ্রেশ"</string>
     <string name="death_macerated_add">"মৃত জন্ম সংযোজন:ম্যাসারেটেড"</string>
     <string-array name="FacilityType_DropDown">
+        <item>\'\'</item>
         <item> মেডিকেল কলেজ হাসপাতাল </item>
         <item> জেলা সদর হাসপাতাল </item>
         <item>মা ও শিশু কল্যাণ কেন্দ্র</item>
@@ -253,6 +254,7 @@
 
     <string name="anc_title">" প্রসব সংক্রান্ত তথ্য "</string>
     <string name="visit">"পরিদর্শন:"</string>
+    <string name="anc_others">অন্যান্য</string>
     <string name="service_date">"সেবাগ্রহনের তারিখ:"</string>
     <string name="blood_presser">"রক্তচাপ (মিঃ মিঃ মার্কারি):"</string>
     <string name="weight">"ওজন (কেজি):"</string>
