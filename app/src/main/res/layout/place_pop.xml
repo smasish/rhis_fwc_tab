@@ -41,6 +41,7 @@
         android:layout_gravity="center_horizontal"
         android:orientation="vertical"
         android:layout_marginTop="20dp"
+        android:checkedButton="@+id/radioButtonFacility"
         android:id="@+id/radioGroupPlace">
 
         <RadioButton
@@ -65,7 +66,10 @@
         android:layout_marginTop="10dp"
         android:ellipsize="start"
         android:background="@drawable/edittext_round"
-        style="@style/styleEdittext"/>
+        android:paddingLeft="10dp"
+        style="@style/styleEdittext"
+        android:visibility="gone"
+    />
 
 <LinearLayout
     android:layout_width="wrap_content"
