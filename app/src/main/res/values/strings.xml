@@ -624,6 +624,7 @@
         <item>	নাভিরজ্জু থেকে রক্তক্ষরণ  </item>
     </string-array>
     <string-array name="Edema_Dropdown">
+        <item></item>
         <item> নাই </item>
         <item> + (অল্প) </item>
         <item> ++ (মোটামুটি) </item>
@@ -631,11 +632,13 @@
     </string-array>
 
     <string-array name="Fetal_Presentation_Dropdown">
+        <item></item>
         <item> স্বাভাবিক</item>
         <item> অস্বাভাবিক </item>
     </string-array>
 
     <string-array name="Jaundice_Dropdown">
+        <item></item>
         <item> নাই </item>
         <item> + (অল্প) </item>
         <item> ++ (মোটামুটি) </item>
@@ -643,18 +646,21 @@
     </string-array>
 
     <string-array name="Urine_Test_Sugar_Dropdown">
+        <item></item>
         <item> নাই </item>
         <item> +  </item>
         <item> ++  </item>
         <item> +++  </item>
     </string-array>
     <string-array name="Urine_Test_Albumin_Dropdown">
+        <item></item>
         <item> নাই </item>
         <item> +  </item>
         <item> ++  </item>
         <item> +++  </item>
     </string-array>
     <string-array name="pnc_Anemia_Dropdown">
+        <item></item>
         <item> +  </item>
         <item> ++  </item>
         <item> +++  </item>
