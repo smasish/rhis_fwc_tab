@@ -1,11 +1,13 @@
 package org.sci.rhis.fwc;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +17,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -74,8 +78,13 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
     private View mPNCLayout;
     Boolean flag=false,mother_flag=false,child_flag=false,child_tree=true;
 
-    private Button pnc_mother,pnc_child;
-    private LinearLayout pnclay_child,pnclay_mother,lay_frag_mother,lay_frag_child;
+    private Button pnc_mother,pnc_child,expand;
+    private LinearLayout pnclay_child,pnclay_mother,lay_frag_child;
+
+    private LinearLayout lay_frag_mother;
+    private Context con;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +94,7 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
       // Remove Action Bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+        con = this;
 
         mPNCLayout = findViewById(R.id.pncScroll);
         // Find our buttons
@@ -109,9 +119,11 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
 
         pnc_mother = (Button)findViewById(R.id.pncmother);
         pnc_child = (Button)findViewById(R.id.pncchild);
+        expand = (Button)findViewById(R.id.expandview);
 
         pnc_mother.setOnClickListener(this);
         pnc_child.setOnClickListener(this);
+        expand.setOnClickListener(this);
 
         child_tree=true;
 
@@ -121,6 +133,14 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
 
         lay_frag_mother = (LinearLayout)findViewById(R.id.pnc_mother_frag);
         lay_frag_child = (LinearLayout)findViewById(R.id.pnc_child_frag);
+
+        Display mDisplay = this.getWindowManager().getDefaultDisplay();
+        final int width  = mDisplay.getWidth();
+        //int width=600;
+        int height=100;
+        LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(width,height);
+        lay_frag_mother.setLayoutParams(parms);
+        lay_frag_mother.invalidate();
 
         lay_frag_child.setVisibility(View.GONE);
         pnclay_child.setVisibility(View.GONE);
@@ -357,7 +377,7 @@ pnc child history
                         for (Iterator<String> iii = jsonObject1.keys(); iii.hasNext(); ) {
                             key = iii.next();
 
-                            Log.d("--:::>", "---key key=====>" + key);
+                            Log.d("--:::>", "---key-- child=====>" + key);
                             System.out.println("1.Key:" + key + " Value:\'" + jsonObject1.get(key) + "\'");
 
                         if (key.equalsIgnoreCase("serviceCount") || key.equalsIgnoreCase("pncStatus")) {
@@ -883,11 +903,14 @@ pnc child history
             datePickerDialog.show(datePickerPair.get(v.getId()));
         }
 
+
+
         if(v.getId() == R.id.pncmother){
             //pnclay_mother.setVisibility(View.GONE);
            // lay_frag_mother.setVisibility(View.GONE);
             lay_frag_child.setVisibility(View.GONE);
             pnclay_child.setVisibility(View.GONE);
+
 
             if(mother_flag==false) {
                 lay_frag_mother.setVisibility(View.VISIBLE);
@@ -900,6 +923,20 @@ pnc child history
                 pnclay_mother.setVisibility(View.GONE);
                 mother_flag = false;
             }
+        }
+        else if(v.getId() == R.id.expandview){
+            //int width=600;
+            int height=300;
+            Display mDisplay = this.getWindowManager().getDefaultDisplay();
+            final int width  = mDisplay.getWidth();
+            LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(width,height);
+            lay_frag_mother.setLayoutParams(parms);
+            lay_frag_mother.invalidate();
+           // Toast.makeText(con,"done",Toast.LENGTH_LONG).show();
+
+
+
+            //ll.invalidate();
         }
         else if(v.getId() == R.id.pncchild){
             lay_frag_mother.setVisibility(View.GONE);
@@ -927,26 +964,26 @@ pnc child history
                 ll_pnc_child = (LinearLayout) findViewById(R.id.llay_frag);
 
                 //ll_pnc_child.addView(expListView);
+                //ll_pnc_child.invalidate();
 
-
-                AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(new AsyncCallback() {
-                    @Override
-                    public void callbackAsyncTask(String result) {
-                        handleChild(result);
-                    }
-                });
-                LongOperation sendPostReqAsyncTask_child = new LongOperation();
-
-                String queryString_child = "{" +
-                        "pregno:" + mother.getPregNo() + "," +
-                        "healthid:" + mother.getHealthId() + "," +
-                        "pncCLoad:" + "retrieve" +
-                        "}";
-
-                String servlet_child = "pncchild";
-                String jsonRootkey_child = "PNCChildInfo";
-                Log.d("-->", "---=====>" + queryString_child);
-                sendPostReqAsyncTask_child.execute(queryString_child, servlet_child, jsonRootkey_child);
+//                AsyncLoginTask sendPostReqAsyncTask = new AsyncLoginTask(new AsyncCallback() {
+//                    @Override
+//                    public void callbackAsyncTask(String result) {
+//                        handleChild(result);
+//                    }
+//                });
+//                LongOperation sendPostReqAsyncTask_child = new LongOperation();
+//
+//                String queryString_child = "{" +
+//                        "pregno:" + mother.getPregNo() + "," +
+//                        "healthid:" + mother.getHealthId() + "," +
+//                        "pncCLoad:" + "retrieve" +
+//                        "}";
+//
+//                String servlet_child = "pncchild";
+//                String jsonRootkey_child = "PNCChildInfo";
+//                Log.d("-->", "---=====>" + queryString_child);
+//                sendPostReqAsyncTask_child.execute(queryString_child, servlet_child, jsonRootkey_child);
 
             }
         }
@@ -954,7 +991,7 @@ pnc child history
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+        Toast.makeText(con,"done"+position,Toast.LENGTH_LONG).show();
     }
 
     @Override

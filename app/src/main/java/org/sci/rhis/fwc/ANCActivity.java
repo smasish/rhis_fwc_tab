@@ -379,12 +379,21 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                             json_Array = jsonStr.getJSONArray(list.get(in-1));
 
                             list1 = new ArrayList<String>();
-                            for (int i = 1; i < json_Array.length()-2; i++) {
-
+                            for (int i = 1; i < json_Array.length()-1; i++) {
                                 String det = json_Array.get(i).toString();
-                                if(( i == 13|| i == 14 || i == 15 || i == 16 || i == 17) && det.length() >3) {
+                                if(i == 2){
+                                    list1.add(""+mainlist[i-1]+"" +json_Array.get(i).toString()+" / "+json_Array.get(i+1).toString());
+                                }else if(i==3){
+
+                                }
+
+                               else if(( i == 13|| i == 14 || i == 15 || i == 16 || i == 17|| i == 19) && det.length() >4) {
                                     Log.d("------------->>"+det, ""+i);
                                     list1.add("" + mainlist[i - 1] + "" + getString(R.string.detail));
+                                }
+                                else if(( i == 13|| i == 14 || i == 15 || i == 16 || i == 17) && det.length() >0) {
+                                    Log.d("------------->>"+det, ""+i);
+                                    list1.add("" + mainlist[i - 1]);
                                 }
                                 else
                                  list1.add(""+mainlist[i-1]+"" + json_Array.get(i).toString());
@@ -411,14 +420,15 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                                    // startActivity(i);
                                     String str = null;
 
+                                    str = ""+list1.get(arg2);
                                     Resources res1 = getResources();
-
-                                    try {
-                                        str = ""+json_Array.get(arg2).toString();
-                                        Log.d("----------lenth---||" + str, "" + str.length());
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
+                                    Log.d("----------lenth---||" + str, "" + str.length());
+//                                    try {
+//                                        str = ""+json_Array.get(arg2).toString();
+//                                        Log.d("----------lenth---||" + str, "" + str.length());
+//                                    } catch (JSONException e) {
+//                                        e.printStackTrace();
+//                                    }
 
                                     if(arg2 == 12 && str.length()>4) {
                                         str = parseString(arg2 + 1);
@@ -502,6 +512,24 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
                                         if(temp.length()>5)
                                         AlertMessage.showMessage(con, "Details", temp);
+
+                                    }
+
+                                    else if(arg2 == 19 && str.length()>4) {
+                                        str = parseString(arg2 + 1);
+
+                                        String[] animals = str.split(" ");
+                                        String temp = "";
+                                        details = res1.getStringArray(R.array.ANC_Refer_Reason_DropDown);
+                                        for (String animal : animals) {
+                                            System.out.println(animal);
+                                            if(animal.length()>0)
+                                                temp = temp+"\n"+details[Integer.parseInt(animal)-1];
+                                        }
+                                        Log.d("oooooooooo17+++" + str, "" + str.trim().split(" "));
+
+                                        if(temp.length()>5)
+                                            AlertMessage.showMessage(con, "Details", temp);
 
                                     }
 
