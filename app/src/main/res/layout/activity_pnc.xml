@@ -699,12 +699,36 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/edittext_round"/>
                 <ImageView
-                    android:id="@+id/imagepncChildServiceDate"
+                    android:id="@+id/Date_Picker_Button_Child"
                     android:src="@drawable/calendar_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
                     android:onClick="pickDate"/>
+                <CheckBox
+                    android:id="@+id/pncChildOthersCheckBox"
+                    android:text="@string/pnc_others"
+                    android:textSize="20dp"
+                    android:layout_width="220dp"
+                    android:layout_height="50px"
+                    android:textColor="@color/text_color"
+                    android:layout_marginTop="10dp"/>
+            </LinearLayout>
+            <LinearLayout android:id="@+id/pncChildServiceOthers"
+                android:orientation="horizontal"
+                android:layout_centerVertical="true"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+                <Spinner
+                    android:id="@+id/pncChildServiceOthersSpinner"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="430dp"
+                    android:layout_height="50px"
+                    android:entries="@array/FacilityType_DropDown"
+                    android:visibility="gone"
+                    android:background="@drawable/gradient_spinner"/>
             </LinearLayout>
             <LinearLayout android:id="@+id/pncChildTemperature" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
                 <TextView
@@ -804,7 +828,8 @@
             <LinearLayout android:id="@+id/pncChildDrawback" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
                 <TextView
                     android:id="@+id/pncChildDrawbackLabel"
-                    android:text="@string/drawback" android:textSize="20dp"
+                    android:text="@string/drawback"
+                    android:textSize="20dp"
                     android:layout_width="220dp"
                     android:layout_height="50px"
                     android:textColor="@color/text_color"
@@ -906,6 +931,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
+                    android:entries="@array/FacilityType_DropDown"
                     android:background="@drawable/gradient_spinner"
                     android:visibility="gone"/>
             </LinearLayout>
@@ -936,7 +962,8 @@
                     android:layout_height="60px"
                     android:text="Save"
                     android:textSize="10dp"
-                    android:layout_marginLeft="220dp"/>
+                    android:layout_marginLeft="220dp"
+                    android:onClick="savePNCChild"/>
             </LinearLayout>
         </LinearLayout>
         </LinearLayout>

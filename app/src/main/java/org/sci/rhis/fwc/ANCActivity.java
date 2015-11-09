@@ -686,13 +686,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         jsonSpinnerMap.put("ancjaundice", getSpinner(R.id.ancJaundiceSpinner));
         jsonSpinnerMap.put("ancsugar", getSpinner(R.id.ancUrineSugarSpinner));
         jsonSpinnerMap.put("ancalbumin", getSpinner(R.id.ancUrineAlbuminSpinner));
-        //jsonSpinnerMap.put("anccomplication", getSpinner(R.id.ancDangerSignsSpinner));
-        //jsonSpinnerMap.put("ancsymptom", getSpinner(R.id.ancDrawbackSpinner));
-        //jsonSpinnerMap.put("ancdisease", getSpinner(R.id.ancDiseaseSpinner));
-        //jsonSpinnerMap.put("anctreatment", getSpinner(R.id.ancTreatmentSpinner));
-        //jsonSpinnerMap.put("ancadvice", getSpinner(R.id.ancAdviceSpinner));
         jsonSpinnerMap.put("anccentername", getSpinner(R.id.ancReferCenterNameSpinner));
-        //jsonSpinnerMap.put("ancreferreason", getSpinner(R.id.ancReasonSpinner));
     }
 
     //verride
@@ -702,7 +696,6 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         jsonMultiSpinnerMap.put("ancdisease", getMultiSelectionSpinner(R.id.ancDiseaseSpinner));
         jsonMultiSpinnerMap.put("anctreatment", getMultiSelectionSpinner(R.id.ancTreatmentSpinner));
         jsonMultiSpinnerMap.put("ancadvice", getMultiSelectionSpinner(R.id.ancAdviceSpinner));
-        //jsonSpinnerMap.put("anccentername", getMultiSelectionSpinner(R.id.ancReferCenterNameSpinner));
         jsonMultiSpinnerMap.put("ancreferreason", getMultiSelectionSpinner(R.id.ancReasonSpinner));
     }
 

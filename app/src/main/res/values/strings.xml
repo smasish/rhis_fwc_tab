@@ -673,13 +673,11 @@
         <item> +++  </item>
     </string-array>
     <string-array name="pnc_Anemia_Dropdown">
-        <item></item>
         <item> +  </item>
         <item> ++  </item>
         <item> +++  </item>
     </string-array>
-        <item> অন্যান্য  </item>
-        <item> অন্যান্য  </item>
+
     <string name="title_activity_nrc">NRCActivity</string>
     <string name="mr_service">এম আর সেবা</string>
     <string name="pac_service">PAC</string>

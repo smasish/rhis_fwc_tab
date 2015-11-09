@@ -70,8 +70,10 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
     private ProviderInfo provider;
     AsyncPNCInfoUpdate pncInfoUpdateTask;
 
-    final private String SERVLET = "pncmother";
-    final private String ROOTKEY = "PNCMotherInfo";
+    final private String SERVLET_MOTHER = "pncmother";
+    final private String ROOTKEY_MOTHER = "PNCMotherInfo";
+    final private String SERVLET_CHILD = "pncchild";
+    final private String ROOTKEY_CHILD = "PNCChildInfo";
 
     ArrayList<HashMap<String, String>> contactList;
     JSONArray contacts = null;
@@ -186,7 +188,7 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
         multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.pncDrawbackSpinner);
         multiSelectionSpinner.setItems(pncmdrawbacklist);
         multiSelectionSpinner.setSelection(new int[]{});
-        multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.pncChildDangerSignsSpinner);
+        multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.pncChildDrawbackSpinner);
         multiSelectionSpinner.setItems(pnccdrawbackblist);
         multiSelectionSpinner.setSelection(new int[]{});
 
@@ -252,10 +254,6 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
         });
         //LongOperation sendPostReqAsyncTask_child = new LongOperation();
 
-
-
-
-
         String queryString_child = "{" +
                 "pregno:" + mother.getPregNo() + "," +
                 "healthid:" + mother.getHealthId() + "," +
@@ -283,11 +281,13 @@ pnc child history
         getCheckbox(R.id.pncReferCheckBox).setOnCheckedChangeListener(this);
         getCheckbox(R.id.pncChildReferCheckBox).setOnCheckedChangeListener(this);
         getCheckbox(R.id.pncOthersCheckBox).setOnCheckedChangeListener(this);
+        getCheckbox(R.id.pncChildOthersCheckBox).setOnCheckedChangeListener(this);
 
 //custom date picker Added By Al Amin
         datePickerDialog = new CustomDatePickerDialog(this);
         datePickerPair = new HashMap<Integer, EditText>();
         datePickerPair.put(R.id.Date_Picker_Button, (EditText) findViewById(R.id.pncServiceDateValue));
+        datePickerPair.put(R.id.Date_Picker_Button_Child, (EditText) findViewById(R.id.pncChildServiceDateValue));
     }
 
 
@@ -653,24 +653,24 @@ pnc child history
         pncInfoUpdateTask = new AsyncPNCInfoUpdate(this);
         JSONObject json;
         try {
-            json = buildQueryHeader(false);
+            json = buildQueryHeaderMother(false);
             Utilities.getCheckboxes(jsonCheckboxMap, json);
             Utilities.getEditTexts(jsonEditTextMap, json);
             Utilities.getEditTextDates(jsonEditTextDateMap, json);
             Utilities.getSpinners(jsonSpinnerMap, json);
             Utilities.getMultiSelectSpinnerIndices(jsonMultiSpinnerMap, json);
 
-           pncInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
+           pncInfoUpdateTask.execute(json.toString(), SERVLET_MOTHER, ROOTKEY_MOTHER);
 
-            System.out.print("Delivery Save Json in Servlet:" + ROOTKEY +":{"+ json.toString()+"}");
+            System.out.print("PNCM Save Json in Servlet:" + ROOTKEY_MOTHER +":{"+ json.toString()+"}");
 
 
         } catch (JSONException jse) {
-            Log.e("PNC JSON Exception: ", jse.getMessage());
+            Log.e("PNCM JSON Exception: ", jse.getMessage());
         }
 
     }
-    private JSONObject buildQueryHeader(boolean isRetrieval) throws JSONException {
+    private JSONObject buildQueryHeaderMother(boolean isRetrieval) throws JSONException {
         //get info from database
         String queryString =   "{" +
                 "healthid:" + mother.getHealthId() + "," +
@@ -681,19 +681,64 @@ pnc child history
 
         return new JSONObject(queryString);
     }
+
+    private void pncChildSaveToJson(){
+
+        pncInfoUpdateTask = new AsyncPNCInfoUpdate(this);
+        JSONObject json;
+        try {
+            json = buildQueryHeaderChild(false);
+            Utilities.getCheckboxes(jsonCheckboxMapChild, json);
+            Utilities.getEditTexts(jsonEditTextMapChild, json);
+            Utilities.getEditTextDates(jsonEditTextDateMapChild, json);
+            Utilities.getSpinners(jsonSpinnerMapChild, json);
+            Utilities.getMultiSelectSpinnerIndices(jsonMultiSpinnerMapChild, json);
+
+            pncInfoUpdateTask.execute(json.toString(), SERVLET_CHILD, ROOTKEY_CHILD);
+
+            System.out.print("PNCC Save Json in Servlet:" + ROOTKEY_MOTHER +":{"+ json.toString()+"}");
+
+
+        } catch (JSONException jse) {
+            Log.e("PNCC JSON Exception: ", jse.getMessage());
+        }
+
+
+
+    }
+
+    private JSONObject buildQueryHeaderChild(boolean isRetrieval) throws JSONException {
+        //get info from database
+        String queryString =   "{" +
+                "healthid:" + mother.getHealthId() + "," +
+                "providerid:"+String.valueOf(provider.getProviderCode())+","+
+                "pregno:" + mother.getPregNo() + "," +
+                "pncCLoad:" + (isRetrieval? "retrieve":"\"\"") +
+                "}";
+        return new JSONObject(queryString);
+    }
+
+
     public void savePnc(View view) {
             pncMotherSaveToJson();
-        Toast.makeText(this, "Save Button onClick performed", Toast.LENGTH_LONG).show();
+             Toast.makeText(this, "Save Button onClick performed", Toast.LENGTH_LONG).show();
 
+    }
+
+    public void savePNCChild (View view){
+        pncChildSaveToJson();
+        Toast.makeText(this, "Save Button onClick performed", Toast.LENGTH_LONG).show();
     }
 
     @Override
     protected void initiateCheckboxes(){
         jsonCheckboxMap.put("pncrefer", getCheckbox(R.id.pncReferCheckBox));
-        //jsonCheckboxMap.put("pncservicesource", getCheckbox(R.id.pncOthersCheckBox));
+        jsonCheckboxMap.put("pncservicesource", getCheckbox(R.id.pncOthersCheckBox));
+
        // for Child
-        //jsonCheckboxMap.put("pncbreastfeedingonly", getCheckbox(R.id.pncChildOnlyBreastFeedingCheckBox));
-        //jsonCheckboxMap.put("pncrefer", getCheckbox(R.id.pncChildReferCheckBox));
+        jsonCheckboxMapChild.put("pncbreastfeedingonly", getCheckbox(R.id.pncChildOnlyBreastFeedingCheckBox));
+        jsonCheckboxMapChild.put("pncrefer", getCheckbox(R.id.pncChildReferCheckBox));
+        jsonCheckboxMapChild.put("pncservicesource", getCheckbox(R.id.pncChildOthersCheckBox));
     };
 
     @Override
@@ -713,15 +758,10 @@ pnc child history
         jsonSpinnerMap.put("pncfpmethod", getSpinner(R.id.pncFamilyPlanningMethodsSpinner));
         jsonSpinnerMap.put("pncrefercentername", getSpinner(R.id.pncReferCenterNameSpinner));
 
-        /*
         // PNC Child Info
-        jsonSpinnerMap.put("pncdangersign", getSpinner(R.id.pncChildDangerSignsSpinner));
-        jsonSpinnerMap.put("pncdisease", getSpinner(R.id.pncChildDiseaseSpinner));
-        jsonSpinnerMap.put("pnctreatment", getSpinner(R.id.pncChildTreatmentSpinner));
-        jsonSpinnerMap.put("pncadvice", getSpinner(R.id.pncChildAdviceSpinner));
-        jsonSpinnerMap.put("pncrefercentername", getSpinner(R.id.pncReferCenterNameSpinner));;
-        jsonSpinnerMap.put("pncreferreason", getSpinner(R.id.pncChildReasonSpinner));
-        */
+        jsonSpinnerMapChild.put("pncservicesource", getSpinner(R.id.pncChildServiceOthersSpinner));
+        jsonSpinnerMapChild.put("pncrefercentername", getSpinner(R.id.pncChildReferCenterNameSpinner));;
+
     }
     @Override
     protected void initiateMultiSelectionSpinners(){
@@ -733,10 +773,14 @@ pnc child history
         jsonMultiSpinnerMap.put("pncadvice",  getMultiSelectionSpinner(R.id.pncAdviceSpinner));
         jsonMultiSpinnerMap.put("pncreferreason",  getMultiSelectionSpinner(R.id.pncReasonSpinner));
 
-        /*
+
         // for Child
-        jsonMultiSpinnerMap.put("pncsymptom", getMultiSelectionSpinner(R.id.pncChildDrawbackSpinner));
-        */
+        jsonMultiSpinnerMapChild.put("pncsymptom", getMultiSelectionSpinner(R.id.pncChildDrawbackSpinner));
+        jsonMultiSpinnerMapChild.put("pncdangersign", getMultiSelectionSpinner(R.id.pncChildDangerSignsSpinner));
+        jsonMultiSpinnerMapChild.put("pncdisease", getMultiSelectionSpinner(R.id.pncChildDiseaseSpinner));
+        jsonMultiSpinnerMapChild.put("pnctreatment", getMultiSelectionSpinner(R.id.pncChildTreatmentSpinner));
+        jsonMultiSpinnerMapChild.put("pncadvice", getMultiSelectionSpinner(R.id.pncChildAdviceSpinner));
+        jsonMultiSpinnerMapChild.put("pncreferreason",  getMultiSelectionSpinner(R.id.pncChildReasonSpinner));
     }
 
     @Override
@@ -748,16 +792,13 @@ pnc child history
         jsonEditTextMap.put("pncbpdias",getEditText(R.id.pncBloodPresserValueD));
         jsonEditTextMap.put("pnchemoglobin",getEditText(R.id.pncHemoglobinValue));
 
-        /*
-        //PNC Child visit
-        jsonEditTextMap.put("childNo", getEditText(R.id.pncNewBornNumber));
-        jsonEditTextMap.put("serviceCount", getEditText(R.id.pncChildVisitValue));
-        jsonEditTextMap.put("pncchildno", getEditText(R.id.pncNewBornNumber));
-        jsonEditTextMap.put("pnctemperature", getEditText(R.id.pncChildTemperatureValue));
-        jsonEditTextMap.put("pncweight", getEditText(R.id.pncChildWeightValue));
-        jsonEditTextMap.put("pncbreathingperminute", getEditText(R.id.pncChildBreathValue));
 
-        */
+        //PNC Child visit
+        jsonEditTextMapChild.put("pncchildno", getEditText(R.id.pncNewBornNumber));
+        jsonEditTextMapChild.put("pnctemperature", getEditText(R.id.pncChildTemperatureValue));
+        jsonEditTextMapChild.put("pncweight", getEditText(R.id.pncChildWeightValue));
+        jsonEditTextMapChild.put("pncbreathingperminute", getEditText(R.id.pncChildBreathValue));
+
     }
 
     @Override
@@ -770,7 +811,7 @@ pnc child history
         // PNC Mother Service Date
         jsonEditTextDateMap.put("pncdate", getEditText(R.id.pncServiceDateValue));
         // PNC Child Service Date
-      //  jsonEditTextDateMap.put("pncdate", getEditText(R.id.pncChildServiceDateValue));
+        jsonEditTextDateMapChild.put("pncdate", getEditText(R.id.pncChildServiceDateValue));
     }
 
     @Override
@@ -778,9 +819,28 @@ pnc child history
 
         if (buttonView.getId() == R.id.pncOthersCheckBox) {
             int visibility = isChecked? View.VISIBLE: View.GONE;
+
+            if(!isChecked)
+            getSpinner(R.id.pncServiceOthersSpinner).setSelection(5);
+            else
+            getSpinner(R.id.pncServiceOthersSpinner).setSelection(0);
+
             getSpinner(R.id.pncServiceOthersSpinner).setVisibility(visibility);
 
         }
+
+        if (buttonView.getId() == R.id.pncChildOthersCheckBox) {
+            int visibility = isChecked? View.VISIBLE: View.GONE;
+
+            if(!isChecked)
+                getSpinner(R.id.pncChildServiceOthersSpinner).setSelection(5);
+            else
+                getSpinner(R.id.pncChildServiceOthersSpinner).setSelection(0);
+
+            getSpinner(R.id.pncChildServiceOthersSpinner).setVisibility(visibility);
+
+        }
+
         if (buttonView.getId() == R.id.pncReferCheckBox) {
             int visibility = isChecked? View.VISIBLE: View.GONE;
             getTextView(R.id.pncReferCenterNameLabel).setVisibility(visibility);
@@ -921,7 +981,7 @@ pnc child history
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.pncServiceDateValue || v.getId() == R.id.Date_Picker_Button) {
+        if(v.getId() == R.id.pncServiceDateValue || v.getId() == R.id.Date_Picker_Button || v.getId() == R.id.Date_Picker_Button_Child) {
             datePickerDialog.show(datePickerPair.get(v.getId()));
         }
 
