@@ -442,6 +442,7 @@
 
     <string-array name="Delivery_Advice_DropDown">
         <item>	বেশী পরিমাণে পানি খান (কম পক্ষে ৮ গ্লাস)	</item>
+        <item> কাঁটা নাভিতে ৭.১% CHX ব্যবহার করুন ও পরবর্তীতে শুকনো রাখুন </item>
     </string-array>
 
     <string-array name="Treatment_DropDown">
@@ -507,6 +508,11 @@
     </string-array>
     <string-array name="Delivery_Refer_Reason_DropDown">
         <item>	মায়ের রক্তের গ্রুপ আর এইচ (RH(-)) নেগেটিভ </item>
+        <item>	অতিরিক্ত রক্তক্ষরণ </item>
+        <item>	গর্ভফুল না পড়া </item>
+        <item>	যোনি পথে ঘন সবুজ তরল পদার্থ বের হওয়া (প্রসবকালীন সময়ে) </item>
+        <item>	খিঁচুনি  </item>
+
     </string-array>
     <string-array name="Newborn_Refer_Reason_DropDown">
         <item>	জন্মগত শ্বাসরুদ্ধতা (asphyxia) </item>

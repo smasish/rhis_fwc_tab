@@ -341,6 +341,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     private void restoreNewbornFromJSON(JSONObject json) {
         Utilities.setCheckboxes(jsonCheckboxMap, json);
         Utilities.setSpinners(jsonSpinnerMap, json);
+        Utilities.setMultiSelectSpinners(jsonMultiSpinnerMap, json);
         //updateRadioButtons(json);
         Utilities.setEditTexts(jsonEditTextMap, json);
         Utilities.setEditTextDates(jsonEditTextDateMap, json);

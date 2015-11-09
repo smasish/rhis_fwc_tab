@@ -158,6 +158,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             if(json.getString("dNew").equals("No")) {
                 Utilities.setCheckboxes(jsonCheckboxMap, json);
                 Utilities.setSpinners(jsonSpinnerMap, json);
+                Utilities.setMultiSelectSpinners(jsonMultiSpinnerMap, json);
                 updateRadioButtons(json);
                 Utilities.setEditTexts(jsonEditTextMap, json);
                 Utilities.setEditTextDates(jsonEditTextDateMap, json);
@@ -560,7 +561,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
     private void startChildActivity(int index, JSONObject child) throws JSONException{
         child.put("childno", index);
-        passJson.putExtra("Layout", child.getInt("birthStatus"));
+        passJson.putExtra("Layout", child.has("birthStatus") ? child.getInt("birthStatus"): 3);
         passJson.putExtra("DeliveryJson", dJson.toString());
         passJson.putExtra("NewbornJson", child.toString());
 

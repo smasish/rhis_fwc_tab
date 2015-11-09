@@ -345,6 +345,28 @@ public class Utilities {
     }
 
     //update by position
+    public static void setMultiSelectSpinners(HashMap<String, MultiSelectionSpinner> keyMap, JSONObject json) {
+        MultiSelectionSpinner spinner;
+        for (String key: keyMap.keySet()) {
+            try {
+                spinner = keyMap.get(key);
+                if(spinner != null) {
+                    String value = json.getString(key);
+                    String keyStr[] = value.replaceAll("(\"|\\[|\\])","").split(",");
+                    int values []  = new int[keyStr.length];
+                    for (int i = 0; i < keyStr.length; ++i) {
+                        values[i] = Integer.valueOf(keyStr[i]);
+                    }
+
+                    spinner.setSelection(values);
+                }
+            } catch (JSONException jse) {
+                Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
+            }
+        }
+    }
+
+    //update by position
     public static void setSpinners(HashMap<String, Spinner> keyMap, JSONObject json) {
         Spinner spinner;
         for (String key: keyMap.keySet()) {

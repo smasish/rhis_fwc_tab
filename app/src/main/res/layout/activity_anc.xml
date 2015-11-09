@@ -118,10 +118,17 @@
                 android:id="@+id/ancVisitValue"
                 android:text=""
                 android:textSize="20dp"
-                android:layout_width="100dp"
+                android:layout_width="30dp"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/text_color" />
+            <CheckBox
+                android:id="@+id/ancOtherCheckBox"
+                android:inputType="text"
+                android:textSize="20dp"
+                android:layout_width="40dp"
+                android:layout_height="50px"
+                android:layout_marginTop="10dp" />
             <TextView
                 android:id="@+id/ancOtherVisit"
                 android:text="@string/anc_others"
@@ -131,13 +138,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
                 android:textColor="@color/text_color"  />
-            <CheckBox
-                android:id="@+id/ancOtherCheckBox"
-                android:inputType="text"
-                android:textSize="20dp"
-                android:layout_width="40dp"
-                android:layout_height="50px"
-                android:layout_marginTop="10dp" />
+
             <Spinner
                 android:id="@+id/ancOtherCenterNameSpinner"
                 android:inputType="text"
@@ -147,7 +148,7 @@
                 android:background="@drawable/gradient_spinner"
                 android:layout_marginTop="10dp"
                 android:entries="@array/FacilityType_DropDown"
-                android:visibility="visible"/>
+                android:visibility="invisible"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/ancServiceDate"

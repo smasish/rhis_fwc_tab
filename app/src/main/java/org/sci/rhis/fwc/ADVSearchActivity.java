@@ -287,7 +287,8 @@ private  int unionMapping(){
         try {
             json = buildQueryHeader();
             Utilities.getEditTexts(jsonEditTextMap, json);
-            Utilities.getSpinners(jsonSpinnerMap, json);      // for sex Spinner
+            //Utilities.getSpinners(jsonSpinnerMap, json);      // for sex Spinner
+            getSpecialCases(json);
             //Utilities.getSpinnerValues(jsonSpinnerMap, json); // for upz, union Spinner
 
             Log.e("ADVSearch JSON 2SERVLET", json.toString());
@@ -296,9 +297,14 @@ private  int unionMapping(){
 
 
         } catch (JSONException jse) {
-            Log.e("NRC", "JSON Exception: " + jse.getMessage());
+            Log.e(LOGTAG, "JSON Exception: " + jse.getMessage());
         }
 
+    }
+
+    private void getSpecialCases(JSONObject json) throws JSONException{
+
+        json.put("gender", getSpinner(R.id.advClientsSexSpinner).getSelectedItemPosition()+1);
     }
     public void addListenerOnButton() {
 
