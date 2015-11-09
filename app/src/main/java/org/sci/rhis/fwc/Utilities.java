@@ -34,7 +34,7 @@ import java.util.HashMap;
  */
 public class Utilities {
 
-    public final static int SPINNER_INDEX_OFFSET = 1;
+    public final static int SPINNER_INDEX_OFFSET = 0; //no offset is required
     private final static String LOGTAG = "FWC-UTILITIES";
 
     // This method added by Al Amin on 10/09/2015 (dd/MM/yyyy)
@@ -342,6 +342,28 @@ public class Utilities {
             }
         }
         return json;
+    }
+
+    //update by position
+    public static void setMultiSelectSpinners(HashMap<String, MultiSelectionSpinner> keyMap, JSONObject json) {
+        MultiSelectionSpinner spinner;
+        for (String key: keyMap.keySet()) {
+            try {
+                spinner = keyMap.get(key);
+                if(spinner != null) {
+                    String value = json.getString(key);
+                    String keyStr[] = value.replaceAll("(\"|\\[|\\])","").split(",");
+                    int values []  = new int[keyStr.length];
+                    for (int i = 0; i < keyStr.length; ++i) {
+                        values[i] = Integer.valueOf(keyStr[i]);
+                    }
+
+                    spinner.setSelection(values);
+                }
+            } catch (JSONException jse) {
+                Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
+            }
+        }
     }
 
     //update by position

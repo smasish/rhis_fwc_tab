@@ -867,7 +867,7 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_marginBottom="10dp"
            >
 
@@ -907,6 +907,14 @@
                     android:layout_marginLeft="5dp"
                     android:id="@+id/deathmaceratedButton"
                     android:onClick="onClick"/>
+                <Spinner
+                    android:id="@+id/id_childListDropdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50px"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/gradient_spinner"
+                    />
             </TableRow>
         </TableLayout>
 

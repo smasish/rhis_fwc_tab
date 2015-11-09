@@ -48,6 +48,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
     final private String SERVLET = "newborn";
     final private String ROOTKEY= "newbornInfo";
+    private  final String LOGTAG    = "FWC-NEWBORN";
 
     AsyncNewbornInfoUpdate newbornInfoQueryTask;
     AsyncNewbornInfoUpdate newbornInfoUpdateTask;
@@ -90,7 +91,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
         //Intent outComePlace = getIntent();
         String str = intent.getStringExtra("DeliveryJson");
-        Log.d("Get Json As", str);
+        Log.d(LOGTAG, "Get Json As:\t"+ str);
 
         Spinner referSpinner= (Spinner)findViewById(R.id.deliveryChildReferCenterNameSpinner);
 
@@ -114,11 +115,20 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
             e.printStackTrace();
         }
 
-        //Get the existing information
-        newbornInfoQueryTask = new AsyncNewbornInfoUpdate(this);
-        try{
-            JSONObject jso = buildQueryHeader(true);
-            newbornInfoQueryTask.execute(jso.toString(), SERVLET, ROOTKEY);
+        try {
+
+            if(getIntent().hasExtra("NewbornJson")) { //check if new bron info is given
+                //try{
+                restoreNewbornFromJSON(new JSONObject(getIntent().getStringExtra("NewbornJson")));
+
+            } else { //retrieve it from net
+                //Get the existing information
+                newbornInfoQueryTask = new AsyncNewbornInfoUpdate(this);
+
+                JSONObject jso = buildQueryHeader(true);
+                newbornInfoQueryTask.execute(jso.toString(), SERVLET, ROOTKEY);
+
+            }
         } catch (JSONException JSE) {
             JSE.printStackTrace();
         }
@@ -154,7 +164,8 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
             json = new JSONObject(result);
             String key;
             if(json.has("result")) { //if result key is present
-               if(json.getString("result").equals("true")) {//then see if children exist i.e. result:true
+               if(json.getString("result").equals("true") &&
+                  json.getString("hasNewbornInfo").equals("Yes")) {//then see if children exist i.e. result:true, hasNewbornInfo:Yes
                    currentChildNo = Integer.valueOf(json.getString("count"));
                } else { // no child information is available
                    currentChildNo = 0;
@@ -176,6 +187,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         catch (JSONException jse) {
             jse.printStackTrace();
         }
+        Utilities.Enable(this, R.id.DeliveryNewBornLayout);
     }
 
     @Override
@@ -228,7 +240,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
                 )
         );
 
-        jsonRadioGroupButtonMap.put("washAfterBirth", Pair.create(
+        jsonRadioGroupButtonMap.put("dryingAfterBirth", Pair.create(
                         getRadioGroup(R.id.id_newBornWipeRadioGroup), Pair.create(
                                 getRadioButton(R.id.deliveryWipeYesButton),
                                 getRadioButton(R.id.deliveryWipeNoButton))
@@ -253,7 +265,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
                 )
         );
 
-        jsonRadioGroupButtonMap.put("breastfeed", Pair.create(
+        jsonRadioGroupButtonMap.put("breastFeed", Pair.create(
                         getRadioGroup(R.id.id_newBornBreastFeedingRadioGroup), Pair.create(
                                 getRadioButton(R.id.deliveryBreastFeedingYesButton),
                                 getRadioButton(R.id.deliveryBreastFeedingNoButton))
@@ -311,18 +323,36 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         try {
             json = buildQueryHeader(false);
             Utilities.getSpinners(jsonSpinnerMap, json);
+            Utilities.getMultiSelectSpinnerIndices(jsonMultiSpinnerMap, json);
             Utilities.getEditTexts(jsonEditTextMap, json);
             Utilities.getCheckboxes(jsonCheckboxMap, json);
             Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
             getSpecialCases(json);
             Log.d("DeliveryJsonFoundinSave", json.toString());
-           Log.e("Servlet and Rootkey", SERVLET + " " + ROOTKEY);
+            Log.e("Servlet and Rootkey", SERVLET + " " + ROOTKEY);
             newbornInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
         } catch (JSONException jse) {
 
             Log.d("Newborn", "JSON Exception: " + jse.getMessage());
         }
         finish();
+    }
+
+    private void restoreNewbornFromJSON(JSONObject json) {
+        Utilities.setCheckboxes(jsonCheckboxMap, json);
+        Utilities.setSpinners(jsonSpinnerMap, json);
+        Utilities.setMultiSelectSpinners(jsonMultiSpinnerMap, json);
+        //updateRadioButtons(json);
+        Utilities.setEditTexts(jsonEditTextMap, json);
+        Utilities.setEditTextDates(jsonEditTextDateMap, json);
+        Utilities.setRadioGroupButtons(jsonRadioGroupButtonMap, json);
+        //updateEditTextTimes(json);
+        Log.d(LOGTAG, "Delivery Response Received:\n\t" + json.toString());
+        //dJson = json;
+
+        //TODO Make the fields non-modifiable
+        Utilities.Disable(this, R.id.DeliveryNewBornLayout);
+        //Utilities.MakeInvisible(this, R.id.btn_save_add_child);
     }
 
     public void getSpecialCases(JSONObject json) {
