@@ -116,6 +116,7 @@
 
         <item>রক্তচাপ (মিঃ মিঃ মার্কারি):</item>
         <item>ওজন (কেজি):</item>
+        <item>ওজন (কেজি):</item>
         <item>ইডিমা:</item>
         <item>জরায়ুর উচ্চতা (সপ্তাহ):</item>
         <item>ফিটাসের হৃদপিণ্ডের গতি (প্রতি মিনিটে):</item>
@@ -677,6 +678,8 @@
         <item> ++  </item>
         <item> +++  </item>
     </string-array>
+        <item> অন্যান্য  </item>
+        <item> অন্যান্য  </item>
     <string name="title_activity_nrc">NRCActivity</string>
     <string name="mr_service">এম আর সেবা</string>
     <string name="pac_service">PAC</string>

@@ -60,11 +60,47 @@ public class ExpandableListAdapterforPNC_Child extends BaseExpandableListAdapter
 			txtListChild.setText("" + _context.getString(R.string.danger_signs) + _context.getString(R.string.detail));
 		}else if (childPosition == 7 && childText.length()>2) {
 			txtListChild.setText("" + _context.getString(R.string.disease) +  _context.getString(R.string.detail));
+		}
+		else if (childPosition == 8 && childText.length()>2) {
+			txtListChild.setText("" + _context.getString(R.string.treatment) +  _context.getString(R.string.detail));
 		}else if (childPosition == 9 && childText.length()>2) {
 			txtListChild.setText("" + _context.getString(R.string.advice) +  _context.getString(R.string.detail));
 		}else if (childPosition == 12 && childText.length()>2) {
 			txtListChild.setText("" + _context.getString(R.string.referReason) +  _context.getString(R.string.detail));
-		}else
+		}else if (childPosition == 10 ) {
+
+			String str = childText.replaceAll("[^0-9]+", " ");
+			str = str.trim();
+			int i = Integer.parseInt(str);
+			if(i ==1)
+			//Log.d("oooooooooo13+++" + childText, "" + childText.trim().split(" "));
+			txtListChild.setText("" + _context.getString(R.string.refer) + "Yes");
+			else if(i==2)
+				txtListChild.setText("" + _context.getString(R.string.refer)+"No");
+		}
+//		else if (childPosition == 10 && childText.equalsIgnoreCase("2")) {
+//			Log.d("oooooooooo13+++" + childText, "" + childText.trim().split(" "));
+//			txtListChild.setText("" + _context.getString(R.string.refer)+"No");
+//		}
+		else if (childPosition == 11 ) {
+
+			String[] details;
+			Resources res1 = _context.getResources();
+			String str = childText;
+
+			str = str.replaceAll("[^0-9]+", " ");
+			String[] animals = str.split(" ");
+			String temp = "";
+			details = res1.getStringArray(R.array.FacilityType_DropDown);
+			for (String animal : animals) {
+				System.out.println(animal);
+				if(animal.length()>0)
+					temp = temp+"\n"+details[Integer.parseInt(animal)];
+			}
+
+			txtListChild.setText("" + _context.getString(R.string.referCenterName)+temp);
+		}
+		else
 		txtListChild.setText(childText);
 
 		convertView.setOnClickListener(new View.OnClickListener() {
@@ -129,6 +165,22 @@ public class ExpandableListAdapterforPNC_Child extends BaseExpandableListAdapter
 						AlertMessage.showMessage(_context, "Details", temp);
 				}
 
+				else if(childPosition == 8 && childText.length()>2){
+					String[] animals = str.split(" ");
+					String temp = "";
+					details = res1.getStringArray(R.array.Treatment_DropDown);
+					for (String animal : animals) {
+						System.out.println(animal);
+						if(animal.length()>0)
+							temp = temp+"\n"+details[Integer.parseInt(animal)];
+					}
+					Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
+
+
+					if(temp.length()>5)
+						AlertMessage.showMessage(_context, "Details", temp);
+				}
+
 				else if(childPosition == 9 && childText.length()>2){
 					String[] animals = str.split(" ");
 					String temp = "";
@@ -144,6 +196,7 @@ public class ExpandableListAdapterforPNC_Child extends BaseExpandableListAdapter
 					if(temp.length()>5)
 						AlertMessage.showMessage(_context, "Details", temp);
 				}
+
 				else if(childPosition == 12 && childText.length()>2){
 					String[] animals = str.split(" ");
 					String temp = "";

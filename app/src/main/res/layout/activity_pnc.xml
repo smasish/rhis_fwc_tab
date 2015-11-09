@@ -28,6 +28,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Mother"
+                android:background="@drawable/button_shape"
                 style="@style/rowHeading"
                 android:id="@+id/pncmother"
 
@@ -37,8 +38,20 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Child"
+                android:background="@drawable/button_shape"
                 style="@style/rowHeading"
                 android:id="@+id/pncchild"
+
+                android:layout_gravity="center_horizontal" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Expand"
+                android:background="@drawable/button_shape"
+                style="@style/rowHeading"
+                android:id="@+id/expandview"
 
                 android:layout_gravity="center_horizontal" />
 
@@ -47,14 +60,15 @@
         <LinearLayout
             android:id="@+id/pnc_mother_frag"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="wrap_content"
+
             >
 
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/pnchistory_fragment"
             android:name="org.sci.rhis.fwc.PNCHistory" tools:layout="@layout/fragment_pnchistory"
             android:layout_width="wrap_content"
-            android:layout_height="250dp"
+            android:layout_height="wrap_content"
              />
 
             </LinearLayout>
