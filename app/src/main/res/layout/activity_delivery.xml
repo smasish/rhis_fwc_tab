@@ -225,7 +225,7 @@
                 android:paddingLeft="10dp"
                 android:background="@drawable/edittext_round"
                 android:inputType="date"
-                android:hint="dd/mm/yyyy"/>
+                android:hint="dd-MMM-yyyy"/>
 
             <ImageButton
                 android:layout_width="50dp"

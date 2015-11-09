@@ -155,11 +155,11 @@
                 <EditText
                     android:id="@+id/pncServiceDateValue"
                     android:inputType="number"
-                    android:hint="dd/mm/yyyy"
                     android:paddingLeft="10dp"
                     android:layout_width="120dp"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
+                    android:hint="dd-MMM-yyyy"
                     android:background="@drawable/edittext_round"/>
 
                 <ImageButton
@@ -192,7 +192,7 @@
                         android:layout_width="wrap_content"
                         android:layout_marginLeft="430dp"
                         android:layout_height="50px"
-                        android:entries="@array/Center_Name_DropDown"
+                        android:entries="@array/FacilityType_DropDown"
                         android:visibility="gone"
                         android:background="@drawable/gradient_spinner"/>
         </LinearLayout>
@@ -228,7 +228,7 @@
                     android:layout_marginTop="10dp" />
                 <EditText
                     android:id="@+id/pncTemperatureValue"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:textSize="20dp"
                     android:layout_width="120dp"
                     android:layout_height="50px"
@@ -561,7 +561,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
-                    android:entries="@array/Center_Name_DropDown"
+                    android:entries="@array/FacilityType_DropDown"
                     android:background="@drawable/gradient_spinner"
                     android:visibility="gone"/>
             </LinearLayout>
@@ -604,7 +604,8 @@
                     android:text="Save and Continue"
                     android:textSize="20dp"
                     android:layout_gravity="center"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:onClick="savePnc"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -618,7 +619,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            android:onClick="savePnc"
             android:background="#FFFFFF">
 
             <Button
@@ -679,7 +679,7 @@
                 <EditText
                     android:id="@+id/pncChildServiceDateValue"
                     android:inputType="number"
-                    android:hint="dd/mm/yyyy"
+                    android:hint="dd-MMM-yyyy"
                     android:layout_width="120dp"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
@@ -703,7 +703,7 @@
                     android:layout_marginTop="10dp" />
                 <EditText
                     android:id="@+id/pncChildTemperatureValue"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:textSize="20dp"
                     android:layout_width="60dp"
                     android:layout_height="50px"
@@ -721,7 +721,7 @@
                     android:layout_marginTop="10dp" />
                 <EditText
                     android:id="@+id/pncChildWeightValue"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:textSize="20dp"
                     android:layout_width="60dp"
                     android:layout_height="50px"

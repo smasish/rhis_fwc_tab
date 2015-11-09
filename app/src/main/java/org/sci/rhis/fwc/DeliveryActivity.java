@@ -230,11 +230,17 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
     {
         if (buttonView.getId() == R.id.id_delivery_refer) {
-            int visibility = isChecked? View.VISIBLE: View.INVISIBLE;
+            int visibility = isChecked? View.VISIBLE: View.GONE;
             getTextView(R.id.id_refer_facility_name).setVisibility(visibility);
             getSpinner(R.id.id_spinner_refer_facilities).setVisibility(visibility);
             getTextView(R.id.id_refer_delivery_cause).setVisibility(visibility);
             getSpinner(R.id.id_spinner_refer_delivery_cause).setVisibility(visibility);
+
+            if(!isChecked)
+            getTextView(R.id.id_refer_facility_name).setText("");
+            getSpinner(R.id.id_spinner_refer_facilities).setSelection(0);
+            getTextView(R.id.id_refer_delivery_cause).setText("");
+            getSpinner(R.id.id_spinner_refer_delivery_cause).setSelection(0);
         }
     }
 

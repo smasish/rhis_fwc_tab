@@ -117,12 +117,15 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
                     @Override
                     public void afterTextChanged(Editable s) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        SimpleDateFormat uiFormat = new SimpleDateFormat("dd-MMM-yyyy");
+                        SimpleDateFormat pickerFormat = new SimpleDateFormat("dd/MM/yyyy");
+
                         try {
-                            Date lmp = sdf.parse(lmpEditText.getText().toString());
+                            Date lmp = pickerFormat.parse(lmpEditText.getText().toString());
+                            lmpEditText.setText(uiFormat.format(lmp));
 
                             Date edd = Utilities.addDateOffset(lmp, 240);
-                            eddEditText.setText(sdf.format(edd));
+                            eddEditText.setText(uiFormat.format(edd));
 
                         } catch (ParseException PE) {
 
@@ -297,10 +300,14 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                 woman.UpdateUIField(this);
 
                 Utilities.Disable(this, R.id.clients_info_layout);
-                Utilities.InVisibleButton(this, R.id.client_update_Button);
-                Utilities.VisibleButton(this, R.id.client_edit_Button);
                 Utilities.DisableField(this, R.id.Clients_House_No);
                 Utilities.DisableField(this, R.id.Clients_Mobile_no);
+
+
+                Utilities.InVisibleButton(this, R.id.client_update_Button);
+                Utilities.InVisibleButton(this, R.id.client_Save_Button);
+                Utilities.VisibleButton(this, R.id.client_New_preg_Button);
+                Utilities.VisibleButton(this, R.id.client_edit_Button);
 
             }
         }
@@ -634,6 +641,10 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         Utilities.Reset(this, R.id.clients_info_layout);
         Utilities.EnableField(this, R.id.Clients_House_No, "reset");
         Utilities.EnableField(this, R.id.Clients_Mobile_no, "reset");
+        Utilities.InVisibleButton(this, R.id.client_edit_Button);
+        Utilities.InVisibleButton(this, R.id.client_update_Button);
+        Utilities.InVisibleButton(this, R.id.client_New_preg_Button);
+        Utilities.VisibleButton(this, R.id.client_Save_Button);
     }
 
     public void editFields(View view){

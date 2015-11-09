@@ -211,8 +211,9 @@
     <string name="newborn_add">"নবজাতক সংযোজন"</string>
     <string name="death_fresh_add">"মৃত জন্ম সংযোজন: ফ্রেশ"</string>
     <string name="death_macerated_add">"মৃত জন্ম সংযোজন:ম্যাসারেটেড"</string>
+
     <string-array name="FacilityType_DropDown">
-        <item>\'\'</item>
+        <item></item>
         <item> মেডিকেল কলেজ হাসপাতাল </item>
         <item> জেলা সদর হাসপাতাল </item>
         <item>মা ও শিশু কল্যাণ কেন্দ্র</item>
@@ -386,6 +387,7 @@
     <string name="child_death">নবজাতক মৃত্যু</string>
     <string name="date">তারিখ </string>
     <string name="place">স্থান </string>
+
     <string-array name="Delivery_Newborn_Refer_Reason_DropDown">
         <item> জন্মগত শ্বাসরুদ্ধতা (asphyxia)	</item>
         <item> অপরিণত জন্ম (Prematurity)	</item>
@@ -441,6 +443,7 @@
 
     <string-array name="Delivery_Advice_DropDown">
         <item>	বেশী পরিমাণে পানি খান (কম পক্ষে ৮ গ্লাস)	</item>
+        <item>	কাঁটা নাভিতে ৭.১% CHX ব্যবহার করুন ও পরবর্তীতে শুকনো রাখুন	</item>
     </string-array>
 
     <string-array name="Treatment_DropDown">
@@ -505,8 +508,15 @@
         <item>	শ্বাস-প্রশ্বাসে (শ্বাস মিনিটে ৩০ এর কম বা ৬০ এর বেশী)	</item>
     </string-array>
     <string-array name="Delivery_Refer_Reason_DropDown">
+        <item></item>
         <item>	মায়ের রক্তের গ্রুপ আর এইচ (RH(-)) নেগেটিভ </item>
+        <item> অতিরিক্ত রক্তক্ষরণ </item>
+        <item> গর্ভফুল না পড়া </item>
+        <item> যোনি পথে ঘন সবুজ তরল পদার্থ বের হওয়া (প্রসবকালীন সময়ে) </item>
+        <item> প্রসব পথে কোথাও ছিঁড়ে যাওয়া </item>
+        <item> খিঁচুনি  </item>
     </string-array>
+
     <string-array name="Newborn_Refer_Reason_DropDown">
         <item>	জন্মগত শ্বাসরুদ্ধতা (asphyxia) </item>
         <item>	অপরিণত জন্ম (Prematurity) </item>
@@ -666,15 +676,6 @@
         <item> +  </item>
         <item> ++  </item>
         <item> +++  </item>
-    </string-array>
-    <string-array name="Center_Name_DropDown">
-        <item> ইউনিয়ন স্বাস্থ্য ও পরিবার কল্যান কেন্দ্র </item>
-        <item> কমিউনিটি ক্লিনিক </item>
-        <item> উপজেলা স্বাস্থ্য কমপ্লেক্স </item>
-        <item> জেলা সদর হাসপাতাল </item>
-        <item> প্রাইভেট ক্লিনিক</item>
-        <item> এনজিও হাসপাতাল/ সেবা কেন্দ্র</item>
-        <item> অন্যান্য  </item>
     </string-array>
     <string name="title_activity_nrc">NRCActivity</string>
     <string name="mr_service">এম আর সেবা</string>

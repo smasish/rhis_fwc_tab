@@ -585,6 +585,8 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
 
     void setItemVisible(int ItemId, boolean isChecked) {
+        Spinner Item=(Spinner)findViewById(ItemId);
+        Item.setSelection(0);
         findViewById(ItemId).setVisibility(isChecked? View.VISIBLE : View.INVISIBLE);
     }
 

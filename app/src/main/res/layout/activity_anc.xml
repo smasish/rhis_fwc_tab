@@ -144,7 +144,7 @@
                 android:background="@drawable/gradient_spinner"
                 android:layout_marginTop="10dp"
                 android:entries="@array/FacilityType_DropDown"
-                android:visibility="visible"/>
+                android:visibility="gone"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/ancServiceDate"
@@ -164,7 +164,7 @@
             <EditText
                 android:id="@+id/ancServiceDateValue"
                 android:inputType="number"
-                android:hint="dd/mm/yyyy"
+                android:hint="dd-MMM-yyyy"
                 android:paddingLeft="10dp"
                 android:layout_width="120dp"
                 android:layout_height="50px"
