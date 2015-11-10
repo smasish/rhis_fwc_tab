@@ -117,12 +117,10 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
                     @Override
                     public void afterTextChanged(Editable s) {
-                        SimpleDateFormat uiFormat = new SimpleDateFormat("dd-MMM-yyyy");
-                        SimpleDateFormat pickerFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        SimpleDateFormat uiFormat = new SimpleDateFormat("dd/MM/yyyy");
 
                         try {
-                            Date lmp = pickerFormat.parse(lmpEditText.getText().toString());
-                            lmpEditText.setText(uiFormat.format(lmp));
+                            Date lmp = uiFormat.parse(lmpEditText.getText().toString());
 
                             Date edd = Utilities.addDateOffset(lmp, 240);
                             eddEditText.setText(uiFormat.format(edd));
