@@ -7,6 +7,8 @@ import android.support.v7.app.ActionBar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -99,9 +101,13 @@ public class LoginActivity extends FWCServiceActivity {
 
         final Dialog dialog = new Dialog(this);
 
+        //Remove title bar
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         dialog.setContentView(R.layout.place_pop);
-        dialog.show();
         dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+
 
         DisplayMetrics dm =new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -109,7 +115,7 @@ public class LoginActivity extends FWCServiceActivity {
         int w=dm.widthPixels;
         int h=dm.heightPixels;
 
-        dialog.getWindow().setLayout((int) (w * 0.7), (int) (h * 0.5));
+        dialog.getWindow().setLayout((int) (w * 0.7), (int) (h * 0.34));
 
 
         final Button ok=(Button)dialog.findViewById(R.id.buttonPlacePopUpOK);
