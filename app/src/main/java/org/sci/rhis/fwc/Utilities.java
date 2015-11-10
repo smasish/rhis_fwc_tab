@@ -364,6 +364,8 @@ public class Utilities {
                 }
             } catch (JSONException jse) {
                 Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
+            } catch (NumberFormatException nfe) {
+                Log.e(LOGTAG, "Could not convert value for key: '" + key + "' JSON:\n\t{"+ json.toString() +"}\n\t" + nfe.getStackTrace());
             }
         }
     }

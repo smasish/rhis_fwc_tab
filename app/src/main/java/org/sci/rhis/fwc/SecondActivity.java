@@ -89,7 +89,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                 final Intent intent;
                 if (position == ADV_SEARCH_INDEX) {
                     intent = new Intent(SecondActivity.this, ADVSearchActivity.class);
-                   startActivityForResult(intent, ActivityResultCodes.ADV_SEARCH_ACTIVITY);
+                    startActivityForResult(intent, ActivityResultCodes.ADV_SEARCH_ACTIVITY);
                 }
             }
 
@@ -324,20 +324,6 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
     public void addListenerOnButton() {
 
-        final Context context = this;
-
-        Button button1 = (Button) findViewById(R.id.nonregiser);
-
-        button1.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-
-                /*Intent intent = new Intent(context, NRCActivity.class);
-                intent.putExtra("Provider", providerCode);
-                startActivity(intent);*/
-            }
-        });
     }
 
     public void startNRC(View view) {
@@ -395,9 +381,9 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ActivityResultCodes.REGISTRATION_ACTIVITY) {
             if (resultCode == RESULT_OK) {
-                long healthId = data.getLongExtra("generatedId", -1);
+                String healthId = data.getStringExtra("generatedId");
                 getSpinner(R.id.ClientsIdentityDropdown).setSelection(NRC_ID_INDEX);
-                getEditText(R.id.searchableTextId).setText(String.valueOf(healthId));
+                getEditText(R.id.searchableTextId).setText(healthId);
                 startSearch((ImageButton)findViewById(R.id.searchButton));
             }
         } else if (requestCode == ActivityResultCodes.ADV_SEARCH_ACTIVITY) {
@@ -604,7 +590,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                 complicatedHistories += String.valueOf(i+1)+",";
             }
         }
-        if(!complicatedHistories.equals("")) {
+        if(!complicatedHistories.equals("")) { //Get rid of trailing ,
             complicatedHistories = complicatedHistories.substring(0,complicatedHistories.length()-1 );
         }
         try{
@@ -616,12 +602,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
     public void getSpecialCases(JSONObject json) {
         try {
-            if (woman != null) {
-                json.put("pregNo", woman.getPregNo());
-            }
-            else
-                json.put("pregNo","\"\"");
-
+            json.put("pregNo", woman != null ? woman.getPregNo():"");
             //To enter 0 if ""
             int year = (getEditText(R.id.lastChildYear).getText().toString()).isEmpty()?0:Integer.parseInt(getEditText(R.id.lastChildYear).getText().toString());
             int month = (getEditText(R.id.lastChildMonth).getText().toString()).isEmpty()?0:Integer.parseInt(getEditText(R.id.lastChildMonth).getText().toString());
