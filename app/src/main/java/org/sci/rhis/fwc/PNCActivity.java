@@ -662,7 +662,7 @@ pnc child history
 
            pncInfoUpdateTask.execute(json.toString(), SERVLET_MOTHER, ROOTKEY_MOTHER);
 
-            System.out.print("PNCM Save Json in Servlet:" + ROOTKEY_MOTHER +":{"+ json.toString()+"}");
+            System.out.print("PNCM Save Json in Servlet:" + ROOTKEY_MOTHER + ":{" + json.toString() + "}");
 
 
         } catch (JSONException jse) {
@@ -684,7 +684,12 @@ pnc child history
 
     private void pncChildSaveToJson(){
 
-        pncInfoUpdateTask = new AsyncPNCInfoUpdate(this);
+        pncInfoUpdateTask = new AsyncPNCInfoUpdate(new AsyncCallback() {
+            @Override
+            public void callbackAsyncTask(String result) {
+                handleChild(result);
+            }
+        });
         JSONObject json;
         try {
             json = buildQueryHeaderChild(false);

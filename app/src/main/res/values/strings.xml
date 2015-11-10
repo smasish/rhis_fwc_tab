@@ -67,6 +67,7 @@
     <string name = "with_convulsion_senseless">" একল্যাম্পসিয়া বা খিঁচুনিসহ বার বার অজ্ঞান হওয়া "</string>
     <string name = "caesar">" সিজারিয়ান অপারেশন বা যন্ত্রের মাধ্যমে (ফরসেফ/ভেকুয়াম) প্রসব "</string>
     <string-array name="Blood_Group_Dropdown">
+        <item></item>
         <item> A+ </item>
         <item> A- </item>
         <item> B+ </item>
@@ -227,11 +228,13 @@
     </string-array>
 
     <string-array name="FacilityPlace_DropDown">
+        <item></item>
         <item> বাড়ি </item>
         <item> সেবাকেন্দ্র </item>
     </string-array>
 
     <string-array name="DeliveryType_DropDown">
+        <item></item>
         <item> স্বাভাবিক </item>
         <item> সিজারিয়ান </item>
 
@@ -299,30 +302,35 @@
 
 
     <string-array name="Breast_Condition_DropDown">
+        <item></item>
         <item> স্বাভাবিক </item>
         <item> ফোলা</item>
         <item> ব্যথাযুক্ত </item>
     </string-array>
 
     <string-array name="Discharge_Bleeding_DropDown">
+        <item></item>
         <item> স্বাভাবিক </item>
         <item> দূর্গন্ধযুক্ত </item>
         <item> অতিরিক্ত </item>
     </string-array>
 
     <string-array name="Perineum_DropDown">
+        <item></item>
         <item> স্বাভাবিক </item>
         <item> ছিঁড়ে গিয়েছে  </item>
         <item> অন্যান্য জটিলতা </item>
     </string-array>
 
     <string-array name="Cervix_Involution_DropDown">
+        <item></item>
         <item> নাভি বরাবর </item>
         <item> নাভি হতে ২-৩ ইঞ্চি নিচে  </item>
         <item> অনুভব করা যাচ্ছে না </item>
     </string-array>
 
     <string-array name="Family_Planning_Methods_DropDown">
+        <item></item>
         <item> পরামর্শ </item>
         <item> Condom </item>
         <item> IUD </item>
@@ -390,12 +398,14 @@
     <string name="place">স্থান </string>
 
     <string-array name="Delivery_Newborn_Refer_Reason_DropDown">
+        <item></item>
         <item> জন্মগত শ্বাসরুদ্ধতা (asphyxia)	</item>
         <item> অপরিণত জন্ম (Prematurity)	</item>
         <item>কম ওজন নিয়ে জন্ম	</item>
     </string-array>
 
     <string-array name="ANC_Advice_DropDown">
+        <item></item>
         <item>	গর্ভবতী মাকে কমপক্ষে ৪ বার গর্ভকালীন সময়ে ভিজিটে আসুন 	</item>
         <item>	অন্য সময়ের চাইতে বেশী পরিমাণে (কম পক্ষে ১ মুঠ চালের ভাত ও ১ চামচ ডাল বেশী) খান	</item>
         <item>	বেশী পরিমাণে পানি খান (কম পক্ষে ৮ গ্লাস)	</item>
@@ -413,6 +423,7 @@
         <item>	(পায়ে পানি আসলে) পা সামান্য উঁচু রাখা	</item>
     </string-array>
     <string-array name="PNC_Mother_Advice_DropDown">
+        <item></item>
         <item>	অন্য সময়ের চাইতে বেশী পরিমাণে (কম পক্ষে ১ মুঠ চালের ভাত ও ১ চামচ ডাল বেশী) খান	</item>
         <item>	"রক্তস্বল্পতা প্রতিরোধ করার জন্য মাকে আয়রন সমৃদ্ধ খাবার যেমন সবুজ শাকসবজি, ডাল, ডিম খেতে হবে এবং এগুলোর সাথে আয়রন এবং ফলিক এসিড ট্যাবলেট খেতে খান </item>
         <item>	যদি পা ফুলে যায় অতিরিক্ত (আলগা) লবণ খাওয়া বাদ দিতে হবে এবং পর্যাপ্ত বিশ্রাম নিন	</item>
@@ -427,6 +438,7 @@
     </string-array>
 
     <string-array name="PNC_Child_Advice_DropDown">
+        <item></item>
         <item>	নবজাত শিশুকে কখনই অনাবৃত রাখবেন না৷ 	</item>
         <item>	শিশু জন্মের সাথে সাথে বা ৭২ ঘণ্টার মধ্যে গোসল করাবেন না৷ </item>
         <item>	প্রথম ২৪ ঘনটায় শিশুর শরীর কোন প্রকার তৈল মেখে পরিষ্কার করবেন না৷ </item>
@@ -443,11 +455,13 @@
     </string-array>
 
     <string-array name="Delivery_Advice_DropDown">
+        <item></item>
         <item>	বেশী পরিমাণে পানি খান (কম পক্ষে ৮ গ্লাস)	</item>
         <item>	কাঁটা নাভিতে ৭.১% CHX ব্যবহার করুন ও পরবর্তীতে শুকনো রাখুন	</item>
     </string-array>
 
     <string-array name="Treatment_DropDown">
+        <item></item>
         <item>	Tab. Iron (200mg) &amp; Folic Acid( 0.02mg)	</item>
         <item>	Tab. Vitamin B  Complex	</item>
         <item>	Tab. Albendazole 400 mg	</item>
@@ -476,6 +490,7 @@
     </string-array>
 
     <string-array name="ANC_Refer_Reason_DropDown">
+        <item></item>
         <item>	অতিরিক্ত রক্তস্বল্পতা (শ্বাসকষ্ট, মাথা ঝিমঝিম করা, ক্লান্তি বোধ, বুক ধড়ফড় করা)	 </item>
         <item>	খিচুনি হওয়া	</item>
         <item>	উচ্চ রক্তচাপ (রক্তচাপ ১৪০/৯০ মি.মি. মার্কারি অথবা স্বাভাবিক অবস্থার চেয়ে ৩০/১৫ মি.মি. মার্কারি বেশী হওয়া৷ </item>
@@ -491,6 +506,7 @@
         <item>	প্রসাব পরীক্ষা করার জন্য রেফার 	</item>
     </string-array>
     <string-array name="PNC_Mother_Refer_Reason_DropDown">
+        <item></item>
         <item>	প্রসাব পরীক্ষা করার জন্য রেফার 	</item>
         <item>	খিচুনি হওয়া	</item>
         <item>	উচ্চ রক্তচাপ (রক্তচাপ ১৪০/৯০ মি.মি. মার্কারি অথবা স্বাভাবিক অবস্থার চেয়ে ৩০/১৫ মি.মি. মার্কারি বেশী হওয়া৷	</item>
@@ -502,6 +518,7 @@
         <item>	ক্রমাগত অত্যধিক ব্যথা ও রক্তস্রাব (জরায়ু ছিঁড়ে যাওয়া) </item>
     </string-array>
     <string-array name="PNC_Child_Refer_Reason_DropDown">
+        <item></item>
         <item>	জন্মের ২৪ ঘন্টার মধ্যে ও দ্বিতীয় সপ্তাহের পরে জন্ডিস হওয়া এবং যে কোন সময়ে হাতের তালু,পায়ের পাতায় জন্ডিস আসা </item>
         <item>	খিচুনি হওয়া	</item>
         <item>	পুজ নি:সরণ সহ চোখ লাল হওয়া ও ফুলে যাওয়া	</item>
@@ -519,11 +536,13 @@
     </string-array>
 
     <string-array name="Newborn_Refer_Reason_DropDown">
+        <item></item>
         <item>	জন্মগত শ্বাসরুদ্ধতা (asphyxia) </item>
         <item>	অপরিণত জন্ম (Prematurity) </item>
         <item>	কম ওজন নিয়ে জন্ম  </item>
     </string-array>
     <string-array name="ANC_Danger_Sign_DropDown">
+        <item></item>
         <item>	ব্যথা সহ বা ব্যথা ছাড়া যে কোন ধরনের প্রসব-পূর্ব রক্তস্রাব</item>
         <item>	খিচুনি হওয়া৷ 	</item>
         <item>	হাত, পা, মুখ ফুলে যাওয়া </item>
@@ -533,6 +552,7 @@
         <item>	মাথা ছাড়া অন্য কোন উপস্থাপিত অঙ্গ থাকলে	</item>
     </string-array>
     <string-array name="PNC_Mother_Danger_Sign_DropDown">
+        <item></item>
         <item>	প্রসবের পরে অত্যধিক রক্তস্রাব (৫ মিনিটে প্যাড ভিজে যাওয়া) </item>
         <item>	খিচুনি হওয়া৷ 	</item>
         <item>	উচ্চ রক্তচাপ		</item>
@@ -542,6 +562,7 @@
         <item>	যোনিপথে কিছু নেমে আসা		</item>
     </string-array>
     <string-array name="PNC_Child_Danger_Sign_DropDown">
+        <item></item>
         <item>	খিচুনি হওয়া৷ </item>
         <item>	জন্মের ২৪ ঘন্টার মধ্যে ও দ্বিতীয় সপ্তাহের পরে জন্ডিস হওয়া এবং যে কোন সময়ে হাতের তালু,পায়ের পাতায় জন্ডিস আসা	</item>
         <item>	দীঘ সময় ধরে শুয়ে থাকা বা জেগে না উঠা </item>
@@ -556,6 +577,7 @@
     </string-array>
 
     <string-array name="ANC_Drawback_DropDown">
+        <item></item>
         <item>	হাত, পা, মুখ ফুলে যাওয়া </item>
         <item>	খিচুনি হওয়া	</item>
         <item>	প্রচন্ড মাথা ব্যথা ও চোখে ঝাপসা দেখা </item>
@@ -566,12 +588,14 @@
         <item>	গর্ভস্থ শিশুর অসুবিধা </item>
     </string-array>
     <string-array name="PNC_Mother_Drawback_DropDown">
+        <item></item>
         <item>	প্রসবের পরে অত্যধিক রক্তস্রাব (৫ মিনিটে প্যাড ভিজে যাওয়া) </item>
         <item>	ক্রমাগত অত্যধিক ব্যথা ও রক্তস্রাব (জরায়ু ছিঁড়ে যাওয়া)	 </item>
         <item>	স্তনে কোন সমস্যা (ব্যথা,লাল হয়ে যাওয়া)	</item>
         <item>	যোনিপথে কিছু নেমে আসা	</item>
     </string-array>
     <string-array name="PNC_Child_Drawback_DropDown">
+        <item></item>
         <item>	খেতে বা চুষতে না পারা </item>
         <item>	খিচুনি হওয়া </item>
         <item>	দীঘ সময় ধরে শুয়ে থাকা বা জেগে না উঠা </item>
@@ -582,6 +606,7 @@
     </string-array>
 
     <string-array name="ANC_Disease_DropDown">
+        <item></item>
         <item>	খিচুনী হওয়া/একলাম্পসিয়া	</item>
         <item>	শ্বাসকষ্ট /হাঁপানি	</item>
         <item>	জন্ডিস	</item>
@@ -595,8 +620,10 @@
         <item>	অতিরিক্ত  রক্তস্বল্পতা (শ্বাসকস্ট,মাথা ঝিমঝিম করা,ক্লন্তিবোধ,বুক ধড়ফড় করা) </item>
         <item>	হৃদরোগ		</item>
         <item>	হাইড্রমনিওস	</item>
+        <item>  ভেরিকোস ভেইন </item>
     </string-array>
     <string-array name="PNC_Mother_Disease_DropDown">
+        <item></item>
         <item>	খিচুনী হওয়া/একলাম্পসিয়া	</item>
         <item>	শ্বাসকষ্ট /হাঁপানি	</item>
         <item>	প্লাসেনটা প্রিভিয়া	</item>
@@ -624,6 +651,7 @@
         <item>	প্রসব পরবর্তী  ডায়াবেটিস	</item>
     </string-array>
     <string-array name="PNC_Child_Disease_DropDown">
+        <item></item>
         <item>	শ্বাস প্রশ্বাসে সমস্যা </item>
         <item>	সেপসিস		</item>
         <item>	নাড়ির সংক্রমণ 	</item>
@@ -673,6 +701,7 @@
         <item> +++  </item>
     </string-array>
     <string-array name="pnc_Anemia_Dropdown">
+        <item></item>
         <item> +  </item>
         <item> ++  </item>
         <item> +++  </item>

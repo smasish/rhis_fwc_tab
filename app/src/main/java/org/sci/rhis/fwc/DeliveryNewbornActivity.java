@@ -91,7 +91,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
         //Intent outComePlace = getIntent();
         String str = intent.getStringExtra("DeliveryJson");
-        Log.d(LOGTAG, "Get Json As:\t"+ str);
+        Log.d(LOGTAG, "Delivery JSON:\t"+ str);
 
         Spinner referSpinner= (Spinner)findViewById(R.id.deliveryChildReferCenterNameSpinner);
 
@@ -118,7 +118,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         try {
 
             if(getIntent().hasExtra("NewbornJson")) { //check if new bron info is given
-                //try{
+                Log.d(LOGTAG, "Restoring Child Info");
                 restoreNewbornFromJSON(new JSONObject(getIntent().getStringExtra("NewbornJson")));
 
             } else { //retrieve it from net
@@ -132,6 +132,24 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         } catch (JSONException JSE) {
             JSE.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Log.d(LOGTAG, "Resumed Activity");
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        Log.d(LOGTAG, "Stopped Activity");
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        Log.d(LOGTAG, "Paused Activity");
     }
 
     @Override
@@ -158,6 +176,11 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
     @Override
     public void callbackAsyncTask(String result) {
+        //TODO - We may not need this
+        if(true) {
+            return;
+        }
+
         Log.d("Delivery-Newborn", result != null ? result: "NO RESPONSE");
         JSONObject json;
         try {
@@ -176,10 +199,10 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
             //int size = json.names().length();
 
-
+            //Debug
             for (Iterator<String> ii = json.keys(); ii.hasNext(); ) {
                 key = ii.next();
-                Log.d("Delivery-Newborn", "1.Key:" + key + " Value:\'" + json.get(key) + "\'");
+                Log.d(LOGTAG, "Key:" + key + " Value:\'" + json.get(key) + "\'");
             }
 
             //currentChildNo = size2;

@@ -352,13 +352,15 @@ public class Utilities {
                 spinner = keyMap.get(key);
                 if(spinner != null) {
                     String value = json.getString(key);
-                    String keyStr[] = value.replaceAll("(\"|\\[|\\])","").split(",");
-                    int values []  = new int[keyStr.length];
-                    for (int i = 0; i < keyStr.length; ++i) {
-                        values[i] = Integer.valueOf(keyStr[i]);
-                    }
+                    if(!value.equals("[\"\"]")) {
+                        String keyStr[] = value.replaceAll("(\"|\\[|\\])", "").split(",");
+                        int values[] = new int[keyStr.length];
+                        for (int i = 0; i < keyStr.length; ++i) {
+                            values[i] = Integer.valueOf(keyStr[i]);
+                        }
 
-                    spinner.setSelection(values);
+                        spinner.setSelection(values);
+                    }
                 }
             } catch (JSONException jse) {
                 Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
@@ -373,7 +375,7 @@ public class Utilities {
             try {
                 spinner = keyMap.get(key);
                 if(spinner != null) {
-                    spinner.setSelection((json.getInt(key) - 1));
+                    spinner.setSelection((json.getInt(key)));
                 }
             } catch (JSONException jse) {
                 Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
