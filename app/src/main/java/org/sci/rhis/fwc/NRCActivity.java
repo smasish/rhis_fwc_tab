@@ -278,7 +278,8 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         try {
             json = buildQueryHeader();
             Utilities.getEditTexts(jsonEditTextMap, json);
-            Utilities.getSpinners(jsonSpinnerMap, json);
+            //Utilities.getSpinners(jsonSpinnerMap, json);
+            getSpecialCases(json);
 
             NRCInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
 
@@ -288,6 +289,11 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
             Log.e("NRC", "JSON Exception: " + jse.getMessage());
         }
 
+    }
+
+    private void getSpecialCases(JSONObject json) throws JSONException{
+        String key = "gender";
+        json.put(key, getSpinner(jsonSpinnerMap.get(key).getSelectedItemPosition()+1));
     }
     //Method that will parse the JSON file and will return a JSONObject
     public JSONObject parseJSONData() {
@@ -419,9 +425,10 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
             public void onClick(View arg0) {
                 nrcSaveToJson();
                 Intent intent = new Intent();
-                intent.putExtra("generatedId", generatedId);
+                intent.putExtra("generatedId", computeMD5Hash(getString()));
                 setResult(RESULT_OK, intent);
                 finishActivity(ActivityResultCodes.REGISTRATION_ACTIVITY);
+                finish();
             }
         });
 
