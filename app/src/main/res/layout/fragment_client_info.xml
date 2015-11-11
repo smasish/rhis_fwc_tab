@@ -436,6 +436,64 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <EditText
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="40dp"
+                android:layout_height="50px"
+                android:background="@drawable/edittext_round"
+                android:id="@+id/ttDate1"
+                android:paddingLeft="10dp"
+                style="@style/styleEdittext"
+                />
+
+            <EditText
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="40dp"
+                android:layout_height="50px"
+                android:background="@drawable/edittext_round"
+                android:id="@+id/ttDate2"
+                android:paddingLeft="10dp"
+                style="@style/styleEdittext"
+                />
+            <EditText
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="40dp"
+                android:layout_height="50px"
+                android:background="@drawable/edittext_round"
+                android:id="@+id/ttDate3"
+                android:paddingLeft="10dp"
+                style="@style/styleEdittext"
+                />
+            <EditText
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="40dp"
+                android:layout_height="50px"
+                android:background="@drawable/edittext_round"
+                android:id="@+id/ttDate4"
+                android:paddingLeft="10dp"
+                style="@style/styleEdittext"
+                />
+            <EditText
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="40dp"
+                android:layout_height="50px"
+                android:background="@drawable/edittext_round"
+                android:id="@+id/ttDate5"
+                android:paddingLeft="10dp"
+                style="@style/styleEdittext"
+                />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/Previous_Delivery"
             android:layout_marginLeft="10dp"
             android:orientation="vertical"
