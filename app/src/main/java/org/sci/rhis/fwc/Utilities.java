@@ -101,12 +101,12 @@ public class Utilities {
     public static void MakeInvisible(Activity activity, int id)
     {
         ViewGroup visibility = (ViewGroup)activity.findViewById(id);
-        visibility.setVisibility(View.VISIBLE);
+        visibility.setVisibility(View.GONE);
     }
-    public static void InVisible(Activity activity,int id)
+    public static void MakeVisible(Activity activity, int id)
     {
         ViewGroup visibility = (ViewGroup)activity.findViewById(id);
-        visibility.setVisibility(View.GONE);
+        visibility.setVisibility(View.VISIBLE);
     }
 
     public static void VisibleButton(Activity activity,int id)

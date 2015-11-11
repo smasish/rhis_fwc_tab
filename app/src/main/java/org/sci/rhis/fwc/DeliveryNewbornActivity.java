@@ -72,12 +72,12 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
         switch(integerRecd) {
             case 1:
-                Utilities.MakeInvisible(this, R.id.notDetected);
+                Utilities.MakeInvisible(this, R.id.newBornDetectionLayout);
                 jsonEditTextMap.get("birthStatus").setText("1");
 
                 break;
             case 2:
-                Utilities.MakeInvisible(this, R.id.notDetected);
+                Utilities.MakeInvisible(this, R.id.newBornDetectionLayout);
                 Utilities.MakeInvisible(this, R.id.layout_only_for_neborn);
                 jsonEditTextMap.get("birthStatus").setText("2");
                 break;
@@ -123,6 +123,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
             } else { //retrieve it from net
                 //Get the existing information
+                Utilities.Enable(this, R.id.DeliveryNewBornLayout);
                 newbornInfoQueryTask = new AsyncNewbornInfoUpdate(this);
 
                 JSONObject jso = buildQueryHeader(true);
