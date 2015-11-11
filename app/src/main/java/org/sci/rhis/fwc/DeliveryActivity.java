@@ -141,6 +141,9 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         LinearLayout mNewbornLayout = (LinearLayout) findViewById(R.id.newborn_Tabla_Layout);
         mNewbornLayout.setVisibility(View.VISIBLE);
         passJson = new Intent(this, DeliveryNewbornActivity.class);
+
+        //disable delivery result
+        Utilities.Disable(this,R.id.id_deliveryResultLayout);
     }
 
     @Override
