@@ -44,6 +44,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     private HashMap<Integer, EditText> datePickerPair;
     private int deliveryHour;
     private int deliveryMinute;
+    private int currentChildCount = 0;
     private JSONObject dJson;
     private PregWoman mother;
     private ProviderInfo provider;
@@ -54,6 +55,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     final private String SERVLET = "delivery";
     final private String ROOTKEY = "deliveryInfo";
     private  final String LOGTAG = "FWC-DELIVERY";
+
 
 
     AsyncDeliveryInfoUpdate deliveryInfoQueryTask;
@@ -213,7 +215,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 section [2] = (LinearLayout) findViewById(R.id.id_Epcotomi_section_layout);
 
                 for(int i = 0; i < section.length; ++i) {
-                    section[i].setVisibility( position == 0? View.GONE:View.VISIBLE); //0 - home
+                    section[i].setVisibility( position == 1? View.GONE:View.VISIBLE); //0 - home
                 }
                 break;
             case R.id.id_facility_name_Dropdown:
@@ -260,7 +262,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     public void onClick(View view) {
         if(view.getTag() != null && view.getTag().equals("DateField")) {
             datePickerDialog.show(datePickerPair.get(view.getId()));
-        }
+        } else
 
         if(view.getId() == R.id.id_saveDeliveryButton) {
             saveToJson();
@@ -270,10 +272,16 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
         }
 
+        if(passJson.hasExtra("NewbornJson")) { //when adding new child remove the reference of the old
+            passJson.removeExtra("NewbornJson");
+        } else {
+            passJson.putExtra("childno", currentChildCount);
+        }
+
         if(view.getId()==R.id.newbornAddButton){
         //Intent intent = new Intent(this, DeliveryNewbornActivity.class);
         passJson.putExtra("Layout", 1);
-        passJson.putExtra("DeliveryJson",dJson.toString());
+            passJson.putExtra("DeliveryJson",dJson.toString());
 
             if(checkClientInfo() && mother.isEligibleFor(PregWoman.PREG_SERVICE.NEWBORN)) {
                 passJson.putExtra("PregWoman", mother);
@@ -595,9 +603,9 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 childList  = new ArrayList<>();
                 childDropdown.setVisibility(View.VISIBLE);
                 //childDropdown.setAdapter();
-                int count = childJson.getInt("count");
+                currentChildCount = childJson.getInt("count");
                 childList.add("");
-                for (int i  = 0; i < count; i++) {
+                for (int i  = 0; i < currentChildCount; i++) {
                     childList.add("Child:" + String.valueOf(i+1));
                 }
 

@@ -110,7 +110,13 @@
             </LinearLayout>
 
         </LinearLayout>
-        <LinearLayout android:id="@+id/deliveryWipe" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+
+        <LinearLayout android:id="@+id/deliveryWipe"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
             <TextView android:id="@+id/deliveryWipeLabel"
                 android:text="@string/wipe_within_one_minute"
                 android:textSize="20dp"
@@ -137,54 +143,43 @@
             </RadioGroup>
         </LinearLayout>
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/layout_only_for_neborn"
+            android:id="@+id/id_newBornResasscitationMaster"
             android:orientation="vertical">
-        <LinearLayout android:id="@+id/deliveryResastation" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
-
-            <TextView
-                android:id="@+id/deliveryNewBornWeightLabel"
-                android:text="@string/born_weight"
-                android:textSize="20dp"
-                android:layout_width="160dp"
-                android:layout_height="50px"
-                android:textColor="@color/text_color"/>
-            <EditText
-                android:id="@+id/deliveryNewBornWeightValue"
-                android:inputType="number"
-                android:textSize="20dp"
-                android:layout_width="40dp"
-                android:layout_height="50px"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/edittext_round"/>
-            <TextView
-                android:id="@+id/deliveryResastationLabel"
-                android:text="@string/resastation"
-                android:textSize="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="50px" android:textColor="@color/text_color" />
-            <RadioGroup
-                android:id="@+id/id_newBornResasscitationRadioGroup"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <RadioButton
-                    android:id="@+id/deliveryResastationYesButton"
-                    android:text="@string/general_yes"
+                android:id="@+id/deliveryResastation">
+                <TextView
+                    android:id="@+id/deliveryResastationLabel"
+                    android:text="@string/resastation"
                     android:textSize="20dp"
-                    android:layout_width="80dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_height="50px"  />
-                <RadioButton
-                    android:id="@+id/deliveryResastationNoButton"
-                    android:text="@string/general_no"
-                    android:textSize="20dp"
-                    android:layout_width="80dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_height="50px"  />
-            </RadioGroup>
+                    android:layout_marginLeft="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50px"
+                    android:textColor="@color/text_color" />
+                <RadioGroup
+                    android:id="@+id/id_newBornResasscitationRadioGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:id="@+id/deliveryResastationYesButton"
+                        android:text="@string/general_yes"
+                        android:textSize="20dp"
+                        android:layout_width="80dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="50px"  />
+                    <RadioButton
+                        android:id="@+id/deliveryResastationNoButton"
+                        android:text="@string/general_no"
+                        android:textSize="20dp"
+                        android:layout_width="80dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="50px"  />
+                </RadioGroup>
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/StimulationBagNMask"
@@ -209,6 +204,33 @@
                 android:layout_height="50px"
                 android:textColor="@color/text_color" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/layout_only_for_neborn"
+            android:orientation="vertical"
+            android:visibility="visible">
+        <LinearLayout android:id="@+id/deliveryWeight" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/deliveryNewBornWeightLabel"
+                android:text="@string/born_weight"
+                android:textSize="20dp"
+                android:layout_width="160dp"
+                android:layout_height="50px"
+                android:textColor="@color/text_color"/>
+            <EditText
+                android:id="@+id/deliveryNewBornWeightValue"
+                android:inputType="number"
+                android:textSize="20dp"
+                android:layout_width="40dp"
+                android:layout_height="50px"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/edittext_round"/>
+
+        </LinearLayout>
+
         <LinearLayout android:id="@+id/deliveryPlacentaCutting" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView android:id="@+id/deliveryPlacentaCuttingLabel" android:text="@string/placenta_cutting" android:textSize="20dp" android:layout_width="wrap_content" android:layout_height="50px" android:textColor="@color/text_color" />
         </LinearLayout>
@@ -353,6 +375,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="80px"
                 android:id="@+id/id_saveNewbornButton"
+                android:onClick="onClick"/>
+            <Button
+                android:text="OK"
+                android:layout_width="wrap_content"
+                android:layout_height="80px"
+                android:id="@+id/id_OkNewbornButton"
                 android:onClick="onClick"/>
         </LinearLayout>
     </LinearLayout>

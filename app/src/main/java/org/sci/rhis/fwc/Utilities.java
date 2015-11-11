@@ -200,9 +200,15 @@ public class Utilities {
 
     public static void Enable(Activity activity, int id) {
 
-        ViewGroup testgroup = (ViewGroup)activity.findViewById(id);
-        for(int i = 0, count = testgroup != null ? testgroup.getChildCount(): 0; i <count; i++) {
-            View view = testgroup.getChildAt(i);
+        ViewGroup testgroup = null;
+        View view  = activity.findViewById(id);
+        if(view instanceof ViewGroup) { //if not a layout but single button is passed
+            testgroup  = (ViewGroup) view;
+        }
+
+        for( int i = 0, count = testgroup != null ? testgroup.getChildCount(): 1; //if not a viewgroup only 1 item
+             i <count && view != null; i++) {
+             view = testgroup != null ? testgroup.getChildAt(i) : view;
 
             if(view instanceof LinearLayout) {
                 Enable(activity, view.getId());

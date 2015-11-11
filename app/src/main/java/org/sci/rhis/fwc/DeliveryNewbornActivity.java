@@ -43,7 +43,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     private  JSONObject deliveryJsonObj;
     private ProviderInfo provider;
     private int flag =0;
-    private int integerRecd;
+    private int integerRecd = 0;
     private int currentChildNo = 0;
 
     final private String SERVLET = "newborn";
@@ -66,7 +66,6 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         initialize(); //initialize the inherited maps
         /**get the intent*/
         Intent intent = getIntent();
-        System.out.print("Get Intent?" + "Under this");
 
         integerRecd = intent.getIntExtra("Layout", flag);
 
@@ -84,7 +83,10 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
             case 3:
                 Utilities.MakeInvisible(this, R.id.deliveryWipe);
+                Utilities.MakeInvisible(this, R.id.deliveryResastation);
+                Utilities.MakeInvisible(this, R.id.StimulationBagNMask);
                 Utilities.MakeInvisible(this, R.id.layout_only_for_neborn);
+
                 jsonEditTextMap.get("birthStatus").setText("3");
                 break;
         }
@@ -128,7 +130,6 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
                 JSONObject jso = buildQueryHeader(true);
                 newbornInfoQueryTask.execute(jso.toString(), SERVLET, ROOTKEY);
-
             }
         } catch (JSONException JSE) {
             JSE.printStackTrace();
@@ -145,6 +146,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     protected void onStop(){
         super.onStop();
         Log.d(LOGTAG, "Stopped Activity");
+        Utilities.Reset(this, R.id.DeliveryNewBornLayout);
     }
 
     @Override
@@ -182,7 +184,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
             return;
         }
 
-        Log.d("Delivery-Newborn", result != null ? result: "NO RESPONSE");
+        Log.d("Delivery-Newborn", result != null ? result : "NO RESPONSE");
         JSONObject json;
         try {
             json = new JSONObject(result);
@@ -327,7 +329,8 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
             newbornSaveToJson();
             Toast.makeText(this, "Newborn Saved Successfully", Toast.LENGTH_LONG).show();
             Log.e("Newborn", "Saved Newborn Successfully?");
-
+        } else if (v.getId() == R.id.id_OkNewbornButton) {
+            finish();
         }
     }
 
@@ -371,12 +374,27 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         Utilities.setEditTextDates(jsonEditTextDateMap, json);
         Utilities.setRadioGroupButtons(jsonRadioGroupButtonMap, json);
         //updateEditTextTimes(json);
+        setSpecialCases(json);
         Log.d(LOGTAG, "Delivery Response Received:\n\t" + json.toString());
         //dJson = json;
 
-        //TODO Make the fields non-modifiable
         Utilities.Disable(this, R.id.DeliveryNewBornLayout);
-        //Utilities.MakeInvisible(this, R.id.btn_save_add_child);
+        Utilities.Enable(this, R.id.id_OkNewbornButton);
+    }
+
+    public void setSpecialCases(JSONObject json) {
+        //check if massarated
+        try {
+        if(integerRecd == 3) {
+            if(json.has("gender") &&
+               json.getString("gender").equals("3")) {
+               getRadioButton(R.id.deliveryNewBornNotDetected).setChecked(true);
+            }
+        }
+        }  catch (JSONException jse) {
+
+        }
+
     }
 
     public void getSpecialCases(JSONObject json) {
