@@ -63,6 +63,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
         searchBtn=(Button)findViewById(R.id.searchBtn);
 
         initialize();
+        //initList();
         ZillaMapping();
         UpMapping();
         unionMapping();
@@ -82,14 +83,13 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
 
     private void initList(){
 
-        /*ArrayAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.textview_for_listview, R.id.lblListItem,  clientsList);*/
-        ArrayAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,  clientsList);
         searchListView = (ListView) findViewById(R.id.search_result);
-
         PersonAdapter personAdapter = new PersonAdapter(this, R.layout.listview_item_row, personsList);
         View header = getLayoutInflater().inflate(R.layout.listview_header_row, null);
 
-        searchListView.addHeaderView(header);
+        if(searchListView.getHeaderViewsCount() < 1 ) {
+            searchListView.addHeaderView(header);
+        }
         searchListView.setAdapter(personAdapter);
         //searchListView.setAdapter( listAdapter );
         final Context context = this;
@@ -100,11 +100,9 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-
                 //String item = ((TextView) view).getText().toString();
                 //Toast.makeText(getBaseContext(),"You have clicked on " + item, Toast.LENGTH_LONG).show();
-
-                handlePersonListClick(personsList.get(position - 1));
+            handlePersonListClick(personsList.get(position - 1));
 
             }
         });
@@ -302,8 +300,7 @@ private  int unionMapping(){
 
     }
 
-    private void getSpecialCases(JSONObject json) throws JSONException{
-
+    private void getSpecialCases(JSONObject json) throws JSONException {
         json.put("gender", getSpinner(R.id.advClientsSexSpinner).getSelectedItemPosition()+1);
     }
     public void addListenerOnButton() {
@@ -364,20 +361,23 @@ private  int unionMapping(){
         try {
             json = new JSONObject(result);
 
+            if (json.has("count") && json.getInt("count") > 0) { // if the result is present
+                personsList.clear();
+            }
+
             for (int i=1; i<= (json.getInt("count")); i++) {
 
-                String sss= (json.getJSONObject(String.valueOf(i)).getString("name") + " || "
-                              + json.getJSONObject(String.valueOf(i)).getString("healthId"));
 
-                clientsList.add(sss);
                 jsonPerson = json.getJSONObject(String.valueOf(i));
-                personsList.add(new Person( jsonPerson.getString("name"),
-                                            jsonPerson.getString("fatherName"),
-                                            jsonPerson.getString("healthId"),
-                                            jsonPerson.getInt("healthIdPop") == 1? 0: 4, R.drawable.man));
-                Log.d(LOGTAG, sss);
+                personsList.add(new Person(jsonPerson.getString("name"),
+                        jsonPerson.getString("fatherName"),
+                        jsonPerson.getString("healthId"),
+                        jsonPerson.getInt("healthIdPop") == 1 ? 0 : 4,
+                        jsonSpinnerMap.get("gender").getSelectedItemPosition() != 1 ? R.drawable.man : R.drawable.woman));
+
             }
             initList();
+            //searchListView.setAdapter(personsList);
         }
         catch (JSONException jse) {
             jse.printStackTrace();

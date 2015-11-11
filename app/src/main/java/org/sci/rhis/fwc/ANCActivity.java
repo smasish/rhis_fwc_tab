@@ -686,6 +686,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         jsonSpinnerMap.put("ancsugar", getSpinner(R.id.ancUrineSugarSpinner));
         jsonSpinnerMap.put("ancalbumin", getSpinner(R.id.ancUrineAlbuminSpinner));
         jsonSpinnerMap.put("anccentername", getSpinner(R.id.ancReferCenterNameSpinner));
+        jsonSpinnerMap.put("ancservicesource", getSpinner(R.id.ancOtherCenterNameSpinner));
     }
 
     //verride
@@ -753,9 +754,10 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
     public void getSpecialCases(JSONObject json) {
         try {
-            json.put("ancsatelitecentername", "4"); //If the service was given from satellite
-            json.put("ancservicesource", "3"); //anc service source
-
+            json.put("ancsatelitecentername", provider.getSatelliteName()); //If the service was given from satellite
+            if(jsonSpinnerMap.get("ancservicesource").getVisibility() != View.VISIBLE) {
+                json.put("ancservicesource", "5"); //anc service source UHFWC
+            }
         } catch (JSONException jse) {
 
         }

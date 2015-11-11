@@ -115,7 +115,7 @@ public class LoginActivity extends FWCServiceActivity {
         int w=dm.widthPixels;
         int h=dm.heightPixels;
 
-        dialog.getWindow().setLayout((int) (w * 0.7), (int) (h * 0.34));
+        //dialog.getWindow().setLayout((int) (w * 0.7), (int) (h * 0.34));
 
 
         final Button ok=(Button)dialog.findViewById(R.id.buttonPlacePopUpOK);
@@ -162,7 +162,7 @@ public class LoginActivity extends FWCServiceActivity {
 
                 Log.d("placeName", placeName);
 
-                startSecondActivity();
+                startSecondActivity(placeName);
                 dialog.dismiss();
 
             }
@@ -180,8 +180,10 @@ public class LoginActivity extends FWCServiceActivity {
 
     }
 
-    public void startSecondActivity() {
+    public void startSecondActivity(String satelliteCenter) {
         Intent intent = new Intent(this, SecondActivity.class);
+        //intent.putExtra("satellite", satelliteCenter);
+        ProviderInfo.getProvider().setSatelliteName(satelliteCenter);
         startActivity(intent);
     }
 }

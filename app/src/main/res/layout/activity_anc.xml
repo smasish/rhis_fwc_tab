@@ -70,8 +70,6 @@
         android:layout_centerVertical="true"
         android:textColor="@color/text_color"/>
 
-
-
         <ListView
             android:id="@+id/list"
             android:layout_height="wrap_content"
@@ -79,8 +77,6 @@
             android:visibility="gone"
             >
         </ListView>
-
-
 
     <ScrollView
        android:id="@+id/ancLayoutScrollview"

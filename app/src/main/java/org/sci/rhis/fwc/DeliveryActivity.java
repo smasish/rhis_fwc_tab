@@ -173,6 +173,8 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
         } catch (JSONException jse) {
             jse.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -217,7 +219,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             case R.id.id_facility_name_Dropdown:
 
                 LinearLayout  faclityAdmission = (LinearLayout) findViewById(R.id.id_facililties_admission_layout);
-                faclityAdmission.setVisibility((position == 4 || position == 5) ? View.GONE:View.VISIBLE);
+                faclityAdmission.setVisibility((position == 5 || position == 6) ? View.GONE:View.VISIBLE);
                 //4 - UH&FWC 5 - CC
                 break;
             case R.id.delivery_typeDropdown:
@@ -228,7 +230,8 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 //section [] = (LinearLayout) findViewById(R.id.id_deliveryResultLayout);
 
                 for(int i = 0; i < section.length; ++i) {
-                    section[i].setVisibility( position == 2? View.GONE:View.VISIBLE); //0 - abortion
+                    //do nothing now
+                    //section[i].setVisibility( position != 2 ? View.GONE:View.VISIBLE); //0 - abortion
                 }
 
                 break;
@@ -622,7 +625,9 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
             }
         } catch (JSONException JSE) {
-
+            JSE.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
