@@ -45,7 +45,8 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
     private HashMap<String, Pair<Integer, Integer>> villageCodeMap;
     private long generatedId;
 
-    private  int flag=0, provider;
+    private  int flag=0;
+    ProviderInfo provider;
     private String selectedDistName, selectedUpazilaName,selectedUnionName, selectedVillageName;
     private int divValue, distValue, upValue, unValue, vilValue, mouzaValue;
 
@@ -61,9 +62,9 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         Intent intent = getIntent();
-         provider = intent.getIntExtra("Provider", flag);
+        provider = intent.getParcelableExtra("Provider");
 
-        Log.e("ProviderCode",String.valueOf(provider));
+        Log.e("ProviderCode",String.valueOf(provider.getProviderCode()));
 
         initialize();
         Spinner sex = (Spinner)findViewById(R.id.ClientsSexSpinner);
@@ -259,7 +260,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         //get info from database
         String queryString =   "{" +
                 "\"generatedId\":"  + computeMD5Hash(getString())  + "," +
-                "\"providerid\":" + String.valueOf(provider)+ "," +
+                "\"providerid\":" + String.valueOf(provider.getProviderCode())+ "," +
                 "\"division\":" + String.valueOf(divValue)+ "," +
                 "\"district\":" + String.valueOf(distValue) + "," +
                 "\"upazila\":" + String.valueOf(upValue)+ "," +
