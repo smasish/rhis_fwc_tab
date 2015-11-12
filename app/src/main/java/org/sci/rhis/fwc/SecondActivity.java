@@ -158,6 +158,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         } catch (NumberFormatException nfe) {
             Log.e(LOGTAG, "Invalid ID \n\t" + nfe.toString());
             Toast.makeText(this, "Invalid ID typed. Please provide valid ID ...", Toast.LENGTH_LONG).show();
+            getView_NoClient();
             return;
         }
 
@@ -225,8 +226,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
     public void callbackAsyncTask(String result) { //Get results back from healthId search
         Log.d("result:", result);
 
-        try
-        {
+        try {
             JSONObject json = new JSONObject(result);
             String key;
 
@@ -236,54 +236,43 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                 Log.d(LOGTAG, "Key:" + key + " Value:\'" + json.get(key) + "\'");
             }
 
+            ///////////////////////callback for client servlet////////////////////////////////////////////////////
 
-            if (!json.has("responseType")) //callback for client servlet
+            if (!json.has("responseType"))
             {
                 client = json;
-
-                if (json.get("False").toString().equals("")) { //Client exists
+                if (json.getString("False").equals("")) { //Client exists
                     populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
-                    woman = PregWoman.CreatePregWoman(json);
-                    responseID = new BigInteger(json.get("cHealthID").toString());
+                    Utilities.VisibleLayout(this, R.id.client_intro_layout);
+                    Utilities.Disable(this, R.id.client_intro_layout);
 
-                    if (woman != null) {
-
-                        manipulateJson(json);
-                        populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
-                        woman.UpdateUIField(this);
-                        Utilities.Disable(this, R.id.clients_info_layout);
-                        Utilities.DisableField(this, R.id.Clients_House_No);
-                        Utilities.DisableField(this, R.id.Clients_Mobile_no);
-
-                        Utilities.InVisibleButton(this, R.id.client_Save_Button);
-                        Utilities.InVisibleButton(this, R.id.client_update_Button);
-                        Utilities.VisibleButton(this, R.id.client_edit_Button);
-                        Utilities.VisibleButton(this, R.id.client_New_preg_Button);
+                    if (json.getString("cSex").equals("2") && Integer.parseInt(json.getString("cAge")) > 15 && Integer.parseInt(json.getString("cAge")) < 49) {
+                        //Elco Women
+                        woman = PregWoman.CreatePregWoman(json);
+                        responseID = new BigInteger(json.get("cHealthID").toString());
+                        if (woman != null) {//Elco Women with pregInfo
+                            manipulateJson(json);
+                            populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
+                            getView_WomenWithPregInfo();
+                        } else { //Elco Women without pregInfo
+                            getView_WomenWithOutPregInfo();
+                        }
+                    } else {//Men & Not-Elco Women
+                        Toast.makeText(this, "Male or Not Eligible Women for Pregnancy", Toast.LENGTH_LONG).show();
+                        getView_NoClient();
+                        Utilities.VisibleLayout(this, R.id.client_intro_layout);
                     }
-
-                    else {
-                        Utilities.VisibleButton(this, R.id.client_Save_Button);
-                        Utilities.InVisibleButton(this, R.id.client_update_Button);
-                        Utilities.InVisibleButton(this, R.id.client_edit_Button);
-                        Utilities.InVisibleButton(this, R.id.client_New_preg_Button);
-                    }
-
-                    Utilities.Disable(this, R.id.clients_intro_layout);
-                    Utilities.VisibleLayout(this, R.id.clients_info_layout);
-
-                }
-
-                else {
-
+                } else {//Client doesn't exist
                     Toast.makeText(this, "Provided information is not valid! Please try again....", Toast.LENGTH_LONG).show();
-                    Toast.makeText(this, "Provided information is not valid! Please try again....", Toast.LENGTH_LONG).show();
-                    Utilities.InVisibleLayout(this, R.id.clients_info_layout);
+                    getView_NoClient();
                 }
             }
 
-            else
+            /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            {  //callback for PregInfo servlet
+            //////////////////callback for PregInfo servlet//////////////////////////////////////////////////////
+
+            else {
                 client.put("regSerialNo", json.get("regSerialNo"));
                 client.put("regDate", json.get("regDate"));
                 client.put("highRiskPreg", json.get("highRiskPreg"));
@@ -293,26 +282,13 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                 Log.d("json", client.toString());
 
                 woman = PregWoman.CreatePregWoman(client);
-                //populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
                 responseID = new BigInteger(client.get("cHealthID").toString());
 
-                //manipulateJson(json);
-                //populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
-                woman.UpdateUIField(this);
-
-                Utilities.Disable(this, R.id.clients_info_layout);
-                Utilities.DisableField(this, R.id.Clients_House_No);
-                Utilities.DisableField(this, R.id.Clients_Mobile_no);
-
-
-                Utilities.InVisibleButton(this, R.id.client_update_Button);
-                Utilities.InVisibleButton(this, R.id.client_Save_Button);
-                Utilities.VisibleButton(this, R.id.client_New_preg_Button);
-                Utilities.VisibleButton(this, R.id.client_edit_Button);
-
+                getView_WomenWithPregInfo();
             }
-        }
 
+            /////////////////////////////////////////////////////////////////////////////////////////////////////
+        }
         catch (JSONException jse) {
             System.out.println("JSON Exception Thrown( At callbackAsyncTask ):\n ");
             jse.printStackTrace();
@@ -430,22 +406,6 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             jse.printStackTrace();
         }
     }
-/* May be used for building Json key complication note
-
-    private void buildJson(JSONObject complicated) {
-        try {
-
-            for (int i = 1; i <= complicated.names().length(); i++) {
-                if (complicated.get(complicated.names().getString(i))==1)
-                // complicated.put(deliveryHistoryMapping.get(Integer.valueOf(array[i]) - 1).first, 1);
-            }
-
-        }catch (JSONException jse) {
-                jse.getMessage();
-                jse.printStackTrace();
-        }
-    }
-*/
 
     //The following methods are all required for all the activities that updates information
     //from user interface
@@ -516,13 +476,11 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
     private void saveClientToJson() {
         clientInfoUpdateTask = new AsyncClientInfoUpdate(this);
         JSONObject json;
-        //JSONObject complicated = null;
         try {
             json = buildQueryHeader(false);
             Utilities.getEditTexts(jsonEditTextMap, json);
             Utilities.getEditTextDates(jsonEditTextDateMapSave, json);
             Utilities.getCheckboxesBlank(jsonCheckboxMapSave, json);
-            //buildJson(complicated);
             Utilities.getSpinners(jsonSpinnerMapSave, json);
             getSpecialCases(json);
             Log.d("Pregwomen", "***************In progress :" + json.toString());
@@ -619,21 +577,58 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         }
     }
 
-    public void resetFields(View view){
+    public void resetFields(View view){//OnClick Method
         Utilities.Reset(this, R.id.clients_info_layout);
         Utilities.EnableField(this, R.id.Clients_House_No, "reset");
         Utilities.EnableField(this, R.id.Clients_Mobile_no, "reset");
+
         Utilities.InVisibleButton(this, R.id.client_edit_Button);
         Utilities.InVisibleButton(this, R.id.client_update_Button);
         Utilities.InVisibleButton(this, R.id.client_New_preg_Button);
         Utilities.VisibleButton(this, R.id.client_Save_Button);
     }
 
-    public void editFields(View view){
+    public void editFields(View view){//OnClick Method
         Utilities.Enable(this, R.id.clients_info_layout);
         Utilities.EnableField(this, R.id.Clients_House_No, "edit");
         Utilities.EnableField(this, R.id.Clients_Mobile_no, "edit");
+
         Utilities.InVisibleButton(this, R.id.client_edit_Button);
         Utilities.VisibleButton(this, R.id.client_update_Button);
+    }
+
+    private void getView_WomenWithPregInfo() {
+        woman.UpdateUIField(this);
+
+        Utilities.Disable(this, R.id.clients_info_layout);
+        Utilities.DisableField(this, R.id.Clients_House_No);
+        Utilities.DisableField(this, R.id.Clients_Mobile_no);
+
+        Utilities.InVisibleButton(this, R.id.client_Save_Button);
+        Utilities.InVisibleButton(this, R.id.client_update_Button);
+        Utilities.VisibleButton(this, R.id.client_edit_Button);
+        Utilities.VisibleButton(this, R.id.client_New_preg_Button);
+
+        Utilities.VisibleLayout(this, R.id.table_Layout);
+        Utilities.VisibleLayout(this, R.id.client_intro_layout);
+        Utilities.VisibleLayout(this, R.id.clients_info_layout);
+    }
+
+    private void getView_WomenWithOutPregInfo(){
+        Utilities.EnableField(this, R.id.Clients_House_No, "edit");
+        Utilities.EnableField(this, R.id.Clients_Mobile_no,"edit");
+
+        Utilities.VisibleButton(this, R.id.client_Save_Button);
+        Utilities.InVisibleButton(this, R.id.client_update_Button);
+        Utilities.InVisibleButton(this, R.id.client_edit_Button);
+        Utilities.InVisibleButton(this, R.id.client_New_preg_Button);
+
+        Utilities.InVisibleLayout(this, R.id.table_Layout);
+        Utilities.VisibleLayout(this, R.id.clients_info_layout);
+    }
+    private void getView_NoClient(){
+        Utilities.InVisibleLayout(this, R.id.client_intro_layout);
+        Utilities.InVisibleLayout(this, R.id.clients_info_layout);
+        Utilities.InVisibleLayout(this, R.id.table_Layout);
     }
 }
