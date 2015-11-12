@@ -105,8 +105,8 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         getCheckbox(R.id.deliveryChildReferCheckBox).setOnCheckedChangeListener(this);
 
         //create the mother
-        mother = getIntent().getParcelableExtra("PregWoman");
-        provider = getIntent().getParcelableExtra("Provider");
+        mother = intent.getParcelableExtra("PregWoman");
+        provider = intent.getParcelableExtra("Provider");
 
         try {
             deliveryJsonObj = new JSONObject(str);
@@ -119,14 +119,20 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
         try {
 
-            if(getIntent().hasExtra("NewbornJson")) { //check if new bron info is given
+            if(intent.hasExtra("NewbornJson")) { //check if new bron info is given
                 Log.d(LOGTAG, "Restoring Child Info");
                 restoreNewbornFromJSON(new JSONObject(getIntent().getStringExtra("NewbornJson")));
 
-            } else { //retrieve it from net
+            } else {
+                if(intent.hasExtra("childno")){ //check if new bron info is given
+                    int childno = intent.getIntExtra("childno", 0);
+                    jsonEditTextMap.get("childno").setText(String.valueOf(childno));
+                }
+                //retrieve it from net
                 //Get the existing information
                 Utilities.Enable(this, R.id.DeliveryNewBornLayout);
                 newbornInfoQueryTask = new AsyncNewbornInfoUpdate(this);
+                Utilities.Disable(this, R.id.deliveryNewBornNo);
 
                 JSONObject jso = buildQueryHeader(true);
                 newbornInfoQueryTask.execute(jso.toString(), SERVLET, ROOTKEY);

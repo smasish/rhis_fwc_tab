@@ -248,16 +248,34 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     {
         if (buttonView.getId() == R.id.id_delivery_refer) {
             int visibility = isChecked? View.VISIBLE: View.GONE;
-            getTextView(R.id.id_refer_facility_name).setVisibility(visibility);
+            /*getTextView(R.id.id_refer_facility_name).setVisibility(visibility);
             getSpinner(R.id.id_spinner_refer_facilities).setVisibility(visibility);
             getTextView(R.id.id_refer_delivery_cause).setVisibility(visibility);
-            getSpinner(R.id.id_spinner_refer_delivery_cause).setVisibility(visibility);
+            getSpinner(R.id.id_spinner_refer_delivery_cause).setVisibility(visibility);*/
 
-            if(!isChecked)
-            getTextView(R.id.id_refer_facility_name).setText("");
-            getSpinner(R.id.id_spinner_refer_facilities).setSelection(0);
-            getTextView(R.id.id_refer_delivery_cause).setText("");
-            getSpinner(R.id.id_spinner_refer_delivery_cause).setSelection(0);
+            int layouts[] = {R.id.reason, R.id.id_referCenterDetails};
+
+            for(int i = 0 ; i < layouts.length; i++) {
+                Utilities.SetVisibility(this, layouts[i],visibility);
+            }
+
+            /*if(!isChecked) {
+                *//*getTextView(R.id.id_refer_facility_name).setText("");
+                getSpinner(R.id.id_spinner_refer_facilities).setSelection(0);
+                getTextView(R.id.id_refer_delivery_cause).setText("");
+                getSpinner(R.id.id_spinner_refer_delivery_cause).setSelection(0);*//*
+
+                //Utilities.InVisibleLayout(this, R.id.reason);
+                Utilities.MakeInvisible(this, R.id.reason);
+                Utilities.MakeInvisible(this, R.id.id_referCenterDetails);
+                Utilities.Reset();
+
+            } else {
+                Utilities.MakeVisible(this, R.id.reason);
+                Utilities.MakeVisible(this, R.id.id_referCenterDetails);
+
+            }*/
+
         }
     }
 
@@ -278,7 +296,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         if(passJson.hasExtra("NewbornJson")) { //when adding new child remove the reference of the old
             passJson.removeExtra("NewbornJson");
         } else {
-            passJson.putExtra("childno", currentChildCount);
+            passJson.putExtra("childno", currentChildCount + 1);
         }
 
         if(view.getId()==R.id.newbornAddButton){
