@@ -82,7 +82,7 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
     private View mPNCLayout;
     Boolean flag=false,mother_flag=false,child_flag=false,child_tree=true;
 
-    private Button pnc_mother,pnc_child,expand;
+    private Button pnc_mother,pnc_child ; //,expand;
     private LinearLayout pnclay_child,pnclay_mother,lay_frag_child;
 
     private LinearLayout lay_frag_mother;
@@ -126,11 +126,11 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
 
         pnc_mother = (Button)findViewById(R.id.pncmother);
         pnc_child = (Button)findViewById(R.id.pncchild);
-        expand = (Button)findViewById(R.id.expandview);
+      //  expand = (Button)findViewById(R.id.expandview);
 
         pnc_mother.setOnClickListener(this);
         pnc_child.setOnClickListener(this);
-        expand.setOnClickListener(this);
+     //   expand.setOnClickListener(this);
 
         child_tree=true;
         childList  = new ArrayList<>(); //childList
@@ -146,9 +146,9 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
         final int width  = mDisplay.getWidth();
         //int width=600;
         int height=100;
-        LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(width,height);
-        lay_frag_mother.setLayoutParams(parms);
-        lay_frag_mother.invalidate();
+        //LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(width,height);
+        //lay_frag_mother.setLayoutParams(parms);
+        //lay_frag_mother.invalidate();
 
         lay_frag_child.setVisibility(View.GONE);
         pnclay_child.setVisibility(View.GONE);
@@ -1142,20 +1142,20 @@ pnc child history
                 mother_flag = false;
             }
         }
-        else if(v.getId() == R.id.expandview){
-            //int width=600;
-            int height=300;
-            Display mDisplay = this.getWindowManager().getDefaultDisplay();
-            final int width  = mDisplay.getWidth();
-            LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(width,height);
-            lay_frag_mother.setLayoutParams(parms);
-            lay_frag_mother.invalidate();
-           // Toast.makeText(con,"done",Toast.LENGTH_LONG).show();
-
-
-
-            //ll.invalidate();
-        }
+//        else if(v.getId() == R.id.expandview){
+//            //int width=600;
+//            int height=300;
+//            Display mDisplay = this.getWindowManager().getDefaultDisplay();
+//            final int width  = mDisplay.getWidth();
+//            LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(width,height);
+//            lay_frag_mother.setLayoutParams(parms);
+//            lay_frag_mother.invalidate();
+//           // Toast.makeText(con,"done",Toast.LENGTH_LONG).show();
+//
+//
+//
+//            //ll.invalidate();
+//        }
         else if(v.getId() == R.id.pncchild){
             lay_frag_mother.setVisibility(View.GONE);
             pnclay_mother.setVisibility(View.GONE);
@@ -1272,5 +1272,9 @@ pnc child history
 
     private void handleChildSelected(int childno) {
         String child = childList.get(childno);
+
+        Log.d("------------------"+childno,"-----------"+child);
+
+
     }
 }
