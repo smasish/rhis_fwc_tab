@@ -87,7 +87,7 @@ public class ExpandableListAdapterforPNC extends BaseExpandableListAdapter {
 		}else if (childPosition == 15 && str.length()<1) {
 			txtListChild.setText("" + _context.getString(R.string.advice));
 		}
-		else if (childPosition == 16) {
+		else if (childPosition == 17) {
 
 			String[] details;
 			Resources res1 = _context.getResources();
@@ -104,9 +104,9 @@ public class ExpandableListAdapterforPNC extends BaseExpandableListAdapter {
 			}
 			txtListChild.setText("" + _context.getString(R.string.referCenterName)+temp);
 		}
-		else if (childPosition == 17 && str.length()>0) {
+		else if (childPosition == 18 && str.length()>0) {
 			txtListChild.setText("" + _context.getString(R.string.referReason) +  _context.getString(R.string.detail));
-		}else if (childPosition == 17 && str.length()<1) {
+		}else if (childPosition == 18 && str.length()<1) {
 			txtListChild.setText("" + _context.getString(R.string.referReason));
 		}
 
@@ -171,7 +171,7 @@ public class ExpandableListAdapterforPNC extends BaseExpandableListAdapter {
 					for (String animal : animals) {
 						System.out.println(animal);
 						if(animal.length()>0)
-							temp = temp+"\n"+details[Integer.parseInt(animal)];
+							temp = temp+"\n"+details[Integer.parseInt(animal)+2];
 					}
 					Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
 
@@ -211,7 +211,10 @@ public class ExpandableListAdapterforPNC extends BaseExpandableListAdapter {
 					if(temp.length()>5)
 						AlertMessage.showMessage(_context, "Details", temp);
 				}
-				else if (childPosition == 17 && childText.length()>2){
+				else if (childPosition == 16){
+
+				}
+				else if (childPosition == 18 && childText.length()>2){
 
 
 					String[] animals = str.split(" ");

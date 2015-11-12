@@ -569,22 +569,134 @@ pnc child history
                     //Log.d("--:::>", "---complicationsign=====>"+jsonStr.get(key));
 
                     ArrayList<String> list = new ArrayList<String>();
+
+                    String[] details;
+                    Resources res1 = con.getResources();
+                    String str1 = "";
+
                     list.add("" + getString(R.string.visitDate) + " " + visitDate);
                     list.add("" + getString(R.string.complicationsign) + " " + symptom);
                     list.add("" + getString(R.string.temperature) + " " + temperature);
-                    list.add("" + getString(R.string.bpSystolic) + " " + bpSystolic);
-                    list.add("" + getString(R.string.anemia) + " " + anemia);
-                    list.add("" + getString(R.string.hemoglobin) + " " + hemoglobin);
-                    list.add("" + getString(R.string.edema) + " " + edema);
-                    list.add("" + getString(R.string.breastCondition) + " " + breastCondition);
-                    list.add("" + getString(R.string.uterusInvolution) + " " + uterusInvolution);
-                    list.add("" + getString(R.string.hematuria) + " " + hematuria);
-                    list.add("" + getString(R.string.perineum) + " " + perineum);
-                    list.add("" + getString(R.string.family_planning_methods) + " " + FPMethod);
+                    list.add("" + getString(R.string.bpSystolic) + " " + bpSystolic+"/"+bpDiastolic);
+
+                    // for anemia value
+                    str1 = "";
+                    str1 = anemia;
+
+                    String[] animals = str1.split(" ");
+                    String temp = "";
+                    details = res1.getStringArray(R.array.pnc_Anemia_Dropdown);
+                    for (String animal : animals) {
+                        System.out.println(animal);
+                        if(animal.length()>0)
+                            temp = temp+"\n"+details[Integer.parseInt(animal)];
+                    }
+                    list.add("" + getString(R.string.anemia) + " " + temp);
+
+
+                    list.add("" + getString(R.string.hemoglobin) + " " + hemoglobin+"%");
+
+
+                    // for edema value
+                    str1 = "";
+                    str1 = edema;
+
+                     animals = str1.split(" ");
+                   temp = "";
+                    details = res1.getStringArray(R.array.Edema_Dropdown);
+                    for (String animal : animals) {
+                        System.out.println(animal);
+                        if(animal.length()>0)
+                            temp = temp+"\n"+details[Integer.parseInt(animal)];
+                    }
+                    list.add("" + getString(R.string.edema) + " " + temp);
+
+                    // for breastCondition value
+                    str1 = "";
+                    str1 = breastCondition;
+
+                     animals = str1.split(" ");
+                     temp = "";
+                    details = res1.getStringArray(R.array.Breast_Condition_DropDown);
+                    for (String animal : animals) {
+                        System.out.println(animal);
+                        if(animal.length()>0)
+                            temp = temp+"\n"+details[Integer.parseInt(animal)];
+                    }
+
+                    list.add("" + getString(R.string.breastCondition) + " " + temp);
+
+                    // for hematuria value
+                    str1 = "";
+                    str1 = uterusInvolution;
+
+                     animals = str1.split(" ");
+                     temp = "";
+                    details = res1.getStringArray(R.array.Cervix_Involution_DropDown);
+                    for (String animal : animals) {
+                        System.out.println(animal);
+                        if(animal.length()>0)
+                            temp = temp+"\n"+details[Integer.parseInt(animal)];
+                    }
+
+                    list.add("" + getString(R.string.uterusInvolution) + " " + temp);
+
+
+                    // for hematuria value
+                    str1 = "";
+                    str1 = hematuria;
+
+                     animals = str1.split(" ");
+                     temp = "";
+                    details = res1.getStringArray(R.array.Discharge_Bleeding_DropDown);
+                    for (String animal : animals) {
+                        System.out.println(animal);
+                        if(animal.length()>0)
+                            temp = temp+"\n"+details[Integer.parseInt(animal)];
+                    }
+
+                    list.add("" + getString(R.string.hematuria) + " " + temp);
+
+
+                       // for perineum value
+                         str1 = "";
+                         str1 = perineum;
+
+
+                        animals = str1.split(" ");
+                        temp = "";
+                        details = res1.getStringArray(R.array.Perineum_DropDown);
+                        for (String animal : animals) {
+                            System.out.println(animal);
+                            if(animal.length()>0)
+                                temp = temp+"\n"+details[Integer.parseInt(animal)];
+                        }
+
+
+                    list.add("" + getString(R.string.perineum) + " " + temp);
+
+                    // for Family_Planning value
+                    str1 = "";
+                    str1 = FPMethod;
+
+                     animals = str1.split(" ");
+                     temp = "";
+                    details = res1.getStringArray(R.array.Family_Planning_Methods_DropDown);
+                    for (String animal : animals) {
+                        System.out.println(animal);
+                        if(animal.length()>0)
+                            temp = temp+"\n"+details[Integer.parseInt(animal)];
+                    }
+
+                    list.add("" + getString(R.string.family_planning_methods) + " " + temp);
                     list.add("" + getString(R.string.danger_signs) + " " + complicationsign);
                     list.add("" + getString(R.string.disease) + " " + disease);
                     list.add("" + getString(R.string.treatment) + " " + treatment);
                     list.add("" + getString(R.string.advice) + " " + advice);
+                    if(Integer.parseInt(refer) == 1)
+                    list.add("" + getString(R.string.refer) + " " + "Yes");
+                    else if(Integer.parseInt(refer) == 2)
+                        list.add("" + getString(R.string.refer) + " " + "No");
                     list.add("" + getString(R.string.referCenterName) + " " + referCenterName);
                     list.add("" + getString(R.string.referReason) + " " + referReason);
 
