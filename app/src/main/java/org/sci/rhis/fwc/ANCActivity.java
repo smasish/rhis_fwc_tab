@@ -326,243 +326,253 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                 System.out.println("1.Key:" + key + " Value:\'" + jsonStr.get(key) + "\'");
 
 
-                if(key.equalsIgnoreCase("ancStatus")){
+                if (key.equalsIgnoreCase("ancStatus")) {
 
-                }else
-                list.add(""+key);
+                    // continue;
+                } else {
+                    //list.add("" + key);
+                    try {
+                        JSONArray jsonArray = jsonStr.getJSONArray(key);
+
+
+                        for (int i = 1; i < jsonArray.length()-1; i++) {
+                            Log.i("--------", "hhhhhh--- is" + jsonArray.get(i).toString());
+                            String det = jsonArray.get(i).toString();
+                            det = det.replaceAll("[^0-9]+", " ");
+                            det = det.trim();
+                            if (i == 2) {
+
+                            } else
+                            if (i == 3) {
+                                list.add("" + mainlist[i-2] + "" + jsonArray.get(i-1).toString() + " / " + jsonArray.get(i).toString());
+                            }
+                            else if(( i == 13|| i == 14 || i == 15 || i == 16 || i == 17|| i == 19) && det.length() >0) {
+                                Log.d("------------->>"+det, ""+i);
+                                list.add("" + mainlist[i - 1] + "" + getString(R.string.detail));
+                            }
+                            else if(( i == 13|| i == 14 || i == 15 || i == 16 || i == 17|| i == 19) && det.length() <1) {
+                                Log.d("------------->>"+det, ""+i);
+                                list.add("" + mainlist[i - 1]);
+                            }
+                            else
+                                list.add("" + mainlist[i-1] + "" + jsonArray.get(i).toString());
+
+                           // list.add("" + key);
+                        }//end for
+                        listDataHeader = new ArrayList<String>();
+                        listDataChild = new HashMap<String, List<String>>();
+
+                        listDataHeader.add("Visit "+jsonArray.get(0).toString() + ":");
+                        listDataChild.put(listDataHeader.get(0), list);
+
+                        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+
+
+//                    LinearLayout.LayoutParams lprams = new LinearLayout.LayoutParams(
+//                            LinearLayout.LayoutParams.WRAP_CONTENT,
+//                            LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                        // ((ViewGroup) lprams.getParent()).removeView(lprams);
+
+                        //initPage();
+
+//            for(int i =0;i<list.size();i++) {
+//                JSONArray jsonArray = null;
 //                try {
-//                    JSONArray jsonArray = jsonStr.getJSONArray(key);
-
-//                    for (int i = 1; i < jsonArray.length(); i++) {
-
-//                        if(i == 2){
+//                     jsonArray = jsonStr.getJSONArray(list.get(i));
+//                int k = Integer.parseInt(jsonArray.get(0).toString());
+//                Button btn = new Button(this);
+//                btn.setId(k + 1);
+//                btn.setText("Visit" + (i + 1)+"/Date: "+jsonArray.get(1).toString());
+//                btn.setLayoutParams(lprams);
+//                //ll.addView(btn);
+//                final int in = i+1;
+//                btn.setOnClickListener(new OnClickListener() {
+//                    public void onClick(View v) {
+//                        Log.i("TAG", "The index is" + in);
 //
-//                        }else if(i==3){
-//                            list.add(""+mainlist[i]+""+jsonArray.get(i-1).toString()+" / "+jsonArray.get(i).toString());
-//                        }else
-                        //   list.add(""+mainlist[i]+""+jsonArray.get(i).toString());
-
-                        //  list.add(""+key);
- //                   }//end for
-                    listDataHeader = new ArrayList<String>();
-                    listDataChild = new HashMap<String, List<String>>();
-                }
-
-
-
-
-                    LinearLayout.LayoutParams lprams = new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.WRAP_CONTENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT);
-
-           // ((ViewGroup) lprams.getParent()).removeView(lprams);
-
-                    initPage();
-
-            for(int i =0;i<list.size();i++) {
-                JSONArray jsonArray = null;
-                try {
-                     jsonArray = jsonStr.getJSONArray(list.get(i));
-                int k = Integer.parseInt(jsonArray.get(0).toString());
-                Button btn = new Button(this);
-                btn.setId(k + 1);
-                btn.setText("Visit" + (i + 1)+"/Date: "+jsonArray.get(1).toString());
-                btn.setLayoutParams(lprams);
-                //ll.addView(btn);
-                final int in = i+1;
-                btn.setOnClickListener(new OnClickListener() {
-                    public void onClick(View v) {
-                        Log.i("TAG", "The index is" + in);
-
-
-                        try {
-                            json_Array = jsonStr.getJSONArray(list.get(in-1));
-
-                            list1 = new ArrayList<String>();
-                            for (int i = 1; i < json_Array.length()-1; i++) {
-                                String det = json_Array.get(i).toString();
-                                if(i == 2){
-                                    list1.add(""+mainlist[i-1]+"" +json_Array.get(i).toString()+" / "+json_Array.get(i+1).toString());
-                                }else if(i==3){
-
-                                }
-
-                               else if(( i == 13|| i == 14 || i == 15 || i == 16 || i == 17|| i == 19) && det.length() >4) {
-                                    Log.d("------------->>"+det, ""+i);
-                                    list1.add("" + mainlist[i - 1] + "" + getString(R.string.detail));
-                                }
-                                else if(( i == 13|| i == 14 || i == 15 || i == 16 || i == 17) && det.length() >0) {
-                                    Log.d("------------->>"+det, ""+i);
-                                    list1.add("" + mainlist[i - 1]);
-                                }
-                                else
-                                 list1.add(""+mainlist[i-1]+"" + json_Array.get(i).toString());
-
-
-                            }//end
-
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(ANCActivity.this,
-                                    android.R.layout.simple_list_item_1, android.R.id.text1, list1);
-
-                            listView.setAdapter(adapter);
-                            listView.setVisibility(View.VISIBLE);
-
-                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                                @Override
-                                public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                                        long arg3) {
-                                    // TODO Auto-generated method stub
-                                    Log.d("******arg2********. " + list1.get(arg2), "--v--" + arg2);
-                                    //Toast.makeText(con,""+list1.get(arg2), Toast.LENGTH_SHORT).show();
-                                    //Intent i = new Intent(UserListActivity.this, ChangepassActivity.class);
-                                    //i.putExtra("no", "" + arg2);
-                                   // startActivity(i);
-                                    String str = null;
-
-                                    str = ""+list1.get(arg2);
-                                    Resources res1 = getResources();
-                                    Log.d("----------lenth---||" + str, "" + str.length());
-//                                    try {
-//                                        str = ""+json_Array.get(arg2).toString();
-//                                        Log.d("----------lenth---||" + str, "" + str.length());
-//                                    } catch (JSONException e) {
-//                                        e.printStackTrace();
+//
+//                        try {
+//                            json_Array = jsonStr.getJSONArray(list.get(in-1));
+//
+//                            list1 = new ArrayList<String>();
+//                            for (int i = 1; i < json_Array.length()-1; i++) {
+//                                String det = json_Array.get(i).toString();
+//                                if(i == 2){
+//                                    list1.add(""+mainlist[i-1]+"" +json_Array.get(i).toString()+" / "+json_Array.get(i+1).toString());
+//                                }else if(i==3){
+//
+//                                }
+//
+//                               else if(( i == 13|| i == 14 || i == 15 || i == 16 || i == 17|| i == 19) && det.length() >4) {
+//                                    Log.d("------------->>"+det, ""+i);
+//                                    list1.add("" + mainlist[i - 1] + "" + getString(R.string.detail));
+//                                }
+//                                else if(( i == 13|| i == 14 || i == 15 || i == 16 || i == 17) && det.length() >0) {
+//                                    Log.d("------------->>"+det, ""+i);
+//                                    list1.add("" + mainlist[i - 1]);
+//                                }
+//                                else
+//                                 list1.add(""+mainlist[i-1]+"" + json_Array.get(i).toString());
+//
+//
+//                            }//end
+//
+//                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(ANCActivity.this,
+//                                    android.R.layout.simple_list_item_1, android.R.id.text1, list1);
+//
+//                            listView.setAdapter(adapter);
+//                            listView.setVisibility(View.VISIBLE);
+//
+//                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//
+//                                @Override
+//                                public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+//                                                        long arg3) {
+//                                    // TODO Auto-generated method stub
+//                                    Log.d("******arg2********. " + list1.get(arg2), "--v--" + arg2);
+//                                    //Toast.makeText(con,""+list1.get(arg2), Toast.LENGTH_SHORT).show();
+//                                    //Intent i = new Intent(UserListActivity.this, ChangepassActivity.class);
+//                                    //i.putExtra("no", "" + arg2);
+//                                   // startActivity(i);
+//                                    String str = null;
+//
+//                                    str = ""+list1.get(arg2);
+//                                    Resources res1 = getResources();
+//                                    Log.d("----------lenth---||" + str, "" + str.length());
+//
+//
+//                                    if(arg2 == 12 && str.length()>4) {
+//                                        str = parseString(arg2 + 1);
+//                                        Log.d("-------------||" + str, "" + str.trim().split(" "));
+//                                        String[] animals = str.split(" ");
+//                                        String temp = "";
+//                                        details = res1.getStringArray(R.array.ANC_Danger_Sign_DropDown);
+//                                        for (String animal : animals) {
+//                                            System.out.println(animal);
+//                                            if(animal.length()>0)
+//                                                temp = temp+"\n"+details[Integer.parseInt(animal)-1];
+//                                        }
+//                                        Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
+//                                        //System.out.println(Arrays.asList(s.trim().split(" ")));
+//                                        if(temp.length()>5)
+//                                        AlertMessage.showMessage(con, "Details", temp);
 //                                    }
-
-                                    if(arg2 == 12 && str.length()>4) {
-                                        str = parseString(arg2 + 1);
-                                        Log.d("-------------||" + str, "" + str.trim().split(" "));
-                                        String[] animals = str.split(" ");
-                                        String temp = "";
-                                        details = res1.getStringArray(R.array.ANC_Danger_Sign_DropDown);
-                                        for (String animal : animals) {
-                                            System.out.println(animal);
-                                            if(animal.length()>0)
-                                                temp = temp+"\n"+details[Integer.parseInt(animal)-1];
-                                        }
-                                        Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
-                                        //System.out.println(Arrays.asList(s.trim().split(" ")));
-                                        if(temp.length()>5)
-                                        AlertMessage.showMessage(con, "Details", temp);
-                                    }
-                                    else if(arg2 == 13 && str.length()>4) {
-
-                                        str = parseString(arg2 + 1);
-
-                                        String[] animals = str.split(" ");
-                                        String temp = "";
-                                        details = res1.getStringArray(R.array.ANC_Drawback_DropDown);
-                                        for (String animal : animals) {
-                                            System.out.println(animal);
-                                            if(animal.length()>0)
-                                                temp = temp+"\n"+details[Integer.parseInt(animal)-1];
-                                        }
-                                        Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
-
-                                        if(temp.length()>5)
-                                        AlertMessage.showMessage(con, "Details", temp);
-
-
-                                    }else if(arg2 == 14 && str.length()>4) {
-                                        str = parseString(arg2 + 1);
-
-                                        String[] animals = str.split(" ");
-                                        String temp = "";
-                                        details = res1.getStringArray(R.array.ANC_Disease_DropDown);
-                                        for (String animal : animals) {
-                                            System.out.println(animal);
-                                            if (animal.length() > 0)
-                                                temp = temp + "\n" + details[Integer.parseInt(animal) - 1];
-                                        }
-                                        Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
-
-                                        if(temp.length()>5)
-                                        AlertMessage.showMessage(con, "Details", temp);
-                                    }
-                                    else if(arg2 == 15 && str.length()>4) {
-                                        str = parseString(arg2 + 1);
-
-                                        String[] animals = str.split(" ");
-                                        String temp = "";
-                                        details = res1.getStringArray(R.array.Treatment_DropDown);
-                                        for (String animal : animals) {
-                                            System.out.println(animal);
-                                            if(animal.length()>0)
-                                                temp = temp+"\n"+details[Integer.parseInt(animal)-1];
-                                        }
-                                        Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
-
-                                        if(temp.length()>5)
-                                        AlertMessage.showMessage(con, "Details", temp);
-
-                                    }
-                                    else if(arg2 == 16 && str.length()>4) {
-                                        str = parseString(arg2 + 1);
-
-                                        String[] animals = str.split(" ");
-                                        String temp = "";
-                                        details = res1.getStringArray(R.array.ANC_Advice_DropDown);
-                                        for (String animal : animals) {
-                                            System.out.println(animal);
-                                            if(animal.length()>0)
-                                                temp = temp+"\n"+details[Integer.parseInt(animal)-1];
-                                        }
-                                        Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
-
-                                        if(temp.length()>5)
-                                        AlertMessage.showMessage(con, "Details", temp);
-
-                                    }
-
-                                    else if(arg2 == 19 && str.length()>4) {
-                                        str = parseString(arg2 + 1);
-
-                                        String[] animals = str.split(" ");
-                                        String temp = "";
-                                        details = res1.getStringArray(R.array.ANC_Refer_Reason_DropDown);
-                                        for (String animal : animals) {
-                                            System.out.println(animal);
-                                            if(animal.length()>0)
-                                                temp = temp+"\n"+details[Integer.parseInt(animal)-1];
-                                        }
-                                        Log.d("oooooooooo17+++" + str, "" + str.trim().split(" "));
-
-                                        if(temp.length()>5)
-                                            AlertMessage.showMessage(con, "Details", temp);
-
-                                    }
-
-
-
-                                }
-                            });
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+//                                    else if(arg2 == 13 && str.length()>4) {
+//
+//                                        str = parseString(arg2 + 1);
+//
+//                                        String[] animals = str.split(" ");
+//                                        String temp = "";
+//                                        details = res1.getStringArray(R.array.ANC_Drawback_DropDown);
+//                                        for (String animal : animals) {
+//                                            System.out.println(animal);
+//                                            if(animal.length()>0)
+//                                                temp = temp+"\n"+details[Integer.parseInt(animal)-1];
+//                                        }
+//                                        Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
+//
+//                                        if(temp.length()>5)
+//                                        AlertMessage.showMessage(con, "Details", temp);
+//
+//
+//                                    }else if(arg2 == 14 && str.length()>4) {
+//                                        str = parseString(arg2 + 1);
+//
+//                                        String[] animals = str.split(" ");
+//                                        String temp = "";
+//                                        details = res1.getStringArray(R.array.ANC_Disease_DropDown);
+//                                        for (String animal : animals) {
+//                                            System.out.println(animal);
+//                                            if (animal.length() > 0)
+//                                                temp = temp + "\n" + details[Integer.parseInt(animal) - 1];
+//                                        }
+//                                        Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
+//
+//                                        if(temp.length()>5)
+//                                        AlertMessage.showMessage(con, "Details", temp);
+//                                    }
+//                                    else if(arg2 == 15 && str.length()>4) {
+//                                        str = parseString(arg2 + 1);
+//
+//                                        String[] animals = str.split(" ");
+//                                        String temp = "";
+//                                        details = res1.getStringArray(R.array.Treatment_DropDown);
+//                                        for (String animal : animals) {
+//                                            System.out.println(animal);
+//                                            if(animal.length()>0)
+//                                                temp = temp+"\n"+details[Integer.parseInt(animal)-1];
+//                                        }
+//                                        Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
+//
+//                                        if(temp.length()>5)
+//                                        AlertMessage.showMessage(con, "Details", temp);
+//
+//                                    }
+//                                    else if(arg2 == 16 && str.length()>4) {
+//                                        str = parseString(arg2 + 1);
+//
+//                                        String[] animals = str.split(" ");
+//                                        String temp = "";
+//                                        details = res1.getStringArray(R.array.ANC_Advice_DropDown);
+//                                        for (String animal : animals) {
+//                                            System.out.println(animal);
+//                                            if(animal.length()>0)
+//                                                temp = temp+"\n"+details[Integer.parseInt(animal)-1];
+//                                        }
+//                                        Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
+//
+//                                        if(temp.length()>5)
+//                                        AlertMessage.showMessage(con, "Details", temp);
+//
+//                                    }
+//
+//                                    else if(arg2 == 19 && str.length()>4) {
+//                                        str = parseString(arg2 + 1);
+//
+//                                        String[] animals = str.split(" ");
+//                                        String temp = "";
+//                                        details = res1.getStringArray(R.array.ANC_Refer_Reason_DropDown);
+//                                        for (String animal : animals) {
+//                                            System.out.println(animal);
+//                                            if(animal.length()>0)
+//                                                temp = temp+"\n"+details[Integer.parseInt(animal)-1];
+//                                        }
+//                                        Log.d("oooooooooo17+++" + str, "" + str.trim().split(" "));
+//
+//                                        if(temp.length()>5)
+//                                            AlertMessage.showMessage(con, "Details", temp);
+//
+//                                    }
+//
+//
+//
+//                                }
+//                            });
+//
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//
+//                    }
+//                });
+                        // ll.addView(btn);
+                        ll.addView(expListView);
+                        expListView.setScrollingCacheEnabled(true);
+                        expListView.setAdapter(listAdapter);
 
 
+                        ll.invalidate();
+                        //  expListView.setAdapter(listAdapter);
+
+
+                    } catch (JSONException e) {
+                        Log.e("::::", "onPostExecute > Try > JSONException => " + e);
+                        e.printStackTrace();
                     }
-                });
-                ll.addView(btn);
-                // ll.addView(expListView);
-               // expListView.setScrollingCacheEnabled(true);
-                // expListView.setAdapter(listAdapter);
-
-
-                ll.invalidate();
-              //  expListView.setAdapter(listAdapter);
-
-
-
-
-                } catch (JSONException e) {
-                    Log.e("::::", "onPostExecute > Try > JSONException => " + e);
-                    e.printStackTrace();
                 }
             }
-
 
         } catch (JSONException jse) {
             System.out.println("JSON Exception Thrown::\n " );

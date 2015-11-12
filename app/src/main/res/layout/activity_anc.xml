@@ -35,9 +35,9 @@
         android:name="org.sci.rhis.fwc.ANCActivityFragment"
         tools:layout="@layout/fragment_anchistory"
         android:layout_width="wrap_content"
-        android:layout_height="80dp" />
+        android:layout_height="280dp" />
 
-        <Button
+       <!-- <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -50,7 +50,7 @@
             android:layout_marginLeft="3dp"
             android:layout_marginBottom="2dp"
             android:layout_centerVertical="true"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal" />-->
 
 </LinearLayout>
 
