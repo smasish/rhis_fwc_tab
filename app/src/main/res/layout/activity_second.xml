@@ -206,12 +206,13 @@
             android:onClick="startPNC"/>
     </LinearLayout>   -->
     <TableLayout
-        android:id="@+id/tabla_Layout"
+        android:id="@+id/table_Layout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
         style="@style/rowStyle0"
-        android:background="@drawable/fragmentborder">
+        android:background="@drawable/fragmentborder"
+        android:visibility="gone">
     <TableRow
         android:id="@+id/tableRow1"
         android:layout_width="match_parent"

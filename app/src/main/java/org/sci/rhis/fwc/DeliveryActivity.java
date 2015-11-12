@@ -89,6 +89,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
 
         initialize(); //super class
+        childList  = new ArrayList<>(); //childList
         Spinner spinners[] = new Spinner[3];
         spinners[0] = (Spinner) findViewById(R.id.delivery_placeDropdown);
         spinners[1] = (Spinner) findViewById(R.id.id_facility_name_Dropdown);
@@ -248,16 +249,11 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     {
         if (buttonView.getId() == R.id.id_delivery_refer) {
             int visibility = isChecked? View.VISIBLE: View.GONE;
-            getTextView(R.id.id_refer_facility_name).setVisibility(visibility);
-            getSpinner(R.id.id_spinner_refer_facilities).setVisibility(visibility);
-            getTextView(R.id.id_refer_delivery_cause).setVisibility(visibility);
-            getSpinner(R.id.id_spinner_refer_delivery_cause).setVisibility(visibility);
+            int layouts[] = {R.id.reason, R.id.id_referCenterDetails};
 
-            if(!isChecked)
-            getTextView(R.id.id_refer_facility_name).setText("");
-            getSpinner(R.id.id_spinner_refer_facilities).setSelection(0);
-            getTextView(R.id.id_refer_delivery_cause).setText("");
-            getSpinner(R.id.id_spinner_refer_delivery_cause).setSelection(0);
+            for(int i = 0 ; i < layouts.length; i++) {
+                Utilities.SetVisibility(this, layouts[i],visibility);
+            }
         }
     }
 
@@ -278,7 +274,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         if(passJson.hasExtra("NewbornJson")) { //when adding new child remove the reference of the old
             passJson.removeExtra("NewbornJson");
         } else {
-            passJson.putExtra("childno", currentChildCount);
+            passJson.putExtra("childno", currentChildCount + 1);
         }
 
         if(view.getId()==R.id.newbornAddButton){
@@ -290,7 +286,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 passJson.putExtra("PregWoman", mother);
                 passJson.putExtra("Provider", ProviderInfo.getProvider());
                 Log.d(LOGTAG, dJson.toString());
-                startActivity(passJson);
+                startActivityForResult(passJson, ActivityResultCodes.NEWBORN_ACTIVITY);
             } else {
                 Toast.makeText(this, "Newborn cannot be added, verify ...", Toast.LENGTH_LONG).show();
             }
@@ -304,7 +300,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 passJson.putExtra("PregWoman", mother);
                 passJson.putExtra("Provider", ProviderInfo.getProvider());
                 Log.d(LOGTAG, dJson.toString());
-                startActivity(passJson);
+                startActivityForResult(passJson, ActivityResultCodes.NEWBORN_ACTIVITY);
             } else {
                 Toast.makeText(this, "Too Late for PNC, verify ...", Toast.LENGTH_LONG).show();
             }
@@ -318,9 +314,19 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 passJson.putExtra("PregWoman", mother);
                 passJson.putExtra("Provider", ProviderInfo.getProvider());
                 Log.d(LOGTAG, dJson.toString());
-                startActivity(passJson);
+                startActivityForResult(passJson, ActivityResultCodes.NEWBORN_ACTIVITY);
             } else {
                 Toast.makeText(this, "Too Late for PNC, verify ...", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ActivityResultCodes.NEWBORN_ACTIVITY) {
+            if(data.hasExtra("ReloadNewborn") && data.getBooleanExtra("ReloadNewborn", false)) {
+                getExistingChild();
             }
         }
     }
@@ -590,7 +596,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             passJson.putExtra("Provider", ProviderInfo.getProvider());
             Log.d(LOGTAG, dJson.toString());
 
-            startActivity(passJson);
+            startActivityForResult(passJson, ActivityResultCodes.NEWBORN_ACTIVITY);
         } else {
             Toast.makeText(this, "Newborn cannot be added, verify ...", Toast.LENGTH_LONG).show();
         }
@@ -603,7 +609,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             if (childJson.has("hasNewbornInfo") &&
                 childJson.getString("hasNewbornInfo").equals("Yes") ) {
                 Spinner childDropdown = getSpinner(R.id.id_childListDropdown);
-                childList  = new ArrayList<>();
+                childList.clear();
                 childDropdown.setVisibility(View.VISIBLE);
                 //childDropdown.setAdapter();
                 currentChildCount = childJson.getInt("count");

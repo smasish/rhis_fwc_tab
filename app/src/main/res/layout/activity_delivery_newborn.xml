@@ -8,7 +8,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="fill_parent"
     android:layout_marginTop="10dp"
     android:paddingBottom="10dp"
     android:orientation="vertical"
@@ -56,7 +56,7 @@
                 android:textSize="20dp"
                 android:layout_width="40dp"
                 android:layout_height="50px"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:visibility="visible"/>
             <EditText
                 android:id="@+id/deliveryNewBornConditionValue"
@@ -187,7 +187,8 @@
             android:orientation="horizontal"
             android:layout_centerVertical="true"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:visibility="gone">
             <CheckBox
                 android:id="@+id/stimulation"
                 android:text="@string/stimulation"
@@ -222,7 +223,7 @@
                 android:textColor="@color/text_color"/>
             <EditText
                 android:id="@+id/deliveryNewBornWeightValue"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:textSize="20dp"
                 android:layout_width="40dp"
                 android:layout_height="50px"
@@ -316,7 +317,13 @@
                 android:layout_marginTop="10dp"
                 android:textColor="@color/title_color" />
         </LinearLayout>
-        <LinearLayout android:id="@+id/deliveryChildReferCenterName" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+        <LinearLayout
+            android:id="@+id/deliveryChildReferCenterName"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_centerVertical="true"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
             <TextView
                 android:id="@+id/deliveryChildReferCenterNameLabel"
                 android:text="@string/center_name"

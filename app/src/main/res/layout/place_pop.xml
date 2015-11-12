@@ -34,6 +34,7 @@
         android:textSize="18sp"
         android:textColor="@color/text_color"
         android:layout_gravity="center_horizontal"
+        android:visibility="gone"
         />
 
     <RadioGroup

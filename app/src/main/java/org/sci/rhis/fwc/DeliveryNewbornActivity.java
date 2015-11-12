@@ -103,10 +103,16 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         multiSelectionSpinner.setSelection(new int[]{});
 
         getCheckbox(R.id.deliveryChildReferCheckBox).setOnCheckedChangeListener(this);
-
+        getRadioGroup(R.id.id_newBornResasscitationRadioGroup).setOnCheckedChangeListener(
+            new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    handleRadioButton(group, checkedId);
+                }
+        });
         //create the mother
-        mother = getIntent().getParcelableExtra("PregWoman");
-        provider = getIntent().getParcelableExtra("Provider");
+        mother = intent.getParcelableExtra("PregWoman");
+        provider = intent.getParcelableExtra("Provider");
 
         try {
             deliveryJsonObj = new JSONObject(str);
@@ -119,14 +125,20 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
         try {
 
-            if(getIntent().hasExtra("NewbornJson")) { //check if new bron info is given
+            if(intent.hasExtra("NewbornJson")) { //check if new bron info is given
                 Log.d(LOGTAG, "Restoring Child Info");
                 restoreNewbornFromJSON(new JSONObject(getIntent().getStringExtra("NewbornJson")));
 
-            } else { //retrieve it from net
+            } else {
+                if(intent.hasExtra("childno")){ //check if new bron info is given
+                    int childno = intent.getIntExtra("childno", 0);
+                    jsonEditTextMap.get("childno").setText(String.valueOf(childno));
+                }
+                //retrieve it from net
                 //Get the existing information
                 Utilities.Enable(this, R.id.DeliveryNewBornLayout);
                 newbornInfoQueryTask = new AsyncNewbornInfoUpdate(this);
+                Utilities.Disable(this, R.id.deliveryNewBornNo);
 
                 JSONObject jso = buildQueryHeader(true);
                 newbornInfoQueryTask.execute(jso.toString(), SERVLET, ROOTKEY);
@@ -179,6 +191,11 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
     @Override
     public void callbackAsyncTask(String result) {
+        Intent intent = new Intent();
+        intent.putExtra("ReloadNewborn", true);
+        setResult(RESULT_OK, intent);
+        finishActivity(ActivityResultCodes.NEWBORN_ACTIVITY);
+        finish();
         //TODO - We may not need this
         if(true) {
             return;
@@ -229,7 +246,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         // for New born layout
         jsonEditTextMap.put("childno",  getEditText(R.id.deliveryNewBornNo));
         jsonEditTextMap.put("birthStatus", getEditText(R.id.deliveryNewBornConditionValue));
-        jsonEditTextMap.put("weight",getEditText(R.id.deliveryNewBornWeightValue));
+        jsonEditTextMap.put("weight", getEditText(R.id.deliveryNewBornWeightValue));
     }
 
     @Override
@@ -316,10 +333,11 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
         if (buttonView.getId() == R.id.deliveryChildReferCheckBox) {
             int visibility = isChecked? View.VISIBLE: View.INVISIBLE;
-            getTextView(R.id.deliveryChildReferCenterNameLabel).setVisibility(visibility);
-            getSpinner(R.id.deliveryChildReferCenterNameSpinner).setVisibility(visibility);
-            getTextView(R.id.deliveryChildReferReasonLabel).setVisibility(visibility);
-            getSpinner(R.id.deliveryChildReferReasonSpinner).setVisibility(visibility);
+            int layouts[] = {R.id.deliveryChildReferCenterName, R.id.deliveryChildReferReason};
+
+            for(int i = 0 ; i < layouts.length; i++) {
+                Utilities.SetVisibility(this, layouts[i],visibility);
+            }
         }
     }
 
@@ -330,6 +348,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
             Toast.makeText(this, "Newborn Saved Successfully", Toast.LENGTH_LONG).show();
             Log.e("Newborn", "Saved Newborn Successfully?");
         } else if (v.getId() == R.id.id_OkNewbornButton) {
+            finishActivity(ActivityResultCodes.NEWBORN_ACTIVITY);
             finish();
         }
     }
@@ -342,6 +361,18 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    private void handleRadioButton(RadioGroup group, int checkedId) {
+        if(checkedId == R.id.deliveryResastationYesButton) {
+            Utilities.VisibleLayout(this, R.id.StimulationBagNMask);
+            getCheckbox(R.id.stimulation).setChecked(true);
+            getCheckbox(R.id.bag_n_mask).setChecked(false);
+        } else if (checkedId == R.id.deliveryResastationNoButton) {
+            Utilities.InVisibleLayout(this, R.id.StimulationBagNMask);
+            getCheckbox(R.id.stimulation).setChecked(false);
+            getCheckbox(R.id.bag_n_mask).setChecked(false);
+        }
     }
     private void newbornSaveToJson() {
 
