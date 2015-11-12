@@ -338,7 +338,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             intent.putExtra("Provider", ProviderInfo.getProvider());
             startActivity(intent);
         } else {
-            Toast.makeText(this, "Too Late for PNC, verify ...", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Client is not eligible for PNC \nPlease check other info first", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -574,6 +574,13 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
         } catch (JSONException jse) {
 
+        }
+    }
+
+    private void handleAddNewPregnancy(View view) {
+        if(woman != null) {
+            woman = null;
+            resetFields(view);
         }
     }
 

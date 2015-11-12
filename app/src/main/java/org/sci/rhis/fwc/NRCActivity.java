@@ -3,6 +3,7 @@ package org.sci.rhis.fwc;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.text.InputFilter;
 import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
@@ -25,6 +26,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 public class NRCActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
                                                                     View.OnClickListener,
@@ -295,8 +297,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
 
     private void getSpecialCases(JSONObject json) throws JSONException{
         String key = "gender";
-
-        json.put(key, getSpinner(jsonSpinnerMap.get(key).getSelectedItemPosition()+1));
+        json.put(key, jsonSpinnerMap.get(key).getSelectedItemPosition()+1);
     }
     //Method that will parse the JSON file and will return a JSONObject
     public JSONObject parseJSONData() {
@@ -387,6 +388,10 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         jsonEditTextMap.put("mothername", getEditText(R.id.Clients_Mother));
         jsonEditTextMap.put("hhgrholdingno", getEditText(R.id.Clients_House_No));
         jsonEditTextMap.put("cellno", getEditText(R.id.NrcClients_Mobile_no));
+
+        for(Map.Entry<String, EditText> edit : jsonEditTextMap.entrySet()) {
+            edit.getValue().setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        }
     }
 
     @Override

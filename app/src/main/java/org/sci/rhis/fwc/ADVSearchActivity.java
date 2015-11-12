@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.text.InputFilter;
 import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
@@ -390,6 +391,7 @@ private  int unionMapping(){
     @Override
     protected void initiateEditTexts() {
         jsonEditTextMap.put("name", getEditText(R.id.advClient_name));
+        getEditText(R.id.advClient_name).setFilters(new InputFilter[]{new InputFilter.AllCaps()});
     }
 
     @Override

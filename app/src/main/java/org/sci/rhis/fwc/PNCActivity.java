@@ -519,11 +519,21 @@ pnc child history
 
     @Override
     public void callbackAsyncTask(String result) {
+
+
         Log.d("PNC", "Handle Mother:\n" + result);
 
             try {
                 JSONObject jsonStr = new JSONObject(result);
                 String key;
+
+                //Check if eligible for new PNC
+                if(jsonStr.has("pncStatus") &&
+                        !jsonStr.getBoolean("pncStatus")) {
+                    Utilities.MakeInvisible(this, R.id.pncMotherInfo);
+                    Toast.makeText(this, "Mother is not eligible for new ANC",Toast.LENGTH_LONG).show();
+                }
+                //
 
                 int in=1;
 

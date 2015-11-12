@@ -37,12 +37,30 @@ public class Utilities {
     public final static int SPINNER_INDEX_OFFSET = 0; //no offset is required
     private final static String LOGTAG = "FWC-UTILITIES";
 
+    public static void SetVisibility(Activity activity, int id, int visibity) {
+        switch (visibity) {
+            case View.VISIBLE:
+                MakeVisible(activity, id);
+                break;
+            case View.INVISIBLE:
+            case View.GONE:
+                Reset(activity, id);
+                MakeInvisible(activity, id);
+                break;
+        }
+    }
     // This method added by Al Amin on 10/09/2015 (dd/MM/yyyy)
     public static void Disable(Activity activity, int id) {
 
-        ViewGroup testgroup = (ViewGroup)activity.findViewById(id);
-        for(int i = 0, count = testgroup != null ? testgroup.getChildCount(): 0; i <count; i++) {
-            View view = testgroup.getChildAt(i);
+        ViewGroup testgroup = null;
+        View view  = activity.findViewById(id);
+        if(view instanceof ViewGroup) { //if not a layout but single button is passed
+            testgroup  = (ViewGroup) view;
+        }
+
+        for( int i = 0, count = testgroup != null ? testgroup.getChildCount(): 1; //if not a viewgroup only 1 item
+             i <count && view != null; i++) {
+            view = testgroup != null ? testgroup.getChildAt(i) : view;
 
             if(view instanceof LinearLayout) {
                 Disable(activity, view.getId());
@@ -100,13 +118,42 @@ public class Utilities {
 
     public static void MakeInvisible(Activity activity, int id)
     {
-        ViewGroup visibility = (ViewGroup)activity.findViewById(id);
-        visibility.setVisibility(View.GONE);
+        ViewGroup testgroup = null;
+        View view  = activity.findViewById(id);
+        if(view instanceof ViewGroup) { //if not a layout but single button is passed
+            testgroup  = (ViewGroup) view;
+        }
+
+        for( int i = 0, count = testgroup != null ? testgroup.getChildCount(): 1; //if not a viewgroup only 1 item
+             i <count && view != null; i++) {
+            view = testgroup != null ? testgroup.getChildAt(i) : view;
+
+            if(view instanceof LinearLayout) {
+                Enable(activity, view.getId());
+            } else {
+                view.setVisibility(View.GONE);
+            }
+        }
+        /////
     }
     public static void MakeVisible(Activity activity, int id)
     {
-        ViewGroup visibility = (ViewGroup)activity.findViewById(id);
-        visibility.setVisibility(View.VISIBLE);
+        ViewGroup testgroup = null;
+        View view  = activity.findViewById(id);
+        if(view instanceof ViewGroup) { //if not a layout but single button is passed
+            testgroup  = (ViewGroup) view;
+        }
+
+        for( int i = 0, count = testgroup != null ? testgroup.getChildCount(): 1; //if not a viewgroup only 1 item
+             i <count && view != null; i++) {
+            view = testgroup != null ? testgroup.getChildAt(i) : view;
+
+            if(view instanceof LinearLayout) {
+                Enable(activity, view.getId());
+            } else {
+                view.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     public static void VisibleButton(Activity activity,int id)
@@ -149,12 +196,18 @@ public class Utilities {
                 view.setClickable(true);
                 view.setEnabled(true);
             }
+            else if (view instanceof MultiSelectionSpinner) {
+
+                (view).setClickable(true);
+                (view).setEnabled(true);
+                ((MultiSelectionSpinner) view).setSelection(new int[]{});
+            }
             else if (view instanceof Spinner) {
 
                 (view).setClickable(true);
                 (view).setEnabled(true);
+                ((Spinner) view).setSelection(0);
             }
-
             else if (view instanceof RadioButton) {
 
                 ((RadioButton) view).setChecked(false);
@@ -200,9 +253,15 @@ public class Utilities {
 
     public static void Enable(Activity activity, int id) {
 
-        ViewGroup testgroup = (ViewGroup)activity.findViewById(id);
-        for(int i = 0, count = testgroup != null ? testgroup.getChildCount(): 0; i <count; i++) {
-            View view = testgroup.getChildAt(i);
+        ViewGroup testgroup = null;
+        View view  = activity.findViewById(id);
+        if(view instanceof ViewGroup) { //if not a layout but single button is passed
+            testgroup  = (ViewGroup) view;
+        }
+
+        for( int i = 0, count = testgroup != null ? testgroup.getChildCount(): 1; //if not a viewgroup only 1 item
+             i <count && view != null; i++) {
+             view = testgroup != null ? testgroup.getChildAt(i) : view;
 
             if(view instanceof LinearLayout) {
                 Enable(activity, view.getId());

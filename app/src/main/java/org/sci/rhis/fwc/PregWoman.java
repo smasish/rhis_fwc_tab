@@ -32,6 +32,7 @@ public class PregWoman extends GeneralPerson implements Parcelable{
     private String bloodGroup;
     private String historyComplicated;
     private String historyContent;
+    private int hasDeliveryInfo;
     private DateFormat df;
     private Calendar edd_cal;
     private Calendar lmp_cal;
@@ -68,6 +69,7 @@ public class PregWoman extends GeneralPerson implements Parcelable{
         dest.writeLong(getHealthId());
         dest.writeString(df.format(lmp));
         dest.writeInt(getPregNo());
+        dest.writeInt(hasDeliveryInfo());
     }
 
     public static final Parcelable.Creator<PregWoman> CREATOR= new Parcelable.Creator<PregWoman>() {
@@ -106,6 +108,7 @@ public class PregWoman extends GeneralPerson implements Parcelable{
             pe.printStackTrace();
         }
         setPregNo(data.readInt()); //pregnancyNo
+        setHasDeliveryInfo(data.readInt());
         UpdateEdd();
     }
 
@@ -142,7 +145,7 @@ public class PregWoman extends GeneralPerson implements Parcelable{
 
     //default
     public PregWoman() {
-        super("","",0,"F");
+        super("", "", 0, "F");
     }
 
     //create from JSON
@@ -161,7 +164,8 @@ public class PregWoman extends GeneralPerson implements Parcelable{
                         clientInfo.getInt("cHeight"),
                         clientInfo.getString("cBloodGroup"),
                         clientInfo.getString("cHistoryComplicated"),
-                        clientInfo.getString("cHistoryComplicatedContent")
+                        clientInfo.getString("cHistoryComplicatedContent"),
+                        clientInfo.getString("hasDeliveryInformation")
                     );
         } catch (JSONException JSE) {
             System.out.println("JSON Exception:");
@@ -190,7 +194,8 @@ public class PregWoman extends GeneralPerson implements Parcelable{
                     int    _height,
                     String _bloodGroup,
                     String _historyComplicated,
-                    String _historyContent
+                    String _historyContent,
+                    String _hasDeliveryInfo
                     ) {
         df = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -210,6 +215,7 @@ public class PregWoman extends GeneralPerson implements Parcelable{
         bloodGroup =_bloodGroup;
         historyComplicated = _historyComplicated;
         historyContent = _historyContent;
+        hasDeliveryInfo = (_hasDeliveryInfo.equals("Yes") ? 1: 0);
 
         this.pregNo = pregNo;
     }
@@ -269,8 +275,12 @@ public class PregWoman extends GeneralPerson implements Parcelable{
                 break;
 
             case PNC:
-                if(today.before(getAncThreshold()))
+                //disable PNC entry if delivery info is present
+                if(hasDeliveryInfo() == 1) {
                     eligible = true;
+                } else {
+                    eligible = false;
+                }
                 break;
             default:
                 eligible = false;
@@ -307,6 +317,14 @@ public class PregWoman extends GeneralPerson implements Parcelable{
 
     public void setPregNo(int pregNo) {
         this.pregNo = pregNo;
+    }
+
+    public int hasDeliveryInfo() {
+        return hasDeliveryInfo;
+    }
+
+    public void setHasDeliveryInfo(int hasDeliveryInfo) {
+        this.hasDeliveryInfo = hasDeliveryInfo;
     }
 
     public String getHusbandName() {
