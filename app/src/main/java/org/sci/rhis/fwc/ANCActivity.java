@@ -74,7 +74,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     //JSONArray visits = null;
 
     ListView listView ;
-    private Button newanc;
+    //private Button newanc;
     private View mANCLayout;
     private MultiSelectionSpinner multiSelectionSpinner;
     ArrayList<String> list;
@@ -118,7 +118,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
         // Find the view whose visibility will change
         mANCLayout = findViewById(R.id.ancLayoutScrollview);
-        newanc = (Button)findViewById(R.id.newanc_id);
+      //  newanc = (Button)findViewById(R.id.newanc_id);
 
         OnClickListener mnewancVisibleListener = new OnClickListener() {
             public void onClick(View v) {
@@ -137,7 +137,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                 }
             }
         };
-        newanc.setOnClickListener(mnewancVisibleListener);
+  //      newanc.setOnClickListener(mnewancVisibleListener);
 
 
         listView = (ListView)findViewById(R.id.list);
@@ -341,250 +341,197 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
             //DEBUG
             Resources res = getResources();
             mainlist = res.getStringArray(R.array.list_item);
-            list = new ArrayList<String>();
+
             for ( Iterator<String> ii = jsonStr.keys(); ii.hasNext(); ) {
                 key = ii.next();
-
+                list = new ArrayList<String>();
                 System.out.println("1.Key:" + key + " Value:\'" + jsonStr.get(key) + "\'");
 
 
-                if(key.equalsIgnoreCase("ancStatus")){
+                if (key.equalsIgnoreCase("ancStatus")) {
 
-                }else
-                list.add(""+key);
-//                try {
-//                    JSONArray jsonArray = jsonStr.getJSONArray(key);
-
-//                    for (int i = 1; i < jsonArray.length(); i++) {
-
-//                        if(i == 2){
-//
-//                        }else if(i==3){
-//                            list.add(""+mainlist[i]+""+jsonArray.get(i-1).toString()+" / "+jsonArray.get(i).toString());
-//                        }else
-                        //   list.add(""+mainlist[i]+""+jsonArray.get(i).toString());
-
-                        //  list.add(""+key);
- //                   }//end for
-                    listDataHeader = new ArrayList<String>();
-                    listDataChild = new HashMap<String, List<String>>();
-                }
+                    // continue;
+                } else {
+                    //list.add("" + key);
+                    try {
+                        JSONArray jsonArray = jsonStr.getJSONArray(key);
 
 
+                        for (int i = 1; i < jsonArray.length()-1; i++) {
+                            Log.i("--------", "hhhhhh--- is" + jsonArray.get(i).toString());
+                            String det = jsonArray.get(i).toString();
+                            det = det.replaceAll("[^0-9]+", " ");
+                            det = det.trim();
+                            if (i == 2) {
+
+                            } else
+                            if (i == 3) {
+                                list.add("" + mainlist[i-2] + "" + jsonArray.get(i-1).toString() + " / " + jsonArray.get(i).toString());
+                            }
+                            else if (i == 5) {
+                                String[] details;
+                                Resources res1 = con.getResources();
+                                String str1 = det;
 
 
-                    LinearLayout.LayoutParams lprams = new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.WRAP_CONTENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT);
-
-           // ((ViewGroup) lprams.getParent()).removeView(lprams);
-
-                    initPage();
-
-            for(int i =0;i<list.size();i++) {
-                JSONArray jsonArray = null;
-                try {
-                     jsonArray = jsonStr.getJSONArray(list.get(i));
-                int k = Integer.parseInt(jsonArray.get(0).toString());
-                Button btn = new Button(this);
-                btn.setId(k + 1);
-                btn.setText("Visit" + (i + 1)+"/Date: "+jsonArray.get(1).toString());
-                btn.setLayoutParams(lprams);
-                //ll.addView(btn);
-                final int in = i+1;
-                btn.setOnClickListener(new OnClickListener() {
-                    public void onClick(View v) {
-                        Log.i("TAG", "The index is" + in);
-
-
-                        try {
-                            json_Array = jsonStr.getJSONArray(list.get(in-1));
-
-                            list1 = new ArrayList<String>();
-                            for (int i = 1; i < json_Array.length()-1; i++) {
-                                String det = json_Array.get(i).toString();
-                                if(i == 2){
-                                    list1.add(""+mainlist[i-1]+"" +json_Array.get(i).toString()+" / "+json_Array.get(i+1).toString());
-                                }else if(i==3){
-
+                                String[] animals = str1.split(" ");
+                                String temp = "";
+                                details = res1.getStringArray(R.array.Edema_Dropdown);
+                                for (String animal : animals) {
+                                    System.out.println(animal);
+                                    if(animal.length()>0)
+                                        temp = temp+"\n"+details[Integer.parseInt(animal)];
                                 }
+                                list.add("" + mainlist[i-1] +temp );
 
-                               else if(( i == 13|| i == 14 || i == 15 || i == 16 || i == 17|| i == 19) && det.length() >4) {
-                                    Log.d("------------->>"+det, ""+i);
-                                    list1.add("" + mainlist[i - 1] + "" + getString(R.string.detail));
+                            }
+                            else if (i == 8) {
+                                String[] details;
+                                Resources res1 = con.getResources();
+                                String str1 = det;
+
+
+                                String[] animals = str1.split(" ");
+                                String temp = "";
+                                details = res1.getStringArray(R.array.Fetal_Presentation_Dropdown);
+                                for (String animal : animals) {
+                                    System.out.println(animal);
+                                    if(animal.length()>0)
+                                        temp = temp+"\n"+details[Integer.parseInt(animal)];
                                 }
-                                else if(( i == 13|| i == 14 || i == 15 || i == 16 || i == 17) && det.length() >0) {
-                                    Log.d("------------->>"+det, ""+i);
-                                    list1.add("" + mainlist[i - 1]);
+                                list.add("" + mainlist[i-1] +temp );
+
+                            }
+
+                            else if (i == 9) {
+                                list.add("" + mainlist[i-1] + "" + jsonArray.get(i).toString()+"%");
+                            }
+                            else if (i == 10) {
+                                String[] details;
+                                Resources res1 = con.getResources();
+                                String str1 = det;
+
+
+                                String[] animals = str1.split(" ");
+                                String temp = "";
+                                details = res1.getStringArray(R.array.Jaundice_Dropdown);
+                                for (String animal : animals) {
+                                    System.out.println(animal);
+                                    if(animal.length()>0)
+                                        temp = temp+"\n"+details[Integer.parseInt(animal)];
                                 }
-                                else
-                                 list1.add(""+mainlist[i-1]+"" + json_Array.get(i).toString());
+                                list.add("" + mainlist[i-1] +temp );
+
+                            }
+                            else if (i == 11) {
+                                String[] details;
+                                Resources res1 = con.getResources();
+                                String str1 = det;
 
 
-                            }//end
-
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(ANCActivity.this,
-                                    android.R.layout.simple_list_item_1, android.R.id.text1, list1);
-
-                            listView.setAdapter(adapter);
-                            listView.setVisibility(View.VISIBLE);
-
-                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                                @Override
-                                public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                                        long arg3) {
-                                    // TODO Auto-generated method stub
-                                    Log.d("******arg2********. " + list1.get(arg2), "--v--" + arg2);
-                                    //Toast.makeText(con,""+list1.get(arg2), Toast.LENGTH_SHORT).show();
-                                    //Intent i = new Intent(UserListActivity.this, ChangepassActivity.class);
-                                    //i.putExtra("no", "" + arg2);
-                                   // startActivity(i);
-                                    String str = null;
-
-                                    str = ""+list1.get(arg2);
-                                    Resources res1 = getResources();
-                                    Log.d("----------lenth---||" + str, "" + str.length());
-//                                    try {
-//                                        str = ""+json_Array.get(arg2).toString();
-//                                        Log.d("----------lenth---||" + str, "" + str.length());
-//                                    } catch (JSONException e) {
-//                                        e.printStackTrace();
-//                                    }
-
-                                    if(arg2 == 12 && str.length()>4) {
-                                        str = parseString(arg2 + 1);
-                                        Log.d("-------------||" + str, "" + str.trim().split(" "));
-                                        String[] animals = str.split(" ");
-                                        String temp = "";
-                                        details = res1.getStringArray(R.array.ANC_Danger_Sign_DropDown);
-                                        for (String animal : animals) {
-                                            System.out.println(animal);
-                                            if(animal.length()>0)
-                                                temp = temp+"\n"+details[Integer.parseInt(animal)-1];
-                                        }
-                                        Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
-                                        //System.out.println(Arrays.asList(s.trim().split(" ")));
-                                        if(temp.length()>5)
-                                        AlertMessage.showMessage(con, "Details", temp);
-                                    }
-                                    else if(arg2 == 13 && str.length()>4) {
-
-                                        str = parseString(arg2 + 1);
-
-                                        String[] animals = str.split(" ");
-                                        String temp = "";
-                                        details = res1.getStringArray(R.array.ANC_Drawback_DropDown);
-                                        for (String animal : animals) {
-                                            System.out.println(animal);
-                                            if(animal.length()>0)
-                                                temp = temp+"\n"+details[Integer.parseInt(animal)-1];
-                                        }
-                                        Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
-
-                                        if(temp.length()>5)
-                                        AlertMessage.showMessage(con, "Details", temp);
-
-
-                                    }else if(arg2 == 14 && str.length()>4) {
-                                        str = parseString(arg2 + 1);
-
-                                        String[] animals = str.split(" ");
-                                        String temp = "";
-                                        details = res1.getStringArray(R.array.ANC_Disease_DropDown);
-                                        for (String animal : animals) {
-                                            System.out.println(animal);
-                                            if (animal.length() > 0)
-                                                temp = temp + "\n" + details[Integer.parseInt(animal) - 1];
-                                        }
-                                        Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
-
-                                        if(temp.length()>5)
-                                        AlertMessage.showMessage(con, "Details", temp);
-                                    }
-                                    else if(arg2 == 15 && str.length()>4) {
-                                        str = parseString(arg2 + 1);
-
-                                        String[] animals = str.split(" ");
-                                        String temp = "";
-                                        details = res1.getStringArray(R.array.Treatment_DropDown);
-                                        for (String animal : animals) {
-                                            System.out.println(animal);
-                                            if(animal.length()>0)
-                                                temp = temp+"\n"+details[Integer.parseInt(animal)-1];
-                                        }
-                                        Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
-
-                                        if(temp.length()>5)
-                                        AlertMessage.showMessage(con, "Details", temp);
-
-                                    }
-                                    else if(arg2 == 16 && str.length()>4) {
-                                        str = parseString(arg2 + 1);
-
-                                        String[] animals = str.split(" ");
-                                        String temp = "";
-                                        details = res1.getStringArray(R.array.ANC_Advice_DropDown);
-                                        for (String animal : animals) {
-                                            System.out.println(animal);
-                                            if(animal.length()>0)
-                                                temp = temp+"\n"+details[Integer.parseInt(animal)-1];
-                                        }
-                                        Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
-
-                                        if(temp.length()>5)
-                                        AlertMessage.showMessage(con, "Details", temp);
-
-                                    }
-
-                                    else if(arg2 == 19 && str.length()>4) {
-                                        str = parseString(arg2 + 1);
-
-                                        String[] animals = str.split(" ");
-                                        String temp = "";
-                                        details = res1.getStringArray(R.array.ANC_Refer_Reason_DropDown);
-                                        for (String animal : animals) {
-                                            System.out.println(animal);
-                                            if(animal.length()>0)
-                                                temp = temp+"\n"+details[Integer.parseInt(animal)-1];
-                                        }
-                                        Log.d("oooooooooo17+++" + str, "" + str.trim().split(" "));
-
-                                        if(temp.length()>5)
-                                            AlertMessage.showMessage(con, "Details", temp);
-
-                                    }
-
-
-
+                                String[] animals = str1.split(" ");
+                                String temp = "";
+                                details = res1.getStringArray(R.array.Urine_Test_Sugar_Dropdown);
+                                for (String animal : animals) {
+                                    System.out.println(animal);
+                                    if(animal.length()>0)
+                                        temp = temp+"\n"+details[Integer.parseInt(animal)];
                                 }
-                            });
+                                list.add("" + mainlist[i-1] +temp );
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                            }
+                            else if (i == 12) {
+                                String[] details;
+                                Resources res1 = con.getResources();
+                                String str1 = det;
 
 
+                                String[] animals = str1.split(" ");
+                                String temp = "";
+                                details = res1.getStringArray(R.array.Urine_Test_Albumin_Dropdown);
+                                for (String animal : animals) {
+                                    System.out.println(animal);
+                                    if(animal.length()>0)
+                                        temp = temp+"\n"+details[Integer.parseInt(animal)];
+                                }
+                                list.add("" + mainlist[i-1] +temp );
+
+                            }
+                            else if (i == 18 && Integer.parseInt(det)==1) {
+                                list.add("" + mainlist[i-1] + "Yes" );
+                            }else if (i == 18 && Integer.parseInt(det)==2) {
+                                list.add("" + mainlist[i-1] + "No" );
+                            }
+                            else if (i == 19) {
+                                String[] details;
+                                Resources res1 = con.getResources();
+                                String str1 = det;
+
+
+                                String[] animals = str1.split(" ");
+                                String temp = "";
+                                details = res1.getStringArray(R.array.FacilityType_DropDown);
+                                for (String animal : animals) {
+                                    System.out.println(animal);
+                                    if(animal.length()>0)
+                                        temp = temp+"\n"+details[Integer.parseInt(animal)];
+                                }
+                                list.add("" + mainlist[i-1] +temp );
+
+                            }
+                            else if (i == 21) {
+
+                            }
+                            else if (i == 22) {
+                                String[] details;
+                                Resources res1 = con.getResources();
+                                String str1 = det;
+
+
+                                String[] animals = str1.split(" ");
+                                String temp = "";
+                                details = res1.getStringArray(R.array.pnc_Anemia_Dropdown);
+                                for (String animal : animals) {
+                                    System.out.println(animal);
+                                    if(animal.length()>0)
+                                        temp = temp+"\n"+details[Integer.parseInt(animal)];
+                                }
+                                list.add("" + mainlist[i-1] +temp );
+
+                            }
+                            else
+                                list.add("" + mainlist[i-1] + "" + jsonArray.get(i).toString());
+
+                           // list.add("" + key);
+                        }//end for
+                        listDataHeader = new ArrayList<String>();
+                        listDataChild = new HashMap<String, List<String>>();
+
+                        listDataHeader.add("Visit "+jsonArray.get(0).toString() + ":");
+                        listDataChild.put(listDataHeader.get(0), list);
+
+                        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+
+
+                        initPage();
+
+
+                        // ll.addView(btn);
+                        ll.addView(expListView);
+                        expListView.setScrollingCacheEnabled(true);
+                        expListView.setAdapter(listAdapter);
+
+
+                        ll.invalidate();
+                        //  expListView.setAdapter(listAdapter);
+
+
+                    } catch (JSONException e) {
+                        Log.e("::::", "onPostExecute > Try > JSONException => " + e);
+                        e.printStackTrace();
                     }
-                });
-                ll.addView(btn);
-                // ll.addView(expListView);
-               // expListView.setScrollingCacheEnabled(true);
-                // expListView.setAdapter(listAdapter);
-
-
-                ll.invalidate();
-              //  expListView.setAdapter(listAdapter);
-
-
-
-
-                } catch (JSONException e) {
-                    Log.e("::::", "onPostExecute > Try > JSONException => " + e);
-                    e.printStackTrace();
                 }
             }
-
 
         } catch (JSONException jse) {
             System.out.println("JSON Exception Thrown::\n " );
@@ -615,7 +562,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         expListView.setStackFromBottom(true);
 
 
-        ll.addView(expListView);
+       // ll.addView(expListView);
       //  expListView.smoothScrollToPosition(expListView.getCount() - 1);
 
 

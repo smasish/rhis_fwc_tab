@@ -114,15 +114,14 @@
     <string-array name="list_item">
 
         <item>সেবাগ্রহনের তারিখ:</item>
-
+        <item>রক্তচাপ (মিঃ মিঃ মার্কারি):</item>
         <item>রক্তচাপ (মিঃ মিঃ মার্কারি):</item>
         <item>ওজন (কেজি):</item>
-        <item>ওজন (কেজি):</item>
+
         <item>ইডিমা:</item>
         <item>জরায়ুর উচ্চতা (সপ্তাহ):</item>
-        <item>ফিটাসের হৃদপিণ্ডের গতি (প্রতি মিনিটে):</item>
+        <item>ফিটাসের হৃদপিণ্ডের গতি \n(প্রতি মিনিটে):</item>
         <item>ফিটাল প্রেজেনটেশন:</item>
-        <item>রক্তস্বল্পতা :</item>
         <item>হিমোগ্লোবিন:</item>
         <item>জন্ডিস:</item>
         <item>প্রস্রাব পরীক্ষা: সুগার:</item>
@@ -135,7 +134,7 @@
         <item>রেফার:</item>
         <item>কেন্দ্রের নাম:</item>
         <item>কারণ:</item>
-
+        <item>রক্তস্বল্পতা :</item>
         <item>রেফার:</item>
         <item>কেন্দ্রের নাম:</item>
 
@@ -265,7 +264,7 @@
     <string name="weight">"ওজন (কেজি):"</string>
     <string name="edema">"ইডিমা:"</string>
     <string name="uterus_height">"জরায়ুর উচ্চতা (সপ্তাহ):"</string>
-    <string name="heart_speed">"ফিটাসের হৃদপিণ্ডের গতি (প্রতি মিনিটে):"</string>
+    <string name="heart_speed">"ফিটাসের হৃদপিণ্ডের গতি \n(প্রতি মিনিটে):"</string>
     <string name="fetal_presentation">"ফিটাল প্রেজেনটেশন:"</string>
     <string name="anemia">"রক্তস্বল্পতা:"</string>
     <string name="hemoglobin">"হিমোগ্লোবিন:"</string>
@@ -287,7 +286,7 @@
     <string name="cervix_involution">"জরায়ুর ইনভলিউশন:"</string>
     <string name="discharge_bleeding">"স্রাব/ রক্তস্রাব:"</string>
     <string name="perineum">"পেরিনিয়াম:"</string>
-    <string name="family_planning_methods">"পরিবার পরিকল্পনা পদ্ধতি(পরামর্শ / পদ্ধতি প্রদান):"</string>
+    <string name="family_planning_methods">"পরিবার পরিকল্পনা পদ্ধতি\n(পরামর্শ / পদ্ধতি প্রদান):"</string>
 
 
 
@@ -523,6 +522,7 @@
         <item>	খিচুনি হওয়া	</item>
         <item>	পুজ নি:সরণ সহ চোখ লাল হওয়া ও ফুলে যাওয়া	</item>
         <item>	নাভীরজ্জর চারিদিকে লাল হয়ে যাওয়া ও নি:সরণ হওয়া 	</item>
+        <item>	শ্বাস-প্রশ্বাসে (শ্বাস মিনিটে ৩০ এর কম বা ৬০ এর বেশী)	</item>
         <item>	শ্বাস-প্রশ্বাসে (শ্বাস মিনিটে ৩০ এর কম বা ৬০ এর বেশী)	</item>
     </string-array>
     <string-array name="Delivery_Refer_Reason_DropDown">
