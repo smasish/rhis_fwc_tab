@@ -273,6 +273,11 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         datePickerPair = new HashMap<Integer, EditText>();
        datePickerPair.put(R.id.Date_Picker_Button, (EditText)findViewById(R.id.ancServiceDateValue));
 
+        //disable ANC entry if delivery info is present
+        if(mother.hasDeliveryInfo() == 1) {
+            Utilities.MakeInvisible(this, R.id.ancEntryMasterLayout);
+            Toast.makeText(this, "Mother is not eligible for new ANC",Toast.LENGTH_LONG).show();
+        }
     }
 
     public void pickDate(View view) {
@@ -324,6 +329,14 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
             lastAncVisit = jsonStr.length() -1 ; //each anc visit has 1 extra ket denoting current anc status
             getTextView(R.id.ancVisitValue).setText(String.valueOf(lastAncVisit >= 0 ?lastAncVisit + 1 : 1));
             Log.d("ANC", "JSON Response:\n"+jsonStr.toString());
+
+            //Check if eligible for new ANC
+            if(jsonStr.has("ancStatus") &&
+               !jsonStr.getBoolean("ancStatus")) {
+                Utilities.MakeInvisible(this, R.id.ancEntryMasterLayout);
+                Toast.makeText(this, "Mother is not eligible for new ANC",Toast.LENGTH_LONG).show();
+            }
+            //
 
             //DEBUG
             Resources res = getResources();
@@ -614,21 +627,23 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     void setItemVisible(int ItemId, boolean isChecked) {
         Spinner Item=(Spinner)findViewById(ItemId);
         Item.setSelection(0);
-        findViewById(ItemId).setVisibility(isChecked? View.VISIBLE : View.INVISIBLE);
+        findViewById(ItemId).setVisibility(isChecked ? View.VISIBLE : View.INVISIBLE);
     }
 
-    // added by Al Amin
+
     @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-    {
-        if (buttonView.getId() == R.id.ancReferCheckBox) {
-            int visibility = isChecked? View.VISIBLE: View.INVISIBLE;
-            getTextView(R.id.ancReferCenterNameLabel).setVisibility(visibility);
-            getSpinner(R.id.ancReferCenterNameSpinner).setVisibility(visibility);
-            getTextView(R.id.ancReasonLabel).setVisibility(visibility);
-            getSpinner(R.id.ancReasonSpinner).setVisibility(visibility);
-        }
-    }
+     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+     {
+         if (buttonView.getId() == R.id.ancReferCheckBox) {
+             int visibility = isChecked? View.VISIBLE: View.GONE;
+             int layouts[] = {R.id.reason, R.id.id_referCenterDetails};
+
+             for(int i = 0 ; i < layouts.length; i++) {
+                 Utilities.SetVisibility(this, layouts[i],visibility);
+             }
+         }
+     }
+
 
     // Added by Al Amin
     @Override

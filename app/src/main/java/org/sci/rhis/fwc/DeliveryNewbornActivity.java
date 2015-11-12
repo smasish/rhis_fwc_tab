@@ -103,7 +103,13 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         multiSelectionSpinner.setSelection(new int[]{});
 
         getCheckbox(R.id.deliveryChildReferCheckBox).setOnCheckedChangeListener(this);
-
+        getRadioGroup(R.id.id_newBornResasscitationRadioGroup).setOnCheckedChangeListener(
+            new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    handleRadioButton(group, checkedId);
+                }
+        });
         //create the mother
         mother = intent.getParcelableExtra("PregWoman");
         provider = intent.getParcelableExtra("Provider");
@@ -185,6 +191,11 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
     @Override
     public void callbackAsyncTask(String result) {
+        Intent intent = new Intent();
+        intent.putExtra("ReloadNewborn", true);
+        setResult(RESULT_OK, intent);
+        finishActivity(ActivityResultCodes.NEWBORN_ACTIVITY);
+        finish();
         //TODO - We may not need this
         if(true) {
             return;
@@ -235,7 +246,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         // for New born layout
         jsonEditTextMap.put("childno",  getEditText(R.id.deliveryNewBornNo));
         jsonEditTextMap.put("birthStatus", getEditText(R.id.deliveryNewBornConditionValue));
-        jsonEditTextMap.put("weight",getEditText(R.id.deliveryNewBornWeightValue));
+        jsonEditTextMap.put("weight", getEditText(R.id.deliveryNewBornWeightValue));
     }
 
     @Override
@@ -322,10 +333,11 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
         if (buttonView.getId() == R.id.deliveryChildReferCheckBox) {
             int visibility = isChecked? View.VISIBLE: View.INVISIBLE;
-            getTextView(R.id.deliveryChildReferCenterNameLabel).setVisibility(visibility);
-            getSpinner(R.id.deliveryChildReferCenterNameSpinner).setVisibility(visibility);
-            getTextView(R.id.deliveryChildReferReasonLabel).setVisibility(visibility);
-            getSpinner(R.id.deliveryChildReferReasonSpinner).setVisibility(visibility);
+            int layouts[] = {R.id.deliveryChildReferCenterName, R.id.deliveryChildReferReason};
+
+            for(int i = 0 ; i < layouts.length; i++) {
+                Utilities.SetVisibility(this, layouts[i],visibility);
+            }
         }
     }
 
@@ -336,6 +348,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
             Toast.makeText(this, "Newborn Saved Successfully", Toast.LENGTH_LONG).show();
             Log.e("Newborn", "Saved Newborn Successfully?");
         } else if (v.getId() == R.id.id_OkNewbornButton) {
+            finishActivity(ActivityResultCodes.NEWBORN_ACTIVITY);
             finish();
         }
     }
@@ -348,6 +361,18 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    private void handleRadioButton(RadioGroup group, int checkedId) {
+        if(checkedId == R.id.deliveryResastationYesButton) {
+            Utilities.VisibleLayout(this, R.id.StimulationBagNMask);
+            getCheckbox(R.id.stimulation).setChecked(true);
+            getCheckbox(R.id.bag_n_mask).setChecked(false);
+        } else if (checkedId == R.id.deliveryResastationNoButton) {
+            Utilities.InVisibleLayout(this, R.id.StimulationBagNMask);
+            getCheckbox(R.id.stimulation).setChecked(false);
+            getCheckbox(R.id.bag_n_mask).setChecked(false);
+        }
     }
     private void newbornSaveToJson() {
 
