@@ -24,7 +24,7 @@ public class CustomDatePickerDialog implements DatePickerDialog.OnDateSetListene
 
     public CustomDatePickerDialog(Context context,  int year, int monthOfYear, int dayOfMonth) {
         calendar = Calendar.getInstance();
-        dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         //calendar.set(year, monthOfYear, dayOfMonth);
         //todays, date
         datePickerDialog = new DatePickerDialog(context, this, year, monthOfYear, dayOfMonth);
@@ -33,7 +33,7 @@ public class CustomDatePickerDialog implements DatePickerDialog.OnDateSetListene
 
     public CustomDatePickerDialog(Context context) {
         calendar = Calendar.getInstance();
-        dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         //calendar.set(year, monthOfYear, dayOfMonth);
         //todays, date
         datePickerDialog = new DatePickerDialog(
@@ -70,8 +70,8 @@ public class CustomDatePickerDialog implements DatePickerDialog.OnDateSetListene
         try {
             dateFormat = new SimpleDateFormat(dateFormatString);
         } catch (IllegalArgumentException IE) {
-            Log.e("Utility", "format string is not recognized using default format dd/mm/yyyy");
-            dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+            Log.e("Utility", "format string is not recognized using default format dd/MM/yyyy");
+            dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         }
         //calendar.set(year, monthOfYear, dayOfMonth);
         //todays, date

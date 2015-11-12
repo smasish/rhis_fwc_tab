@@ -109,7 +109,7 @@
                 android:paddingLeft="10dp"
                 android:background="@drawable/edittext_round"
                 android:inputType="date"
-                android:hint="dd/mm/yyyy"/>
+                android:hint="dd/MM/yyyy"/>
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -225,7 +225,7 @@
                 android:paddingLeft="10dp"
                 android:background="@drawable/edittext_round"
                 android:inputType="date"
-                android:hint="dd/mm/yyyy"/>
+                android:hint="dd/MM/yyyy"/>
 
             <ImageButton
                 android:layout_width="50dp"
@@ -907,6 +907,14 @@
                     android:layout_marginLeft="5dp"
                     android:id="@+id/deathmaceratedButton"
                     android:onClick="onClick"/>
+                <Spinner
+                    android:id="@+id/id_childListDropdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50px"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/gradient_spinner"
+                    />
             </TableRow>
         </TableLayout>
 

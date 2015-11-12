@@ -70,8 +70,6 @@
         android:layout_centerVertical="true"
         android:textColor="@color/text_color"/>
 
-
-
         <ListView
             android:id="@+id/list"
             android:layout_height="wrap_content"
@@ -80,13 +78,11 @@
             >
         </ListView>
 
-
-
     <ScrollView
        android:id="@+id/ancLayoutScrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:visibility="visible">
 
     <LinearLayout
         android:id="@+id/ancText"
@@ -110,19 +106,45 @@
                 android:id="@+id/ancVisitLabel"
                 android:text="@string/visit"
                 android:textSize="20dp"
-                android:layout_width="220dp"
+                android:layout_width="100dp"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/text_color"  />
-            <EditText
+            <TextView
                 android:id="@+id/ancVisitValue"
-                android:inputType="number"
+                android:text=""
                 android:textSize="20dp"
-                android:paddingLeft="10dp"
-                android:layout_width="40dp"
+                android:layout_width="30dp"
                 android:layout_height="50px"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/edittextstyle"/>
+                android:textColor="@color/text_color" />
+            <CheckBox
+                android:id="@+id/ancOtherCheckBox"
+                android:inputType="text"
+                android:textSize="20dp"
+                android:layout_width="40dp"
+                android:layout_height="50px"
+                android:layout_marginTop="10dp" />
+            <TextView
+                android:id="@+id/ancOtherVisit"
+                android:text="@string/anc_others"
+                android:textSize="20dp"
+                android:layout_width="100dp"
+                android:layout_height="50px"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/text_color"  />
+
+            <Spinner
+                android:id="@+id/ancOtherCenterNameSpinner"
+                android:inputType="text"
+                android:textSize="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="50px"
+                android:background="@drawable/gradient_spinner"
+                android:layout_marginTop="10dp"
+                android:entries="@array/FacilityType_DropDown"
+                android:visibility="gone"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/ancServiceDate"
@@ -142,7 +164,7 @@
             <EditText
                 android:id="@+id/ancServiceDateValue"
                 android:inputType="number"
-                android:hint="dd/mm/yyyy"
+                android:hint="dd/MM/yyyy"
                 android:paddingLeft="10dp"
                 android:layout_width="120dp"
                 android:layout_height="50px"
@@ -533,7 +555,7 @@
                 android:layout_height="50px"
                 android:background="@drawable/gradient_spinner"
                 android:layout_marginTop="10dp"
-                android:entries="@array/Center_Name_DropDown"
+                android:entries="@array/FacilityType_DropDown"
                 android:visibility="invisible"/>
         </LinearLayout>
         <LinearLayout android:id="@+id/ancReasonLayout" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >

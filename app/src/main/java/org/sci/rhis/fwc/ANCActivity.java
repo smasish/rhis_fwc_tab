@@ -125,8 +125,6 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                 if(flag==false) {
                     mANCLayout.setVisibility(View.VISIBLE);
                     flag=true;
-                    getEditText(R.id.ancVisitValue).setText(String.valueOf(lastAncVisit + 1));
-                    getEditText(R.id.ancVisitValue).setClickable(false);
                     listView.setVisibility(View.GONE);
 
                 }
@@ -164,6 +162,16 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
         // Wire each button to a click listener
         visibleButton.setOnClickListener(mVisibleListener);
+        getCheckbox(R.id.ancOtherCheckBox).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                switch(buttonView.getId()) {
+                    case R.id.ancOtherCheckBox :
+                        setItemVisible(R.id.ancOtherCenterNameSpinner, isChecked);
+                        break;
+                }
+            }
+        });
 
 //        GridView gv = (GridView)findViewById(R.id.gridAncVisit);
  //       gv.setAdapter(new CustomGridAdapter(ANCActivity.this));
@@ -314,6 +322,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
             jsonStr = new JSONObject(result);
             String key;
             lastAncVisit = jsonStr.length() -1 ; //each anc visit has 1 extra ket denoting current anc status
+            getTextView(R.id.ancVisitValue).setText(String.valueOf(lastAncVisit >= 0 ?lastAncVisit + 1 : 1));
             Log.d("ANC", "JSON Response:\n"+jsonStr.toString());
 
             //DEBUG
@@ -448,7 +457,11 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     }
 
 
-
+    void setItemVisible(int ItemId, boolean isChecked) {
+        Spinner Item=(Spinner)findViewById(ItemId);
+        Item.setSelection(0);
+        findViewById(ItemId).setVisibility(isChecked? View.VISIBLE : View.INVISIBLE);
+    }
 
     // added by Al Amin
     @Override
@@ -518,13 +531,8 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         jsonSpinnerMap.put("ancjaundice", getSpinner(R.id.ancJaundiceSpinner));
         jsonSpinnerMap.put("ancsugar", getSpinner(R.id.ancUrineSugarSpinner));
         jsonSpinnerMap.put("ancalbumin", getSpinner(R.id.ancUrineAlbuminSpinner));
-        //jsonSpinnerMap.put("anccomplication", getSpinner(R.id.ancDangerSignsSpinner));
-        //jsonSpinnerMap.put("ancsymptom", getSpinner(R.id.ancDrawbackSpinner));
-        //jsonSpinnerMap.put("ancdisease", getSpinner(R.id.ancDiseaseSpinner));
-        //jsonSpinnerMap.put("anctreatment", getSpinner(R.id.ancTreatmentSpinner));
-        //jsonSpinnerMap.put("ancadvice", getSpinner(R.id.ancAdviceSpinner));
         jsonSpinnerMap.put("anccentername", getSpinner(R.id.ancReferCenterNameSpinner));
-        //jsonSpinnerMap.put("ancreferreason", getSpinner(R.id.ancReasonSpinner));
+        jsonSpinnerMap.put("ancservicesource", getSpinner(R.id.ancOtherCenterNameSpinner));
     }
 
     //verride
@@ -534,7 +542,6 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         jsonMultiSpinnerMap.put("ancdisease", getMultiSelectionSpinner(R.id.ancDiseaseSpinner));
         jsonMultiSpinnerMap.put("anctreatment", getMultiSelectionSpinner(R.id.ancTreatmentSpinner));
         jsonMultiSpinnerMap.put("ancadvice", getMultiSelectionSpinner(R.id.ancAdviceSpinner));
-        //jsonSpinnerMap.put("anccentername", getMultiSelectionSpinner(R.id.ancReferCenterNameSpinner));
         jsonMultiSpinnerMap.put("ancreferreason", getMultiSelectionSpinner(R.id.ancReasonSpinner));
     }
 
@@ -575,7 +582,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
             Utilities.getCheckboxes(jsonCheckboxMap, json);
             Utilities.getEditTexts(jsonEditTextMap, json);
             Utilities.getEditTextDates(jsonEditTextDateMap, json);
-            Utilities.getSpinnerValues(jsonSpinnerMap, json);
+            Utilities.getSpinners(jsonSpinnerMap, json);
             Utilities.getMultiSelectSpinnerIndices(jsonMultiSpinnerMap, json);
             Utilities.getRadioGroupButtons(jsonRadioGroupButtonMap, json);
             //getEditTextTime(json);
@@ -593,9 +600,10 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
     public void getSpecialCases(JSONObject json) {
         try {
-            json.put("ancsatelitecentername", "GOV"); //If the service was given from satellite
-            json.put("ancservicesource", "1"); //anc service source
-
+            json.put("ancsatelitecentername", provider.getSatelliteName()); //If the service was given from satellite
+            if(jsonSpinnerMap.get("ancservicesource").getVisibility() != View.VISIBLE) {
+                json.put("ancservicesource", "5"); //anc service source UHFWC
+            }
         } catch (JSONException jse) {
 
         }

@@ -34,7 +34,8 @@ import java.util.HashMap;
  */
 public class Utilities {
 
-    public final static int SPINNER_INDEX_OFFSET = 1;
+    public final static int SPINNER_INDEX_OFFSET = 0; //no offset is required
+    private final static String LOGTAG = "FWC-UTILITIES";
 
     // This method added by Al Amin on 10/09/2015 (dd/MM/yyyy)
     public static void Disable(Activity activity, int id) {
@@ -100,12 +101,12 @@ public class Utilities {
     public static void MakeInvisible(Activity activity, int id)
     {
         ViewGroup visibility = (ViewGroup)activity.findViewById(id);
-        visibility.setVisibility(View.VISIBLE);
+        visibility.setVisibility(View.GONE);
     }
-    public static void InVisible(Activity activity,int id)
+    public static void MakeVisible(Activity activity, int id)
     {
         ViewGroup visibility = (ViewGroup)activity.findViewById(id);
-        visibility.setVisibility(View.GONE);
+        visibility.setVisibility(View.VISIBLE);
     }
 
     public static void VisibleButton(Activity activity,int id)
@@ -199,9 +200,15 @@ public class Utilities {
 
     public static void Enable(Activity activity, int id) {
 
-        ViewGroup testgroup = (ViewGroup)activity.findViewById(id);
-        for(int i = 0, count = testgroup != null ? testgroup.getChildCount(): 0; i <count; i++) {
-            View view = testgroup.getChildAt(i);
+        ViewGroup testgroup = null;
+        View view  = activity.findViewById(id);
+        if(view instanceof ViewGroup) { //if not a layout but single button is passed
+            testgroup  = (ViewGroup) view;
+        }
+
+        for( int i = 0, count = testgroup != null ? testgroup.getChildCount(): 1; //if not a viewgroup only 1 item
+             i <count && view != null; i++) {
+             view = testgroup != null ? testgroup.getChildAt(i) : view;
 
             if(view instanceof LinearLayout) {
                 Enable(activity, view.getId());
@@ -288,7 +295,7 @@ public class Utilities {
                     json.put(key, String.valueOf(spinner.getSelectedItemPosition() + SPINNER_INDEX_OFFSET));
                 }
             } catch (JSONException jse) {
-                System.out.println("The JSON key: '" + key+ "' does not exist");
+                Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
             }
         }
     }
@@ -304,7 +311,7 @@ public class Utilities {
                     json.put(key, "\"" + String.valueOf(spinner.getSelectedItem()) + "\"");
                 }
             } catch (JSONException jse) {
-                System.out.println("The JSON key: '" + key+ "' does not exist");
+                Log.e(LOGTAG, "The JSON key: '" + key+ "' does not exist\n\t" + jse.getStackTrace());
             }
         }
     }
@@ -320,7 +327,7 @@ public class Utilities {
                     json.put(key, String.valueOf(spinner.getSelectedItem()) );
                 }
             } catch (JSONException jse) {
-                System.out.println("The JSON key: '" + key + "' does not exist");
+                Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
             }
         }
     }
@@ -344,16 +351,42 @@ public class Utilities {
     }
 
     //update by position
+    public static void setMultiSelectSpinners(HashMap<String, MultiSelectionSpinner> keyMap, JSONObject json) {
+        MultiSelectionSpinner spinner;
+        for (String key: keyMap.keySet()) {
+            try {
+                spinner = keyMap.get(key);
+                if(spinner != null) {
+                    String value = json.getString(key);
+                    if(!value.equals("[\"\"]")) {
+                        String keyStr[] = value.replaceAll("(\"|\\[|\\])", "").split(",");
+                        int values[] = new int[keyStr.length];
+                        for (int i = 0; i < keyStr.length; ++i) {
+                            values[i] = Integer.valueOf(keyStr[i]);
+                        }
+
+                        spinner.setSelection(values);
+                    }
+                }
+            } catch (JSONException jse) {
+                Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
+            } catch (NumberFormatException nfe) {
+                Log.e(LOGTAG, "Could not convert value for key: '" + key + "' JSON:\n\t{"+ json.toString() +"}\n\t" + nfe.getStackTrace());
+            }
+        }
+    }
+
+    //update by position
     public static void setSpinners(HashMap<String, Spinner> keyMap, JSONObject json) {
         Spinner spinner;
         for (String key: keyMap.keySet()) {
             try {
                 spinner = keyMap.get(key);
                 if(spinner != null) {
-                    spinner.setSelection((json.getInt(key) - 1));
+                    spinner.setSelection((json.getInt(key)));
                 }
             } catch (JSONException jse) {
-                System.out.println("The JSON key: '" + key + "' does not exist");
+                Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
             }
         }
     }
@@ -378,7 +411,7 @@ public class Utilities {
                     }
                 }
             } catch (JSONException jse) {
-                System.out.println("The JSON key: '" + key+ "' does not exist");
+                Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
             }
         }
     }
@@ -388,7 +421,7 @@ public class Utilities {
             try {
                 keyMap.get(key).setChecked((json.getString(key).equals("1")));
             } catch (JSONException jse) {
-                System.out.println("The JSON key: '" + key+ "' does not exist");
+                Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
             }
         }
     }
@@ -397,7 +430,7 @@ public class Utilities {
             try {
                 keyMap.get(key).setText(json.getString(key));
             } catch (JSONException jse) {
-                System.out.println("The JSON key: '" + key+ "' does not exist");
+                Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
             }
         }
     }
@@ -407,7 +440,7 @@ public class Utilities {
                 //keyMap.get(key).setChecked((json.getInt(key) == 1));
                 json.put(key, (keyMap.get(key).isChecked() ? 1 : 2));
             } catch (JSONException jse) {
-                System.out.println("The JSON key: '" + key+ "' does not exist");
+                Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
             }
         }
     }
@@ -417,7 +450,7 @@ public class Utilities {
                 //keyMap.get(key).setChecked((json.getInt(key) == 1));
                 json.put(key, (keyMap.get(key).isChecked() ? 1 : ""));
             } catch (JSONException jse) {
-                System.out.println("The JSON key: '" + key+ "' does not exist");
+                Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
             }
         }
     }
@@ -439,7 +472,7 @@ public class Utilities {
                 //keyMap.get(key).setText(json.getString(key));
                 json.put(key, (keyMap.get(key).getText()));
             } catch (JSONException jse) {
-                System.out.println("The JSON key: '" + key+ "' does not exist");
+                Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
             }
         }
     }
@@ -449,7 +482,7 @@ public class Utilities {
             try {
                 keyMap.get(key).setText(json.getString(key));
             } catch (JSONException jse) {
-                System.out.println("The JSON key: '" + key+ "' does not exist");
+                Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
             }
         }
     }
@@ -457,7 +490,7 @@ public class Utilities {
     public static void setEditTextDates(HashMap<String, EditText> keyMap, JSONObject json) {
 
         SimpleDateFormat dbFormat = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat uiFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat uiFormat = new SimpleDateFormat("dd/MM/yyyy");
         String currentDate;
         for (String key: keyMap.keySet()) {
             try {
@@ -468,7 +501,7 @@ public class Utilities {
                     keyMap.get(key).setText(v);
                 }
             } catch (JSONException jse) {
-                System.out.println("The JSON key: '" + key+ "' does not exist");
+                Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
             } catch (ParseException pe) {
                 System.out.println("Parsing Exception: Could not parse date");
             }
@@ -477,7 +510,7 @@ public class Utilities {
 
     public static void getEditTextDates(HashMap<String, EditText> keyMap, JSONObject json) {
 
-        SimpleDateFormat uiFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat uiFormat = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat dbFormat = new SimpleDateFormat("yyyy-MM-dd");
         String currentDate;
         for (String key: keyMap.keySet()) {
@@ -490,11 +523,11 @@ public class Utilities {
                 }
                 json.put(key, dbFormat.format(uiFormat.parse(keyMap.get(key).getText().toString())));
             } catch (JSONException jse) {
-                System.out.println("The JSON key: '" + key+ "' does not exist");
+                Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
             } catch (ParseException pe) {
-                System.out.println("Parsing Exception: Could not parse date:\n" + pe.toString());
+                Log.e(LOGTAG, "Parsing Exception: Could not parse date:\n" + pe.toString());
             } catch (NullPointerException NP) {
-                Log.i("Parse", NP.getMessage());
+                Log.e(LOGTAG, "Parse:\n\t" + NP.getMessage());
             }
         }
     }
@@ -512,7 +545,7 @@ public class Utilities {
                 json.put(key, value);
 
             } catch (JSONException jse) {
-                Log.i("Utility", "'" + key + "' does not exist");
+                Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
             } catch (NullPointerException NP) {
                 Log.e("Null Pointer", NP.getMessage());
             }
@@ -531,9 +564,9 @@ public class Utilities {
                 }
 
             } catch (JSONException jse) {
-                Log.i("Utility",  "'"+ key + "' does not exist");
+                Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
             } catch (NullPointerException NP) {
-                Log.e("Null Pointer", NP.getMessage());
+                Log.e(LOGTAG, NP.getMessage());
             }
         }
     }

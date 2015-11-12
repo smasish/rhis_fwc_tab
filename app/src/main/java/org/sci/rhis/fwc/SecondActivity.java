@@ -47,6 +47,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
     final private String SERVLET = "handlepregwomen";
     final private String ROOTKEY = "pregWomen";
+    private  final String LOGTAG    = "FWC-INFO";
 
     private BigInteger responseID = BigInteger.valueOf(0);
     EditText lmpEditText;
@@ -88,7 +89,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                 final Intent intent;
                 if (position == ADV_SEARCH_INDEX) {
                     intent = new Intent(SecondActivity.this, ADVSearchActivity.class);
-                   startActivityForResult(intent, ActivityResultCodes.ADV_SEARCH_ACTIVITY);
+                    startActivityForResult(intent, ActivityResultCodes.ADV_SEARCH_ACTIVITY);
                 }
             }
 
@@ -116,12 +117,13 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
                     @Override
                     public void afterTextChanged(Editable s) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+                        SimpleDateFormat uiFormat = new SimpleDateFormat("dd/MM/yyyy");
+
                         try {
-                            Date lmp = sdf.parse(lmpEditText.getText().toString());
+                            Date lmp = uiFormat.parse(lmpEditText.getText().toString());
 
                             Date edd = Utilities.addDateOffset(lmp, 240);
-                            eddEditText.setText(sdf.format(edd));
+                            eddEditText.setText(uiFormat.format(edd));
 
                         } catch (ParseException PE) {
 
@@ -154,7 +156,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         try {
             id = Long.valueOf(searchableId.getText().toString());
         } catch (NumberFormatException nfe) {
-            Log.e("Search", "-- Invalid ID --\n" + nfe.toString());
+            Log.e(LOGTAG, "Invalid ID \n\t" + nfe.toString());
             Toast.makeText(this, "Invalid ID typed. Please provide valid ID ...", Toast.LENGTH_LONG).show();
             return;
         }
@@ -168,6 +170,10 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         String jsonRootkey = "sClient";
         AsyncClientInfoUpdate retrieveClient = new AsyncClientInfoUpdate(this);
 
+        //TODO- setting woman to null before executing next search, but seems hacky
+        //      need better alternative eventually, getting messy
+        Utilities.Reset(this, R.id.clients_intro_layout);
+        Utilities.Reset(this, R.id.clients_info_layout);
         retrieveClient.execute(queryString, servlet, jsonRootkey);
 
         TextView mHealthIdLayout = (TextView) findViewById(R.id.health_id);
@@ -176,10 +182,6 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         TextView healthId = (TextView) findViewById(R.id.health_id);
         healthId.setText(String.valueOf(stringId) + ": " + String.valueOf(id));
 
-        System.out.println("sOpt: " + index
-                + /*Adding 1 to match HTML index where healthID starts from 1*/
-                " text: " + id);
-
     }
 
     private void populateClientDetails(JSONObject json, HashMap<String, Integer> fieldMapping) {
@@ -187,11 +189,12 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         String key;
 
         try {
-            if(!json.get("cMobileNo").toString().isEmpty()){
-                String mobileNumber=json.get("cMobileNo").toString();
-                if(mobileNumber.charAt(0)!='0')
-                mobileNumber="0"+mobileNumber;
-                json.put("cMobileNo",mobileNumber);
+            if(json.has("cMobileNo")){
+                String mobileNumber = json.getString("cMobileNo");
+                if(!mobileNumber.equals("") && mobileNumber.charAt(0)!='0') {
+                    mobileNumber = "0" + mobileNumber;
+                    json.put("cMobileNo", mobileNumber);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -201,18 +204,21 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             key = i.next();
             if (fieldMapping.get(key) != null) { //If the field exist in the mapping table
                 try {
-                    ((EditText) findViewById(fieldMapping.get(key))).setText(json.get(key).toString());
+                    //((EditText) findViewById(fieldMapping.get(key))).setText(json.get(key).toString());
+                    ((EditText) findViewById(fieldMapping.get(key))).setText(json.getString(key));
                 } catch (JSONException jse) {
-                    System.out.println("JSON Exception Thrown(test):\n ");
+                    Log.e(LOGTAG, "JSON Exception Thrown(test):\n ");
                     jse.printStackTrace();
                 }
             }
         }
 
-        manipulateJson(json);
+        //manipulateJson(json);
+
         Utilities.setSpinners(jsonSpinnerMap, json);
         Utilities.setCheckboxes(jsonCheckboxMap, json);
         Utilities.setEditTextDates(jsonEditTextDateMap, json);
+
     }
 
     @Override
@@ -227,17 +233,17 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             //DEBUG response from servlet
             for (Iterator<String> ii = json.keys(); ii.hasNext(); ) {
                 key = ii.next();
-                System.out.println("1.Key:" + key + " Value:\'" + json.get(key) + "\'");
+                Log.d(LOGTAG, "Key:" + key + " Value:\'" + json.get(key) + "\'");
             }
 
 
             if (!json.has("responseType")) //callback for client servlet
             {
                 client = json;
-                woman = PregWoman.CreatePregWoman(json);
 
                 if (json.get("False").toString().equals("")) { //Client exists
                     populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
+                    woman = PregWoman.CreatePregWoman(json);
                     responseID = new BigInteger(json.get("cHealthID").toString());
 
                     if (woman != null) {
@@ -253,8 +259,6 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                         Utilities.InVisibleButton(this, R.id.client_update_Button);
                         Utilities.VisibleButton(this, R.id.client_edit_Button);
                         Utilities.VisibleButton(this, R.id.client_New_preg_Button);
-
-
                     }
 
                     else {
@@ -272,6 +276,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                 else {
 
                     Toast.makeText(this, "Provided information is not valid! Please try again....", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Provided information is not valid! Please try again....", Toast.LENGTH_LONG).show();
                     Utilities.InVisibleLayout(this, R.id.clients_info_layout);
                 }
             }
@@ -288,18 +293,22 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                 Log.d("json", client.toString());
 
                 woman = PregWoman.CreatePregWoman(client);
-                populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
+                //populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
                 responseID = new BigInteger(client.get("cHealthID").toString());
 
-                manipulateJson(json);
-                populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
+                //manipulateJson(json);
+                //populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
                 woman.UpdateUIField(this);
 
                 Utilities.Disable(this, R.id.clients_info_layout);
-                Utilities.InVisibleButton(this, R.id.client_update_Button);
-                Utilities.VisibleButton(this, R.id.client_edit_Button);
                 Utilities.DisableField(this, R.id.Clients_House_No);
                 Utilities.DisableField(this, R.id.Clients_Mobile_no);
+
+
+                Utilities.InVisibleButton(this, R.id.client_update_Button);
+                Utilities.InVisibleButton(this, R.id.client_Save_Button);
+                Utilities.VisibleButton(this, R.id.client_New_preg_Button);
+                Utilities.VisibleButton(this, R.id.client_edit_Button);
 
             }
         }
@@ -313,20 +322,6 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
     public void addListenerOnButton() {
 
-        final Context context = this;
-
-        Button button1 = (Button) findViewById(R.id.nonregiser);
-
-        button1.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-
-                /*Intent intent = new Intent(context, NRCActivity.class);
-                intent.putExtra("Provider", providerCode);
-                startActivity(intent);*/
-            }
-        });
     }
 
     public void startNRC(View view) {
@@ -384,17 +379,17 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ActivityResultCodes.REGISTRATION_ACTIVITY) {
             if (resultCode == RESULT_OK) {
-                long healthId = data.getLongExtra("generatedId", -1);
+                String healthId = data.getStringExtra("generatedId");
                 getSpinner(R.id.ClientsIdentityDropdown).setSelection(NRC_ID_INDEX);
-                getEditText(R.id.searchableTextId).setText(String.valueOf(healthId));
+                getEditText(R.id.searchableTextId).setText(healthId);
                 startSearch((ImageButton)findViewById(R.id.searchButton));
             }
         } else if (requestCode == ActivityResultCodes.ADV_SEARCH_ACTIVITY) {
             if (resultCode == RESULT_OK) {
 
                 String str = data.getStringExtra("HealthId");
-                getSpinner(R.id.ClientsIdentityDropdown).setSelection(0);
-                getEditText(R.id.searchableTextId).setText(str.substring(str.indexOf("||") + 3));
+                getSpinner(R.id.ClientsIdentityDropdown).setSelection(data.getIntExtra("HealthIdType",0));
+                getEditText(R.id.searchableTextId).setText(str);
                 startSearch((ImageButton)findViewById(R.id.searchButton));
             }
         }
@@ -421,8 +416,11 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
     private void manipulateJson(JSONObject json) {
         try {
-            String[] array = json.getString("cHistoryComplicatedContent").split(",");
-            int length = array.length;
+            String history = json.getString("cHistoryComplicatedContent");
+            String[] array = {};
+            if(!history.equals("")) {
+              array  = history.split(",");
+            }
 
             for (int i = 0; i < array.length; i++) {
                 json.put(deliveryHistoryMapping.get(Integer.valueOf(array[i]) - 1).first, 1);// 1- checked, 2 - unchecked
@@ -583,25 +581,38 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         return new JSONObject(queryString);
     }
 
+    private void getSpecialCheckBoxes(JSONObject json) {
+        String complicatedHistories = "";
+        for(int i = 0; i < deliveryHistoryMapping.size(); i++) {
+            if(getCheckbox(deliveryHistoryMapping.get(i).second).isChecked()) {
+                complicatedHistories += String.valueOf(i+1)+",";
+            }
+        }
+        if(!complicatedHistories.equals("")) { //Get rid of trailing ,
+            complicatedHistories = complicatedHistories.substring(0,complicatedHistories.length()-1 );
+        }
+        try{
+            json.put("complicatedHistoryNote", complicatedHistories);
+        } catch (JSONException JSE) {
+            Log.e(LOGTAG, "Error:\n\t" + JSE.getStackTrace());
+        }
+    }
+
     public void getSpecialCases(JSONObject json) {
         try {
-            if (woman != null) {
-                json.put("pregNo", woman.getPregNo());
-            }
-            else
-                json.put("pregNo","\"\"");
-
+            json.put("pregNo", woman != null ? woman.getPregNo():"");
             //To enter 0 if ""
-            Integer year= (getEditText(R.id.lastChildYear).getText().toString()).isEmpty()?0:Integer.parseInt(getEditText(R.id.lastChildYear).getText().toString());
-            Integer month= (getEditText(R.id.lastChildMonth).getText().toString()).isEmpty()?0:Integer.parseInt(getEditText(R.id.lastChildMonth).getText().toString());
-            Integer feet= (getEditText(R.id.heightFeet).getText().toString()).isEmpty()?0:Integer.parseInt(getEditText(R.id.heightFeet).getText().toString());
-            Integer inch= (getEditText(R.id.heightInch).getText().toString()).isEmpty()?0:Integer.parseInt(getEditText(R.id.heightInch).getText().toString());
+            int year = (getEditText(R.id.lastChildYear).getText().toString()).isEmpty()?0:Integer.parseInt(getEditText(R.id.lastChildYear).getText().toString());
+            int month = (getEditText(R.id.lastChildMonth).getText().toString()).isEmpty()?0:Integer.parseInt(getEditText(R.id.lastChildMonth).getText().toString());
+            int feet = (getEditText(R.id.heightFeet).getText().toString()).isEmpty()?0:Integer.parseInt(getEditText(R.id.heightFeet).getText().toString());
+            int inch = (getEditText(R.id.heightInch).getText().toString()).isEmpty()?0:Integer.parseInt(getEditText(R.id.heightInch).getText().toString());
 
-            month=year*12+month;
-            feet=feet*12+inch;
+            month = year * 12 + month;
+            feet = feet * 12 + inch;
 
             json.put("lastChildAge", month);
             json.put("height", feet);
+            getSpecialCheckBoxes(json);
 
         } catch (JSONException jse) {
 
@@ -612,6 +623,10 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         Utilities.Reset(this, R.id.clients_info_layout);
         Utilities.EnableField(this, R.id.Clients_House_No, "reset");
         Utilities.EnableField(this, R.id.Clients_Mobile_no, "reset");
+        Utilities.InVisibleButton(this, R.id.client_edit_Button);
+        Utilities.InVisibleButton(this, R.id.client_update_Button);
+        Utilities.InVisibleButton(this, R.id.client_New_preg_Button);
+        Utilities.VisibleButton(this, R.id.client_Save_Button);
     }
 
     public void editFields(View view){

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.text.InputFilter;
 import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
@@ -37,8 +38,9 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
     private  String selectedDistName, selectedUpazilaName,selectedUnionName, selectedVillageName, vilStringValue, villMouza, sumString="";
     private  int divValue, distValue, upValue, unValue, vilValue, mouzaValue;
     private  Button cancelBtn, searchBtn;
-    private  String SERVLET = "advancesearch";
-    private  String ROOTKEY = "advanceSearch";
+    private  final String SERVLET   = "advancesearch";
+    private  final String ROOTKEY   = "advanceSearch";
+    private  final String LOGTAG    = "FWC-ADV-SEARCH";
 
 
     private ListView searchListView ;
@@ -46,6 +48,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
     ListAdapter adapter;
     ArrayList<String> dataItems = new ArrayList<String>();
     ArrayList<String> clientsList = new ArrayList<String>();
+    ArrayList<Person> personsList = new ArrayList<Person>();
 
     AsyncADVSearchUpdate ADVSearchUpdateTask;
 
@@ -61,6 +64,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
         searchBtn=(Button)findViewById(R.id.searchBtn);
 
         initialize();
+        //initList();
         ZillaMapping();
         UpMapping();
         unionMapping();
@@ -68,15 +72,27 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
         addListenerOnButton();
     }
 
+    private void handlePersonListClick( Person person) {
+        Intent intent = new Intent();
+        intent.putExtra("HealthId", person.getHealthId());
+        intent.putExtra("HealthIdType", person.getIdIndex());
+        setResult(RESULT_OK, intent);
+        finishActivity(ActivityResultCodes.ADV_SEARCH_ACTIVITY);
+        finish();
 
+    }
 
     private void initList(){
 
-        /*ArrayAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.textview_for_listview, R.id.lblListItem,  clientsList);*/
-        ArrayAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,  clientsList);
         searchListView = (ListView) findViewById(R.id.search_result);
+        PersonAdapter personAdapter = new PersonAdapter(this, R.layout.listview_item_row, personsList);
+        View header = getLayoutInflater().inflate(R.layout.listview_header_row, null);
 
-        searchListView.setAdapter( listAdapter );
+        if(searchListView.getHeaderViewsCount() < 1 ) {
+            searchListView.addHeaderView(header);
+        }
+        searchListView.setAdapter(personAdapter);
+        //searchListView.setAdapter( listAdapter );
         final Context context = this;
         Button searchbtn = (Button ) findViewById(R.id.lblListItembtn);
 
@@ -85,18 +101,9 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-
-                String item = ((TextView) view).getText().toString();
-                Toast.makeText(getBaseContext(),"You have clicked on " + item, Toast.LENGTH_LONG).show();
-
-                /*Intent intent = new Intent(context, SecondActivity.class);
-                intent.putExtra("HealthId", item);
-                startActivity(intent);*/
-                Intent intent = new Intent();
-                intent.putExtra("HealthId", item);
-                setResult(RESULT_OK, intent);
-                finishActivity(ActivityResultCodes.ADV_SEARCH_ACTIVITY);
-                finish();
+                //String item = ((TextView) view).getText().toString();
+                //Toast.makeText(getBaseContext(),"You have clicked on " + item, Toast.LENGTH_LONG).show();
+            handlePersonListClick(personsList.get(position - 1));
 
             }
         });
@@ -118,14 +125,14 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
               this, android.R.layout.simple_spinner_item, distLIst);
       adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-      Spinner spnDist = (Spinner) findViewById(R.id.Clients_District);
+      Spinner spnDist = getSpinner(R.id.Clients_District);
       spnDist.setAdapter(adapter);
 
       selectedDistName = spnDist.getSelectedItem().toString();
       distValue = districtCodeMap.get(selectedDistName).first;
       divValue = districtCodeMap.get(selectedDistName).second;
-      Log.e("selected division Value", String.valueOf(divValue));
-      Log.e("selected district Value", String.valueOf(distValue));
+      Log.d(LOGTAG, "selected division Value:\t" + String.valueOf(divValue));
+      Log.d(LOGTAG, "selected district Value:\t" + String.valueOf(distValue));
 
         return  (distValue + "_" + divValue);
   }
@@ -177,9 +184,9 @@ private int UpMapping(){
     });
 
     selectedUpazilaName = spnUpz.getSelectedItem().toString();
-    Log.e("selected Up Value", String.valueOf(selectedUpazilaName));
+    Log.d(LOGTAG, "selected Up Value:\t" + String.valueOf(selectedUpazilaName));
     upValue = upazilaCodeMap.get(selectedUpazilaName);
-    Log.e("selected upazila Value", String.valueOf(upValue));
+    Log.d(LOGTAG, "selected upazila Value:\t" + String.valueOf(upValue));
 
     return upValue;
 }
@@ -206,8 +213,8 @@ private  int unionMapping(){
     spnUN.setAdapter(unAdapter);
     selectedUnionName = spnUN.getSelectedItem().toString();
     unValue = unionCodeMap.get(selectedUnionName);
-    Log.e("selected Union Name", String.valueOf(selectedUnionName));
-    Log.e("selected Union Value", String.valueOf(unValue));
+    Log.d(LOGTAG, "selected Union Name:\t" + String.valueOf(selectedUnionName));
+    Log.d(LOGTAG, "selected Union Value:\t" + String.valueOf(unValue));
 
     return unValue;
 }
@@ -279,7 +286,8 @@ private  int unionMapping(){
         try {
             json = buildQueryHeader();
             Utilities.getEditTexts(jsonEditTextMap, json);
-            Utilities.getSpinners(jsonSpinnerMap, json);      // for sex Spinner
+            //Utilities.getSpinners(jsonSpinnerMap, json);      // for sex Spinner
+            getSpecialCases(json);
             //Utilities.getSpinnerValues(jsonSpinnerMap, json); // for upz, union Spinner
 
             Log.e("ADVSearch JSON 2SERVLET", json.toString());
@@ -288,9 +296,13 @@ private  int unionMapping(){
 
 
         } catch (JSONException jse) {
-            Log.e("NRC", "JSON Exception: " + jse.getMessage());
+            Log.e(LOGTAG, "JSON Exception: " + jse.getMessage());
         }
 
+    }
+
+    private void getSpecialCases(JSONObject json) throws JSONException {
+        json.put("gender", getSpinner(R.id.advClientsSexSpinner).getSelectedItemPosition()+1);
     }
     public void addListenerOnButton() {
 
@@ -314,7 +326,6 @@ private  int unionMapping(){
                 if(v.getId() == R.id.searchBtn)
                 {
                     advSearchSaveToJson();
-
                 }
             }
         });
@@ -345,33 +356,33 @@ private  int unionMapping(){
 
     @Override
     public void callbackAsyncTask(String result) {
-        Log.e("Found result", result);
+        Log.d(LOGTAG, result);
         JSONObject json;
+        JSONObject jsonPerson;
         try {
             json = new JSONObject(result);
 
+            if (json.has("count") && json.getInt("count") > 0) { // if the result is present
+                personsList.clear();
+            }
+
             for (int i=1; i<= (json.getInt("count")); i++) {
 
-                String sss= (json.getJSONObject(String.valueOf(i)).getString("name") + " || "
-                              + json.getJSONObject(String.valueOf(i)).getString("healthId"));
 
-                             clientsList.add(sss);
-                            Log.e("Found", sss);
-
-
+                jsonPerson = json.getJSONObject(String.valueOf(i));
+                personsList.add(new Person(jsonPerson.getString("name"),
+                        jsonPerson.getString("fatherName"),
+                        jsonPerson.getString("healthId"),
+                        jsonPerson.getInt("healthIdPop") == 1 ? 0 : 4,
+                        jsonSpinnerMap.get("gender").getSelectedItemPosition() != 1 ? R.drawable.man : R.drawable.woman));
 
             }
-
             initList();
-
-
+            //searchListView.setAdapter(personsList);
         }
-            catch (JSONException jse) {
-                jse.printStackTrace();
-            }
-
-    }
-
+        catch (JSONException jse) {
+            jse.printStackTrace();
+        }            }
     @Override
     protected void initiateCheckboxes() {
 
@@ -380,6 +391,7 @@ private  int unionMapping(){
     @Override
     protected void initiateEditTexts() {
         jsonEditTextMap.put("name", getEditText(R.id.advClient_name));
+        getEditText(R.id.advClient_name).setFilters(new InputFilter[]{new InputFilter.AllCaps()});
     }
 
     @Override

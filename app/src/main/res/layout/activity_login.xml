@@ -34,11 +34,13 @@
         android:layout_alignEnd="@+id/logo_image"
         android:layout_weight="0.06" />
 </LinearLayout>
+
 <LinearLayout
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center">
+
     <TextView
         android:textSize="20dp"
         android:layout_marginTop="30dp"
@@ -53,24 +55,31 @@
 
     <EditText
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="10dp"
         android:layout_marginRight="15dp"
+        android:paddingLeft="20dp"
         android:layout_centerVertical="true"
-        android:gravity="center"
         android:ellipsize="start"
         android:inputType="text"
         android:background="@drawable/edittext_round"
-        android:layout_width="400px"
-        android:layout_height="50px"
-        android:id="@+id/providerId"  />
-       !-- android:hint="সেবা প্রদানকারীর আইডি প্রদান করুন"
+        android:layout_width="250px"
+        android:layout_height="45px"
+        android:id="@+id/providerId"
+         />
 
+</LinearLayout>
+
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
 
     <TextView
         android:layout_marginLeft="10dp"
         android:textSize="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:layout_centerVertical="true"
         android:id="@+id/providerPasswordLabel"
         android:textColor="@color/text_color"
@@ -79,52 +88,53 @@
         android:layout_height="wrap_content" />
     <EditText
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="15dp"
-        android:gravity="center"
+        android:paddingLeft="20dp"
         android:layout_centerVertical="true"
         android:ellipsize="start"
         android:background="@drawable/edittext_round"
         android:id="@+id/providerPassword"
-        android:layout_width="400px"
-        android:layout_height="50px"
+        android:layout_width="250px"
+        android:layout_height="45px"
         android:inputType="textPassword"  />
-       !-- android:hint="পাসওয়ার্ড প্রদান করুন"
 </LinearLayout>
 
 <LinearLayout
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_centerVertical="true"
-    android:gravity="center" >
+    android:gravity="center">
+
     <Button
         android:layout_centerVertical="true"
         android:ellipsize="start"
         android:gravity="center"
-        android:layout_width="150sp"
-        android:layout_height="80px"
+        android:layout_width="wrap_content"
+        android:layout_height="60px"
+        android:layout_marginLeft="10dp"
         android:layout_gravity="center"
         android:id="@+id/loginbtn1"
         android:textColor="@color/text_color"
         android:background="@drawable/button_style"
         android:textAlignment="center"
-        android:text="লগইন (Login) "
+        android:text="LOG IN"
+        android:textSize="20dp"
         android:onClick="startLogin"/>
-    <Button
-        android:layout_marginLeft="15dp"
-        android:layout_width="180sp"
-        android:layout_height="80px"
-        android:textColor="@color/text_color"
-        android:id="@+id/forgot_password"
-        android:background="@drawable/button_style"
+
+    <TextView
+        android:layout_marginLeft="30dp"
+        android:textSize="16dp"
+        android:layout_marginTop="10dp"
         android:layout_centerVertical="true"
-        android:ellipsize="start"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:textAlignment="center"
-        android:text="পাসওয়ার্ড ভুলে গেছেন ?"/>
+        android:id="@+id/forgotPasswordLabel"
+        android:textColor="@color/text_color"
+        android:text="Forgot password?"
+        android:layout_width="138dp"
+        android:layout_height="match_parent"
+        android:onClick="showTextForgotPass"/>
 
 </LinearLayout>
     <TableLayout

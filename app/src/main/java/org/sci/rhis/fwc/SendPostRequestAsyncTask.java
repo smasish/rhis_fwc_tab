@@ -30,6 +30,7 @@ public class SendPostRequestAsyncTask extends AsyncTask<String, Void, String> {
 
     private Activity activity;
     private AsyncCallback originalRequest;
+    private  final String LOGTAG    = "FWC-ASYNC-TASK-NET";
     protected Activity getActivity() { return activity; }
     public void setActivity(Activity activity) {this.activity = activity;}
 
@@ -48,25 +49,24 @@ public class SendPostRequestAsyncTask extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
 
-        String paramUserDetails = params[0];
-        String paramPassword = params[1];
         String queryString = params[0];
         String servlet = params[1];
         String jsonRootkey = params[2];
-                String queryString2 = "{sOpt:1,sStr:5833,providerid:6608}";
-                System.out.println("*** doInBackground ** query: " + queryString);
 
-        System.out.println(jsonRootkey+"*** servlet-------: " + servlet);
+        Log.i(LOGTAG, "Sending JSON:\t" + queryString);
+
+        Log.i(LOGTAG, "RootKey:\t"+jsonRootkey + "\tServlet:\t" + servlet);
                 HttpClient httpClient = new DefaultHttpClient();
                 // In a POST request, we don't pass the values in the URL.
         //Therefore we use only the web page URL as the parameter of the HttpPost argument
 
         //http://10.12.0.32:8080/RHIS
         //http://119.148.6.215:8080/RHIS/
-        HttpPost httpPost = new HttpPost("http://119.148.6.215:8080/RHIS/"+servlet);
-       //  HttpPost httpPost = new HttpPost("http://10.12.0.32:8080/RHIS/"+servlet);
-        //HttpPost httpPost = new HttpPost("http://10.12.6.138:8080/RHIS_WEB_Armaan/"+servlet);
-                // Because we are not passing values over the URL, we should have a mechanism to pass the values that can be
+        HttpPost httpPost = new HttpPost("http://119.148.6.215:8080/RHISv2/"+servlet);
+        //HttpPost httpPost = new HttpPost("http://10.12.0.32:8080/RHIS/"+servlet);
+        //HttpPost httpPost = new HttpPost("http://192.168.2.14:8080/rhis/"+servlet);
+
+        // Because we are not passing values over the URL, we should have a mechanism to pass the values that can be
         //uniquely separate by the other end.
         //To achieve that we use BasicNameValuePair
         //Things we need to pass with the POST request
@@ -127,7 +127,7 @@ public class SendPostRequestAsyncTask extends AsyncTask<String, Void, String> {
             }
             originalRequest.callbackAsyncTask(result);
         } catch (Exception e) {
-            Log.e("Network", e.toString());
+            Log.e(LOGTAG, e.toString());
             e.printStackTrace();
         }
     }

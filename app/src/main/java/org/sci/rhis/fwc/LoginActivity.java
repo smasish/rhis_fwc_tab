@@ -1,12 +1,17 @@
 package org.sci.rhis.fwc;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -17,6 +22,9 @@ import java.util.Iterator;
 public class LoginActivity extends FWCServiceActivity {
 
     Button button;
+    int placeIndex=0;
+    String placeName="";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,7 +34,7 @@ public class LoginActivity extends FWCServiceActivity {
      // Remove Action Bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-        //Set deafult bang;a font
+        //Set deafult bangla font
         //Typeface tf = Typeface.createFromAsset(getApplicationContext().getAssets(),"Nikosh.ttf");
         //TextView textview = (TextView)findViewById(R.id.providerLabelId);
         //textview.setTypeface(tf);
@@ -67,18 +75,20 @@ public class LoginActivity extends FWCServiceActivity {
             }
 
             if(json.getBoolean("loginStatus")) { //if successful login
+
                 //first create the provider object
                 Log.d("++++++++++", "-----" + json.getString("ProvName"));
                 ProviderInfo provider = ProviderInfo.getProvider();
                 provider.setProviderName(json.getString("ProvName"));
                 provider.setProviderCode(json.getString("ProvCode"));
                 provider.setProviderFacility(json.getString("FacilityName"));
-                Intent intent = new Intent(this, SecondActivity.class);
-                startActivity(intent);
-                Log.e("aaf",""+provider.getProviderFacility());
+
+                popUpDialog();
+
+                Log.d("aaf",""+provider.getProviderFacility());
                 System.out.println("Post Response: " + result);
             } else {
-                //todo: displaya red colored text view that log in failed.
+                //todo: display a red colored text view that log in failed.
                 Toast.makeText(this, "Login Failed ...", Toast.LENGTH_LONG).show();
             }
         } catch (JSONException jse) {
@@ -86,4 +96,96 @@ public class LoginActivity extends FWCServiceActivity {
             jse.printStackTrace();
         }
     }
+
+    public void popUpDialog() {
+
+        final Dialog dialog = new Dialog(this);
+
+        //Remove title bar
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        dialog.setContentView(R.layout.place_pop);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+
+
+        DisplayMetrics dm =new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+        int w=dm.widthPixels;
+        int h=dm.heightPixels;
+
+        //dialog.getWindow().setLayout((int) (w * 0.7), (int) (h * 0.34));
+
+
+        final Button ok=(Button)dialog.findViewById(R.id.buttonPlacePopUpOK);
+        final Button cancel=(Button)dialog.findViewById(R.id.buttonPlacePopUpCancel);
+        final RadioGroup RadioPlaceGroupListener = (RadioGroup) dialog.findViewById(R.id.radioGroupPlace);
+        final EditText SatelliteName=(EditText)dialog.findViewById(R.id.SatelliteName);
+
+
+            RadioPlaceGroupListener.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                    if (checkedId == R.id.radioButtonSatellite) {
+                        placeIndex =1;
+                        SatelliteName.setVisibility(EditText.VISIBLE);
+
+                    }
+
+                    else {
+                        placeIndex =0;
+                        SatelliteName.setVisibility(EditText.GONE);
+                    }
+                }
+            });
+
+        ok.setOnClickListener(new Button.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                //to get the place of service
+                //  0 facility
+                //  1 satellite
+
+                Log.d("placeIndex", String.valueOf(placeIndex));
+                if (placeIndex ==1) {
+                    placeName = SatelliteName.getText().toString();
+                }
+
+                else if (placeIndex ==0){
+                    placeName = "";
+
+                }
+
+                Log.d("placeName", placeName);
+
+                startSecondActivity(placeName);
+                dialog.dismiss();
+
+            }
+        });
+
+
+        cancel.setOnClickListener(new Button.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+            }
+        });
+
+    }
+
+    public void startSecondActivity(String satelliteCenter) {
+        Intent intent = new Intent(this, SecondActivity.class);
+        //intent.putExtra("satellite", satelliteCenter);
+        ProviderInfo.getProvider().setSatelliteName(satelliteCenter);
+        startActivity(intent);
+    }
 }
+
+

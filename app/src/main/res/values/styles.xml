@@ -58,4 +58,7 @@
     <style name="styleEdittext">
         <item name="android:textColor">@drawable/check_disable</item>
     </style>
+    <style name="AppTheme.popUpTheme">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 </resources>

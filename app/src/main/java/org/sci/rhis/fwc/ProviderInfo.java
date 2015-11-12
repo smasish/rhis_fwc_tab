@@ -24,6 +24,7 @@ public class ProviderInfo implements Parcelable {
         dest.writeString(mProviderCode);
         dest.writeString(mProviderName);
         dest.writeString(mProviderFacility);
+        dest.writeString(mSatelliteName);
     }
 
     public static final Parcelable.Creator<ProviderInfo> CREATOR= new Parcelable.Creator<ProviderInfo>() {
@@ -47,6 +48,7 @@ public class ProviderInfo implements Parcelable {
         mProviderCode       = data.readString();
         mProviderName       = data.readString();
         mProviderFacility   = data.readString();
+        mSatelliteName      = data.readString();
     }
 
     public ProviderInfo() {
@@ -76,6 +78,14 @@ public class ProviderInfo implements Parcelable {
         this.mProviderFacility = mProviderFacility;
     }
 
+    public String getSatelliteName() {
+        return mSatelliteName;
+    }
+
+    public void setSatelliteName(String mSatelliteName) {
+        this.mSatelliteName = mSatelliteName;
+    }
+
     static ProviderInfo getProvider() {
         if ( provider == null ) {
             provider = new ProviderInfo();
@@ -83,10 +93,10 @@ public class ProviderInfo implements Parcelable {
         return provider;
     }
 
-
-
     private String mProviderCode;
     private String mProviderName;
     private String mProviderFacility;
+    private String mSatelliteName;
     private static ProviderInfo provider;
+
 }

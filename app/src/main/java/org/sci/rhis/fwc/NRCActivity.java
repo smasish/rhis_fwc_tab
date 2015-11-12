@@ -3,6 +3,7 @@ package org.sci.rhis.fwc;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.text.InputFilter;
 import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
@@ -25,6 +26,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 public class NRCActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
                                                                     View.OnClickListener,
@@ -45,7 +47,8 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
     private HashMap<String, Pair<Integer, Integer>> villageCodeMap;
     private long generatedId;
 
-    private  int flag=0, provider;
+    private  int flag=0;
+    ProviderInfo provider;
     private String selectedDistName, selectedUpazilaName,selectedUnionName, selectedVillageName;
     private int divValue, distValue, upValue, unValue, vilValue, mouzaValue;
 
@@ -61,9 +64,9 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         Intent intent = getIntent();
-         provider = intent.getIntExtra("Provider", flag);
+        provider = intent.getParcelableExtra("Provider");
 
-        Log.e("ProviderCode",String.valueOf(provider));
+        Log.e("ProviderCode",String.valueOf(provider.getProviderCode()));
 
         initialize();
         Spinner sex = (Spinner)findViewById(R.id.ClientsSexSpinner);
@@ -259,7 +262,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         //get info from database
         String queryString =   "{" +
                 "\"generatedId\":"  + computeMD5Hash(getString())  + "," +
-                "\"providerid\":" + String.valueOf(provider)+ "," +
+                "\"providerid\":" + String.valueOf(provider.getProviderCode())+ "," +
                 "\"division\":" + String.valueOf(divValue)+ "," +
                 "\"district\":" + String.valueOf(distValue) + "," +
                 "\"upazila\":" + String.valueOf(upValue)+ "," +
@@ -278,7 +281,8 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         try {
             json = buildQueryHeader();
             Utilities.getEditTexts(jsonEditTextMap, json);
-            Utilities.getSpinners(jsonSpinnerMap, json);
+            //Utilities.getSpinners(jsonSpinnerMap, json);
+            getSpecialCases(json);
 
             NRCInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
 
@@ -288,6 +292,11 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
             Log.e("NRC", "JSON Exception: " + jse.getMessage());
         }
 
+    }
+
+    private void getSpecialCases(JSONObject json) throws JSONException{
+        String key = "gender";
+        json.put(key, jsonSpinnerMap.get(key).getSelectedItemPosition()+1);
     }
     //Method that will parse the JSON file and will return a JSONObject
     public JSONObject parseJSONData() {
@@ -377,7 +386,11 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         jsonEditTextMap.put("fathername", getEditText(R.id.Clients_Father));
         jsonEditTextMap.put("mothername", getEditText(R.id.Clients_Mother));
         jsonEditTextMap.put("hhgrholdingno", getEditText(R.id.Clients_House_No));
-        jsonEditTextMap.put("cellno", getEditText(R.id.Clients_Mobile_no));
+        jsonEditTextMap.put("cellno", getEditText(R.id.NrcClients_Mobile_no));
+
+        for(Map.Entry<String, EditText> edit : jsonEditTextMap.entrySet()) {
+            edit.getValue().setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        }
     }
 
     @Override
@@ -419,9 +432,10 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
             public void onClick(View arg0) {
                 nrcSaveToJson();
                 Intent intent = new Intent();
-                intent.putExtra("generatedId", generatedId);
+                intent.putExtra("generatedId", computeMD5Hash(getString()));
                 setResult(RESULT_OK, intent);
                 finishActivity(ActivityResultCodes.REGISTRATION_ACTIVITY);
+                finish();
             }
         });
 
