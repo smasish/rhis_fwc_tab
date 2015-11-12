@@ -83,7 +83,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 				//Log.d("----------lenth---||" + str, "" + str.length());
 
 				Resources res1 = _context.getResources();
-				if(childPosition == 12 && str.length()>4) {
+				if(childPosition == 13 && str.length()>4) {
 					str = parseString(childText);
 					Log.d("-------------||" + str, "" + str.trim().split(" "));
 					String[] animals = str.split(" ");
@@ -99,7 +99,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 					if(temp.length()>5)
 						AlertMessage.showMessage(_context, "Details", temp);
 				}
-				else if(childPosition == 13 && str.length()>4) {
+				else if(childPosition == 14 && str.length()>4) {
 
 					str = parseString(childText);
 
@@ -117,7 +117,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 						AlertMessage.showMessage(_context, "Details", temp);
 
 
-				}else if(childPosition == 14 && str.length()>4) {
+				}else if(childPosition == 15 && str.length()>4) {
 					str = parseString(childText);
 
 					String[] animals = str.split(" ");
@@ -133,7 +133,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 					if(temp.length()>5)
 						AlertMessage.showMessage(_context, "Details", temp);
 				}
-				else if(childPosition == 15 && str.length()>4) {
+				else if(childPosition == 16 && str.length()>4) {
 					str = parseString(childText);
 
 					String[] animals = str.split(" ");
@@ -150,7 +150,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 						AlertMessage.showMessage(_context, "Details", temp);
 
 				}
-				else if(childPosition == 16 && str.length()>4) {
+				else if(childPosition == 17 && str.length()>4) {
 					str = parseString(childText);
 
 					String[] animals = str.split(" ");
@@ -168,7 +168,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
 				}
 
-				else if(childPosition == 19 && str.length()>4) {
+				else if(childPosition == 20 && str.length()>4) {
 					str = parseString(childText);
 
 					String[] animals = str.split(" ");
