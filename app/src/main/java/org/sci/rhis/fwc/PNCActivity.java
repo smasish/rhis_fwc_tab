@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -87,6 +88,9 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
     private LinearLayout lay_frag_mother;
     private Context con;
 
+    private ArrayAdapter<String> childAdapter;
+    private ArrayList<String> childList;
+
 
 
     @Override
@@ -129,6 +133,7 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
         expand.setOnClickListener(this);
 
         child_tree=true;
+        childList  = new ArrayList<>(); //childList
 
         pnclay_child = (LinearLayout)findViewById(R.id.pncChildInfo);
         pnclay_mother = (LinearLayout)findViewById(R.id.pncMotherInfo);
@@ -880,6 +885,10 @@ pnc child history
             String key;
             int num=1;
 
+            // start handle child drop down
+            populateChild(jsonStr);
+            // end child drop down
+
             Log.d("PNC", "Handle Child\n" + result);
             // woman = PregWoman.CreatePregWoman(json);
             Log.d("--:::>", "---complicationsign=====>" + result);
@@ -1097,5 +1106,59 @@ pnc child history
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    private void populateChild(JSONObject childJson)  {
+        Spinner childDropdown = getSpinner(R.id.id_pncChildListDropdown);
+        childList.clear();
+        //childDropdown.setVisibility(View.VISIBLE);
+        //childDropdown.setAdapter();
+
+        int currentChildCount = 0;
+        String childArray [] = {};
+
+        childList.add("");
+
+        try {
+            String childValues = childJson.getString("childMapping");
+            if(!childValues.equals("")) {
+                childArray = childValues.split(",");
+            }
+
+            for (int i  = 0; i < childArray.length; i++) {
+                childList.add(childArray[i]);
+            }
+
+        } catch (JSONException JSE) {
+            JSE.printStackTrace();
+        }
+
+        childAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,childList);
+        childAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        childDropdown.setAdapter(childAdapter);
+        if(childArray.length > 0) {
+            childDropdown.setVisibility(View.VISIBLE);
+            childDropdown.setSelection(0);
+        }
+
+        childDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                    if(position != 0) {
+                        handleChildSelected(position);
+                    }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void handleChildSelected(int childno) {
+        String child = childList.get(childno);
     }
 }

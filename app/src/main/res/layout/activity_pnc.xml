@@ -54,6 +54,22 @@
                 android:id="@+id/expandview"
 
                 android:layout_gravity="center_horizontal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Child: "
+                android:id="@+id/pncChildHistoryLabel"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal" />
+            <Spinner
+                android:id="@+id/id_pncChildListDropdown"
+                android:layout_width="wrap_content"
+                android:layout_height="50px"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/gradient_spinner"
+                />
 
             </LinearLayout>
 
