@@ -35,7 +35,7 @@
         android:name="org.sci.rhis.fwc.ANCActivityFragment"
         tools:layout="@layout/fragment_anchistory"
         android:layout_width="wrap_content"
-        android:layout_height="280dp" />
+        android:layout_height="350dp" />
 
        <!-- <Button
             android:layout_width="wrap_content"

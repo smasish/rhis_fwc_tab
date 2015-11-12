@@ -355,13 +355,94 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                             if (i == 3) {
                                 list.add("" + mainlist[i-2] + "" + jsonArray.get(i-1).toString() + " / " + jsonArray.get(i).toString());
                             }
-                            else if(( i == 13|| i == 14 || i == 15 || i == 16 || i == 17|| i == 20) && det.length() >0) {
-                                Log.d("------------->>"+det, ""+i);
-                                list.add("" + mainlist[i - 1] + "" + getString(R.string.detail));
+                            else if (i == 5) {
+                                String[] details;
+                                Resources res1 = con.getResources();
+                                String str1 = det;
+
+
+                                String[] animals = str1.split(" ");
+                                String temp = "";
+                                details = res1.getStringArray(R.array.Edema_Dropdown);
+                                for (String animal : animals) {
+                                    System.out.println(animal);
+                                    if(animal.length()>0)
+                                        temp = temp+"\n"+details[Integer.parseInt(animal)];
+                                }
+                                list.add("" + mainlist[i-1] +temp );
+
                             }
-                            else if(( i == 13|| i == 14 || i == 15 || i == 16 || i == 17|| i == 20) && det.length() <1) {
-                                Log.d("------------->>"+det, ""+i);
-                                list.add("" + mainlist[i - 1]);
+                            else if (i == 8) {
+                                String[] details;
+                                Resources res1 = con.getResources();
+                                String str1 = det;
+
+
+                                String[] animals = str1.split(" ");
+                                String temp = "";
+                                details = res1.getStringArray(R.array.Fetal_Presentation_Dropdown);
+                                for (String animal : animals) {
+                                    System.out.println(animal);
+                                    if(animal.length()>0)
+                                        temp = temp+"\n"+details[Integer.parseInt(animal)];
+                                }
+                                list.add("" + mainlist[i-1] +temp );
+
+                            }
+
+                            else if (i == 9) {
+                                list.add("" + mainlist[i-1] + "" + jsonArray.get(i).toString()+"%");
+                            }
+                            else if (i == 10) {
+                                String[] details;
+                                Resources res1 = con.getResources();
+                                String str1 = det;
+
+
+                                String[] animals = str1.split(" ");
+                                String temp = "";
+                                details = res1.getStringArray(R.array.Jaundice_Dropdown);
+                                for (String animal : animals) {
+                                    System.out.println(animal);
+                                    if(animal.length()>0)
+                                        temp = temp+"\n"+details[Integer.parseInt(animal)];
+                                }
+                                list.add("" + mainlist[i-1] +temp );
+
+                            }
+                            else if (i == 11) {
+                                String[] details;
+                                Resources res1 = con.getResources();
+                                String str1 = det;
+
+
+                                String[] animals = str1.split(" ");
+                                String temp = "";
+                                details = res1.getStringArray(R.array.Urine_Test_Sugar_Dropdown);
+                                for (String animal : animals) {
+                                    System.out.println(animal);
+                                    if(animal.length()>0)
+                                        temp = temp+"\n"+details[Integer.parseInt(animal)];
+                                }
+                                list.add("" + mainlist[i-1] +temp );
+
+                            }
+                            else if (i == 12) {
+                                String[] details;
+                                Resources res1 = con.getResources();
+                                String str1 = det;
+
+
+                                String[] animals = str1.split(" ");
+                                String temp = "";
+                                details = res1.getStringArray(R.array.Urine_Test_Albumin_Dropdown);
+                                for (String animal : animals) {
+                                    System.out.println(animal);
+                                    if(animal.length()>0)
+                                        temp = temp+"\n"+details[Integer.parseInt(animal)];
+                                }
+                                list.add("" + mainlist[i-1] +temp );
+
                             }
                             else if (i == 18 && Integer.parseInt(det)==1) {
                                 list.add("" + mainlist[i-1] + "Yes" );
@@ -382,7 +463,27 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                                     if(animal.length()>0)
                                         temp = temp+"\n"+details[Integer.parseInt(animal)];
                                 }
-                                list.add("" + mainlist[i-1] + con.getString(R.string.referCenterName)+temp );
+                                list.add("" + mainlist[i-1] +temp );
+
+                            }
+                            else if (i == 21) {
+
+                            }
+                            else if (i == 22) {
+                                String[] details;
+                                Resources res1 = con.getResources();
+                                String str1 = det;
+
+
+                                String[] animals = str1.split(" ");
+                                String temp = "";
+                                details = res1.getStringArray(R.array.pnc_Anemia_Dropdown);
+                                for (String animal : animals) {
+                                    System.out.println(animal);
+                                    if(animal.length()>0)
+                                        temp = temp+"\n"+details[Integer.parseInt(animal)];
+                                }
+                                list.add("" + mainlist[i-1] +temp );
 
                             }
                             else

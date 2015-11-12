@@ -52,18 +52,32 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = infalInflater.inflate(R.layout.list_item, null);
 		}
-		Resources res1 = _context.getResources();
+		String[] mainlist;
+		Resources res = _context.getResources();
 		TextView txtListChild = (TextView) convertView
 				.findViewById(R.id.lblListItem);
 
 		String str = childText;
-
+		mainlist = res.getStringArray(R.array.list_item);
 		str = str.replaceAll("[^0-9]+", " ");
 		str = str.trim();
 
+		 if(( childPosition == 11|| childPosition == 12 || childPosition == 13 || childPosition == 14 ||
+				 childPosition == 15|| childPosition == 18) && str.length() >0) {
+			Log.d("------------->>" + childText, "" + childPosition);
+			 txtListChild.setText("" + mainlist[childPosition +1] + "" + _context.getString(R.string.detail));
 
+		}
+		else if(( childPosition == 11|| childPosition == 12 || childPosition == 13 || childPosition == 14 ||
+				 childPosition == 15|| childPosition == 18) && str.length() <1) {
+			Log.d("------------->>"+childText, ""+childPosition);
+			txtListChild.setText("" + mainlist[childPosition + 1] );
 
-		txtListChild.setText(childText);
+		}
+		else {
+			 Log.d("------------->>"+childText, "--"+childPosition);
+			 txtListChild.setText(childText);
+		 }
 
 		convertView.setOnClickListener(new View.OnClickListener() {
 
@@ -71,20 +85,24 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 			public void onClick(View v) {
 
 				String[] details;
-				Toast.makeText(_context,""+childText, Toast.LENGTH_SHORT).show();
+				//Toast.makeText(_context,""+childText, Toast.LENGTH_SHORT).show();
 
 				//here I need to do some things that require me to manipulate the categoriesList from the Activity class - but it is out of scope
 
 				String str = null;
 
-				//str = childText;
+				str = childText;
 				//str = ""+list1.get(childPosition);
 
 				//Log.d("----------lenth---||" + str, "" + str.length());
 
 				Resources res1 = _context.getResources();
-				if(childPosition == 13 && str.length()>4) {
-					str = parseString(childText);
+
+				str = parseString(childText);
+
+
+				if(childPosition == 11 && str.length()>=1) {
+
 					Log.d("-------------||" + str, "" + str.trim().split(" "));
 					String[] animals = str.split(" ");
 					String temp = "";
@@ -92,16 +110,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 					for (String animal : animals) {
 						System.out.println(animal);
 						if(animal.length()>0)
-							temp = temp+"\n"+details[Integer.parseInt(animal)-1];
+							temp = temp+"\n"+details[Integer.parseInt(animal)];
 					}
 					Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
 					//System.out.println(Arrays.asList(s.trim().split(" ")));
 					if(temp.length()>5)
 						AlertMessage.showMessage(_context, "Details", temp);
 				}
-				else if(childPosition == 14 && str.length()>4) {
+				else if(childPosition == 12 && str.length()>=1) {
 
-					str = parseString(childText);
+					//str = parseString(childText);
 
 					String[] animals = str.split(" ");
 					String temp = "";
@@ -109,7 +127,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 					for (String animal : animals) {
 						System.out.println(animal);
 						if(animal.length()>0)
-							temp = temp+"\n"+details[Integer.parseInt(animal)-1];
+							temp = temp+"\n"+details[Integer.parseInt(animal)];
 					}
 					Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
 
@@ -117,8 +135,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 						AlertMessage.showMessage(_context, "Details", temp);
 
 
-				}else if(childPosition == 15 && str.length()>4) {
-					str = parseString(childText);
+				}else if(childPosition == 13 && str.length()>=1) {
+					//str = parseString(childText);
 
 					String[] animals = str.split(" ");
 					String temp = "";
@@ -126,15 +144,15 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 					for (String animal : animals) {
 						System.out.println(animal);
 						if (animal.length() > 0)
-							temp = temp + "\n" + details[Integer.parseInt(animal) - 1];
+							temp = temp + "\n" + details[Integer.parseInt(animal) ];
 					}
 					Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
 
 					if(temp.length()>5)
 						AlertMessage.showMessage(_context, "Details", temp);
 				}
-				else if(childPosition == 16 && str.length()>4) {
-					str = parseString(childText);
+				else if(childPosition == 14 && str.length()>=1) {
+					//str = parseString(childText);
 
 					String[] animals = str.split(" ");
 					String temp = "";
@@ -142,7 +160,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 					for (String animal : animals) {
 						System.out.println(animal);
 						if(animal.length()>0)
-							temp = temp+"\n"+details[Integer.parseInt(animal)-1];
+							temp = temp+"\n"+details[Integer.parseInt(animal)];
 					}
 					Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
 
@@ -150,8 +168,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 						AlertMessage.showMessage(_context, "Details", temp);
 
 				}
-				else if(childPosition == 17 && str.length()>4) {
-					str = parseString(childText);
+				else if(childPosition == 15 && str.length()>=1) {
+					//str = parseString(childText);
 
 					String[] animals = str.split(" ");
 					String temp = "";
@@ -159,7 +177,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 					for (String animal : animals) {
 						System.out.println(animal);
 						if(animal.length()>0)
-							temp = temp+"\n"+details[Integer.parseInt(animal)-1];
+							temp = temp+"\n"+details[Integer.parseInt(animal)];
 					}
 					Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
 
@@ -168,8 +186,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
 				}
 
-				else if(childPosition == 20 && str.length()>4) {
-					str = parseString(childText);
+				else if(childPosition == 18 && str.length()>=1) {
+					//str = parseString(childText);
 
 					String[] animals = str.split(" ");
 					String temp = "";
@@ -177,7 +195,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 					for (String animal : animals) {
 						System.out.println(animal);
 						if(animal.length()>0)
-							temp = temp+"\n"+details[Integer.parseInt(animal)-1];
+							temp = temp+"\n"+details[Integer.parseInt(animal)];
 					}
 					Log.d("oooooooooo17+++" + str, "" + str.trim().split(" "));
 

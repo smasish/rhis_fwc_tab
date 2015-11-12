@@ -120,7 +120,7 @@
 
         <item>ইডিমা:</item>
         <item>জরায়ুর উচ্চতা (সপ্তাহ):</item>
-        <item>ফিটাসের হৃদপিণ্ডের গতি (প্রতি মিনিটে):</item>
+        <item>ফিটাসের হৃদপিণ্ডের গতি \n(প্রতি মিনিটে):</item>
         <item>ফিটাল প্রেজেনটেশন:</item>
         <item>হিমোগ্লোবিন:</item>
         <item>জন্ডিস:</item>
@@ -264,7 +264,7 @@
     <string name="weight">"ওজন (কেজি):"</string>
     <string name="edema">"ইডিমা:"</string>
     <string name="uterus_height">"জরায়ুর উচ্চতা (সপ্তাহ):"</string>
-    <string name="heart_speed">"ফিটাসের হৃদপিণ্ডের গতি (প্রতি মিনিটে):"</string>
+    <string name="heart_speed">"ফিটাসের হৃদপিণ্ডের গতি \n(প্রতি মিনিটে):"</string>
     <string name="fetal_presentation">"ফিটাল প্রেজেনটেশন:"</string>
     <string name="anemia">"রক্তস্বল্পতা:"</string>
     <string name="hemoglobin">"হিমোগ্লোবিন:"</string>
@@ -286,7 +286,7 @@
     <string name="cervix_involution">"জরায়ুর ইনভলিউশন:"</string>
     <string name="discharge_bleeding">"স্রাব/ রক্তস্রাব:"</string>
     <string name="perineum">"পেরিনিয়াম:"</string>
-    <string name="family_planning_methods">"পরিবার পরিকল্পনা পদ্ধতি(পরামর্শ / পদ্ধতি প্রদান):"</string>
+    <string name="family_planning_methods">"পরিবার পরিকল্পনা পদ্ধতি\n(পরামর্শ / পদ্ধতি প্রদান):"</string>
 
 
 
