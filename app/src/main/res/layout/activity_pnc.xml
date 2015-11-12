@@ -558,7 +558,12 @@
                     android:layout_height="50px"
                     android:layout_marginTop="10dp" />
             </LinearLayout>
-                <LinearLayout android:id="@+id/pncReferCenterName" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <LinearLayout android:id="@+id/pncReferCenterName"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:layout_centerVertical="true"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
                 <TextView
                     android:id="@+id/pncReferCenterNameLabel"
                     android:text="@string/center_name"

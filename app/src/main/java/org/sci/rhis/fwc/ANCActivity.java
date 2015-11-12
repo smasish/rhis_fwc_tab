@@ -332,7 +332,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
             //Check if eligible for new ANC
             if(jsonStr.has("ancStatus") &&
-               !jsonStr.getBoolean("ancStatus")) {
+               jsonStr.getBoolean("ancStatus")) {
                 Utilities.MakeInvisible(this, R.id.ancEntryMasterLayout);
                 Toast.makeText(this, "Mother is not eligible for new ANC",Toast.LENGTH_LONG).show();
             }
@@ -583,7 +583,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
      {
          if (buttonView.getId() == R.id.ancReferCheckBox) {
              int visibility = isChecked? View.VISIBLE: View.GONE;
-             int layouts[] = {R.id.reason, R.id.id_referCenterDetails};
+             int layouts[] = {R.id.ancReferCenterNameLayout, R.id.ancReasonLayout};
 
              for(int i = 0 ; i < layouts.length; i++) {
                  Utilities.SetVisibility(this, layouts[i],visibility);
@@ -706,6 +706,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
             ancInfoUpdate = new AsyncAncInfoUpdate(this);
             ancInfoUpdate.execute(json.toString(), SERVLET, ROOTKEY);
 
+            
             Log.i("ANC", "Save Succeeded");
             Log.d("ANC", "JSON:\n" +json.toString());
 

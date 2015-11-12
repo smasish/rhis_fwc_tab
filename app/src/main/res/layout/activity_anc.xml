@@ -290,7 +290,7 @@
         <LinearLayout android:id="@+id/ancHeartSpeed" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" android:textColor="@color/text_color" >
             <TextView
                 android:id="@+id/ancHeartSpeedLabel"
-                android:text="@string/heart_speed"
+                android:text="ফিটাসের হৃদপিণ্ডের গতি (প্রতি মিনিটে):"
                 android:textSize="20dp"
                 android:layout_width="330dp"
                 android:layout_height="50px"
@@ -356,7 +356,7 @@
                 android:textColor="@color/text_color"/>
             <EditText
                 android:id="@+id/ancHemoglobinValue"
-                android:inputType="text"
+                android:inputType="number"
                 android:textSize="20dp"
                 android:paddingLeft="10dp"
                 android:layout_width="70dp"
@@ -524,7 +524,13 @@
                 android:background="@drawable/gradient_spinner"
                 android:layout_marginTop="10dp" />
         </LinearLayout>
-        <LinearLayout android:id="@+id/ancRefer" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+        <LinearLayout android:id="@+id/ancRefer"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_centerVertical="true"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
             <TextView
                 android:id="@+id/ancReferLabel"
                 android:text="@string/refer"
@@ -541,6 +547,7 @@
                 android:layout_height="50px"
                 android:layout_marginTop="10dp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ancReferCenterNameLayout"
             android:layout_marginTop="10dp"
@@ -568,7 +575,12 @@
                 android:entries="@array/FacilityType_DropDown"
                 android:visibility="invisible"/>
         </LinearLayout>
-        <LinearLayout android:id="@+id/ancReasonLayout" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+        <LinearLayout android:id="@+id/ancReasonLayout"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_centerVertical="true"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
             <TextView
                 android:id="@+id/ancReasonLabel"
                 android:text="@string/reason"
@@ -594,7 +606,7 @@
                 android:layout_width="80dp"
                 android:layout_height="60px"
                 android:text="Save"
-                android:textSize="10dp"
+                android:textSize="18dp"
                 android:textColor="@color/text_color"
                 android:onClick="saveAnc"/>
         </LinearLayout>
