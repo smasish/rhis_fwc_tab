@@ -44,16 +44,7 @@
 
                 android:layout_gravity="center_horizontal" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Expand"
-                android:background="@drawable/button_shape"
-                style="@style/rowHeading"
-                android:id="@+id/expandview"
 
-                android:layout_gravity="center_horizontal" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -76,7 +67,8 @@
         <LinearLayout
             android:id="@+id/pnc_mother_frag"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="250dp"
+
 
             >
 
@@ -84,7 +76,7 @@
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/pnchistory_fragment"
             android:name="org.sci.rhis.fwc.PNCHistory" tools:layout="@layout/fragment_pnchistory"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="250dp"
              />
 
             </LinearLayout>
