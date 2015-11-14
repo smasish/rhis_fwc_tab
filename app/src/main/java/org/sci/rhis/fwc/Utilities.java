@@ -129,7 +129,8 @@ public class Utilities {
             view = testgroup != null ? testgroup.getChildAt(i) : view;
 
             if(view instanceof LinearLayout) {
-                Enable(activity, view.getId());
+                MakeInvisible(activity, view.getId());
+                Disable(activity, view.getId());
             } else {
                 view.setVisibility(View.GONE);
             }
@@ -149,6 +150,7 @@ public class Utilities {
             view = testgroup != null ? testgroup.getChildAt(i) : view;
 
             if(view instanceof LinearLayout) {
+                MakeVisible(activity, view.getId());
                 Enable(activity, view.getId());
             } else {
                 view.setVisibility(View.VISIBLE);
