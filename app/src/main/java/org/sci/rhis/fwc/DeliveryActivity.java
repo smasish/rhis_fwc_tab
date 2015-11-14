@@ -324,9 +324,9 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     @Override
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ActivityResultCodes.NEWBORN_ACTIVITY) {
+        if (resultCode == RESULT_OK && requestCode == ActivityResultCodes.NEWBORN_ACTIVITY) {
             if(data.hasExtra("ReloadNewborn") && data.getBooleanExtra("ReloadNewborn", false)) {
-                getExistingChild();
+                handleExistingChild(data.getStringExtra("ChildDetails"));
             }
         }
     }
