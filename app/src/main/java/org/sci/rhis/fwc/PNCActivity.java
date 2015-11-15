@@ -534,7 +534,7 @@ pnc child history
 
                 //Check if eligible for new PNC
                 if(jsonStr.has("pncStatus") &&
-                        !jsonStr.getBoolean("pncStatus")) {
+                   jsonStr.getBoolean("pncStatus")) {
                     Utilities.MakeInvisible(this, R.id.pncMotherInfo);
                     Toast.makeText(this, "Mother is not eligible for new ANC",Toast.LENGTH_LONG).show();
                 }
@@ -975,20 +975,21 @@ pnc child history
 
         if (buttonView.getId() == R.id.pncReferCheckBox) {
             int visibility = isChecked? View.VISIBLE: View.GONE;
-            getTextView(R.id.pncReferCenterNameLabel).setVisibility(visibility);
-            getSpinner(R.id.pncReferCenterNameSpinner).setVisibility(visibility);
-            getTextView(R.id.pncReasonLabel).setVisibility(visibility);
-            getSpinner(R.id.pncReasonSpinner).setVisibility(visibility);
+            int layouts[] = {R.id.pncReferCenterName, R.id.pncReason};
 
+            for(int i = 0 ; i < layouts.length; i++) {
+                Utilities.SetVisibility(this, layouts[i],visibility);
+            }
         }
+
         if (buttonView.getId() == R.id.pncChildReferCheckBox) {
             int visibility = isChecked? View.VISIBLE: View.GONE;
-            getTextView(R.id.pncChildReferCenterNameLabel).setVisibility(visibility);
-            getSpinner(R.id.pncChildReferCenterNameSpinner).setVisibility(visibility);
-            getTextView(R.id.pncChildReasonLabel).setVisibility(visibility);
-            getSpinner(R.id.pncChildReasonSpinner).setVisibility(visibility);
-        }
+            int layouts[] = {R.id.pncChildReferCenterName, R.id.pncChildReason};
 
+            for(int i = 0 ; i < layouts.length; i++) {
+                Utilities.SetVisibility(this, layouts[i],visibility);
+            }
+        }
     }
 
     private void handleChild(String result) {

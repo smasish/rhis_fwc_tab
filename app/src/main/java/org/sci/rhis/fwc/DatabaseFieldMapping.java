@@ -15,6 +15,7 @@ public class DatabaseFieldMapping {
         CLIENT_INTRO.put("cName", R.id.Client_name);
         CLIENT_INTRO.put("cAge", R.id.Clients_Age);
         CLIENT_INTRO.put("cMobileNo", R.id.Clients_Mobile_no);
+        CLIENT_INTRO.put("chGRHNo", R.id.Clients_House_No);
         CLIENT_INTRO.put("cDist", R.id.Clients_District);
         CLIENT_INTRO.put("cUpz", R.id.Clients_Upazila);
         CLIENT_INTRO.put("cUnion", R.id.Clients_Union);

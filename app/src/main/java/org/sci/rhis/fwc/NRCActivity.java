@@ -66,10 +66,9 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         Intent intent = getIntent();
         provider = intent.getParcelableExtra("Provider");
 
-        Log.e("ProviderCode",String.valueOf(provider.getProviderCode()));
+        Log.d("ProviderCode", String.valueOf(provider.getProviderCode()));
 
         initialize();
-        Spinner sex = (Spinner)findViewById(R.id.ClientsSexSpinner);
 
         cName=(EditText)findViewById(R.id.Client_name);
         cFatherName = (EditText) findViewById(R.id.Clients_Father);
@@ -93,8 +92,8 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         selectedDistName = spnDist.getSelectedItem().toString();
         distValue = districtCodeMap.get(selectedDistName).first;
         divValue = districtCodeMap.get(selectedDistName).second;
-        Log.e("selected division Value", String.valueOf(divValue));
-        Log.e("selected district Value", String.valueOf(distValue));
+        Log.d("selected division Value", String.valueOf(divValue));
+        Log.d("selected district Value", String.valueOf(distValue));
 
         upazilaCodeMap = new HashMap<String,Integer>();
         switch(distValue) {
@@ -190,7 +189,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
 
 //THis will store all the values inside "Hydrogen" in a element string
         try {
-            String element = parent.getString("79");            //Log.e("Get Json",element);
+            String element = parent.getString("79");            //Log.d("Get Json",element);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -270,7 +269,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
                 "\"mouza\":" + String.valueOf(mouzaValue)+ "," +
                 "\"village\":" + String.valueOf(vilValue)+
                 "}";
-       // Log.e("selected Item's Value", String.valueOf(distValue));
+       // Log.d("selected Item's Value", String.valueOf(distValue));
         Log.d("QueryStrig", queryString);
         return new JSONObject(queryString);
     }
@@ -283,6 +282,8 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
             Utilities.getEditTexts(jsonEditTextMap, json);
             //Utilities.getSpinners(jsonSpinnerMap, json);
             getSpecialCases(json);
+
+            Log.d("NRC JSON Sent2SERVLET**", json.toString());
 
             NRCInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
 
@@ -356,7 +357,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
 
     @Override
     public void callbackAsyncTask(String result) {
-        Log.e("Found result", result);
+        Log.d("Found result", result);
         JSONObject json;
         try {
             json = new JSONObject(result);
@@ -401,8 +402,6 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
     @Override
     protected void initiateSpinners() {
         jsonSpinnerMap.put("gender", getSpinner(R.id.ClientsSexSpinner));
-
-
     }
 
     @Override

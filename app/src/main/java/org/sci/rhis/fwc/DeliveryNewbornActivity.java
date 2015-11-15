@@ -52,6 +52,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
     AsyncNewbornInfoUpdate newbornInfoQueryTask;
     AsyncNewbornInfoUpdate newbornInfoUpdateTask;
+    Intent returnIntent;
 
     private MultiSelectionSpinner multiSelectionSpinner;
 
@@ -141,7 +142,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
                 Utilities.Disable(this, R.id.deliveryNewBornNo);
 
                 JSONObject jso = buildQueryHeader(true);
-                newbornInfoQueryTask.execute(jso.toString(), SERVLET, ROOTKEY);
+                //newbornInfoQueryTask.execute(jso.toString(), SERVLET, ROOTKEY);
             }
         } catch (JSONException JSE) {
             JSE.printStackTrace();
@@ -191,9 +192,10 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
     @Override
     public void callbackAsyncTask(String result) {
-        Intent intent = new Intent();
-        intent.putExtra("ReloadNewborn", true);
-        setResult(RESULT_OK, intent);
+        returnIntent = new Intent();
+        returnIntent.putExtra("ReloadNewborn", true);
+        returnIntent.putExtra("ChildDetails", result);
+        setResult(RESULT_OK, returnIntent);
         finishActivity(ActivityResultCodes.NEWBORN_ACTIVITY);
         finish();
         //TODO - We may not need this
@@ -393,7 +395,6 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
             Log.d("Newborn", "JSON Exception: " + jse.getMessage());
         }
-        finish();
     }
 
     private void restoreNewbornFromJSON(JSONObject json) {
