@@ -364,10 +364,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_anc">গর্ভকালীন সেবা (ANC)</string>
+    <string name="title_activity_anc">গর্ভকালীন সেবা </string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_delevery">" প্রসবকালীন সেবা "</string>
-    <string name="title_activity_pnc">প্রসবোত্তর সেবা (PNC)</string>
+    <string name="title_activity_pnc">প্রসবোত্তর সেবা</string>
     <string name="pnc_others">অন্যান্য</string>
 
     <string name="history_visit1">পরিদর্শন</string>

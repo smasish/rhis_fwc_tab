@@ -44,23 +44,34 @@
 
                 android:layout_gravity="center_horizontal" />
 
-            <Button
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Expand"
-                android:background="@drawable/button_shape"
-                style="@style/rowHeading"
-                android:id="@+id/expandview"
-
+                android:text="@string/new_born"
+                android:textSize="30dp"
+                android:textColor="@color/text_color"
+                android:id="@+id/pncChildHistoryLabel"
+                android:layout_marginTop="20sp"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
                 android:layout_gravity="center_horizontal" />
+            <Spinner
+                android:id="@+id/id_pncChildListDropdown"
+                android:layout_width="100px"
+                android:layout_height="50px"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/gradient_spinner"
+                />
 
             </LinearLayout>
 
         <LinearLayout
             android:id="@+id/pnc_mother_frag"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="250dp"
+
 
             >
 
@@ -68,7 +79,7 @@
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/pnchistory_fragment"
             android:name="org.sci.rhis.fwc.PNCHistory" tools:layout="@layout/fragment_pnchistory"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="250dp"
              />
 
             </LinearLayout>
