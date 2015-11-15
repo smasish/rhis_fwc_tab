@@ -33,16 +33,16 @@
                 android:id="@+id/pncmother"
 
                 android:layout_gravity="center_horizontal" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Child"
-                android:background="@drawable/button_shape"
-                style="@style/rowHeading"
-                android:id="@+id/pncchild"
+            <!--<Button-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+                <!--android:text="Child"-->
+                <!--android:background="@drawable/button_shape"-->
+                <!--style="@style/rowHeading"-->
+                <!--android:id="@+id/pncchild"-->
 
-                android:layout_gravity="center_horizontal" />
+                <!--android:layout_gravity="center_horizontal" />-->
 
 
             <TextView
