@@ -310,204 +310,7 @@ pnc child history
         datePickerPair.put(R.id.Date_Picker_Button_Child, (EditText) findViewById(R.id.pncChildServiceDateValue));
     }
 
-
-    private class LongOperation extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-
-            String paramUserDetails = params[0];
-            String paramPassword = params[1];
-            String queryString = params[0];
-            String servlet = params[1];
-            String jsonRootkey = params[2];
-            String queryString2 = "{sOpt:1,sStr:5833,providerid:6608}";
-            System.out.println("*** doInBackground ** query: " + queryString);
-
-            System.out.println(jsonRootkey+"*** servlet-------: " + servlet);
-            HttpClient httpClient = new DefaultHttpClient();
-            // In a POST request, we don't pass the values in the URL.
-            //Therefore we use only the web page URL as the parameter of the HttpPost argument
-
-
-            HttpPost httpPost = new HttpPost("http://119.148.6.215:8080/RHIS/"+servlet);
-            // HttpPost httpPost = new HttpPost("http://10.12.0.32:8080/RHIS/"+servlet);
-            // Because we are not passing values over the URL, we should have a mechanism to pass the values that can be
-            //uniquely separate by the other end.
-            //To achieve that we use BasicNameValuePair
-            //Things we need to pass with the POST request
-            BasicNameValuePair usernameBasicNameValuePair = new BasicNameValuePair(jsonRootkey, queryString);
-            //BasicNameValuePair passwordBasicNameValuePAir = new BasicNameValuePair("paramPassword", paramPassword);
-            // We add the content that we want to pass with the POST request to as name-value pairs
-            //Now we put those sending details to an ArrayList with type safe of NameValuePair
-            List<NameValuePair> nameValuePairList = new ArrayList<NameValuePair>();
-            nameValuePairList.add(usernameBasicNameValuePair);
-            //nameValuePairList.add(passwordBasicNameValuePAir);
-            try {
-                // UrlEncodedFormEntity is an entity composed of a list of url-encoded pairs.
-                //This is typically useful while sending an HTTP POST request.
-                UrlEncodedFormEntity urlEncodedFormEntity = new UrlEncodedFormEntity(nameValuePairList);
-                // setEntity() hands the entity (here it is urlEncodedFormEntity) to the request.
-                httpPost.setEntity(urlEncodedFormEntity);
-                try {
-                    // HttpResponse is an interface just like HttpPost.
-                    //Therefore we can't initialize them
-                    HttpResponse httpResponse = httpClient.execute(httpPost);
-                    // According to the JAVA API, InputStream constructor do nothing.
-                    //So we can't initialize InputStream although it is not an interface
-                    InputStream inputStream = httpResponse.getEntity().getContent();
-                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                    StringBuilder stringBuilder = new StringBuilder();
-                    String bufferedStrChunk;
-                    while ((bufferedStrChunk = bufferedReader.readLine()) != null) {
-                        stringBuilder.append(bufferedStrChunk);
-                    }
-                    return stringBuilder.toString();
-                } catch (ClientProtocolException cpe) {
-                    System.out.println("First Exception caz of HttpResponese :" + cpe);
-                    cpe.printStackTrace();
-                } catch (IOException ioe) {
-                    System.out.println("Second Exception caz of HttpResponse :" + ioe);
-                    ioe.printStackTrace();
-                }
-            } catch (UnsupportedEncodingException uee) {
-                System.out.println("An Exception given because of UrlEncodedFormEntity argument :" + uee);
-                uee.printStackTrace();
-            }
-            return null;
-
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-
-            try {
-                JSONObject jsonStr = new JSONObject(result);
-                String key;
-                int num=1;
-
-                // woman = PregWoman.CreatePregWoman(json);
-                Log.d("--:::>", "---complicationsign=====>" + result);
-                //DEBUG
-                Resources res = getResources();
-                // String[] mainlist = res.getStringArray(R.array.list_item);
-
-                for (Iterator<String> ii = jsonStr.keys(); ii.hasNext(); ) {
-                    key = ii.next();
-
-                    Log.d("-->", "---=keys()====>" + key);
-                    System.out.println("1.Key:" + key + " Value:\'" + jsonStr.get(key) + "\'");
-                    if(key.equalsIgnoreCase("childCount") || key.equalsIgnoreCase("outcomeDate")||
-                            key.equalsIgnoreCase("hasDeliveryInformation")||key.equalsIgnoreCase("pncStatus")){
-
-                    }else {
-
-
-                        JSONObject jsonObject1 = jsonStr.getJSONObject(""+num);
-                        for (Iterator<String> iii = jsonObject1.keys(); iii.hasNext(); ) {
-                            key = iii.next();
-
-                            Log.d("--:::>", "---key-- child=====>" + key);
-                            System.out.println("1.Key:" + key + " Value:\'" + jsonObject1.get(key) + "\'");
-
-                        if (key.equalsIgnoreCase("serviceCount") || key.equalsIgnoreCase("pncStatus")) {
-
-                        } else {
-                            //JSONObject jsonObject = jsonObject1.getJSONObject(key);
-                            //JSONObject jsonObject = jsonObject2.getJSONObject(key);
-
-                            JSONObject jsonObject = jsonObject1.getJSONObject(""+num);
-
-
-                            Log.d("--:::>", "---serviceSource=====>" + jsonObject.getString("serviceSource"));
-
-                            //String complicationsign = jsonRootObject.getString("serviceSource");
-                             //String complicationsign = jsonObject.getString("complicationsign");
-                            String visitDate = jsonObject.getString("visitDate");
-                            String symptom = jsonObject.getString("symptom");
-                            String weight = jsonObject.getString("weight");
-                            String referCenterName = jsonObject.getString("referCenterName");
-                            String childNo = jsonObject.getString("childNo");
-                            String treatment = jsonObject.getString("treatment");
-                            String breastFeedingOnly = jsonObject.getString("breastFeedingOnly");
-
-                            String breathingPerMinute = jsonObject.getString("breathingPerMinute");
-                            String disease = jsonObject.getString("disease");
-                    String dangerSign = jsonObject.getString("dangerSign");
-//                    String hematuria = jsonRootObject.getString("hematuria");
-                    String temperature = jsonObject.getString("temperature");
-//                    String referReason = jsonRootObject.getString("referReason");
-                    String advice = jsonObject.getString("advice");
-                    String refer = jsonObject.getString("refer");
-                    String referReason = jsonObject.getString("referReason");
-
-                            ArrayList<String> list = new ArrayList<String>();
-                            list.add("" + getString(R.string.visitDate) + " " + visitDate);
-                            list.add("" + getString(R.string.complicationsign) + " " + symptom);
-                            list.add("" + getString(R.string.temperature) + " " + temperature);
-                            list.add("" + getString(R.string.weight) + " " + weight);
-                            list.add("" + getString(R.string.breath_per_minute) + " " + breathingPerMinute);
-                            list.add("" + getString(R.string.danger_signs) + " " + dangerSign);
-                            list.add("" + getString(R.string.breast_feeding) + " " + breastFeedingOnly);
-                            list.add("" + getString(R.string.disease) + " " + disease);
-                            list.add("" + getString(R.string.treatment) + " " + treatment);
-                            list.add("" + getString(R.string.advice) + " " + advice);
-                            list.add("" + getString(R.string.refer) + " " + refer);
-                            list.add("" + getString(R.string.referCenterName) + " " + referCenterName);
-                            list.add("" + getString(R.string.referReason) + " " + referReason);
-
-
-
-                            try {
-                                // JSONArray jsonArray = jsonStr.getJSONArray(key);
-
-
-                                listDataHeader = new ArrayList<String>();
-                                listDataChild = new HashMap<String, List<String>>();
-
-                                // listDataHeader.add(getString(R.string.history_visit1) + "" + jsonArray.get(0).toString() + " :");
-                                listDataHeader.add("Visit " + num + ":");//jsonArray.get(0).toString()
-                                listDataChild.put(listDataHeader.get(0), list);
-
-                                listAdapter_child = new ExpandableListAdapterforPNC_Child(PNCActivity.this, listDataHeader, listDataChild);
-
-
-                                num++;
-                                initPage();
-                                //ll_pnc_child = (LinearLayout)findViewById(R.id.llay_frag);
-
-
-
-                                ll_pnc_child.addView(expListView_child);
-                                expListView_child.setScrollingCacheEnabled(true);
-                                expListView_child.setAdapter(listAdapter_child);
-                                ll_pnc_child.invalidate();
-                                //expListView.setAdapter(listAdapter_child);
-
-
-                            } catch (Exception e) {
-                                Log.e("::::", "onPostExecute > Try > JSONException => " + e);
-                                e.printStackTrace();
-                            }
-                        }
-                    }}
-                }
-
-
-            } catch (JSONException jse) {
-                System.out.println("JSON Exception Thrown::\n ");
-                jse.printStackTrace();
-            }
-        }
-
-        @Override
-        protected void onPreExecute() {
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-        }
-    }
+    
 
 
 
@@ -1043,9 +846,11 @@ pnc child history
                        Log.d("--:::>", "---complicationsign=====>");
                        count = 0;
 
+                       int in = 1;
                        for (Iterator<String> iii = jsonObject1.keys(); iii.hasNext(); ) {
-                           key = iii.next();
+                          // key = iii.next();
 
+                           key = ""+in;
                            Log.d("--:::>", "---key key=====>" + key);
                            System.out.println("11.Key:" + key + " 11Value:\'" + jsonObject1.get(key) + "\'");
 
@@ -1136,6 +941,7 @@ pnc child history
                                   // }
                                    //expListView.setAdapter(listAdapter_child);
 
+                                   in++;
                                } catch (Exception e) {
                                    Log.e("::::", "onPostExecute > Try > JSONException => " + e);
                                    e.printStackTrace();
