@@ -261,7 +261,7 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
                 try {
                     JSONObject jsonStr = new JSONObject(result);
 
-                    int count = 0;
+                    //int count = 0;
                     // start handle child drop down
                     populateChild(jsonStr);
                 }catch (JSONException jse) {
@@ -310,7 +310,7 @@ pnc child history
         datePickerPair.put(R.id.Date_Picker_Button_Child, (EditText) findViewById(R.id.pncChildServiceDateValue));
     }
 
-    
+
 
 
 
@@ -979,8 +979,8 @@ pnc child history
             }
             else
             {
-                lay_frag_mother.setVisibility(View.GONE);
-                pnclay_mother.setVisibility(View.GONE);
+              //  lay_frag_mother.setVisibility(View.GONE);
+             //   pnclay_mother.setVisibility(View.GONE);
                 mother_flag = false;
             }
         }
