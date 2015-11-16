@@ -175,6 +175,7 @@
 
     <string name="anc_service">"গর্ভকালীন সেবা ( ANC )"</string>
     <string name="delivery_service">"প্রসবকালীন সেবা ( Delivery )"</string>
+    <string name="pnc_service">প্রসবোত্তর সেবা ( PNC )</string>
     <string name="delivery_related_info">"প্রসব সংক্রান্ত তথ্য"</string>
     <string name="delivery_place">"প্রসবের স্থান:"</string>
     <string name="delivery_date">"প্রসবের তারিখ:"</string>
