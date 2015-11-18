@@ -975,7 +975,7 @@ pnc child history
             if(mother_flag==false) {
                 lay_frag_mother.setVisibility(View.VISIBLE);
                 pnclay_mother.setVisibility(View.VISIBLE);
-                mother_flag = true;
+               // mother_flag = true;
             }
             else
             {
@@ -1144,13 +1144,13 @@ pnc child history
             pnclay_child.setVisibility(View.VISIBLE);
 
             ll_pnc_child.invalidate();
-            child_flag = true;
+            //child_flag = true;
         }
         else
         {
            // lay_frag_child.setVisibility(View.GONE);
           //  pnclay_child.setVisibility(View.GONE);
-            child_flag = false;
+            //child_flag = false;
             ll_pnc_child.invalidate();
         }
 
