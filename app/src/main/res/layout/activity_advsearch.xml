@@ -108,11 +108,12 @@
         <Spinner
             android:layout_marginTop="10dp"
             android:drawSelectorOnTop="true"
+            android:ellipsize="start"
             android:textSize="20dp"
             android:layout_width="100dp"
             android:layout_height="50px"
             android:background="@drawable/gradient_spinner"
-            android:id="@+id/Clients_District"
+            android:id="@+id/advSearchDistrict"
             android:paddingLeft="10dp"
             />
         <TextView
@@ -127,14 +128,13 @@
 
         <Spinner
             android:layout_marginTop="10dp"
+            android:drawSelectorOnTop="true"
             android:ellipsize="start"
-            android:inputType="text"
             android:textSize="20dp"
             android:layout_width="100dp"
             android:layout_height="50px"
             android:background="@drawable/gradient_spinner"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/Clients_Upazila"
+            android:id="@+id/advSearchUpazila"
             android:paddingLeft="10dp"
             />
     </LinearLayout>
@@ -160,12 +160,12 @@
         <Spinner
             android:layout_marginTop="10dp"
             android:drawSelectorOnTop="true"
+            android:ellipsize="start"
             android:textSize="20dp"
             android:layout_width="100dp"
             android:layout_height="50px"
             android:background="@drawable/gradient_spinner"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/Clients_Union"
+            android:id="@+id/advSearchUnion"
             android:paddingLeft="10dp"
             />
 
@@ -182,16 +182,18 @@
         <Spinner
             android:layout_marginTop="10dp"
             android:drawSelectorOnTop="true"
+            android:ellipsize="start"
             android:textSize="20dp"
             android:layout_width="100dp"
             android:layout_height="50px"
             android:background="@drawable/gradient_spinner"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/Clients_Village"
+            android:id="@+id/advSearchVillage"
             android:paddingLeft="10dp"
             />
     </LinearLayout>
+
     <View android:layout_height="1dip" android:layout_width="fill_parent" android:background="#CCCCCC" />
+
     <LinearLayout
         android:id="@+id/search_button_layout"
         android:layout_marginLeft="10dp"
@@ -202,6 +204,7 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <Button
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
@@ -212,6 +215,7 @@
             android:ellipsize="start"
             android:background="@drawable/button_style"
             android:text="CANCEL"/>
+
 
         <Button
             android:layout_marginLeft="10dp"
@@ -232,5 +236,13 @@
         android:id="@+id/search_result">
 
     </ListView>
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/GenericProgressBackground"
+        android:id="@+id/loadingPanel"
+        >
+        <ProgressBar
+            style="@style/GenericProgressIndicator"/>
+    </LinearLayout>
 </LinearLayout>
