@@ -354,7 +354,7 @@ pnc child history
                 if(jsonStr.has("pncStatus") &&
                    jsonStr.getBoolean("pncStatus")) {
                     Utilities.MakeInvisible(this, R.id.pncMotherInfo);
-                    Toast.makeText(this, "Mother is not eligible for new ANC",Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Mother is not eligible for new PNC",Toast.LENGTH_LONG).show();
                 }
                 //
 
