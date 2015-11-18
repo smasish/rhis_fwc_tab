@@ -609,6 +609,7 @@ pnc child history
 
             System.out.print("PNCM Save Json in Servlet:" + ROOTKEY_MOTHER + ":{" + json.toString() + "}");
 
+            Utilities.Reset(this, R.id.pncMotherInfo);
 
         } catch (JSONException jse) {
             Log.e("PNCM JSON Exception: ", jse.getMessage());
@@ -646,7 +647,9 @@ pnc child history
 
             pncInfoUpdateTask.execute(json.toString(), SERVLET_CHILD, ROOTKEY_CHILD);
 
-            System.out.print("PNCC Save Json in Servlet:" + ROOTKEY_MOTHER +":{"+ json.toString()+"}");
+            System.out.print("PNCC Save Json in Servlet:" + ROOTKEY_MOTHER + ":{" + json.toString() + "}");
+
+            Utilities.Reset(this, R.id.pncChildInfo);
 
 
         } catch (JSONException jse) {
