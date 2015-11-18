@@ -11,7 +11,7 @@
         android:orientation="vertical"
         android:background="@drawable/fragmentborder"
         android:id = "@+id/clients_info_layout"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             android:id="@+id/client_info_title"
@@ -237,7 +237,7 @@
                 android:layout_marginTop="10dp"
                 android:id="@+id/TextViewLast_Child_Age"
                 android:text="@string/TextViewLast_child_Age"
-                android:textColor="@color/title_color"
+                android:textColor="@color/text_color"
                 android:layout_width="230dp"
                 android:layout_height="wrap_content" />
 
