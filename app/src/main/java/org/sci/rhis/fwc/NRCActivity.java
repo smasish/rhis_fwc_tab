@@ -30,15 +30,16 @@ import java.util.Map;
 
 public class NRCActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
                                                                     View.OnClickListener,
-                                                                    CompoundButton.OnCheckedChangeListener{
+                                                                    CompoundButton.OnCheckedChangeListener {
 
     AsyncNonRegisterClientInfoUpdate NRCInfoUpdateTask;
     AsyncNonRegisterClientInfoUpdate NRCInfoQueryTask;
     private String SERVLET = "nonRegisteredClient";
-    private  String ROOTKEY = "nonRegisteredClientGeneralInfo";
+    private String ROOTKEY = "nonRegisteredClientGeneralInfo";
+    private String LOGTAG = "FWC-REGISTRATION";
 
     private EditText cName, cFatherName, cMotherName, cAge;
-    public static int NO_OPTIONS=0;
+    public static int NO_OPTIONS = 0;
     private String getString, md5Result, vilStringValue;
     private Button computeMD5;
     private HashMap<String, Pair<Integer, Integer>> districtCodeMap;
@@ -47,10 +48,28 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
     private HashMap<String, Pair<Integer, Integer>> villageCodeMap;
     private long generatedId;
 
-    private  int flag=0;
+    private int flag = 0;
     ProviderInfo provider;
-    private String selectedDistName, selectedUpazilaName,selectedUnionName, selectedVillageName;
+    private String selectedDistName, selectedUpazilaName, selectedUnionName, selectedVillageName;
     private int divValue, distValue, upValue, unValue, vilValue, mouzaValue;
+
+    private String zillaString = "";
+    private String villageString = "";
+
+    ArrayList<LocationHolder> districtList;
+    ArrayList<LocationHolder> upazillaList;
+    ArrayList<LocationHolder> unionList;
+    ArrayList<LocationHolder> villageList;
+
+    ArrayAdapter<LocationHolder> zillaAdapter;
+    ArrayAdapter<LocationHolder> upazilaAdapter;
+    ArrayAdapter<LocationHolder> unionAdapter;
+    ArrayAdapter<LocationHolder> villageAdapter;
+
+    private StringBuilder jsonBuilder = null;
+    private StringBuilder jsonBuilderVillage = null;
+
+    private JSONObject villJson = null;
 
     public NRCActivity() {
     }
@@ -70,15 +89,15 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
 
         initialize();
 
-        cName=(EditText)findViewById(R.id.Client_name);
+        cName = (EditText) findViewById(R.id.Client_name);
         cFatherName = (EditText) findViewById(R.id.Clients_Father);
         cMotherName = (EditText) findViewById(R.id.Clients_Mother);
-        computeMD5=(Button)findViewById(R.id.btn2);
+        computeMD5 = (Button) findViewById(R.id.btn2);
 
-        districtCodeMap = new HashMap<String,Pair<Integer, Integer>>();
+        /*districtCodeMap = new HashMap<String, Pair<Integer, Integer>>();
         districtCodeMap.put("ব্রাক্ষ্মণবাড়িয়া", Pair.create(12, 20));
-        districtCodeMap.put("হবিগঞ্জ",  Pair.create(36, 60));
-        districtCodeMap.put("টাঙ্গাইল",Pair.create(93, 30));
+        districtCodeMap.put("হবিগঞ্জ", Pair.create(36, 60));
+        districtCodeMap.put("টাঙ্গাইল", Pair.create(93, 30));
 
 
         ArrayList<String> distLIst = new ArrayList<String>();
@@ -95,8 +114,8 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         Log.d("selected division Value", String.valueOf(divValue));
         Log.d("selected district Value", String.valueOf(distValue));
 
-        upazilaCodeMap = new HashMap<String,Integer>();
-        switch(distValue) {
+        upazilaCodeMap = new HashMap<String, Integer>();
+        switch (distValue) {
             case 36:
                 upazilaCodeMap.put("মাধবপুর ", 71);
                 break;
@@ -119,15 +138,15 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         Log.d("selected upazila Value", String.valueOf(upValue));
 
 
-        unionCodeMap = new HashMap<String,Integer>();
-        switch(upValue) {
+        unionCodeMap = new HashMap<String, Integer>();
+        switch (upValue) {
             case 71:
-                unionCodeMap.put("আদাঐর",16);
-                unionCodeMap.put("শাহজাহানপুর",94);
+                unionCodeMap.put("আদাঐর", 16);
+                unionCodeMap.put("শাহজাহানপুর", 94);
                 break;
             case 36:
-                unionCodeMap.put("কাঞ্চনপুর",59);
-                unionCodeMap.put("কাশিল",71);
+                unionCodeMap.put("কাঞ্চনপুর", 59);
+                unionCodeMap.put("কাশিল", 71);
                 break;
         }
         ArrayList<String> unLIst = new ArrayList<String>();
@@ -143,24 +162,24 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         Log.d("selected Union Value", String.valueOf(unValue));
 
 
-        villageCodeMap = new HashMap<String,Pair<Integer, Integer>>();
-        switch(unValue) {
+        villageCodeMap = new HashMap<String, Pair<Integer, Integer>>();
+        switch (unValue) {
 
             case 94:
-                villageCodeMap.put("বান্দারিয়া",Pair.create(01, 164));
-                villageCodeMap.put("ফারোদপুর",Pair.create(02, 324));
+                villageCodeMap.put("বান্দারিয়া", Pair.create(01, 164));
+                villageCodeMap.put("ফারোদপুর", Pair.create(02, 324));
                 break;
             case 59:
-                villageCodeMap.put("যৌতুকী",Pair.create(01, 458));
-                villageCodeMap.put("তারাবাড়ী",Pair.create(05, 547));
+                villageCodeMap.put("যৌতুকী", Pair.create(01, 458));
+                villageCodeMap.put("তারাবাড়ী", Pair.create(05, 547));
                 break;
             case 71:
-                villageCodeMap.put("বাংড়া",Pair.create(01, 167));
-                villageCodeMap.put("পিচুরী",Pair.create(01, 816));
+                villageCodeMap.put("বাংড়া", Pair.create(01, 167));
+                villageCodeMap.put("পিচুরী", Pair.create(01, 816));
                 break;
             case 16:
-                villageCodeMap.put("দক্ষিণমোহাম্মদপুর",Pair.create(01, 276));
-                villageCodeMap.put("মিঠাপুকুর",Pair.create(02, 368));
+                villageCodeMap.put("দক্ষিণমোহাম্মদপুর", Pair.create(01, 276));
+                villageCodeMap.put("মিঠাপুকুর", Pair.create(02, 368));
                 break;
         }
         ArrayList<String> vilLIst = new ArrayList<String>();
@@ -174,15 +193,14 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         vilValue = villageCodeMap.get(selectedVillageName).first;
         mouzaValue = villageCodeMap.get(selectedVillageName).second;
         Log.d("selected Village Name", String.valueOf(selectedVillageName));
-        if(vilValue<10)
-        {
-          vilStringValue = "0" + String.valueOf(vilValue);
+        if (vilValue < 10) {
+            vilStringValue = "0" + String.valueOf(vilValue);
         }
 
         Log.d("selected Village Value", String.valueOf(vilStringValue));
         Log.d("selected mouza Value", String.valueOf(mouzaValue));
 
-        addListenerOnButton();
+
 
         //Get the JSON object from the data
         JSONObject parent = this.parseJSONData();
@@ -193,18 +211,62 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+*/
         generatedId = 0;
 
+
+        // ---- JAMIL START---- //
+        districtList    =  new ArrayList<>();
+        upazillaList    =  new ArrayList<>();
+        unionList       =  new ArrayList<>();
+        villageList     =  new ArrayList<>();
+
+        initialize();
+        addListenerOnButton();
+        addAndSetSpinners();
+
+
+
+        jsonSpinnerMap.get("gender").setSelection(1); //select woman by default
+        try {
+            jsonBuilder = new StringBuilder();
+            loadJsonFile("zilla.json", jsonBuilder);
+            zillaString = jsonBuilder.toString();
+            jsonBuilderVillage = new StringBuilder();
+            loadJsonFile("vill.json", jsonBuilderVillage);
+            villageString = jsonBuilderVillage.toString();
+            LocationHolder.loadListFromJson(zillaString, "nameEnglish", "nameBangla", "Upazila", districtList);
+
+            //set zilla spinner
+            zillaAdapter = new ArrayAdapter<>(
+                    this, android.R.layout.simple_spinner_item, districtList);
+            zillaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            getSpinner(R.id.Clients_District).setAdapter(zillaAdapter);
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        // ---- JAMIL END----- //
+
     }
-    private String getString(){
+
+    private String getString() {
         Log.d("FoundSumOfStrings", cName.getText().toString() + "  " + cFatherName.getText().toString() + " " + cMotherName.getText().toString());
         //get username and password entered
-        getString= cName.getText().toString() + cFatherName.getText().toString() + cMotherName.getText().toString() +
+        divValue  = Integer.valueOf(((LocationHolder) getSpinner(R.id.Clients_District).getSelectedItem()).getCode().split("_")[1]);
+        distValue = Integer.valueOf(((LocationHolder) getSpinner(R.id.Clients_District).getSelectedItem()).getCode().split("_")[0]);
+        upValue = Integer.valueOf(((LocationHolder) getSpinner(R.id.Clients_Upazila).getSelectedItem()).getCode());
+        unValue = Integer.valueOf(((LocationHolder) getSpinner(R.id.Clients_Union).getSelectedItem()).getCode());
+        mouzaValue = Integer.valueOf(((LocationHolder) getSpinner(R.id.Clients_Village).getSelectedItem()).getCode().split("_")[1]);
+        vilValue = Integer.valueOf(((LocationHolder) getSpinner(R.id.Clients_Village).getSelectedItem()).getCode().split("_")[0]);
+        vilStringValue  = ((LocationHolder) getSpinner(R.id.Clients_Union).getSelectedItem()).getCode().split("_")[0];
+        getString = cName.getText().toString() + cFatherName.getText().toString() + cMotherName.getText().toString() +
                 distValue + upValue + unValue + mouzaValue + vilStringValue;
         Log.d("FoundSumOfStrings!", getString);
         return getString;
     }
+
     /*
     private static String convertToHex(byte[] data) throws java.io.IOException
     {
@@ -220,37 +282,33 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         return sb.toString();
     }
 */
-    public String computeMD5Hash(String getString)
-    {
+    public String computeMD5Hash(String getString) {
 
         try {
             // Create MD5 Hash
             MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
-            digest.update( getString.getBytes());
+            digest.update(getString.getBytes());
             byte messageDigest[] = digest.digest();
 
             StringBuffer MD5Hash = new StringBuffer();
-            for (int i = 0; i < messageDigest.length; i++)
-            {
+            for (int i = 0; i < messageDigest.length; i++) {
                 String h = Integer.toHexString(0xFF & messageDigest[i]);
                 while (h.length() < 2)
                     h = "0" + h;
                 MD5Hash.append(h);
             }
 
-            md5Result= MD5Hash.toString();
-            Log.d("MD5Result B4taken14",md5Result);
-            md5Result= md5Result.toString().substring(0, 14);
-            Log.d("MD5ResultAfterTaken14",md5Result);
-            generatedId = Long.parseLong(md5Result,16);
+            md5Result = MD5Hash.toString();
+            Log.d("MD5Result B4taken14", md5Result);
+            md5Result = md5Result.toString().substring(0, 14);
+            Log.d("MD5ResultAfterTaken14", md5Result);
+            generatedId = Long.parseLong(md5Result, 16);
             Log.d("MD5ResultAfterTaken16", String.valueOf(generatedId));
             md5Result = Long.toString(generatedId);
-            Log.d("MD5ResultAftertoString",md5Result);
-            md5Result= md5Result.toString().substring(0, 14);
-            Log.d("MD5ResultAfter14again",md5Result);
-        }
-        catch (NoSuchAlgorithmException e)
-        {
+            Log.d("MD5ResultAftertoString", md5Result);
+            md5Result = md5Result.toString().substring(0, 14);
+            Log.d("MD5ResultAfter14again", md5Result);
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         return md5Result;
@@ -259,17 +317,17 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
     private JSONObject buildQueryHeader() throws JSONException {
         Log.d("Selected District Value", String.valueOf(distValue));
         //get info from database
-        String queryString =   "{" +
-                "\"generatedId\":"  + computeMD5Hash(getString())  + "," +
-                "\"providerid\":" + String.valueOf(provider.getProviderCode())+ "," +
-                "\"division\":" + String.valueOf(divValue)+ "," +
+        String queryString = "{" +
+                "\"generatedId\":" + computeMD5Hash(getString()) + "," +
+                "\"providerid\":" + String.valueOf(provider.getProviderCode()) + "," +
+                "\"division\":" + String.valueOf(divValue) + "," +
                 "\"district\":" + String.valueOf(distValue) + "," +
-                "\"upazila\":" + String.valueOf(upValue)+ "," +
-                "\"union\":" + String.valueOf(unValue)+ "," +
-                "\"mouza\":" + String.valueOf(mouzaValue)+ "," +
-                "\"village\":" + String.valueOf(vilValue)+
+                "\"upazila\":" + String.valueOf(upValue) + "," +
+                "\"union\":" + String.valueOf(unValue) + "," +
+                "\"mouza\":" + String.valueOf(mouzaValue) + "," +
+                "\"village\":" + String.valueOf(vilValue) +
                 "}";
-       // Log.d("selected Item's Value", String.valueOf(distValue));
+        // Log.d("selected Item's Value", String.valueOf(distValue));
         Log.d("QueryStrig", queryString);
         return new JSONObject(queryString);
     }
@@ -295,10 +353,11 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
 
     }
 
-    private void getSpecialCases(JSONObject json) throws JSONException{
+    private void getSpecialCases(JSONObject json) throws JSONException {
         String key = "gender";
-        json.put(key, jsonSpinnerMap.get(key).getSelectedItemPosition()+1);
+        json.put(key, jsonSpinnerMap.get(key).getSelectedItemPosition() + 1);
     }
+
     //Method that will parse the JSON file and will return a JSONObject
     public JSONObject parseJSONData() {
         String JSONString = null;
@@ -325,8 +384,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         } catch (IOException ex) {
             ex.printStackTrace();
             return null;
-        }
-        catch (JSONException x) {
+        } catch (JSONException x) {
             x.printStackTrace();
             return null;
         }
@@ -368,8 +426,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
                 key = ii.next();
                 System.out.println("1.Key:" + key + " Value:\'" + json.get(key) + "\'");
             }
-        }
-        catch (JSONException jse) {
+        } catch (JSONException jse) {
             jse.printStackTrace();
         }
     }
@@ -389,7 +446,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         jsonEditTextMap.put("hhgrholdingno", getEditText(R.id.Clients_House_No));
         jsonEditTextMap.put("cellno", getEditText(R.id.NrcClients_Mobile_no));
 
-        for(Map.Entry<String, EditText> edit : jsonEditTextMap.entrySet()) {
+        for (Map.Entry<String, EditText> edit : jsonEditTextMap.entrySet()) {
             edit.getValue().setFilters(new InputFilter[]{new InputFilter.AllCaps()});
         }
     }
@@ -405,7 +462,8 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
     }
 
     @Override
-    protected void initiateMultiSelectionSpinners(){}
+    protected void initiateMultiSelectionSpinners() {
+    }
 
     @Override
     protected void initiateEditTextDates() {
@@ -421,9 +479,10 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
     }
+
     public void addListenerOnButton() {
 
-        Button  proceedButton = (Button) findViewById(R.id.nrcProceed);
+        Button proceedButton = (Button) findViewById(R.id.nrcProceed);
 
         proceedButton.setOnClickListener(new View.OnClickListener() {
 
@@ -455,11 +514,159 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        switch (parent.getId()) {
+            case R.id.Clients_District:
+                //LocationHolder location = (LocationHolder)parent.getSelectedItem();
+
+                LocationHolder zilla = districtList.get(position);
+
+                upazillaList.clear();
+                upazilaAdapter.clear();
+                LocationHolder.loadListFromJson(
+                        zilla.getSublocation(),
+                        "nameEnglishUpazila",
+                        "nameBanglaUpazila",
+                        "Union",
+                        upazillaList);
+                for (LocationHolder holder : upazillaList) {
+                    Log.d(LOGTAG, "Upazila: -> " + holder.getBanglaName());
+                }
+
+                upazilaAdapter.addAll(upazillaList);
+                upazilaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                getSpinner(R.id.Clients_Upazila).setAdapter(upazilaAdapter);
+
+                break;
+            case R.id.Clients_Upazila:
+
+                LocationHolder upazila = upazillaList.get(position);
+                unionList.clear();
+                unionAdapter.clear();
+                LocationHolder.loadListFromJson(
+                        upazila.getSublocation(),
+                        "nameEnglishUnion",
+                        "nameBanglaUnion",
+                        "",
+                        unionList);
+                for (LocationHolder holder : unionList) {
+                    Log.d(LOGTAG, "Union: -> " + holder.getBanglaName());
+                }
+                unionAdapter.addAll(unionList);
+                getSpinner(R.id.Clients_Union).setAdapter(unionAdapter);
+                break;
+            case R.id.Clients_Union:
+                LocationHolder union = unionList.get(position);
+                villageList.clear();
+                villageAdapter.clear();
+
+                /*Thread t = new Thread(new Runnable() {
+                    public void run() {
+
+                    }
+                });
+
+                t.start();*/
+
+                loadVillageFromJson(
+                        ((LocationHolder) getSpinner(R.id.Clients_District).getSelectedItem()).getCode().split("_")[0],
+                        ((LocationHolder) getSpinner(R.id.Clients_Upazila).getSelectedItem()).getCode(),
+                        ((LocationHolder) getSpinner(R.id.Clients_Union).getSelectedItem()).getCode(),
+                        villageList);
+                for (LocationHolder holder : villageList) {
+                    Log.d(LOGTAG, "Village: -> " + holder.getBanglaName());
+                }
+
+
+                villageAdapter.addAll(villageList);
+                getSpinner(R.id.Clients_Village).setAdapter(villageAdapter);
+
+                Log.d(LOGTAG, "Union Case: -> ");
+
+                break;
+            case R.id.Clients_Village:
+                //Utilities.MakeInvisible(this, R.id.loadingPanel);
+                Log.d(LOGTAG, "Village Case: -> ");
+                break;
+            default:
+                Log.e(LOGTAG, "Unknown spinner: " + parent.getId()
+                        + " -> " + getResources().getResourceEntryName(parent.getId()));
+
+        }
 
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    private void loadVillageFromJson(
+            String zilla,
+            String upazila,
+            String union,
+            ArrayList<LocationHolder> holderList) {
+
+
+        try {
+            if(villJson == null) {
+                villJson = new JSONObject(villageString);
+            }
+            JSONObject unionJson =
+                    villJson.getJSONObject(zilla).getJSONObject(upazila).getJSONObject(union);
+
+            Log.d(LOGTAG, "Union deatails:\n\t" + union.toString());
+
+            for (Iterator<String> mouzaKey = unionJson.keys(); mouzaKey.hasNext(); ) {
+                String mouza = mouzaKey.next();
+                JSONObject mouzaJson = unionJson.getJSONObject(mouza);
+
+                for (Iterator<String> villageCode = mouzaJson.keys(); villageCode.hasNext(); ) {
+                    String code = villageCode.next();
+                    holderList.add(
+                            new LocationHolder(
+                                    code + "_" + mouza,
+                                    mouzaJson.getString(code),
+                                    mouzaJson.getString(code),
+                                    //subobject.getJSONObject(keySublocation),
+                                    ""));
+
+                }
+
+                Log.d(LOGTAG, "Mouja - Village: " + mouza + " -> " + unionJson.getString(mouza));
+
+            }
+        } catch (JSONException jse) {
+            jse.printStackTrace();
+        }
+        //findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+    }
+
+
+    private void loadJsonFile(String fileName, StringBuilder jsonBuilder) throws IOException {
+        InputStream is = getAssets().open(fileName);
+        int size = is.available();
+        byte[] buffer = new byte[size];
+        is.read(buffer);
+        is.close();
+        jsonBuilder.append(new String(buffer, "UTF-8"));
+
+    }
+
+    private void addAndSetSpinners() {
+        //getSpinner(R.id.Clients_District).setOnItemSelectedListener(this);
+        getSpinner(R.id.Clients_District).setOnItemSelectedListener(this);
+        getSpinner(R.id.Clients_Upazila).setOnItemSelectedListener(this);
+        getSpinner(R.id.Clients_Union).setOnItemSelectedListener(this);
+        getSpinner(R.id.Clients_Village).setOnItemSelectedListener(this);
+
+
+        zillaAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item); //check
+        upazilaAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item);
+        unionAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item);
+        villageAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item);
+
+        unionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        villageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
     }
 }

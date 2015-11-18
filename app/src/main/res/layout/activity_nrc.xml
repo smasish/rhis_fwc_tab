@@ -300,7 +300,6 @@
                 android:background="@drawable/gradient_spinner"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/Clients_Village"
-                android:entries="@array/village_DropDown"
                 android:paddingLeft="10dp"
                 />
         </LinearLayout>

@@ -23,20 +23,17 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 public class ADVSearchActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
         View.OnClickListener,
         CompoundButton.OnCheckedChangeListener {
 
-    private HashMap<String, Pair<Integer, Integer>> districtCodeMap;
-    private HashMap<String, Integer> upazilaCodeMap;
-    private HashMap<String, Integer> unionCodeMap;
-    private HashMap<String, Pair<Integer, Integer>> villageCodeMap;
-
-    private  String selectedDistName, selectedUpazilaName,selectedUnionName, selectedVillageName, vilStringValue, villMouza, sumString="";
-    private  int divValue, distValue, upValue, unValue, vilValue, mouzaValue;
     private  Button cancelBtn, searchBtn;
     private  final String SERVLET   = "advancesearch";
     private  final String ROOTKEY   = "advanceSearch";
@@ -44,13 +41,27 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
 
 
     private ListView searchListView ;
-    private ArrayAdapter<String> listAdapter ;
-    ListAdapter adapter;
-    ArrayList<String> dataItems = new ArrayList<String>();
-    ArrayList<String> clientsList = new ArrayList<String>();
     ArrayList<Person> personsList = new ArrayList<Person>();
 
     AsyncADVSearchUpdate ADVSearchUpdateTask;
+
+    private  String zillaString = "";
+    private  String villageString = "";
+
+    ArrayList<LocationHolder> districtList;
+    ArrayList<LocationHolder> upazillaList;
+    ArrayList<LocationHolder> unionList;
+    ArrayList<LocationHolder> villageList;
+
+    ArrayAdapter<LocationHolder> zillaAdapter;
+    ArrayAdapter<LocationHolder> upazilaAdapter;
+    ArrayAdapter<LocationHolder> unionAdapter;
+    ArrayAdapter<LocationHolder> villageAdapter;
+
+    private StringBuilder jsonBuilder = null;
+    private StringBuilder jsonBuilderVillage = null;
+
+    private JSONObject villJson = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,13 +74,46 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
         cancelBtn=(Button)findViewById(R.id.cancelBtn);
         searchBtn=(Button)findViewById(R.id.searchBtn);
 
+        districtList    =  new ArrayList<>();
+        upazillaList    =  new ArrayList<>();
+        unionList       =  new ArrayList<>();
+        villageList     =  new ArrayList<>();
+
         initialize();
-        //initList();
-        ZillaMapping();
-        UpMapping();
-        unionMapping();
-        villageMapping();
+        addAndSetSpinners();
         addListenerOnButton();
+        Utilities.MakeVisible(this, R.id.loadingPanel);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        loadLocations();
+        Utilities.MakeInvisible(this, R.id.loadingPanel);
+
+    }
+
+    private void loadLocations() {
+        jsonSpinnerMap.get("gender").setSelection(1); //select woman by default
+        try {
+            jsonBuilder = new StringBuilder();
+            loadJsonFile("zilla.json", jsonBuilder);
+            zillaString = jsonBuilder.toString();
+            jsonBuilderVillage = new StringBuilder();
+            loadJsonFile("vill.json", jsonBuilderVillage);
+            villageString = jsonBuilderVillage.toString();
+            loadListFromJson(zillaString, "nameEnglish", "nameBangla", "Upazila", districtList);
+
+            //set zilla spinner
+            zillaAdapter = new ArrayAdapter<>(
+                    this, android.R.layout.simple_spinner_item, districtList);
+            zillaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            getSpinner(R.id.advSearchDistrict).setAdapter(zillaAdapter);
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 
     private void handlePersonListClick( Person person) {
@@ -92,188 +136,128 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
             searchListView.addHeaderView(header);
         }
         searchListView.setAdapter(personAdapter);
-        //searchListView.setAdapter( listAdapter );
-        final Context context = this;
-        Button searchbtn = (Button ) findViewById(R.id.lblListItembtn);
 
         searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                //String item = ((TextView) view).getText().toString();
-                //Toast.makeText(getBaseContext(),"You have clicked on " + item, Toast.LENGTH_LONG).show();
-            handlePersonListClick(personsList.get(position - 1));
-
+                handlePersonListClick(personsList.get(position - 1));
             }
         });
-
     }
 
-
-  private String  ZillaMapping(){
-      districtCodeMap = new HashMap<String,Pair<Integer, Integer>>();
-      districtCodeMap.put("ব্রাক্ষ্মণবাড়িয়া", Pair.create(12, 20));
-      districtCodeMap.put("হবিগঞ্জ", Pair.create(36, 60));
-      districtCodeMap.put("টাঙ্গাইল", Pair.create(93, 30));
-
-
-      ArrayList<String> distLIst = new ArrayList<String>();
-      distLIst.addAll(districtCodeMap.keySet());
-
-      ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-              this, android.R.layout.simple_spinner_item, distLIst);
-      adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-      Spinner spnDist = getSpinner(R.id.Clients_District);
-      spnDist.setAdapter(adapter);
-
-      selectedDistName = spnDist.getSelectedItem().toString();
-      distValue = districtCodeMap.get(selectedDistName).first;
-      divValue = districtCodeMap.get(selectedDistName).second;
-      Log.d(LOGTAG, "selected division Value:\t" + String.valueOf(divValue));
-      Log.d(LOGTAG, "selected district Value:\t" + String.valueOf(distValue));
-
-        return  (distValue + "_" + divValue);
-  }
+    private void loadVillageFromJson(
+            String zilla,
+            String upazila,
+            String union,
+            ArrayList<LocationHolder> holderList) {
 
 
-private int UpMapping(){
-    upazilaCodeMap = new HashMap<String,Integer>();
-    switch(distValue) {
-        case 36:
-            upazilaCodeMap.put("মাধবপুর ", 71);
-            break;
-        case 93:
-            upazilaCodeMap.put("বাসাইল ", 36);
-            break;
-    }
-    ArrayList<String> upLIst = new ArrayList<String>();
-    upLIst.addAll(upazilaCodeMap.keySet());
+        try{
+            if(villJson == null) {
+                villJson = new JSONObject(villageString);
+            }
+            JSONObject unionJson =
+            villJson.getJSONObject(zilla).getJSONObject(upazila).getJSONObject(union);
 
-    ArrayAdapter<String> upAdapter = new ArrayAdapter<String>(
-            this, android.R.layout.simple_spinner_item, upLIst);
-    upAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            Log.d(LOGTAG, "Union deatails:\n\t" + union.toString());
 
-    Spinner spnUpz = (Spinner) findViewById(R.id.Clients_Upazila);
-    spnUpz.setAdapter(upAdapter);
+            for(Iterator<String> mouzaKey = unionJson.keys(); mouzaKey.hasNext();) {
+                String mouza = mouzaKey.next();
+                JSONObject mouzaJson = unionJson.getJSONObject(mouza);
 
-    spnUpz.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                for(Iterator<String> villageCode = mouzaJson.keys(); villageCode.hasNext();) {
+                    String code = villageCode.next();
+                    holderList.add(
+                        new LocationHolder(
+                                code+"_"+mouza,
+                                mouzaJson.getString(code),
+                                mouzaJson.getString(code),
+                                //subobject.getJSONObject(keySublocation),
+                                ""));
 
-        @Override
-        public void onItemSelected(AdapterView<?> arg0, View view,
-                                   int position, long row_id) {
-            switch (position) {
-                case 1:
-                    break;
-                case 2:
+                }
 
-                    break;
+                Log.d(LOGTAG, "Mouja - Village: " + mouza + " -> " + unionJson.getString(mouza));
 
             }
-
-
+        } catch (JSONException jse) {
+            jse.printStackTrace();
         }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> arg0) {
-            // TODO Auto-generated method stub
-
-        }
-
-    });
-
-    selectedUpazilaName = spnUpz.getSelectedItem().toString();
-    Log.d(LOGTAG, "selected Up Value:\t" + String.valueOf(selectedUpazilaName));
-    upValue = upazilaCodeMap.get(selectedUpazilaName);
-    Log.d(LOGTAG, "selected upazila Value:\t" + String.valueOf(upValue));
-
-    return upValue;
-}
-
-private  int unionMapping(){
-   // upValue =71;
-    unionCodeMap = new HashMap<String,Integer>();
-    switch(upValue) {
-        case 71:
-            unionCodeMap.put("আদাঐর",16);
-            unionCodeMap.put("শাহজাহানপুর",94);
-            break;
-        case 36:
-            unionCodeMap.put("কাঞ্চনপুর",59);
-            unionCodeMap.put("কাশিল",71);
-            break;
-    }
-    ArrayList<String> unLIst = new ArrayList<String>();
-    unLIst.addAll(unionCodeMap.keySet());
-    ArrayAdapter<String> unAdapter = new ArrayAdapter<String>(
-            this, android.R.layout.simple_spinner_item, unLIst);
-    unAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    Spinner spnUN = (Spinner) findViewById(R.id.Clients_Union);
-    spnUN.setAdapter(unAdapter);
-    selectedUnionName = spnUN.getSelectedItem().toString();
-    unValue = unionCodeMap.get(selectedUnionName);
-    Log.d(LOGTAG, "selected Union Name:\t" + String.valueOf(selectedUnionName));
-    Log.d(LOGTAG, "selected Union Value:\t" + String.valueOf(unValue));
-
-    return unValue;
-}
-    private String villageMapping(){
-        villageCodeMap = new HashMap<String,Pair<Integer, Integer>>();
-        switch(unValue) {
-
-            case 94:
-                villageCodeMap.put("বান্দারিয়া",Pair.create(01, 164));
-                villageCodeMap.put("ফারোদপুর",Pair.create(02, 324));
-                break;
-            case 59:
-                villageCodeMap.put("যৌতুকী",Pair.create(01, 458));
-                villageCodeMap.put("তারাবাড়ী",Pair.create(05, 547));
-                break;
-            case 71:
-                villageCodeMap.put("বাংড়া",Pair.create(01, 167));
-                villageCodeMap.put("পিচুরী",Pair.create(01, 816));
-                break;
-            case 16:
-                //villageCodeMap.put("মিঠাপুকুর",Pair.create(02, 368));
-               villageCodeMap.put("দক্ষিণমোহাম্মদপুর",Pair.create(01, 276));
-                break;
-        }
-        ArrayList<String> vilLIst = new ArrayList<String>();
-        vilLIst.addAll(villageCodeMap.keySet());
-        ArrayAdapter<String> vilAdapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, vilLIst);
-        vilAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Spinner spnVillage = (Spinner) findViewById(R.id.Clients_Village);
-        spnVillage.setAdapter(vilAdapter);
-        selectedVillageName = spnVillage.getSelectedItem().toString();
-        vilValue = villageCodeMap.get(selectedVillageName).first;
-        mouzaValue = villageCodeMap.get(selectedVillageName).second;
-        Log.e("selected Village Name", String.valueOf(selectedVillageName));
-        if(vilValue<10)
-        {
-            vilStringValue = "0" + String.valueOf(vilValue);
-        }
-
-        Log.e("selected Village Value", String.valueOf(vilStringValue));
-        Log.e("selected mouza Value", String.valueOf(mouzaValue));
-       // villMouza = vilStringValue + "_" + mouzaValue;
-        villMouza = "\"\"";
-
-                Log.e(String.valueOf(villMouza), "selected villMouza Value");
-
-        return villMouza;
+        //findViewById(R.id.loadingPanel).setVisibility(View.GONE);
     }
 
+    private void loadListFromJson(
+            String jsonStr,
+            String keyEnglish,
+            String keyBangla,
+            String keySublocation,
+            ArrayList<LocationHolder> holderList) {
+        try{
+            JSONObject json = new JSONObject(jsonStr);
+
+            String key = "";
+            String code = "";
+
+            for(Iterator<String> keys = json.keys(); keys.hasNext();) {
+                key = keys.next();
+                JSONObject subobject = json.getJSONObject(key);
+                Log.d(LOGTAG, "Code:["+ key +"]->["+subobject.get(keyBangla)+"]");
+                if(keySublocation.equals("upazila")) {
+                    code = key + "_" + subobject.getString("divId");
+                } else {
+                    code = key;
+                }
+                holderList.add(
+                        new LocationHolder(
+                                code,
+                                subobject.getString(keyEnglish),
+                                subobject.getString(keyBangla),
+                                //subobject.getJSONObject(keySublocation),
+                                keySublocation.equals("")? "" : subobject.getString(keySublocation)));
+
+            }
+        } catch (JSONException jse) {
+            jse.printStackTrace();
+        }
+    }
+
+    private void loadJsonFile(String fileName, StringBuilder jsonBuilder) throws IOException{
+        InputStream is = getAssets().open(fileName);
+        int size = is.available();
+        byte[] buffer = new byte[size];
+        is.read(buffer);
+        is.close();
+        jsonBuilder.append(new String(buffer, "UTF-8"));
+
+    }
+
+    private void addAndSetSpinners() {
+        //getSpinner(R.id.Clients_District).setOnItemSelectedListener(this);
+        getSpinner(R.id.advSearchDistrict).setOnItemSelectedListener(this);
+        getSpinner(R.id.advSearchUpazila).setOnItemSelectedListener(this);
+        getSpinner(R.id.advSearchUnion).setOnItemSelectedListener(this);
+        getSpinner(R.id.advSearchVillage).setOnItemSelectedListener(this);
+
+
+        zillaAdapter    = new ArrayAdapter(this, android.R.layout.simple_spinner_item);
+        upazilaAdapter  = new ArrayAdapter(this, android.R.layout.simple_spinner_item);
+        unionAdapter    = new ArrayAdapter(this, android.R.layout.simple_spinner_item);
+        villageAdapter  = new ArrayAdapter(this, android.R.layout.simple_spinner_item);
+
+        unionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        villageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    }
 
     private JSONObject buildQueryHeader() throws JSONException {
-        Log.e("Selected District Value",String.valueOf(distValue));
+        //Log.e("Selected District Value",String.valueOf(distValue));
         //get info from database
         String queryString =   "{" +
-                "\"zilla\":" + ZillaMapping() + "," +
-                "\"upz\":" + UpMapping()+ "," +
-                "\"union\":" + unionMapping()+ "," +
-                "\"villagemouza\":" + villageMapping()+
+                "\"zilla\":" + districtList.get(getSpinner(R.id.advSearchDistrict).getSelectedItemPosition()).getCode()+ "," +
+                "\"upz\":" + upazillaList.get(getSpinner(R.id.advSearchUpazila).getSelectedItemPosition()).getCode()+ "," +
+                "\"union\":" + unionList.get(getSpinner(R.id.advSearchUnion).getSelectedItemPosition()).getCode()+ "," +
+                "\"villagemouza\":" + villageList.get(getSpinner(R.id.advSearchVillage).getSelectedItemPosition()).getCode()+
                 "}";
         // Log.e("selected Item's Value", String.valueOf(distValue));
         Log.e("QueryStrig",queryString);
@@ -302,8 +286,9 @@ private  int unionMapping(){
     }
 
     private void getSpecialCases(JSONObject json) throws JSONException {
-        json.put("gender", getSpinner(R.id.advClientsSexSpinner).getSelectedItemPosition()+1);
+        json.put("gender", getSpinner(R.id.advClientsSexSpinner).getSelectedItemPosition() + 1);
     }
+
     public void addListenerOnButton() {
 
         final Context context = this;
@@ -323,8 +308,7 @@ private  int unionMapping(){
             @Override
             public void onClick(View v) {
 
-                if(v.getId() == R.id.searchBtn)
-                {
+                if (v.getId() == R.id.searchBtn) {
                     advSearchSaveToJson();
                 }
             }
@@ -402,10 +386,6 @@ private  int unionMapping(){
     @Override
     protected void initiateSpinners() {
         jsonSpinnerMap.put("gender", getSpinner(R.id.advClientsSexSpinner));
-       // jsonSpinnerMap.put("zilla", getSpinner(R.id.Clients_District));
-        //jsonSpinnerMap.put("upz", getSpinner(R.id.Clients_Upazila));
-        //jsonSpinnerMap.put("union", getSpinner(R.id.Clients_Union));
-        //jsonSpinnerMap.put("villagemouza", getSpinner(R.id.Clients_Village));
     }
 
     @Override
@@ -436,10 +416,92 @@ private  int unionMapping(){
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+        //Utilities.MakeVisible(this, R.id.loadingPanel);
+
+        switch (parent.getId()) {
+            case R.id.advSearchDistrict:
+                //LocationHolder location = (LocationHolder)parent.getSelectedItem();
+
+                LocationHolder zilla = districtList.get(position);
+
+                upazillaList.clear();
+                upazilaAdapter.clear();
+                loadListFromJson(
+                        zilla.getSublocation(),
+                        "nameEnglishUpazila",
+                        "nameBanglaUpazila",
+                        "Union",
+                        upazillaList);
+                for (LocationHolder holder : upazillaList) {
+                    Log.d(LOGTAG, "Upazila: -> " + holder.getBanglaName());
+                }
+
+                upazilaAdapter.addAll(upazillaList);
+                upazilaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                getSpinner(R.id.advSearchUpazila).setAdapter(upazilaAdapter);
+
+                break;
+            case R.id.advSearchUpazila:
+
+                LocationHolder upazila = upazillaList.get(position);
+                unionList.clear();
+                unionAdapter.clear();
+                loadListFromJson(
+                        upazila.getSublocation(),
+                        "nameEnglishUnion",
+                        "nameBanglaUnion",
+                        "",
+                        unionList);
+                for (LocationHolder holder : unionList) {
+                    Log.d(LOGTAG, "Union: -> " + holder.getBanglaName());
+                }
+                unionAdapter.addAll(unionList);
+                getSpinner(R.id.advSearchUnion).setAdapter(unionAdapter);
+                break;
+            case R.id.advSearchUnion:
+                LocationHolder union = unionList.get(position);
+                villageList.clear();
+                villageAdapter.clear();
+
+                /*Thread t = new Thread(new Runnable() {
+                    public void run() {
+
+                    }
+                });
+
+                t.start();*/
+
+                loadVillageFromJson(
+                        ((LocationHolder) getSpinner(R.id.advSearchDistrict).getSelectedItem()).getCode(),
+                        ((LocationHolder) getSpinner(R.id.advSearchUpazila).getSelectedItem()).getCode(),
+                        ((LocationHolder) getSpinner(R.id.advSearchUnion).getSelectedItem()).getCode(),
+                        villageList);
+                for (LocationHolder holder : villageList) {
+                    Log.d(LOGTAG, "Village: -> " + holder.getBanglaName());
+                }
+
+
+                villageAdapter.addAll(villageList);
+                getSpinner(R.id.advSearchVillage).setAdapter(villageAdapter);
+
+                Log.d(LOGTAG, "Union Case: -> ");
+
+                break;
+            case R.id.advSearchVillage:
+                Log.d(LOGTAG, "Village Case: -> ");
+                break;
+            default:
+                Log.e(LOGTAG, "Unknown spinner: " + parent.getId()
+                        + " -> " + getResources().getResourceEntryName(parent.getId()));
+
+        }
+
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
+
 }
