@@ -102,7 +102,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
             jsonBuilderVillage = new StringBuilder();
             loadJsonFile("vill.json", jsonBuilderVillage);
             villageString = jsonBuilderVillage.toString();
-            loadListFromJson(zillaString, "nameEnglish", "nameBangla", "Upazila", districtList);
+            LocationHolder.loadListFromJson(zillaString, "nameEnglish", "nameBangla", "Upazila", districtList);
 
             //set zilla spinner
             zillaAdapter = new ArrayAdapter<>(
@@ -204,7 +204,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
                 key = keys.next();
                 JSONObject subobject = json.getJSONObject(key);
                 Log.d(LOGTAG, "Code:["+ key +"]->["+subobject.get(keyBangla)+"]");
-                if(keySublocation.equals("upazila")) {
+                if(keySublocation.equals("Upazila")) {
                     code = key + "_" + subobject.getString("divId");
                 } else {
                     code = key;
@@ -426,7 +426,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
 
                 upazillaList.clear();
                 upazilaAdapter.clear();
-                loadListFromJson(
+                LocationHolder.loadListFromJson(
                         zilla.getSublocation(),
                         "nameEnglishUpazila",
                         "nameBanglaUpazila",
@@ -446,7 +446,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
                 LocationHolder upazila = upazillaList.get(position);
                 unionList.clear();
                 unionAdapter.clear();
-                loadListFromJson(
+                LocationHolder.loadListFromJson(
                         upazila.getSublocation(),
                         "nameEnglishUnion",
                         "nameBanglaUnion",
@@ -472,7 +472,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
                 t.start();*/
 
                 loadVillageFromJson(
-                        ((LocationHolder) getSpinner(R.id.advSearchDistrict).getSelectedItem()).getCode(),
+                        ((LocationHolder) getSpinner(R.id.advSearchDistrict).getSelectedItem()).getCode().split("_")[0],
                         ((LocationHolder) getSpinner(R.id.advSearchUpazila).getSelectedItem()).getCode(),
                         ((LocationHolder) getSpinner(R.id.advSearchUnion).getSelectedItem()).getCode(),
                         villageList);

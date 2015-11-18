@@ -11,7 +11,7 @@
         android:orientation="vertical"
         android:background="@drawable/fragmentborder"
         android:id = "@+id/clients_info_layout"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/client_info_title"
