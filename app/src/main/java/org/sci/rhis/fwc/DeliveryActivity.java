@@ -507,6 +507,10 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 }
             }
             json.put("dNoStillBirth", stillBirth);
+
+            if(!json.has("dAdmissionDate")){
+                json.put("dAdmissionDate","");
+            }
         } catch (JSONException jse) {
 
         }
