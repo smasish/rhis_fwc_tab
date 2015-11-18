@@ -175,6 +175,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 //TODO Make the fields non-modifiable
                 Utilities.Disable(this, R.id.delivery_info_layout);
                 Utilities.MakeInvisible(this, R.id.btn_save_add_child);
+                mother.setHasDeliveryInfo(1);
             }
 
         } catch (JSONException jse) {
@@ -326,7 +327,8 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == ActivityResultCodes.NEWBORN_ACTIVITY) {
             if(data.hasExtra("ReloadNewborn") && data.getBooleanExtra("ReloadNewborn", false)) {
-                handleExistingChild(data.getStringExtra("ChildDetails"));
+                //handleExistingChild(data.getStringExtra("ChildDetails"));
+                getExistingChild();
             }
         }
     }
