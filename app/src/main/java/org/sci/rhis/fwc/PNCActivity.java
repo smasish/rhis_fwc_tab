@@ -857,13 +857,16 @@ pnc child history
                        Log.d("--:::>", "---complicationsign=====>");
                        count = 0;
 
-                       int in = 1;
+                       int in = 1,k;
+                       k = jsonObject1.length();
+                      // Log.d("--:::>", "---length=====>"+k);
                        for (Iterator<String> iii = jsonObject1.keys(); iii.hasNext(); ) {
+
                           // key = iii.next();
 
-                           key = ""+in;
-                           Log.d("--:::>", "---key key=====>" + key);
-                           System.out.println("11.Key:" + key + " 11Value:\'" + jsonObject1.get(key) + "\'");
+
+                           Log.d("--:::>", "---key 1 key=====>" + key);
+                          // System.out.println("11.Key:" + key + " 11Value:\'" + jsonObject1.get(key) + "\'");
 
                            if (key.equalsIgnoreCase("pncStatus")) {
 
@@ -875,6 +878,13 @@ pnc child history
                                //JSONObject jsonObject = jsonObject1.getJSONObject(key);
                                //JSONObject jsonObject = jsonObject2.getJSONObject(key);
 
+                               if((in - 1) == Integer.parseInt(key)) {
+                                   //count = Integer.parseInt(jsonObject1.get(key).toString());
+                                   getEditText(R.id.pncChildVisitValue).setText(""+in);
+                                   Utilities.Disable(this, R.id.pncChildVisitValue );
+                                   break;
+                               }
+                               key = ""+in;
                                JSONObject jsonObject = jsonObject1.getJSONObject("" + key);
 
 

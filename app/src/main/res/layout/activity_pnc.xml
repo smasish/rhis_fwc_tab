@@ -690,7 +690,7 @@
                 <EditText
                     android:id="@+id/pncChildVisitValue"
                     android:inputType="number"
-                    android:textSize="20dp"
+                    android:textSize="17dp"
                     android:layout_width="40dp"
                     android:layout_height="50px"
                     android:layout_marginLeft="10dp"
