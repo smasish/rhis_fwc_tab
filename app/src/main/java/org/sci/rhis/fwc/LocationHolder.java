@@ -19,6 +19,13 @@ public class LocationHolder {
         this.sublocationStr = sublocationStr;
     }
 
+    LocationHolder() {
+        this.code = "none";
+        englishName = "";
+        banglaName = "";
+        this.sublocationStr = "";
+    }
+
     LocationHolder(String code, String nameEng, String nameBeng, JSONObject subLocation, String sublocationStr) {
         this.code = code;
         englishName = nameEng;
@@ -86,7 +93,11 @@ public class LocationHolder {
             String keySublocation,
             ArrayList<LocationHolder> holderList) {
         try{
-            JSONObject json = new JSONObject(jsonStr);
+/*
+            if(jsonStr.equals("")) { //parse if the string is valid
+               return;
+            }*/
+            JSONObject json = new JSONObject(jsonStr.equals("") ? "{}": jsonStr);
 
             String key = "";
             String code = "";
@@ -113,6 +124,4 @@ public class LocationHolder {
             jse.printStackTrace();
         }
     }
-
-
 }
