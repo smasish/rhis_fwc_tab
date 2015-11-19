@@ -336,6 +336,8 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                 Utilities.MakeInvisible(this, R.id.ancEntryMasterLayout);
                 Toast.makeText(this, "Mother is not eligible for new ANC",Toast.LENGTH_LONG).show();
             }
+            else
+                Utilities.MakeVisible(this, R.id.ancEntryMasterLayout);
             //
 
             //DEBUG
@@ -706,7 +708,9 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
             ancInfoUpdate = new AsyncAncInfoUpdate(this);
             ancInfoUpdate.execute(json.toString(), SERVLET, ROOTKEY);
 
-            
+            //Utilities.Reset(this, R.id.ancEntryMasterLayout);
+            //Utilities.Disable(this, R.id.clients_info_layout);
+
             Log.i("ANC", "Save Succeeded");
             Log.d("ANC", "JSON:\n" +json.toString());
 
