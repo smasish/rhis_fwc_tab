@@ -93,6 +93,8 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
     private ArrayAdapter<String> childAdapter;
     private ArrayList<String> childList;
 
+    private int lastPncVisit = 0;
+
 
 
     @Override
@@ -125,6 +127,9 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
 
         mother = getIntent().getParcelableExtra("PregWoman");
         provider = getIntent().getParcelableExtra("Provider");
+
+        //pncvisit
+        lastPncVisit = 0;
 
         pnc_mother = (Button)findViewById(R.id.pncmother);
       //  pnc_child = (Button)findViewById(R.id.pncchild);
@@ -349,6 +354,9 @@ pnc child history
             try {
                 JSONObject jsonStr = new JSONObject(result);
                 String key;
+
+                lastPncVisit = jsonStr.getInt("count") + 1;
+                getTextView(R.id.pncVisitValue).setText(String.valueOf(lastPncVisit));
 
                 //Check if eligible for new PNC
                 if(jsonStr.has("pncStatus") &&
@@ -853,7 +861,7 @@ pnc child history
                        for (Iterator<String> iii = jsonObject1.keys(); iii.hasNext(); ) {
                           // key = iii.next();
 
-                           key = ""+in;
+                           key = ""+iii;
                            Log.d("--:::>", "---key key=====>" + key);
                            System.out.println("11.Key:" + key + " 11Value:\'" + jsonObject1.get(key) + "\'");
 
@@ -861,6 +869,8 @@ pnc child history
 
                            } else if (key.equalsIgnoreCase("serviceCount")) {
                                count = Integer.parseInt(jsonObject1.get(key).toString());
+                               getEditText(R.id.pncChildVisitValue).setText(String.valueOf(count +1));
+                               Utilities.Disable(this, R.id.pncChildVisitValue );
                            } else {
                                //JSONObject jsonObject = jsonObject1.getJSONObject(key);
                                //JSONObject jsonObject = jsonObject2.getJSONObject(key);
