@@ -158,6 +158,11 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
             if(villJson == null) {
                 villJson = new JSONObject(villageString);
             }
+
+            if( union.equals("none") || upazila.equals("none") || zilla.equals("none") ||
+                union.equals("") || upazila.equals("") || zilla.equals("")) {
+                return;
+            }
             JSONObject unionJson =
             villJson.getJSONObject(zilla).getJSONObject(upazila).getJSONObject(union);
 
@@ -183,44 +188,11 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
 
             }
         } catch (JSONException jse) {
+            Log.e(LOGTAG, "JSON KEY MISSING:" +
+                    "\n\t");
             jse.printStackTrace();
         }
         //findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-    }
-
-    private void loadListFromJson(
-            String jsonStr,
-            String keyEnglish,
-            String keyBangla,
-            String keySublocation,
-            ArrayList<LocationHolder> holderList) {
-        try{
-            JSONObject json = new JSONObject(jsonStr);
-
-            String key = "";
-            String code = "";
-
-            for(Iterator<String> keys = json.keys(); keys.hasNext();) {
-                key = keys.next();
-                JSONObject subobject = json.getJSONObject(key);
-                Log.d(LOGTAG, "Code:["+ key +"]->["+subobject.get(keyBangla)+"]");
-                if(keySublocation.equals("Upazila")) {
-                    code = key + "_" + subobject.getString("divId");
-                } else {
-                    code = key;
-                }
-                holderList.add(
-                        new LocationHolder(
-                                code,
-                                subobject.getString(keyEnglish),
-                                subobject.getString(keyBangla),
-                                //subobject.getJSONObject(keySublocation),
-                                keySublocation.equals("")? "" : subobject.getString(keySublocation)));
-
-            }
-        } catch (JSONException jse) {
-            jse.printStackTrace();
-        }
     }
 
     private void loadJsonFile(String fileName, StringBuilder jsonBuilder) throws IOException{
@@ -230,7 +202,6 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
         is.read(buffer);
         is.close();
         jsonBuilder.append(new String(buffer, "UTF-8"));
-
     }
 
     private void addAndSetSpinners() {
@@ -426,6 +397,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
 
                 upazillaList.clear();
                 upazilaAdapter.clear();
+                upazillaList.add(new LocationHolder());
                 LocationHolder.loadListFromJson(
                         zilla.getSublocation(),
                         "nameEnglishUpazila",
@@ -446,6 +418,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
                 LocationHolder upazila = upazillaList.get(position);
                 unionList.clear();
                 unionAdapter.clear();
+                unionList.add(new LocationHolder());
                 LocationHolder.loadListFromJson(
                         upazila.getSublocation(),
                         "nameEnglishUnion",
@@ -462,7 +435,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
                 LocationHolder union = unionList.get(position);
                 villageList.clear();
                 villageAdapter.clear();
-
+                villageList.add(new LocationHolder());
                 /*Thread t = new Thread(new Runnable() {
                     public void run() {
 
