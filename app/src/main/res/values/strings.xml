@@ -245,6 +245,7 @@
     </string-array>
 
     <string-array name="DeliveryAttendant_DropDown">
+        <item></item>
         <item>ডাক্তার</item>
         <item>নার্স</item>
         <item>পরিবার কল্যাণ পরিদর্শিকা (এফ.ডব্লিউ.ভি)</item>

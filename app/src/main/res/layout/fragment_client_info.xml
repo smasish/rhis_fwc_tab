@@ -77,7 +77,7 @@
                 android:layout_height="50px"
                 android:editable="false"
                 android:paddingLeft="10dp"
-                android:hint="dd-MM-yyyy"
+                android:hint="dd/MM/yyyy"
                 android:background="@drawable/edittext_round"
                 style="@style/styleEdittext"/>
 
