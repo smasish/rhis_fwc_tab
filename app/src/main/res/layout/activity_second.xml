@@ -240,7 +240,7 @@
             android:onClick="startDelivery"/>
 
         <Button
-            android:text="@string/title_activity_pnc"
+            android:text="@string/pnc_service"
             android:layout_width="wrap_content"
             android:layout_margin="2dp"
             android:layout_height="80px"

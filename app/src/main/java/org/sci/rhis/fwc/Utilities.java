@@ -330,6 +330,9 @@ public class Utilities {
         e.setEnabled(true);
         if(type=="reset")
             (e).setText("");
+        else if(type=="edit")
+            //do nothing
+            ;
     }
 
     public static void DisableField(Activity activity,int id)

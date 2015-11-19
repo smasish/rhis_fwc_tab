@@ -234,9 +234,9 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 break;
             case R.id.id_facility_name_Dropdown:
 
-                LinearLayout  faclityAdmission = (LinearLayout) findViewById(R.id.id_facililties_admission_layout);
-                faclityAdmission.setVisibility((position == 5 || position == 6) ? View.GONE:View.VISIBLE);
-                //4 - UH&FWC 5 - CC
+                LinearLayout  faclityAdmissionWard = (LinearLayout) findViewById(R.id.id_facililties_admission_ward_layout);
+                faclityAdmissionWard.setVisibility((position == 5 || position == 6) ? View.GONE:View.VISIBLE);
+                //5 - UH&FWC 6 - CC
                 break;
             case R.id.delivery_typeDropdown:
                 section = new LinearLayout[2];

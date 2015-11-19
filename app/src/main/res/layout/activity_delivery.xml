@@ -236,38 +236,47 @@
                 android:tag="DateField"
                 android:onClick="pickDate"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="50px"
+            <LinearLayout
+                android:id="@+id/id_facililties_admission_ward_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:text="@string/ward"
-                android:textSize="20dp" android:textColor="@color/text_color" />
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50px"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/ward"
+                    android:textSize="20dp" android:textColor="@color/text_color" />
 
-            <EditText
-                android:id="@+id/id_ward"
-                android:layout_width="40dp"
-                android:layout_height="50px"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:paddingLeft="10dp"
-                android:background="@drawable/edittext_round"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="50px"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:text="@string/bed"
-                android:textSize="20dp"
-                android:textColor="@color/text_color" />
-            <EditText
-                android:id="@+id/id_bed"
-                android:layout_width="40dp"
-                android:layout_height="50px"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:paddingLeft="10dp"
-                android:background="@drawable/edittext_round"/>
+                <EditText
+                    android:id="@+id/id_ward"
+                    android:layout_width="40dp"
+                    android:layout_height="50px"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/edittext_round"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50px"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/bed"
+                    android:textSize="20dp"
+                    android:textColor="@color/text_color" />
+                <EditText
+                    android:id="@+id/id_bed"
+                    android:layout_width="40dp"
+                    android:layout_height="50px"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/edittext_round"/>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout

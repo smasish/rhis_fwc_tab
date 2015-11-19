@@ -244,7 +244,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                     Utilities.VisibleLayout(this, R.id.client_intro_layout);
                     Utilities.Disable(this, R.id.client_intro_layout);
 
-                    if (json.getString("cSex").equals("2") && Integer.parseInt(json.getString("cAge")) > 15 && Integer.parseInt(json.getString("cAge")) < 49) {
+                    if (json.getString("cSex").equals("2") && Integer.parseInt(json.getString("cAge")) >= 15 && Integer.parseInt(json.getString("cAge")) <= 49) {
                         //Elco Women
                         woman = PregWoman.CreatePregWoman(json);
                         responseID = new BigInteger(json.get("cHealthID").toString());
@@ -579,7 +579,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         }
     }
 
-    private void handleAddNewPregnancy(View view) {
+    public void handleAddNewPregnancy(View view) {
         if(woman != null) {
             woman = null;
             resetFields(view);
@@ -588,8 +588,8 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
     public void resetFields(View view){//OnClick Method
         Utilities.Reset(this, R.id.clients_info_layout);
-        Utilities.EnableField(this, R.id.Clients_House_No, "reset");
-        Utilities.EnableField(this, R.id.Clients_Mobile_no, "reset");
+        Utilities.EnableField(this, R.id.Clients_House_No, "edit");
+        Utilities.EnableField(this, R.id.Clients_Mobile_no, "edit");
 
         Utilities.InVisibleButton(this, R.id.client_edit_Button);
         Utilities.InVisibleButton(this, R.id.client_update_Button);
