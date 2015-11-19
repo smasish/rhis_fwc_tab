@@ -4,6 +4,6 @@
     <color name="pressed_color">#4d90fe</color>
     <color name="default_color">#ffffff</color>
     <color name="enabled_color">#000000</color>
-    <color name="disabled_color">#787878</color>
+    <color name="disabled_color">#5c5c5c</color>
     <color name="test_color">#e3910b0b</color>
 </resources>

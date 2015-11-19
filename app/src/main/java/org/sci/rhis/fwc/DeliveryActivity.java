@@ -127,16 +127,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 "deliveryLoad:" + "retrieve" +
                 "}"*/
         //String
-        try {
-            boolean isMother = true; //just being verbose for better readability
-            boolean retireve = true; //just being verbose for better readability
-            queryString = buildQueryHeader(isMother, retireve).toString();
-            Log.d(LOGTAG, "Sending JSON:\n\t" + queryString);
-        } catch (JSONException JSE) {
-            Log.e("Delivery", "Could not build query String: " + JSE.getMessage());
-        }
-        deliveryInfoQueryTask = new AsyncDeliveryInfoUpdate(this);
-        deliveryInfoQueryTask.execute(queryString, SERVLET, ROOTKEY); //Get Mother Info
+        getMotherInfo();
         getExistingChild();  //get child Info
 
         LinearLayout mNewbornLayout = (LinearLayout) findViewById(R.id.newborn_Tabla_Layout);
@@ -328,6 +319,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         if (resultCode == RESULT_OK && requestCode == ActivityResultCodes.NEWBORN_ACTIVITY) {
             if(data.hasExtra("ReloadNewborn") && data.getBooleanExtra("ReloadNewborn", false)) {
                 //handleExistingChild(data.getStringExtra("ChildDetails"));
+                getMotherInfo();
                 getExistingChild();
             }
         }
@@ -508,9 +500,9 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             }
             json.put("dNoStillBirth", stillBirth);
 
-            if(!json.has("dAdmissionDate"))
-            json.put("dAdmissionDate","");
-
+            if(!json.has("dAdmissionDate")){
+                json.put("dAdmissionDate","");
+            }
         } catch (JSONException jse) {
 
         }
@@ -589,6 +581,20 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         } catch (JSONException JSE) {
             Log.e(LOGTAG, "Building child query\n\t:" + JSE.getStackTrace().toString());
         }
+    }
+
+    private void getMotherInfo() {
+        String queryString = "";
+        try {
+            boolean isMother = true; //just being verbose for better readability
+            boolean retireve = true; //just being verbose for better readability
+            queryString = buildQueryHeader(isMother, retireve).toString();
+            Log.d(LOGTAG, "Sending JSON:\n\t" + queryString);
+        } catch (JSONException JSE) {
+            Log.e("Delivery", "Could not build query String: " + JSE.getMessage());
+        }
+        deliveryInfoQueryTask = new AsyncDeliveryInfoUpdate(this);
+        deliveryInfoQueryTask.execute(queryString, SERVLET, ROOTKEY); //Get Mother Info
     }
 
     private void startChildActivity(int index, JSONObject child) throws JSONException{

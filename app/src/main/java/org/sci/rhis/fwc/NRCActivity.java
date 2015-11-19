@@ -70,6 +70,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
     private StringBuilder jsonBuilderVillage = null;
 
     private JSONObject villJson = null;
+    private LocationHolder blanc = new LocationHolder();
 
     public NRCActivity() {
     }
@@ -522,6 +523,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
 
                 upazillaList.clear();
                 upazilaAdapter.clear();
+                upazillaList.add(blanc);
                 LocationHolder.loadListFromJson(
                         zilla.getSublocation(),
                         "nameEnglishUpazila",
@@ -542,6 +544,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
                 LocationHolder upazila = upazillaList.get(position);
                 unionList.clear();
                 unionAdapter.clear();
+                unionList.add(blanc);
                 LocationHolder.loadListFromJson(
                         upazila.getSublocation(),
                         "nameEnglishUnion",
@@ -558,6 +561,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
                 LocationHolder union = unionList.get(position);
                 villageList.clear();
                 villageAdapter.clear();
+                villageList.add(blanc);
 
                 /*Thread t = new Thread(new Runnable() {
                     public void run() {
@@ -611,6 +615,12 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
             if(villJson == null) {
                 villJson = new JSONObject(villageString);
             }
+
+            if( union.equals("none") || upazila.equals("none") || zilla.equals("none") ||
+                    union.equals("") || upazila.equals("") || zilla.equals("")) {
+                return;
+            }
+
             JSONObject unionJson =
                     villJson.getJSONObject(zilla).getJSONObject(upazila).getJSONObject(union);
 

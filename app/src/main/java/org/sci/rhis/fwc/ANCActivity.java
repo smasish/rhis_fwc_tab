@@ -708,7 +708,8 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
             
             Log.i("ANC", "Save Succeeded");
-            Log.d("ANC", "JSON:\n" +json.toString());
+            Log.d("ANC", "JSON:\n" + json.toString());
+            Utilities.Reset(this, R.id.ancText);
 
         } catch (JSONException jse) {
             Log.e("ANC", "JSON Exception: " + jse.getMessage());
