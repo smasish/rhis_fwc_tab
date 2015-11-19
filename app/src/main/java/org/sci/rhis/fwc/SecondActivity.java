@@ -104,34 +104,32 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         eddEditText = (EditText) findViewById(R.id.edd);
 
         lmpEditText.addTextChangedListener(
-                new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                    }
+                }
 
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                    }
+                }
 
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                        SimpleDateFormat uiFormat = new SimpleDateFormat("dd/MM/yyyy");
+                @Override
+                public void afterTextChanged(Editable s) {
+                    SimpleDateFormat uiFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-                        try {
-                            Date lmp = uiFormat.parse(lmpEditText.getText().toString());
+                    try {
+                        Date lmp = uiFormat.parse(lmpEditText.getText().toString());
 
-                            Date edd = Utilities.addDateOffset(lmp, 240);
-                            eddEditText.setText(uiFormat.format(edd));
+                        Date edd = Utilities.addDateOffset(lmp, PregWoman.PREG_PERIOD);
+                        eddEditText.setText(uiFormat.format(edd));
 
-                        } catch (ParseException PE) {
-
-                        }
+                    } catch (ParseException PE) {
 
                     }
                 }
-
+            }
         );
 
         addListenerOnButton();
@@ -325,7 +323,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         if (checkClientInfo() && woman.isEligibleFor(PregWoman.PREG_SERVICE.DELIVERY)) {
             intent.putExtra("PregWoman", woman);
             intent.putExtra("Provider", ProviderInfo.getProvider());
-            startActivity(intent);
+            startActivityForResult(intent, ActivityResultCodes.DELIVERY_ACTIVITY);
         } else {
             Toast.makeText(this, "Too Late for Delivery, verify ...", Toast.LENGTH_LONG).show();
         }
@@ -367,6 +365,11 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                 getSpinner(R.id.ClientsIdentityDropdown).setSelection(data.getIntExtra("HealthIdType",0));
                 getEditText(R.id.searchableTextId).setText(str);
                 startSearch((ImageButton)findViewById(R.id.searchButton));
+            }
+        } else if (requestCode == ActivityResultCodes.DELIVERY_ACTIVITY) {
+            if (resultCode == RESULT_OK) {
+                boolean hasDeliveryInformation = data.getBooleanExtra("hasDeliveryInformation", false);
+                woman.setHasDeliveryInfo(hasDeliveryInformation ? 1:0);
             }
         }
     }
@@ -425,10 +428,9 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         jsonCheckboxMapSave.put("tt5", getCheckbox(R.id.Clients_TT_Tika5));
 
         //Complicated Delivery History
-        //NOTE: These JSON keys are not present in the Servlet response
+        //NOTE: The following JSON keys are not present in the Servlet response
         //The response will be manipulated to trick Checkbox handlers
         //so everything is handled in a general way.
-        //manipulate json
         initializeJsonManipulation();
         for (Pair<String, Integer> pair : deliveryHistoryMapping) {
             jsonCheckboxMap.put(pair.first, getCheckbox(pair.second));

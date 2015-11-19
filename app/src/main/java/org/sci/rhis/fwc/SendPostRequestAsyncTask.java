@@ -63,6 +63,7 @@ public class SendPostRequestAsyncTask extends AsyncTask<String, Void, String> {
         //http://10.12.0.32:8080/RHIS
         //http://119.148.6.215:8080/RHIS/
         HttpPost httpPost = new HttpPost("http://119.148.6.215:8080/RHIS_BETA/"+servlet);
+        //HttpPost httpPost = new HttpPost("http://10.12.0.32:8080/RHIS_BETA/"+servlet);
         //HttpPost httpPost = new HttpPost("http://119.148.6.215:8080/RHISv2/"+servlet);
         //HttpPost httpPost = new HttpPost("http://10.12.6.123:8080/rhis/"+servlet);
         //HttpPost httpPost = new HttpPost("http://10.12.6.138:8080/RHIS_WEB_Armaan/"+servlet);

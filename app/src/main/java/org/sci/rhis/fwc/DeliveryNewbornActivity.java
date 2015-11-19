@@ -198,41 +198,6 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         setResult(RESULT_OK, returnIntent);
         finishActivity(ActivityResultCodes.NEWBORN_ACTIVITY);
         finish();
-        //TODO - We may not need this
-        if(true) {
-            return;
-        }
-
-        Log.d("Delivery-Newborn", result != null ? result : "NO RESPONSE");
-        JSONObject json;
-        try {
-            json = new JSONObject(result);
-            String key;
-            if(json.has("result")) { //if result key is present
-               if(json.getString("result").equals("true") &&
-                  json.getString("hasNewbornInfo").equals("Yes")) {//then see if children exist i.e. result:true, hasNewbornInfo:Yes
-                   currentChildNo = Integer.valueOf(json.getString("count"));
-               } else { // no child information is available
-                   currentChildNo = 0;
-               }
-                jsonEditTextMap.get("childno").setText(String.valueOf(currentChildNo+1));
-                //Utilities.Disable(this, jsonEditTextMap.get("childno").getId());
-            }
-
-            //int size = json.names().length();
-
-            //Debug
-            for (Iterator<String> ii = json.keys(); ii.hasNext(); ) {
-                key = ii.next();
-                Log.d(LOGTAG, "Key:" + key + " Value:\'" + json.get(key) + "\'");
-            }
-
-            //currentChildNo = size2;
-        }
-        catch (JSONException jse) {
-            jse.printStackTrace();
-        }
-        Utilities.Enable(this, R.id.DeliveryNewBornLayout);
     }
 
     @Override

@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +63,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
     private StringBuilder jsonBuilderVillage = null;
 
     private JSONObject villJson = null;
+    private LocationHolder blanc = new LocationHolder();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,14 +85,15 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
         addAndSetSpinners();
         addListenerOnButton();
         Utilities.MakeVisible(this, R.id.loadingPanel);
+        ((ProgressBar)findViewById( R.id.advSearchProgressBar)).animate();
+        ((ProgressBar)findViewById( R.id.advSearchProgressBar)).bringToFront();
+        loadLocations();
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        loadLocations();
         Utilities.MakeInvisible(this, R.id.loadingPanel);
-
     }
 
     private void loadLocations() {
@@ -102,6 +105,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
             jsonBuilderVillage = new StringBuilder();
             loadJsonFile("vill.json", jsonBuilderVillage);
             villageString = jsonBuilderVillage.toString();
+            districtList.add(blanc);
             LocationHolder.loadListFromJson(zillaString, "nameEnglish", "nameBangla", "Upazila", districtList);
 
             //set zilla spinner
@@ -397,7 +401,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
 
                 upazillaList.clear();
                 upazilaAdapter.clear();
-                upazillaList.add(new LocationHolder());
+                upazillaList.add(blanc);
                 LocationHolder.loadListFromJson(
                         zilla.getSublocation(),
                         "nameEnglishUpazila",
@@ -435,7 +439,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
                 LocationHolder union = unionList.get(position);
                 villageList.clear();
                 villageAdapter.clear();
-                villageList.add(new LocationHolder());
+                villageList.add(blanc);
                 /*Thread t = new Thread(new Runnable() {
                     public void run() {
 

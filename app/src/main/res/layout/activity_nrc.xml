@@ -390,6 +390,15 @@
         </LinearLayout>
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/GenericProgressBackground"
+            android:id="@+id/loadingPanelNrc"
+            >
+            <ProgressBar
+                style="@style/GenericProgressIndicator"/>
+        </LinearLayout>
     </LinearLayout>
 
 
