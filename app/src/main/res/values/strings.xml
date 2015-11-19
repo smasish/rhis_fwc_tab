@@ -182,7 +182,7 @@
     <string name="delivery_time">"সময়:"</string>
     <string name="delivery_type">"প্রসবের ধরণ:"</string>
     <string name="service_center_name">"সেবাকেন্দ্রের নাম:"</string>
-    <string name="admission_date">"ভর্তির তারিখ:"</string>
+    <string name="admission_date">"আগমনের তারিখ:"</string>
     <string name="ward">"ওয়ার্ড:"</string>
     <string name="bed">"শয্যা:"</string>
     <string name="delivery_result">"প্রসবের ফলাফল:"</string>
