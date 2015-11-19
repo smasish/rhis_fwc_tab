@@ -374,6 +374,14 @@ pnc child history
                 Resources res = getResources();
                 // String[] mainlist = res.getStringArray(R.array.list_item);
                 Log.d("-->", "---=jsonStr.keys()====>" + jsonStr.keys());
+
+                int item=0;
+                for (Iterator<String> ii = jsonStr.keys(); ii.hasNext(); ) {
+                    key = ii.next();
+                    item++;
+                    Log.d("--:::>", "---key=====>" + item);
+                }
+
                 for (Iterator<String> ii = jsonStr.keys(); ii.hasNext(); ) {
                     key = ii.next();
 
@@ -381,6 +389,9 @@ pnc child history
                     System.out.println("1.Key:" + key + " Value:\'" + jsonStr.get(key) + "\'");
 
 
+
+                    if(in == item-3)
+                        break;
                     JSONObject jsonRootObject = jsonStr.getJSONObject(""+in);
                     Log.d("--:::>", "---serviceSource=====>" + jsonRootObject.getString("serviceSource"));
 
