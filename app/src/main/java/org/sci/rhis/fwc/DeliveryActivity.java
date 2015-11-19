@@ -55,6 +55,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     final private String SERVLET = "delivery";
     final private String ROOTKEY = "deliveryInfo";
     private  final String LOGTAG = "FWC-DELIVERY";
+    private boolean hasDeliveryInfo = false;
 
 
 
@@ -112,10 +113,12 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         //custom time picker
         timePickerDialog = new CustomTimePickerDialog(this);
 
-        //create the mother
+        //create the mother and hte provider
         mother = getIntent().getParcelableExtra("PregWoman");
-
         provider = getIntent().getParcelableExtra("Provider");
+
+        //is deliveryInfo present
+        hasDeliveryInfo = false;
 
        // Log.e("Is there Found mother dPlace?", "" + mother.getHealthId());
         //get info from database
@@ -167,6 +170,8 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 Utilities.Disable(this, R.id.delivery_info_layout);
                 Utilities.MakeInvisible(this, R.id.btn_save_add_child);
                 mother.setHasDeliveryInfo(1);
+                hasDeliveryInfo = true;
+
             }
 
         } catch (JSONException jse) {
@@ -175,6 +180,19 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        // your code.
+        Intent finishIntent = new Intent();
+
+        finishIntent.putExtra("hasDeliveryInformation", hasDeliveryInfo);
+
+        setResult(RESULT_OK, finishIntent);
+        finishActivity(ActivityResultCodes.DELIVERY_ACTIVITY);
+        finish();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

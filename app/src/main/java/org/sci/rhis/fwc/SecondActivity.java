@@ -325,7 +325,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         if (checkClientInfo() && woman.isEligibleFor(PregWoman.PREG_SERVICE.DELIVERY)) {
             intent.putExtra("PregWoman", woman);
             intent.putExtra("Provider", ProviderInfo.getProvider());
-            startActivity(intent);
+            startActivityForResult(intent, ActivityResultCodes.DELIVERY_ACTIVITY);
         } else {
             Toast.makeText(this, "Too Late for Delivery, verify ...", Toast.LENGTH_LONG).show();
         }
@@ -367,6 +367,11 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                 getSpinner(R.id.ClientsIdentityDropdown).setSelection(data.getIntExtra("HealthIdType",0));
                 getEditText(R.id.searchableTextId).setText(str);
                 startSearch((ImageButton)findViewById(R.id.searchButton));
+            }
+        } else if (requestCode == ActivityResultCodes.DELIVERY_ACTIVITY) {
+            if (resultCode == RESULT_OK) {
+                boolean hasDeliveryInformation = data.getBooleanExtra("hasDeliveryInformation", false);
+                woman.setHasDeliveryInfo(hasDeliveryInformation ? 1:0);
             }
         }
     }
