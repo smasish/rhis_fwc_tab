@@ -243,6 +243,7 @@
         android:id="@+id/loadingPanel"
         >
         <ProgressBar
-            style="@style/GenericProgressIndicator"/>
+            style="@style/GenericProgressIndicator"
+            android:id="@+id/advSearchProgressBar"/>
     </LinearLayout>
 </LinearLayout>

@@ -33,24 +33,20 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
                                                                     CompoundButton.OnCheckedChangeListener {
 
     AsyncNonRegisterClientInfoUpdate NRCInfoUpdateTask;
-    AsyncNonRegisterClientInfoUpdate NRCInfoQueryTask;
+
     private String SERVLET = "nonRegisteredClient";
     private String ROOTKEY = "nonRegisteredClientGeneralInfo";
     private String LOGTAG = "FWC-REGISTRATION";
 
     private EditText cName, cFatherName, cMotherName, cAge;
-    public static int NO_OPTIONS = 0;
+
     private String getString, md5Result, vilStringValue;
     private Button computeMD5;
-    private HashMap<String, Pair<Integer, Integer>> districtCodeMap;
-    private HashMap<String, Integer> upazilaCodeMap;
-    private HashMap<String, Integer> unionCodeMap;
-    private HashMap<String, Pair<Integer, Integer>> villageCodeMap;
     private long generatedId;
 
     private int flag = 0;
     ProviderInfo provider;
-    private String selectedDistName, selectedUpazilaName, selectedUnionName, selectedVillageName;
+
     private int divValue, distValue, upValue, unValue, vilValue, mouzaValue;
 
     private String zillaString = "";
@@ -95,126 +91,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         cMotherName = (EditText) findViewById(R.id.Clients_Mother);
         computeMD5 = (Button) findViewById(R.id.btn2);
 
-        /*districtCodeMap = new HashMap<String, Pair<Integer, Integer>>();
-        districtCodeMap.put("ব্রাক্ষ্মণবাড়িয়া", Pair.create(12, 20));
-        districtCodeMap.put("হবিগঞ্জ", Pair.create(36, 60));
-        districtCodeMap.put("টাঙ্গাইল", Pair.create(93, 30));
-
-
-        ArrayList<String> distLIst = new ArrayList<String>();
-        distLIst.addAll(districtCodeMap.keySet());
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, distLIst);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Spinner spnDist = (Spinner) findViewById(R.id.Clients_District);
-        spnDist.setAdapter(adapter);
-        selectedDistName = spnDist.getSelectedItem().toString();
-        distValue = districtCodeMap.get(selectedDistName).first;
-        divValue = districtCodeMap.get(selectedDistName).second;
-        Log.d("selected division Value", String.valueOf(divValue));
-        Log.d("selected district Value", String.valueOf(distValue));
-
-        upazilaCodeMap = new HashMap<String, Integer>();
-        switch (distValue) {
-            case 36:
-                upazilaCodeMap.put("মাধবপুর ", 71);
-                break;
-            case 93:
-                upazilaCodeMap.put("বাসাইল ", 36);
-                break;
-        }
-        ArrayList<String> upLIst = new ArrayList<String>();
-        upLIst.addAll(upazilaCodeMap.keySet());
-
-        ArrayAdapter<String> upAdapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, upLIst);
-        upAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        Spinner spnUpz = (Spinner) findViewById(R.id.Clients_Upazila);
-        spnUpz.setAdapter(upAdapter);
-        selectedUpazilaName = spnUpz.getSelectedItem().toString();
-        Log.d("selected Up Value", String.valueOf(selectedUpazilaName));
-        upValue = upazilaCodeMap.get(selectedUpazilaName);
-        Log.d("selected upazila Value", String.valueOf(upValue));
-
-
-        unionCodeMap = new HashMap<String, Integer>();
-        switch (upValue) {
-            case 71:
-                unionCodeMap.put("আদাঐর", 16);
-                unionCodeMap.put("শাহজাহানপুর", 94);
-                break;
-            case 36:
-                unionCodeMap.put("কাঞ্চনপুর", 59);
-                unionCodeMap.put("কাশিল", 71);
-                break;
-        }
-        ArrayList<String> unLIst = new ArrayList<String>();
-        unLIst.addAll(unionCodeMap.keySet());
-        ArrayAdapter<String> unAdapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, unLIst);
-        unAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Spinner spnUN = (Spinner) findViewById(R.id.Clients_Union);
-        spnUN.setAdapter(unAdapter);
-        selectedUnionName = spnUN.getSelectedItem().toString();
-        unValue = unionCodeMap.get(selectedUnionName);
-        Log.d("selected Union Name", String.valueOf(selectedUnionName));
-        Log.d("selected Union Value", String.valueOf(unValue));
-
-
-        villageCodeMap = new HashMap<String, Pair<Integer, Integer>>();
-        switch (unValue) {
-
-            case 94:
-                villageCodeMap.put("বান্দারিয়া", Pair.create(01, 164));
-                villageCodeMap.put("ফারোদপুর", Pair.create(02, 324));
-                break;
-            case 59:
-                villageCodeMap.put("যৌতুকী", Pair.create(01, 458));
-                villageCodeMap.put("তারাবাড়ী", Pair.create(05, 547));
-                break;
-            case 71:
-                villageCodeMap.put("বাংড়া", Pair.create(01, 167));
-                villageCodeMap.put("পিচুরী", Pair.create(01, 816));
-                break;
-            case 16:
-                villageCodeMap.put("দক্ষিণমোহাম্মদপুর", Pair.create(01, 276));
-                villageCodeMap.put("মিঠাপুকুর", Pair.create(02, 368));
-                break;
-        }
-        ArrayList<String> vilLIst = new ArrayList<String>();
-        vilLIst.addAll(villageCodeMap.keySet());
-        ArrayAdapter<String> vilAdapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, vilLIst);
-        vilAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Spinner spnVillage = (Spinner) findViewById(R.id.Clients_Village);
-        spnVillage.setAdapter(vilAdapter);
-        selectedVillageName = spnVillage.getSelectedItem().toString();
-        vilValue = villageCodeMap.get(selectedVillageName).first;
-        mouzaValue = villageCodeMap.get(selectedVillageName).second;
-        Log.d("selected Village Name", String.valueOf(selectedVillageName));
-        if (vilValue < 10) {
-            vilStringValue = "0" + String.valueOf(vilValue);
-        }
-
-        Log.d("selected Village Value", String.valueOf(vilStringValue));
-        Log.d("selected mouza Value", String.valueOf(mouzaValue));
-
-
-
-        //Get the JSON object from the data
-        JSONObject parent = this.parseJSONData();
-
-//THis will store all the values inside "Hydrogen" in a element string
-        try {
-            String element = parent.getString("79");            //Log.d("Get Json",element);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-*/
         generatedId = 0;
-
 
         // ---- JAMIL START---- //
         districtList    =  new ArrayList<>();
@@ -225,9 +102,20 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         initialize();
         addListenerOnButton();
         addAndSetSpinners();
+        Utilities.MakeVisible(this, R.id.loadingPanelNrc);
+        loadLocations();
 
+        // ---- JAMIL END----- //
 
+    }
 
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        Utilities.MakeInvisible(this, R.id.loadingPanelNrc);
+    }
+
+    private void loadLocations() {
         jsonSpinnerMap.get("gender").setSelection(1); //select woman by default
         try {
             jsonBuilder = new StringBuilder();
@@ -236,6 +124,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
             jsonBuilderVillage = new StringBuilder();
             loadJsonFile("vill.json", jsonBuilderVillage);
             villageString = jsonBuilderVillage.toString();
+            districtList.add(blanc);
             LocationHolder.loadListFromJson(zillaString, "nameEnglish", "nameBangla", "Upazila", districtList);
 
             //set zilla spinner
@@ -248,8 +137,6 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
-        // ---- JAMIL END----- //
-
     }
 
     private String getString() {
@@ -268,21 +155,6 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         return getString;
     }
 
-    /*
-    private static String convertToHex(byte[] data) throws java.io.IOException
-    {
-
-
-        StringBuffer sb = new StringBuffer();
-        String hex=null;
-
-        hex= Base64.encodeToString(data, 0, data.length, NO_OPTIONS);
-
-        sb.append(hex);
-
-        return sb.toString();
-    }
-*/
     public String computeMD5Hash(String getString) {
 
         try {
