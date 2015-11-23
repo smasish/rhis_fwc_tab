@@ -109,10 +109,10 @@
                 android:paddingLeft="10dp"
                 android:background="@drawable/edittext_round"
                 android:inputType="date"
-                android:hint="dd/MM/yyyy"/>
+                android:hint="dd/mm/yyyy"/>
             <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="50px"
+                android:layout_height="50px"
                 android:id="@+id/imageViewDeliveryDate"
                 android:src="@drawable/calendar_icon"
                 android:layout_marginTop="5dp"
@@ -228,8 +228,8 @@
                 android:hint="dd/MM/yyyy"/>
 
             <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="50px"
+                android:layout_height="50px"
                 android:id="@+id/imageViewAdmissionDate"
                 android:src="@drawable/calendar_icon"
                 android:layout_marginTop="5dp"

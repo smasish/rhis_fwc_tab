@@ -48,7 +48,7 @@
                 android:textSize="20dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/TextViewClient_name"
-                android:text="@string/ClientsName"
+                android:text="@string/NRCClientsName"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_color"/>
@@ -70,8 +70,8 @@
                 android:textSize="20dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/TextViewClientsAge"
-                android:text="@string/ClientsAge"
-                android:layout_width="50dp"
+                android:text="@string/NRCClientsAge"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_color"/>
 
@@ -127,7 +127,7 @@
                 android:textSize="20dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/TextViewClientsSex"
-                android:text="@string/ClientsSex"
+                android:text="@string/NRCClientsSex"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_color"/>
@@ -156,7 +156,7 @@
                 android:textSize="20dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/TextViewClientsFather"
-                android:text="@string/ClientsFather"
+                android:text="@string/NRCClientsFather"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_color"/>
@@ -178,8 +178,8 @@
                 android:textSize="20dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/TextViewClientsDist"
-                android:text="@string/ClientsDist"
-                android:layout_width="60dp"
+                android:text="@string/NRCClientsDist"
+                android:layout_width="65dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_color"/>
 
@@ -207,7 +207,7 @@
                 android:textSize="20dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/TextViewClientsMother"
-                android:text="@string/ClientsMother"
+                android:text="@string/NRCClientsMother"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_color"/>
@@ -230,8 +230,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
                 android:id="@+id/ClientsUpazila"
-                android:text="@string/ClientsUpazila"
-                android:layout_width="90dp"
+                android:text="@string/NRCClientsUpazila"
+                android:layout_width="95dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_color"/>
 
@@ -265,7 +265,7 @@
                 android:textSize="20dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/TextViewClientsUnion"
-                android:text="@string/ClientsUnion"
+                android:text="@string/NRCClientsUnion"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_color"/>
@@ -286,8 +286,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="90dp"
                 android:id="@+id/TextViewClientsVillage"
-                android:text="@string/ClientsVillage"
-                android:layout_width="120dp"
+                android:text="@string/NRCClientsVillage"
+                android:layout_width="125dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_color"/>
 
@@ -386,7 +386,7 @@
                 android:paddingLeft="10dp"
                 android:ellipsize="start"
                 android:background="@drawable/button_style"
-                android:text="PROCEED"/>
+                android:text="SAVE"/>
         </LinearLayout>
 
     </LinearLayout>

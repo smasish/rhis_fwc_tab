@@ -37,6 +37,17 @@
     <string name = "ClientsCoupleNo">"দম্পতি নম্বর:"</string>
     <string name = "ClientsMobileNo">"মোবাইল নম্বর:"</string>
 
+    <!-- NRC Deatils -->
+    <string name = "NRCClientsName">"*নাম: "</string>
+    <string name = "NRCClientsAge">"*বয়স:"</string>
+    <string name = "NRCClientsFather">"*পিতার নাম:"</string>
+    <string name = "NRCClientsMother">"*মাতার নাম:"</string>
+    <string name = "NRCClientsDist">"*জেলা:"</string>
+    <string name = "NRCClientsSex">"*লিঙ্গ:"</string>
+    <string name = "NRCClientsUpazila">"*উপজেলা:"</string>
+    <string name = "NRCClientsUnion">"*ইউনিয়ন:"</string>
+    <string name = "NRCClientsVillage">"*গ্রাম / মহল্লা:"</string>
+
     <string name = "reg_no">"রেজি: নম্বর:"</string>
     <string name = "ClientsInfoFragment">"সেবাগ্রহীতার তথ্য"</string>
     <string name = "LMPDate">"শেষ মাসিকের তারিখ:"</string>
@@ -67,6 +78,8 @@
     <string name = "with_convulsion_senseless">" একল্যাম্পসিয়া বা খিঁচুনিসহ বার বার অজ্ঞান হওয়া "</string>
     <string name = "caesar">" সিজারিয়ান অপারেশন বা যন্ত্রের মাধ্যমে (ফরসেফ/ভেকুয়াম) প্রসব "</string>
     <string name = "PNCWarning">প্রসবের তথ্য অনুপস্থিত। অনুগ্রহ করে \nপ্রসবোত্তর সেবার পূর্বে প্রসবের তথ্য নিন। </string>
+    <string name = "NRCSaveWarning">দয়া করে তারকা (*) চিহ্নিত ঘর গুলি পূরণ করে পুনরায় save চাপুন </string>
+
     <string-array name="Blood_Group_Dropdown">
         <item></item>
         <item> A+ </item>
