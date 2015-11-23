@@ -31,17 +31,15 @@
 
         <LinearLayout
             android:id="@+id/name_age"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:paddingBottom="10dp"
             android:orientation="horizontal"
-            android:layout_marginBottom="10dp"
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/layoutborder">
 
             <TextView
                 android:textSize="20dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/Client_name_label"
                 android:text="@string/ClientsName"
@@ -72,7 +70,7 @@
                 android:textColor="@color/text_color"/>
 
             <Spinner
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="5dp"
                 android:ellipsize="start"
                 android:inputType="text"
                 android:textSize="20dp"
@@ -89,16 +87,17 @@
 
     <LinearLayout
         android:id="@+id/father_district"
-        android:layout_marginLeft="10dp"
         android:orientation="horizontal"
         android:layout_centerVertical="true"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:background="@drawable/layoutborder">
 
 
         <TextView
             android:textSize="20dp"
             android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
             android:id="@+id/TextViewClientsDist"
             android:text="@string/ClientsDist"
             android:layout_width="80dp"
@@ -142,16 +141,18 @@
 
     <LinearLayout
         android:id="@+id/union_village"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp"
+
+
         android:orientation="horizontal"
         android:layout_centerVertical="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/layoutborder">
 
         <TextView
             android:textSize="20dp"
             android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
             android:id="@+id/TextViewClientsUnion"
             android:text="@string/ClientsUnion"
             android:layout_width="80dp"
@@ -196,14 +197,14 @@
 
     <LinearLayout
         android:id="@+id/search_button_layout"
-        android:layout_marginLeft="10dp"
         android:layout_marginBottom="10dp"
         android:orientation="horizontal"
         android:layout_centerVertical="true"
         android:paddingBottom="10dp"
         android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/layoutborder">
 
         <Button
             android:layout_marginTop="10dp"
@@ -230,12 +231,6 @@
             android:text="SEARCH"/>
 
     </LinearLayout>
-    <ListView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/search_result">
-
-    </ListView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -246,4 +241,11 @@
             style="@style/GenericProgressIndicator"
             android:id="@+id/advSearchProgressBar"/>
     </LinearLayout>
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_result">
+
+    </ListView>
+
 </LinearLayout>

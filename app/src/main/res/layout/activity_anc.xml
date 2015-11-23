@@ -71,13 +71,109 @@
         android:layout_centerVertical="true"
         android:textColor="@color/text_color"/>
 
-        <ListView
-            android:id="@+id/list"
+    <ListView
+        android:id="@+id/list"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        >
+    </ListView>
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/ancVisitDates"
+        android:background="@drawable/layoutborder"
+        android:layout_gravity="fill_horizontal">
+        <TableRow>
+            <TextView
+                android:layout_width="145sp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color"
+                android:background="@drawable/textviewback"
+                android:text="@string/ancVisit1"
+                android:textSize="15sp"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="1sp"
+                android:padding="2sp"/>
+            <TextView
+                android:layout_width="145sp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color"
+                android:background="@drawable/textviewback"
+                android:text="@string/ancVisit2"
+                android:textSize="15sp"
+                android:layout_marginLeft="1sp"
+                android:layout_marginRight="1sp"
+                android:padding="2sp"/>
+            <TextView
+                android:layout_width="145sp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color"
+                android:background="@drawable/textviewback"
+                android:text="@string/ancVisit3"
+                android:textSize="15sp"
+                android:layout_marginLeft="1sp"
+                android:layout_marginRight="1sp"
+                android:padding="2sp"/>
+            <TextView
+                android:layout_width="145sp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color"
+                android:background="@drawable/textviewback"
+                android:text="@string/ancVisit4"
+                android:textSize="15sp"
+                android:layout_marginLeft="1sp"
+
+                android:padding="2sp"/>
+        </TableRow>
+        <TableRow>
+        <TextView
+            android:id="@+id/ancVisit1Date"
+            android:layout_width="145sp"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:visibility="gone"
-            >
-        </ListView>
+            android:textColor="@color/text_color"
+            android:background="@drawable/textviewback"
+            android:textSize="15sp"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="1sp"
+            android:layout_marginTop="1sp"
+            android:padding="2sp"/>
+        <TextView
+            android:id="@+id/ancVisit2Date"
+            android:layout_width="145sp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:background="@drawable/textviewback"
+            android:textSize="15sp"
+            android:layout_marginLeft="1sp"
+            android:layout_marginRight="1sp"
+            android:layout_marginTop="1sp"
+            android:padding="2sp"/>
+        <TextView
+            android:id="@+id/ancVisit3Date"
+            android:layout_width="145sp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:background="@drawable/textviewback"
+            android:textSize="15sp"
+            android:layout_marginLeft="1sp"
+            android:layout_marginRight="1sp"
+            android:layout_marginTop="1sp"
+            android:padding="2sp"/>
+        <TextView
+            android:id="@+id/ancVisit4Date"
+            android:layout_width="145sp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:background="@drawable/textviewback"
+            android:textSize="15sp"
+            android:layout_marginLeft="1sp"
+            android:layout_marginTop="1sp"
+            android:padding="2sp"/>
+        </TableRow>
+    </TableLayout>
 
     <ScrollView
        android:id="@+id/ancLayoutScrollview"
@@ -165,7 +261,7 @@
             <EditText
                 android:id="@+id/ancServiceDateValue"
                 android:inputType="number"
-                android:hint="dd/MM/yyyy"
+                android:hint="dd/mm/yyyy"
                 android:paddingLeft="10dp"
                 android:layout_width="120dp"
                 android:layout_height="50px"

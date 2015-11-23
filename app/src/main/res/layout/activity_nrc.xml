@@ -189,7 +189,7 @@
                 android:textSize="20dp"
                 android:layout_width="100dp"
                 android:layout_height="50px"
-               android:background="@drawable/gradient_spinner"
+                android:background="@drawable/gradient_spinner"
                 android:id="@+id/Clients_District"
                 android:paddingLeft="10dp"
                 />
@@ -389,16 +389,18 @@
                 android:text="PROCEED"/>
         </LinearLayout>
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/GenericProgressBackground"
-            android:id="@+id/loadingPanelNrc"
-            >
-            <ProgressBar
-                style="@style/GenericProgressIndicator"/>
-        </LinearLayout>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/GenericProgressBackground"
+        android:id="@+id/loadingPanelNrc"
+        >
+        <ProgressBar  android:indeterminate="true"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:id="@+id/progressBar1"></ProgressBar>
+    </LinearLayout>
+</LinearLayout>
 
 

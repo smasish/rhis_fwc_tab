@@ -554,9 +554,9 @@ public class Utilities {
             try {
                 currentDate = json.getString(key);
                 if(!currentDate.equals("")) {
-                    Date k=dbFormat.parse(currentDate);
-                    String v=uiFormat.format(k);
-                    keyMap.get(key).setText(v);
+                    Date date = dbFormat.parse(currentDate);
+                    String dateStr = uiFormat.format(date);
+                    keyMap.get(key).setText(dateStr);
                 }
             } catch (JSONException jse) {
                 Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
@@ -575,9 +575,9 @@ public class Utilities {
             try {
                 currentDate = (keyMap.get(key).getText()).toString();
                 if(!currentDate.equals("")) {
-                    Date k=uiFormat.parse(currentDate);
-                    String v=dbFormat.format(k);
-                    json.put(key, v);
+                    Date date = uiFormat.parse(currentDate);
+                    String dateStr = dbFormat.format(date);
+                    json.put(key, dateStr);
                 }
                 json.put(key, dbFormat.format(uiFormat.parse(keyMap.get(key).getText().toString())));
             } catch (JSONException jse) {
