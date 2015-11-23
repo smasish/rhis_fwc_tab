@@ -70,6 +70,11 @@ public class PregWoman extends GeneralPerson implements Parcelable{
         dest.writeString(df.format(lmp));
         dest.writeInt(getPregNo());
         dest.writeInt(hasDeliveryInfo());
+        if(actualDelivery!=null) {
+            dest.writeString(df.format(actualDelivery));
+        } else {
+            dest.writeString("");
+        }
     }
 
     public static final Parcelable.Creator<PregWoman> CREATOR= new Parcelable.Creator<PregWoman>() {
@@ -101,15 +106,44 @@ public class PregWoman extends GeneralPerson implements Parcelable{
         if(df == null) {
             df = new SimpleDateFormat("yyyy-MM-dd");
         }
+        lmp = getDate(data.readString());
+        setPregNo(data.readInt()); //pregnancyNo
+        setHasDeliveryInfo(data.readInt()); //hasDeliveryInfo
+        String deliveryDate = data.readString(); //actualDelivery
+        if(!deliveryDate.equals("")) {
+            actualDelivery = getDate(deliveryDate);
+        }
+        UpdateEdd();
+    }
+
+    private Date getDate(String dateStr) {
         try {
-            lmp = df.parse(data.readString()); //lmp
+            return  df.parse(dateStr);
         } catch (ParseException pe) {
             System.out.println("Parsing Exception:");
             pe.printStackTrace();
         }
-        setPregNo(data.readInt()); //pregnancyNo
-        setHasDeliveryInfo(data.readInt());
-        UpdateEdd();
+
+        return null;
+    }
+
+    private Date getDate(String dateStr, String format) {
+        SimpleDateFormat convert = new SimpleDateFormat(format);
+        try {
+            return convert.parse(dateStr);
+        } catch (ParseException pe) {
+            System.out.println("Parsing Exception:");
+            pe.printStackTrace();
+        }
+        return null;
+    }
+
+    public void setActualDelivery(String date, String format) {
+        actualDelivery = getDate(date, format);
+    }
+
+    public Date getActualDelivery() {
+        return actualDelivery;
     }
 
     public static PregWoman CreatePregWoman(JSONObject clientInfo) throws JSONException {
@@ -121,27 +155,8 @@ public class PregWoman extends GeneralPerson implements Parcelable{
         } else {
             client = null;
         }
-
         return client;
     }
-/*
-    @Deprecated
-    public static void DeletePregWoman()  {
-
-        client = null;
-    }
-
-    @Deprecated
-    public static PregWoman GetPregWoman() {
-
-        if (client != null) {
-            return client;
-        }
-
-        client = new PregWoman();
-
-        return client;
-    }*/
 
     //default
     public PregWoman() {
@@ -242,9 +257,8 @@ public class PregWoman extends GeneralPerson implements Parcelable{
     public Date getAncThreshold() {
         return addDateOffset(lmp, ANC_THRESHOLD);
     }
-
     public Date getPncThreshold() {
-        return addDateOffset(lmp, ANC_THRESHOLD);
+        return addDateOffset(lmp, PNC_THRESHOLD);
     }
 
     public void UpdateUIField(Activity activity) {
@@ -276,11 +290,7 @@ public class PregWoman extends GeneralPerson implements Parcelable{
 
             case PNC:
                 //disable PNC entry if delivery info is present
-                if(hasDeliveryInfo() == 1) {
-                    eligible = true;
-                } else {
-                    eligible = false;
-                }
+                eligible = ((hasDeliveryInfo() == 1 )? true: false);
                 break;
             default:
                 eligible = false;

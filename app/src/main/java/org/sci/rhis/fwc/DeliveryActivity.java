@@ -171,7 +171,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 Utilities.MakeInvisible(this, R.id.btn_save_add_child);
                 mother.setHasDeliveryInfo(1);
                 hasDeliveryInfo = true;
-
+                mother.setActualDelivery(json.getString("dDate"), "dd/MM/yyyy");
             }
 
         } catch (JSONException jse) {

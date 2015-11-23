@@ -18,31 +18,17 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.sci.rhis.utilities.CustomDatePickerDialog;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -50,10 +36,17 @@ import java.util.List;
 public class PNCActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
                                                                      View.OnClickListener,
                                                                      CompoundButton.OnCheckedChangeListener {
+
+    final static int FIRST_PNC_1 = 0; //DAYS
+    final static int FIRST_PNC_2 = 1; //DAYS
+    final static int SECOND_PNC_1 = 2; //DAYS
+    final static int SECOND_PNC_2 = 3; //DAYS
+    final static int THIRD_PNC_1 = 7; //DAYS
+    final static int THIRD_PNC_2 = 14; //DAYS
+    final static int FOURTH_PNC_1 = 35; //DAYS
+    final static int FOURTH_PNC_2 = 42; //DAYS
+
     private MultiSelectionSpinner multiSelectionSpinner;
-
-
-
     // For Date pick added by Al Amin
     private CustomDatePickerDialog datePickerDialog;
     private HashMap<Integer, EditText> datePickerPair;
@@ -77,9 +70,9 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
     final private String ROOTKEY_MOTHER = "PNCMotherInfo";
     final private String SERVLET_CHILD = "pncchild";
     final private String ROOTKEY_CHILD = "PNCChildInfo";
+    private  final String LOGTAG       = "FWC-PNC";
 
     ArrayList<HashMap<String, String>> contactList;
-    JSONArray contacts = null;
 
     private View mPNCLayout;
     Boolean flag=false,mother_flag=false,child_flag=false,child_tree=true;
@@ -95,14 +88,12 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
 
     private int lastPncVisit = 0;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pnc);
 
-      // Remove Action Bar
+        // Remove Action Bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         con = this;
@@ -132,19 +123,18 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
         lastPncVisit = 0;
 
         pnc_mother = (Button)findViewById(R.id.pncmother);
-      //  pnc_child = (Button)findViewById(R.id.pncchild);
-      //  expand = (Button)findViewById(R.id.expandview);
+        //  pnc_child = (Button)findViewById(R.id.pncchild);
+        //  expand = (Button)findViewById(R.id.expandview);
 
         pnc_mother.setOnClickListener(this);
-     //   pnc_child.setOnClickListener(this);
-     //   expand.setOnClickListener(this);
+        //   pnc_child.setOnClickListener(this);
+        //   expand.setOnClickListener(this);
 
         child_tree=true;
         childList  = new ArrayList<>(); //childList
 
         pnclay_child = (LinearLayout)findViewById(R.id.pncChildInfo);
         pnclay_mother = (LinearLayout)findViewById(R.id.pncMotherInfo);
-
 
         lay_frag_mother = (LinearLayout)findViewById(R.id.pnc_mother_frag);
         lay_frag_child = (LinearLayout)findViewById(R.id.pnc_child_frag);
@@ -163,7 +153,8 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
 
         // Wire each button to a click listener
         visibleButton.setOnClickListener(mVisibleListener);
-// Added By Al Amin
+
+        // Generic works common to all the clinical service sub classes
         initialize(); //super class
         Spinner spinners[] = new Spinner[6];
         spinners[0] = (Spinner) findViewById(R.id.pncBreastConditionSpinner);
@@ -232,12 +223,8 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
         multiSelectionSpinner.setItems(pnccreferreasonlist);
         multiSelectionSpinner.setSelection(new int[]{});
 
-
-
         ll = (LinearLayout)findViewById(R.id.llay);
         ll_pnc_child = (LinearLayout)findViewById(R.id.llay_frag);
-
-
 
         contactList = new ArrayList<HashMap<String, String>>();
 
@@ -255,7 +242,7 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
 
         String servlet = "pncmother";
         String jsonRootkey = "PNCMotherInfo";
-        Log.d("PNC", "Mother Part:\n" + queryString);
+        Log.d(LOGTAG, "Mother Part:\n" + queryString);
         sendPostReqAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, queryString, servlet, jsonRootkey);
 
         AsyncLoginTask sendPostReqAsyncTaskChild = new AsyncLoginTask(new AsyncCallback() {
@@ -287,7 +274,7 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
 
         String servlet_child = "pncchild";
         String jsonRootkey_child = "PNCChildInfo";
-        Log.d("PNC", "Child Part:\n" +  queryString_child);
+        Log.d(LOGTAG, "Child Part:\n" + queryString_child);
         sendPostReqAsyncTaskChild.execute(queryString_child, servlet_child, jsonRootkey_child);
 
         expListView_child = new ExpandableListView(this);
@@ -299,7 +286,7 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
 pnc child history
  */
 
-        Log.d("-->", "---=====>" + queryString);
+        Log.d(LOGTAG, "---=====>" + queryString);
 
         getEditText(R.id.pncServiceDateValue).setOnClickListener(this);
         getEditText(R.id.pncChildServiceDateValue).setOnClickListener(this);
@@ -308,16 +295,21 @@ pnc child history
         getCheckbox(R.id.pncOthersCheckBox).setOnCheckedChangeListener(this);
         getCheckbox(R.id.pncChildOthersCheckBox).setOnCheckedChangeListener(this);
 
-//custom date picker Added By Al Amin
+        //custom date picker Added By Al Amin
         datePickerDialog = new CustomDatePickerDialog(this);
         datePickerPair = new HashMap<Integer, EditText>();
         datePickerPair.put(R.id.Date_Picker_Button, (EditText) findViewById(R.id.pncServiceDateValue));
         datePickerPair.put(R.id.Date_Picker_Button_Child, (EditText) findViewById(R.id.pncChildServiceDateValue));
     }
 
-
-
-
+    private void setPncVisitAdvices() {
+        Date lmp = mother.getActualDelivery();
+        SimpleDateFormat sdf = new SimpleDateFormat("ddMMMyy");
+        getTextView(R.id.pncVisit1Date).setText(sdf.format(Utilities.addDateOffset(lmp, FIRST_PNC_1)) + " - " + sdf.format(Utilities.addDateOffset(lmp, FIRST_PNC_2)));
+        getTextView(R.id.pncVisit2Date).setText(sdf.format(Utilities.addDateOffset(lmp, SECOND_PNC_1)) + " - " + sdf.format(Utilities.addDateOffset(lmp, SECOND_PNC_2)));
+        getTextView(R.id.pncVisit3Date).setText(sdf.format(Utilities.addDateOffset(lmp, THIRD_PNC_1)) + " - " + sdf.format(Utilities.addDateOffset(lmp, THIRD_PNC_2)));
+        getTextView(R.id.pncVisit4Date).setText(sdf.format(Utilities.addDateOffset(lmp, FOURTH_PNC_1)) + " - " + sdf.format(Utilities.addDateOffset(lmp, FOURTH_PNC_2)));
+    }
 
     public void pickDate(View view) {
         datePickerDialog.show(datePickerPair.get(view.getId()));
@@ -348,8 +340,7 @@ pnc child history
     @Override
     public void callbackAsyncTask(String result) {
 
-
-        Log.d("PNC", "Handle Mother:\n" + result);
+        Log.d(LOGTAG, "Handle Mother:\n" + result);
 
             try {
                 JSONObject jsonStr = new JSONObject(result);
@@ -363,6 +354,10 @@ pnc child history
                    jsonStr.getBoolean("pncStatus")) {
                     Utilities.MakeInvisible(this, R.id.pncMotherInfo);
                     Toast.makeText(this, "Mother is not eligible for new PNC",Toast.LENGTH_LONG).show();
+                } else {
+                    //get outcome date and populate ideal pnc visit info
+                    mother.setActualDelivery(jsonStr.getString("outcomeDate"), "yyyy-MM-dd");
+                    setPncVisitAdvices();
                 }
                 //
 
