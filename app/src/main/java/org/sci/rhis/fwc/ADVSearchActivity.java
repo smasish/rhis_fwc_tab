@@ -139,10 +139,11 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
         FileLoader loader = new FileLoader(this);
         loader.execute();
         //loadVillages.setVisibility(View.GONE);
+        jsonSpinnerMap.get("gender").setSelection(1); //select woman by default
     }
 
     private void loadLocations() {
-        jsonSpinnerMap.get("gender").setSelection(1); //select woman by default
+
         try {
             jsonBuilder = new StringBuilder();
             loadJsonFile("zilla.json", jsonBuilder);
