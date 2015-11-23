@@ -14,7 +14,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -206,6 +209,8 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
     }
 
     private void nrcSaveToJson() {
+
+        hasTheRequiredFileds();
         NRCInfoUpdateTask = new AsyncNonRegisterClientInfoUpdate(this);
         JSONObject json;
         try {
@@ -324,6 +329,37 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         }
     }
 
+    private boolean hasTheRequiredFileds() {
+        String textFileds [] = {"name", "age", "fathername", "mothername"};
+        String fields = "";
+        boolean isEmpty = false;
+
+        for( int i = 0;i< textFileds.length && !isEmpty; ++i) {
+            fields = textFileds[i];
+            if(jsonEditTextMap.get(fields).getText().toString().equals("")) {
+                isEmpty = true;
+            }
+        }
+
+        int fieldSelector = (
+                            getSpinner(R.id.Clients_District).getSelectedItemPosition() &
+                            getSpinner(R.id.Clients_Upazila).getSelectedItemPosition() &
+                            getSpinner(R.id.Clients_Union).getSelectedItemPosition() &
+                            getSpinner(R.id.Clients_Village).getSelectedItemPosition()
+        );
+
+        if(isEmpty || fieldSelector == 0) {
+            Toast toast = Toast.makeText(this, R.string.NRCSaveWarning, Toast.LENGTH_LONG);
+            LinearLayout toastLayout = (LinearLayout) toast.getView();
+            TextView toastTV = (TextView) toastLayout.getChildAt(0);
+            toastTV.setTextSize(20);
+            toast.show();
+            return false;
+        }
+
+        return true;
+    }
+
     @Override
     protected void initiateTextViews() {
 
@@ -361,6 +397,8 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
 
             @Override
             public void onClick(View arg0) {
+                if(!hasTheRequiredFileds())
+                    return;
                 nrcSaveToJson();
                 Intent intent = new Intent();
                 intent.putExtra("generatedId", computeMD5Hash(getString()));
