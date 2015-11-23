@@ -66,6 +66,7 @@
     <string name = "swelling_legs_or_whole_body">" পা বা সমস্ত শরীর বেশি রকম ফোলা (ইডিমা) "</string>
     <string name = "with_convulsion_senseless">" একল্যাম্পসিয়া বা খিঁচুনিসহ বার বার অজ্ঞান হওয়া "</string>
     <string name = "caesar">" সিজারিয়ান অপারেশন বা যন্ত্রের মাধ্যমে (ফরসেফ/ভেকুয়াম) প্রসব "</string>
+    <string name = "PNCWarning">প্রসবের তথ্য অনুপস্থিত। অনুগ্রহ করে \nপ্রসবোত্তর সেবার পূর্বে প্রসবের তথ্য নিন। </string>
     <string-array name="Blood_Group_Dropdown">
         <item></item>
         <item> A+ </item>
@@ -371,6 +372,11 @@
     <string name="title_activity_delevery">" প্রসবকালীন সেবা "</string>
     <string name="title_activity_pnc">প্রসবোত্তর সেবা</string>
     <string name="pnc_others">অন্যান্য</string>
+
+    <string name="ancVisit1">পরিদর্শন ১</string>
+    <string name="ancVisit2">পরিদর্শন ২</string>
+    <string name="ancVisit3">পরিদর্শন ৩</string>
+    <string name="ancVisit4">পরিদর্শন ৪</string>
 
     <string name="history_visit1">পরিদর্শন</string>
     <string name="history_date">সেবাগ্রহনের তারিখ:</string>
