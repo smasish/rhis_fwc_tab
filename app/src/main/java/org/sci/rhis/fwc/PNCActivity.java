@@ -999,6 +999,7 @@ pnc child history
            // lay_frag_mother.setVisibility(View.GONE);
             lay_frag_child.setVisibility(View.GONE);
             pnclay_child.setVisibility(View.GONE);
+            getSpinner(R.id.id_pncChildListDropdown).setSelection(0);// un-select selected children
 
 
             if(mother_flag==false) {
