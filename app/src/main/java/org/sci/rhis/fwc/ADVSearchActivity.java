@@ -41,7 +41,6 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
         FileLoader(Context c) {context = c;};
         protected Integer doInBackground(String... params) {
             loadLocations();
-
             return 0;
         }
 
@@ -82,6 +81,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
 
     private StringBuilder jsonBuilder = null;
     private StringBuilder jsonBuilderVillage = null;
+    private FileLoader loader = null;
 
     private JSONObject villJson = null;
     private LocationHolder blanc = new LocationHolder();
@@ -115,6 +115,10 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
         //AsyncTask<Void, Void, Void> loadVillage = new AsyncTask()
         loadVillages = (ProgressBar)findViewById(R.id.advSearchProgressBar);
         loadVillages.setVisibility(View.VISIBLE);
+
+        jsonBuilder = new StringBuilder();
+        jsonBuilderVillage = new StringBuilder();
+        loader = new FileLoader(this);
     }
 
     @Override
@@ -136,7 +140,6 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
     protected void onResume() {
         super.onResume();
         // The activity has become visible (it is now "resumed").
-        FileLoader loader = new FileLoader(this);
         loader.execute();
         //loadVillages.setVisibility(View.GONE);
         jsonSpinnerMap.get("gender").setSelection(1); //select woman by default
@@ -145,10 +148,9 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
     private void loadLocations() {
 
         try {
-            jsonBuilder = new StringBuilder();
+
             loadJsonFile("zilla.json", jsonBuilder);
             zillaString = jsonBuilder.toString();
-            jsonBuilderVillage = new StringBuilder();
             loadJsonFile("vill.json", jsonBuilderVillage);
             villageString = jsonBuilderVillage.toString();
             districtList.add(blanc);
