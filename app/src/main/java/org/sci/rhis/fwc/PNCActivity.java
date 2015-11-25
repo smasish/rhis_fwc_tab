@@ -436,7 +436,7 @@ pnc child history
                     for (String animal : animals) {
                         System.out.println(animal);
                         if(animal.length()>0)
-                            temp = temp+"\n"+details[Integer.parseInt(animal)];
+                            temp = temp+" "+details[Integer.parseInt(animal)];
                     }
                     list.add("" + getString(R.string.anemia) + " " + temp);
 
@@ -454,9 +454,9 @@ pnc child history
                     for (String animal : animals) {
                         System.out.println(animal);
                         if(animal.length()>0)
-                            temp = temp+"\n"+details[Integer.parseInt(animal)];
+                            temp = temp+" "+details[Integer.parseInt(animal)];
                     }
-                    list.add("" + getString(R.string.edema) + " " + temp);
+                    list.add("" + getString(R.string.edema) + " " + temp.trim());
 
                     // for breastCondition value
                     str1 = "";
@@ -468,7 +468,7 @@ pnc child history
                     for (String animal : animals) {
                         System.out.println(animal);
                         if(animal.length()>0)
-                            temp = temp+"\n"+details[Integer.parseInt(animal)];
+                            temp = temp+" "+details[Integer.parseInt(animal)];
                     }
 
                     list.add("" + getString(R.string.breastCondition) + " " + temp);
@@ -483,7 +483,7 @@ pnc child history
                     for (String animal : animals) {
                         System.out.println(animal);
                         if(animal.length()>0)
-                            temp = temp+"\n"+details[Integer.parseInt(animal)];
+                            temp = temp+" "+details[Integer.parseInt(animal)];
                     }
 
                     list.add("" + getString(R.string.uterusInvolution) + " " + temp);
@@ -499,7 +499,7 @@ pnc child history
                     for (String animal : animals) {
                         System.out.println(animal);
                         if(animal.length()>0)
-                            temp = temp+"\n"+details[Integer.parseInt(animal)];
+                            temp = temp+" "+details[Integer.parseInt(animal)];
                     }
 
                     list.add("" + getString(R.string.hematuria) + " " + temp);
@@ -516,7 +516,7 @@ pnc child history
                         for (String animal : animals) {
                             System.out.println(animal);
                             if(animal.length()>0)
-                                temp = temp+"\n"+details[Integer.parseInt(animal)];
+                                temp = temp+" "+details[Integer.parseInt(animal)];
                         }
 
 
@@ -532,7 +532,7 @@ pnc child history
                     for (String animal : animals) {
                         System.out.println(animal);
                         if(animal.length()>0)
-                            temp = temp+"\n"+details[Integer.parseInt(animal)];
+                            temp = temp+" "+details[Integer.parseInt(animal)];
                     }
 
                     list.add("" + getString(R.string.family_planning_methods) + " " + temp);
@@ -1143,6 +1143,8 @@ pnc child history
 
     private void handleChildSelected(int childno) {
         String child = childList.get(childno);
+
+        Log.d("-------child test------","---------");
         selected_child = childno;
         ll_pnc_child.removeAllViews();
 //        AsyncLoginTask sendPostReqAsyncTaskChild = new AsyncLoginTask(new AsyncCallback() {

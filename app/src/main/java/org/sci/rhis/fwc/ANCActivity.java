@@ -404,7 +404,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                                 for (String animal : animals) {
                                     System.out.println(animal);
                                     if(animal.length()>0)
-                                        temp = temp+"\n"+details[Integer.parseInt(animal)];
+                                        temp = temp+" "+details[Integer.parseInt(animal)];
                                 }
                                 list.add("" + mainlist[i-1] +temp );
 
@@ -421,7 +421,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                                 for (String animal : animals) {
                                     System.out.println(animal);
                                     if(animal.length()>0)
-                                        temp = temp+"\n"+details[Integer.parseInt(animal)];
+                                        temp = temp+" "+details[Integer.parseInt(animal)];
                                 }
                                 list.add("" + mainlist[i-1] +temp );
 
@@ -442,7 +442,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                                 for (String animal : animals) {
                                     System.out.println(animal);
                                     if(animal.length()>0)
-                                        temp = temp+"\n"+details[Integer.parseInt(animal)];
+                                        temp = temp+" "+details[Integer.parseInt(animal)];
                                 }
                                 list.add("" + mainlist[i-1] +temp );
 
@@ -459,7 +459,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                                 for (String animal : animals) {
                                     System.out.println(animal);
                                     if(animal.length()>0)
-                                        temp = temp+"\n"+details[Integer.parseInt(animal)];
+                                        temp = temp+" "+details[Integer.parseInt(animal)];
                                 }
                                 list.add("" + mainlist[i-1] +temp );
 
