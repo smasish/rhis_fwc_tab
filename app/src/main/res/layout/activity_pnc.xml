@@ -274,12 +274,12 @@
                     android:layout_marginTop="10dp"/>
                 <EditText
                     android:id="@+id/pncServiceDateValue"
-                    android:inputType="number"
+                    android:inputType="date"
                     android:paddingLeft="10dp"
                     android:layout_width="120dp"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
-                    android:hint="dd/MM/yyyy"
+                    android:hint="dd/mm/yyyy"
                     android:background="@drawable/edittext_round"/>
 
                 <ImageButton
@@ -423,7 +423,7 @@
                     android:layout_marginTop="10dp" />
                 <EditText
                     android:id="@+id/pncHemoglobinValue"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:textSize="20dp"
                     android:layout_width="70dp"
                     android:layout_height="50px"
@@ -803,8 +803,8 @@
                     android:layout_marginTop="10dp"/>
                 <EditText
                     android:id="@+id/pncChildServiceDateValue"
-                    android:inputType="number"
-                    android:hint="dd/MM/yyyy"
+                    android:inputType="date"
+                    android:hint="dd/mm/yyyy"
                     android:layout_width="120dp"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
