@@ -34,21 +34,21 @@
         android:textSize="18sp"
         android:textColor="@color/text_color"
         android:layout_gravity="center_horizontal"
-        android:visibility="gone"
-        />
+        android:visibility="gone"/>
 
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:orientation="vertical"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:checkedButton="@+id/radioButtonFacility"
         android:id="@+id/radioGroupPlace">
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:text="@string/PlaceFacility"
             android:id="@+id/radioButtonFacility" />
 
@@ -70,39 +70,39 @@
         android:background="@drawable/edittext_round"
         android:paddingLeft="10dp"
         style="@style/styleEdittext"
-        android:visibility="gone"
-    />
+        android:visibility="gone"/>
 
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:orientation="horizontal"
-    android:layout_marginTop="20dp">
-
-    <Button
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select"
-        android:id="@+id/buttonPlacePopUpOK"
-        android:padding="10dp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/button_style"
-        android:onClick="PlacePopUpOK"
-        />
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cancel"
-        android:id="@+id/buttonPlacePopUpCancel"
-        android:padding="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/button_style"
-        android:onClick="PlacePopUpCancel"
-        />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select"
+            android:id="@+id/buttonPlacePopUpOK"
+            android:padding="10dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/button_style"
+            android:onClick="PlacePopUpOK"
+            />
 
-</LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:id="@+id/buttonPlacePopUpCancel"
+            android:padding="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/button_style"
+            android:onClick="PlacePopUpCancel"
+            />
+
+    </LinearLayout>
 
 </LinearLayout>
