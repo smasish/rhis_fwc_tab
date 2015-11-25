@@ -223,7 +223,7 @@ public class ExpandableListAdapterforPNC extends BaseExpandableListAdapter {
 					for (String animal : animals) {
 						System.out.println(animal);
 						if(animal.length()>0)
-							temp = temp+"\n"+details[Integer.parseInt(animal)];
+							temp = temp+" "+details[Integer.parseInt(animal)];
 					}
 					Log.d("oooooooooo13+++" + str, "" + str.trim().split(" "));
 

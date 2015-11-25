@@ -668,7 +668,7 @@
     <string-array name="Edema_Dropdown">
         <item></item>
         <item> নাই </item>
-        <item> + (অল্প) </item>
+        <item>+ (অল্প) </item>
         <item> ++ (মোটামুটি) </item>
         <item> +++ (অধিক) </item>
     </string-array>
@@ -703,9 +703,9 @@
     </string-array>
     <string-array name="pnc_Anemia_Dropdown">
         <item></item>
-        <item> +  </item>
-        <item> ++  </item>
-        <item> +++  </item>
+        <item>+</item>
+        <item>++</item>
+        <item>+++</item>
     </string-array>
 
     <string name="title_activity_nrc">NRCActivity</string>
