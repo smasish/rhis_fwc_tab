@@ -49,11 +49,15 @@ public class Utilities {
                 break;
         }
     }
-    // This method added by Al Amin on 10/09/2015 (dd/MM/yyyy)
+
     public static void Disable(Activity activity, int id) {
+        Disable(activity, activity.findViewById(id));
+    }
+
+    public static void Disable(Activity activity, View view) {
 
         ViewGroup testgroup = null;
-        View view  = activity.findViewById(id);
+        //View view  = activity.findViewById(id);
         if(view instanceof ViewGroup) { //if not a layout but single button is passed
             testgroup  = (ViewGroup) view;
         }
@@ -63,7 +67,7 @@ public class Utilities {
             view = testgroup != null ? testgroup.getChildAt(i) : view;
 
             if(view instanceof LinearLayout) {
-                Disable(activity, view.getId());
+                Disable(activity, view);
             }
 
             else if (view instanceof CheckBox) {
@@ -118,8 +122,13 @@ public class Utilities {
 
     public static void MakeInvisible(Activity activity, int id)
     {
+        MakeInvisible(activity, activity.findViewById(id));
+    }
+
+    public static void MakeInvisible(Activity activity, View view)
+    {
         ViewGroup testgroup = null;
-        View view  = activity.findViewById(id);
+        //View view  = activity.findViewById(id);
         if(view instanceof ViewGroup) { //if not a layout but single button is passed
             testgroup  = (ViewGroup) view;
         }
@@ -129,18 +138,22 @@ public class Utilities {
             view = testgroup != null ? testgroup.getChildAt(i) : view;
 
             if(view instanceof LinearLayout) {
-                MakeInvisible(activity, view.getId());
-                Disable(activity, view.getId());
-            } else {
-                view.setVisibility(View.GONE);
+                MakeInvisible(activity, view);
+                Disable(activity, view);
             }
+            view.setVisibility(View.GONE);
+
         }
         /////
     }
     public static void MakeVisible(Activity activity, int id)
     {
+       MakeVisible(activity, activity.findViewById(id));
+    }
+
+    public static void MakeVisible(Activity activity, View view)
+    {
         ViewGroup testgroup = null;
-        View view  = activity.findViewById(id);
         if(view instanceof ViewGroup) { //if not a layout but single button is passed
             testgroup  = (ViewGroup) view;
         }
@@ -149,12 +162,12 @@ public class Utilities {
              i <count && view != null; i++) {
             view = testgroup != null ? testgroup.getChildAt(i) : view;
 
-            if(view instanceof LinearLayout) {
-                MakeVisible(activity, view.getId());
-                Enable(activity, view.getId());
-            } else {
-                view.setVisibility(View.VISIBLE);
+            if(view instanceof  LinearLayout || view instanceof  ViewGroup) {
+                MakeVisible(activity, view);
+                Enable(activity, view);
             }
+            view.setVisibility(View.VISIBLE);
+
         }
     }
 
@@ -180,6 +193,10 @@ public class Utilities {
     {
         LinearLayout visibility = (LinearLayout)activity.findViewById(id);
         visibility.setVisibility(View.GONE);
+    }
+
+    public static void Reset(Activity activity, View view) {
+
     }
 
     public static void Reset(Activity activity, int id) {
@@ -254,9 +271,13 @@ public class Utilities {
     }
 
     public static void Enable(Activity activity, int id) {
+        Enable(activity, activity.findViewById(id));
+    }
+
+    public static void Enable(Activity activity, View view) {
 
         ViewGroup testgroup = null;
-        View view  = activity.findViewById(id);
+        //View view  = activity.findViewById(id);
         if(view instanceof ViewGroup) { //if not a layout but single button is passed
             testgroup  = (ViewGroup) view;
         }
@@ -561,7 +582,13 @@ public class Utilities {
             } catch (JSONException jse) {
                 Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
             } catch (ParseException pe) {
-                System.out.println("Parsing Exception: Could not parse date");
+                Log.e(LOGTAG, "Parsing Exception: Could not parse date:"
+                        + " Key: "+ key + " "
+                        + keyMap.get(key).getText().toString());
+                StackTraceElement ste [] = pe.getStackTrace();
+                for(int i = 0; i< 9; i++) {
+                    Log.e(LOGTAG, ste[i].toString());
+                }
             }
         }
     }
@@ -575,15 +602,22 @@ public class Utilities {
             try {
                 currentDate = (keyMap.get(key).getText()).toString();
                 if(!currentDate.equals("")) {
-                    Date date = uiFormat.parse(currentDate);
+                    /*Date date = uiFormat.parse(currentDate);
                     String dateStr = dbFormat.format(date);
-                    json.put(key, dateStr);
+                    json.put(key, dateStr);*/
+                    json.put(key, dbFormat.format(uiFormat.parse(currentDate)));
                 }
-                json.put(key, dbFormat.format(uiFormat.parse(keyMap.get(key).getText().toString())));
+
             } catch (JSONException jse) {
                 Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
             } catch (ParseException pe) {
-                Log.e(LOGTAG, "Parsing Exception: Could not parse date:\n" + pe.toString());
+                Log.e(LOGTAG, "Parsing Exception: Could not parse date:"
+                        + " Key: " + key + " "
+                        + keyMap.get(key).getText().toString());
+                StackTraceElement ste [] = pe.getStackTrace();
+                for(int i = 0; i< 9; i++) {
+                    Log.e(LOGTAG, ste[i].toString());
+                }
             } catch (NullPointerException NP) {
                 Log.e(LOGTAG, "Parse:\n\t" + NP.getMessage());
             }
