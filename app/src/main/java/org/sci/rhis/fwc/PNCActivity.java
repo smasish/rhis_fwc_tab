@@ -340,6 +340,7 @@ pnc child history
     @Override
     public void callbackAsyncTask(String result) {
 
+        ll.removeAllViews();
         Log.d(LOGTAG, "Handle Mother:\n" + result);
 
             try {
@@ -828,6 +829,8 @@ pnc child history
     }
 
     private void handleChild(String result) {
+
+        ll_pnc_child.removeAllViews();
         try {
             JSONObject jsonStr = new JSONObject(result);
             String key;
@@ -864,6 +867,7 @@ pnc child history
                        count = 0;
 
                        int in = 1,k;
+                       int i=5;
                        k = jsonObject1.length();
                       // Log.d("--:::>", "---length=====>"+k);
                        for (Iterator<String> iii = jsonObject1.keys(); iii.hasNext(); ) {
@@ -877,21 +881,24 @@ pnc child history
                            if (key.equalsIgnoreCase("pncStatus")) {
 
                            } else if (key.equalsIgnoreCase("serviceCount")) {
+                               i = Integer.parseInt(key);
                                count = Integer.parseInt(jsonObject1.get(key).toString());
                                getEditText(R.id.pncChildVisitValue).setText(String.valueOf(count +1));
                                Utilities.Disable(this, R.id.pncChildVisitValue );
+
                            } else {
                                //JSONObject jsonObject = jsonObject1.getJSONObject(key);
                                //JSONObject jsonObject = jsonObject2.getJSONObject(key);
 
-                               if((in - 1) == Integer.parseInt(key)) {
+
+                               if((in - 1) == i) {
                                    //count = Integer.parseInt(jsonObject1.get(key).toString());
                                    getEditText(R.id.pncChildVisitValue).setText(""+in);
                                    Utilities.Disable(this, R.id.pncChildVisitValue );
                                    break;
                                }
-                               key = ""+in;
-                               JSONObject jsonObject = jsonObject1.getJSONObject("" + key);
+                              key = ""+in;
+                               JSONObject jsonObject = jsonObject1.getJSONObject("" + in);
 
 
                                Log.d("--====>" , "---serviceSource child=====>" + jsonObject.toString());
@@ -899,7 +906,8 @@ pnc child history
                                //String complicationsign = jsonRootObject.getString("serviceSource");
                                //String complicationsign = jsonObject.getString("complicationsign");
                                String visitDate = jsonObject.getString("visitDate");
-                               // String serviceCount = jsonObject.getString("serviceCount");
+
+
                                String symptom = jsonObject.getString("symptom");
                                String weight = jsonObject.getString("weight");
                                String referCenterName = jsonObject.getString("referCenterName");
