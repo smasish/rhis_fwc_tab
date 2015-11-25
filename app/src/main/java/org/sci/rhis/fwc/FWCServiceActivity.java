@@ -1,6 +1,7 @@
 package org.sci.rhis.fwc;
 
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -30,6 +31,10 @@ public abstract class FWCServiceActivity extends AppCompatActivity implements As
 
     protected RadioButton getRadioButton(int id) {
         return (RadioButton)findViewById(id);
+    }
+
+    protected Button getButton(int id) {
+        return (Button)findViewById(id);
     }
 
     protected EditText getEditText(int id) {

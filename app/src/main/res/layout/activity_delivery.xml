@@ -9,7 +9,11 @@
         android:layout_height="fill_parent"
         android:background="@drawable/fragmentborder"
         android:focusableInTouchMode="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginRight="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="1dp">
 
     <LinearLayout
         android:id="@+id/delivery_info_layout"
@@ -863,7 +867,7 @@
             android:layout_height="wrap_content"
             android:gravity="center">
             <Button
-                android:text="Save &amp; Open Newborn Information "
+                android:text="Save &amp; Open Newborn Information"
                 android:layout_width="wrap_content"
                 android:layout_height="80px"
                 android:id="@+id/id_saveDeliveryButton"
@@ -874,8 +878,8 @@
                 android:layout_height="80px"
                 android:layout_marginLeft="5dp"
                 android:id="@+id/id_editDeliveryButton"
-                android:onClick="onClick"/>
-
+                android:onClick="onClick"
+                android:visibility="gone"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -884,7 +888,7 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_marginBottom="10dp"
            >
 
