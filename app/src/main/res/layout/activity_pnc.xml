@@ -31,7 +31,6 @@
                 android:background="@drawable/button_shape"
                 style="@style/rowHeading"
                 android:id="@+id/pncmother"
-
                 android:layout_gravity="center_horizontal" />
             <!--<Button-->
                 <!--android:layout_width="wrap_content"-->
@@ -550,7 +549,7 @@
                     android:text="@string/family_planning_methods"
                     android:textSize="20dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="50px"
+                    android:layout_height="wrap_content"
                     android:textColor="@color/text_color"
                     android:layout_marginTop="10dp" />
                 <Spinner
