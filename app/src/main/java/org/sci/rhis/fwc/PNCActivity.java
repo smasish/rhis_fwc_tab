@@ -384,10 +384,11 @@ pnc child history
 
                     System.out.println("1.Key:" + key + " Value:\'" + jsonStr.get(key) + "\'");
 
-
-
-                    if(in == item-3)
+                    //if(in == item-3)
+                    if(in > jsonStr.getInt("count"))
                         break;
+                    //It's just json and not so hard to understand, keep getiing exception at this point
+
                     JSONObject jsonRootObject = jsonStr.getJSONObject(""+in);
                     Log.d("--:::>", "---serviceSource=====>" + jsonRootObject.getString("serviceSource"));
 
@@ -835,127 +836,74 @@ pnc child history
             JSONObject jsonStr = new JSONObject(result);
             String key;
             //int num=1;
+            if(selected_child == 0) { //no child is selected
+                return;
+            }
 
-            int count = 0;
-            String child="";
-            // start handle child drop down
-           // populateChild(jsonStr);
-            // end child drop down
+            JSONObject childJson = jsonStr.getJSONObject(String.valueOf(selected_child));
 
-            Log.d("PNC", "Handle Child\n" + result);
-            // woman = PregWoman.CreatePregWoman(json);
-              //DEBUG
-            Resources res = getResources();
-            // String[] mainlist = res.getStringArray(R.array.list_item);
-
-            for (Iterator<String> ii = jsonStr.keys(); ii.hasNext(); ) {
-                key = ii.next();
-
-                Log.d("-->", "---=keys()====>" + key);
-                System.out.println("1.Key:" + key + " Value:\'" + jsonStr.get(key) + "\'");
-               child = ""+selected_child;
-               if(key.equalsIgnoreCase(child)) {
-                   if (key.equalsIgnoreCase("childCount") || key.equalsIgnoreCase("outcomeDate") ||
-                           key.equalsIgnoreCase("hasDeliveryInformation") || key.equalsIgnoreCase("pncStatus")) {
-
-                   } else {
+            int serviceCount = childJson.getInt("serviceCount");
+            if(childJson.getInt("serviceCount") > 0) {
+                for(int in = 1; in <= serviceCount; in++ ) {
+//////
+                    JSONObject jsonObject = childJson.getJSONObject("" + in);
 
 
-                       JSONObject jsonObject1 = jsonStr.getJSONObject("" + selected_child);
+                    Log.d("--====>" , "---serviceSource child=====>" + jsonObject.toString());
 
-                       Log.d("--:::>", "---complicationsign=====>");
-                       count = 0;
-
-                       int in = 1,k;
-                       int i=5;
-                       k = jsonObject1.length();
-                      // Log.d("--:::>", "---length=====>"+k);
-                       for (Iterator<String> iii = jsonObject1.keys(); iii.hasNext(); ) {
-
-                          // key = iii.next();
+                    //String complicationsign = jsonRootObject.getString("serviceSource");
+                    //String complicationsign = jsonObject.getString("complicationsign");
+                    String visitDate = jsonObject.getString("visitDate");
 
 
-                           Log.d("--:::>", "---key 1 key=====>" + key);
-                          // System.out.println("11.Key:" + key + " 11Value:\'" + jsonObject1.get(key) + "\'");
+                    String symptom = jsonObject.getString("symptom");
+                    String weight = jsonObject.getString("weight");
+                    String referCenterName = jsonObject.getString("referCenterName");
+                    String childNo = jsonObject.getString("childNo");
+                    String treatment = jsonObject.getString("treatment");
+                    String breastFeedingOnly = jsonObject.getString("breastFeedingOnly");
 
-                           if (key.equalsIgnoreCase("pncStatus")) {
-
-                           } else if (key.equalsIgnoreCase("serviceCount")) {
-                               i = Integer.parseInt(key);
-                               count = Integer.parseInt(jsonObject1.get(key).toString());
-                               getEditText(R.id.pncChildVisitValue).setText(String.valueOf(count +1));
-                               Utilities.Disable(this, R.id.pncChildVisitValue );
-
-                           } else {
-                               //JSONObject jsonObject = jsonObject1.getJSONObject(key);
-                               //JSONObject jsonObject = jsonObject2.getJSONObject(key);
-
-
-                               if((in - 1) == i) {
-                                   //count = Integer.parseInt(jsonObject1.get(key).toString());
-                                   getEditText(R.id.pncChildVisitValue).setText(""+in);
-                                   Utilities.Disable(this, R.id.pncChildVisitValue );
-                                   break;
-                               }
-                              key = ""+in;
-                               JSONObject jsonObject = jsonObject1.getJSONObject("" + in);
-
-
-                               Log.d("--====>" , "---serviceSource child=====>" + jsonObject.toString());
-
-                               //String complicationsign = jsonRootObject.getString("serviceSource");
-                               //String complicationsign = jsonObject.getString("complicationsign");
-                               String visitDate = jsonObject.getString("visitDate");
-
-
-                               String symptom = jsonObject.getString("symptom");
-                               String weight = jsonObject.getString("weight");
-                               String referCenterName = jsonObject.getString("referCenterName");
-                               String childNo = jsonObject.getString("childNo");
-                               String treatment = jsonObject.getString("treatment");
-                               String breastFeedingOnly = jsonObject.getString("breastFeedingOnly");
-
-                               String breathingPerMinute = jsonObject.getString("breathingPerMinute");
-                               String disease = jsonObject.getString("disease");
-                               String dangerSign = jsonObject.getString("dangerSign");
+                    String breathingPerMinute = jsonObject.getString("breathingPerMinute");
+                    String disease = jsonObject.getString("disease");
+                    String dangerSign = jsonObject.getString("dangerSign");
 //                    String hematuria = jsonRootObject.getString("hematuria");
-                               String temperature = jsonObject.getString("temperature");
+                    String temperature = jsonObject.getString("temperature");
 //                    String referReason = jsonRootObject.getString("referReason");
-                               String advice = jsonObject.getString("advice");
-                               String refer = jsonObject.getString("refer");
-                               String referReason = jsonObject.getString("referReason");
+                    String advice = jsonObject.getString("advice");
+                    String refer = jsonObject.getString("refer");
+                    String referReason = jsonObject.getString("referReason");
 
-                               ArrayList<String> list = new ArrayList<String>();
-                               list.add("" + getString(R.string.visitDate) + " " + visitDate);
-                               list.add("" + getString(R.string.complicationsign) + " " + symptom);
-                               list.add("" + getString(R.string.temperature) + " " + temperature);
-                               list.add("" + getString(R.string.weight) + " " + weight);
-                               list.add("" + getString(R.string.breath_per_minute) + " " + breathingPerMinute);
-                               list.add("" + getString(R.string.danger_signs) + " " + dangerSign);
+                    ArrayList<String> list = new ArrayList<String>();
+                    list.add("" + getString(R.string.visitDate) + " " + visitDate);
+                    list.add("" + getString(R.string.complicationsign) + " " + symptom);
+                    list.add("" + getString(R.string.temperature) + " " + temperature);
+                    list.add("" + getString(R.string.weight) + " " + weight);
+                    list.add("" + getString(R.string.breath_per_minute) + " " + breathingPerMinute);
+                    list.add("" + getString(R.string.danger_signs) + " " + dangerSign);
 
-                               list.add("" + getString(R.string.breast_feeding) + " " + breastFeedingOnly);
+                    list.add("" + getString(R.string.breast_feeding) + " " + breastFeedingOnly);
 
-                               list.add("" + getString(R.string.disease) + " " + disease);
-                               list.add("" + getString(R.string.treatment) + " " + treatment);
-                               list.add("" + getString(R.string.advice) + " " + advice);
-                               list.add("" + getString(R.string.refer) + " " + refer);
-                               list.add("" + getString(R.string.referCenterName) + " " + referCenterName);
-                               list.add("" + getString(R.string.referReason) + " " + referReason);
-
-
-                               try {
-                                   // JSONArray jsonArray = jsonStr.getJSONArray(key);
+                    list.add("" + getString(R.string.disease) + " " + disease);
+                    list.add("" + getString(R.string.treatment) + " " + treatment);
+                    list.add("" + getString(R.string.advice) + " " + advice);
+                    list.add("" + getString(R.string.refer) + " " + refer);
+                    list.add("" + getString(R.string.referCenterName) + " " + referCenterName);
+                    list.add("" + getString(R.string.referReason) + " " + referReason);
 
 
-                                   listDataHeader = new ArrayList<String>();
-                                   listDataChild = new HashMap<String, List<String>>();
+                    try {
+                        // JSONArray jsonArray = jsonStr.getJSONArray(key);
 
 
-                                   // listDataHeader.add(getString(R.string.history_visit1) + "" + jsonArray.get(0).toString() + " :");
-                                   listDataHeader.add("Visit " + key + ":");//jsonArray.get(0).toString()
-                                   listDataChild.put(listDataHeader.get(0), list);
+                        listDataHeader = new ArrayList<String>();
+                        listDataChild = new HashMap<String, List<String>>();
 
-                                   listAdapter_child = new ExpandableListAdapterforPNC_Child(PNCActivity.this, listDataHeader, listDataChild);
+
+                        // listDataHeader.add(getString(R.string.history_visit1) + "" + jsonArray.get(0).toString() + " :");
+                        listDataHeader.add("Visit " + in + ":");//jsonArray.get(0).toString()
+                        listDataChild.put(listDataHeader.get(0), list);
+
+                        listAdapter_child = new ExpandableListAdapterforPNC_Child(PNCActivity.this, listDataHeader, listDataChild);
 
 //                                if(serviceCount.length()==1) {
 //                                    count = Integer.parseInt(serviceCount);
@@ -963,30 +911,24 @@ pnc child history
 //
 //                                }
 //                                else
-                                   //count = 0;
-                                   Log.d("...........>", "=....count=>" + count);
-                                   //num++;
-                                   initPage_child();
-                                   //ll_pnc_child = (LinearLayout)findViewById(R.id.llay_frag);
+                        //count = 0;
+                        //Log.d("...........>", "=....count=>" + count);
+                        //num++;
+                        initPage_child();
+                        //ll_pnc_child = (LinearLayout)findViewById(R.id.llay_frag);
 
-                                   //if (count >= 1) {
-                                       ll_pnc_child.addView(expListView_child);
-                                       expListView_child.setScrollingCacheEnabled(true);
-                                       expListView_child.setAdapter(listAdapter_child);
-                                       ll_pnc_child.invalidate();
-                                       count = 0;
-                                  // }
-                                   //expListView.setAdapter(listAdapter_child);
+                        //if (count >= 1) {
+                        ll_pnc_child.addView(expListView_child);
+                        expListView_child.setScrollingCacheEnabled(true);
+                        expListView_child.setAdapter(listAdapter_child);
+                        ll_pnc_child.invalidate();
 
-                                   in++;
-                               } catch (Exception e) {
-                                   Log.e("::::", "onPostExecute > Try > JSONException => " + e);
-                                   e.printStackTrace();
-                               }
-                           }
-                       }
-                   }
-               }
+                    } catch (Exception e) {
+                        Log.e("::::", "onPostExecute > Try > JSONException => " + e);
+                        e.printStackTrace();
+                    }
+//////    ---------------------------------------------------------------------------------
+                }
             }
         } catch (JSONException jse) {
             System.out.println("JSON Exception Thrown::\n ");
