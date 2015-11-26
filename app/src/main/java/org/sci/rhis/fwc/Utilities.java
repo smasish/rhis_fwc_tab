@@ -375,6 +375,7 @@ public class Utilities {
                 }
             } catch (JSONException jse) {
                 Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
+                printTrace(jse.getStackTrace());
             }
         }
     }
@@ -449,6 +450,7 @@ public class Utilities {
                 }
             } catch (JSONException jse) {
                 Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
+                printTrace(jse.getStackTrace());
             } catch (NumberFormatException nfe) {
                 Log.e(LOGTAG, "Could not convert value for key: '" + key + "' JSON:\n\t{"+ json.toString() +"}\n\t" + nfe.getStackTrace());
             }
@@ -552,6 +554,7 @@ public class Utilities {
                 json.put(key, (keyMap.get(key).getText()));
             } catch (JSONException jse) {
                 Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
+                printTrace(jse.getStackTrace());
             }
         }
     }
@@ -562,6 +565,7 @@ public class Utilities {
                 keyMap.get(key).setText(json.getString(key));
             } catch (JSONException jse) {
                 Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
+                printTrace(jse.getStackTrace());
             }
         }
     }
@@ -638,6 +642,7 @@ public class Utilities {
 
             } catch (JSONException jse) {
                 Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
+                printTrace(jse.getStackTrace());
             } catch (NullPointerException NP) {
                 Log.e("Null Pointer", NP.getMessage());
             }
@@ -657,6 +662,7 @@ public class Utilities {
 
             } catch (JSONException jse) {
                 Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
+                printTrace(jse.getStackTrace());
             } catch (NullPointerException NP) {
                 Log.e(LOGTAG, NP.getMessage());
             }
@@ -669,5 +675,16 @@ public class Utilities {
 
         edd_cal.add(Calendar.DATE, days);
         return edd_cal.getTime();
+    }
+
+    private static void printTrace(StackTraceElement ste []) {
+        printTrace(ste, 3); //default to first 3 lines
+    }
+
+    private static void printTrace(StackTraceElement ste [], int level) {
+        //
+        for(int i = 0; i< level; i++) {
+            Log.e(LOGTAG, ste[i].toString());
+        }
     }
 }
