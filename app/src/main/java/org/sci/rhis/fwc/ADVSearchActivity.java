@@ -131,6 +131,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
     @Override
     protected void onStart() {
         super.onStart();
+        loader.execute();
         // The activity is about to become visible.
         //loadVillages = (ProgressBar)findViewById(R.id.advSearchProgressBar);
        // loadVillages.setVisibility(View.VISIBLE);
@@ -140,7 +141,6 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
     protected void onResume() {
         super.onResume();
         // The activity has become visible (it is now "resumed").
-        loader.execute();
         //loadVillages.setVisibility(View.GONE);
         jsonSpinnerMap.get("gender").setSelection(1); //select woman by default
     }
@@ -194,7 +194,9 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                handlePersonListClick(personsList.get(position - 1));
+                if(position >0) {
+                    handlePersonListClick(personsList.get(position - 1));
+                }
             }
         });
     }
