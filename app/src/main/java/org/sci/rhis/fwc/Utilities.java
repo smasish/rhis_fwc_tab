@@ -677,7 +677,7 @@ public class Utilities {
         return edd_cal.getTime();
     }
 
-    private static void printTrace(StackTraceElement ste []) {
+    public static void printTrace(StackTraceElement ste []) {
         printTrace(ste, 3); //default to first 3 lines
     }
 
