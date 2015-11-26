@@ -55,18 +55,49 @@ public class ExpandableListAdapterforPNC_Child extends BaseExpandableListAdapter
 				.findViewById(R.id.lblListItem);
 
 		if (childPosition == 1&& childText.length()>2) {
-			txtListChild.setText("" + _context.getString(R.string.complicationsign) +  _context.getString(R.string.detail));
+			String str = childText.replaceAll("[^0-9]+", " ");
+			str = str.trim();
+			if(str.length()>=1)
+				txtListChild.setText("" + _context.getString(R.string.complicationsign) +  _context.getString(R.string.detail));
+			else
+				txtListChild.setText("" + _context.getString(R.string.complicationsign));
 		}else if (childPosition == 5 && childText.length()>2) {
-			txtListChild.setText("" + _context.getString(R.string.danger_signs) + _context.getString(R.string.detail));
+			String str = childText.replaceAll("[^0-9]+", " ");
+			str = str.trim();
+			if(str.length()>=1)
+				txtListChild.setText("" + _context.getString(R.string.danger_signs) + _context.getString(R.string.detail));
+			else
+				txtListChild.setText("" + _context.getString(R.string.danger_signs));
 		}else if (childPosition == 7 && childText.length()>2) {
-			txtListChild.setText("" + _context.getString(R.string.disease) +  _context.getString(R.string.detail));
+			String str = childText.replaceAll("[^0-9]+", " ");
+			str = str.trim();
+			if(str.length()>=1)
+				txtListChild.setText("" + _context.getString(R.string.disease) +  _context.getString(R.string.detail));
+			else
+				txtListChild.setText("" + _context.getString(R.string.disease));
 		}
 		else if (childPosition == 8 && childText.length()>2) {
-			txtListChild.setText("" + _context.getString(R.string.treatment) +  _context.getString(R.string.detail));
+			String str = childText.replaceAll("[^0-9]+", " ");
+			str = str.trim();
+			if(str.length()>=1)
+				txtListChild.setText("" + _context.getString(R.string.treatment) +  _context.getString(R.string.detail));
+			else
+				txtListChild.setText("" + _context.getString(R.string.treatment) );
 		}else if (childPosition == 9 && childText.length()>2) {
-			txtListChild.setText("" + _context.getString(R.string.advice) +  _context.getString(R.string.detail));
+			String str = childText.replaceAll("[^0-9]+", " ");
+			str = str.trim();
+			if(str.length()>=1)
+				txtListChild.setText("" + _context.getString(R.string.advice) +  _context.getString(R.string.detail));
+			else
+				txtListChild.setText("" + _context.getString(R.string.advice));
 		}else if (childPosition == 12 && childText.length()>2) {
-			txtListChild.setText("" + _context.getString(R.string.referReason) +  _context.getString(R.string.detail));
+			String str = childText.replaceAll("[^0-9]+", " ");
+			str = str.trim();
+			if(str.length()>=1)
+				txtListChild.setText("" + _context.getString(R.string.referReason) +  _context.getString(R.string.detail));
+			else
+				txtListChild.setText("" + _context.getString(R.string.referReason));
+
 		}else if (childPosition == 10 ) {
 
 			String str = childText.replaceAll("[^0-9]+", " ");
