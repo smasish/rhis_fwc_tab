@@ -704,7 +704,16 @@
                         android:text="Save"
                         android:textSize="18dp"
                         android:textColor="@color/text_color"
-                        android:onClick="saveAnc"/>
+                        android:onClick="onClick"/>
+                    <Button
+                        android:id="@+id/ancEditButton"
+                        android:layout_width="80dp"
+                        android:layout_height="60px"
+                        android:text="Cancel"
+                        android:textSize="18dp"
+                        android:textColor="@color/text_color"
+                        android:visibility="gone"
+                        android:onClick="onClick"/>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
