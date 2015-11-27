@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:paddingTop="20dp"
-    android:background="#FFFFFF"
+    android:background="@drawable/fragmentborder"
     android:focusableInTouchMode="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -63,8 +63,8 @@
         android:ellipsize="start"
         android:inputType="text"
         android:background="@drawable/edittext_round"
-        android:layout_width="250px"
-        android:layout_height="45px"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
         android:id="@+id/providerId"
          />
 
@@ -96,8 +96,8 @@
         android:ellipsize="start"
         android:background="@drawable/edittext_round"
         android:id="@+id/providerPassword"
-        android:layout_width="250px"
-        android:layout_height="45px"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
         android:inputType="textPassword"  />
 </LinearLayout>
 
@@ -113,15 +113,15 @@
         android:ellipsize="start"
         android:gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="60px"
-        android:layout_marginLeft="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10sp"
         android:layout_gravity="center"
         android:id="@+id/loginbtn1"
         android:textColor="@color/text_color"
         android:background="@drawable/button_style"
         android:textAlignment="center"
         android:text="LOG IN"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:onClick="startLogin"/>
 
     <TextView

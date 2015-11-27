@@ -131,19 +131,15 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
                 restoreNewbornFromJSON(new JSONObject(getIntent().getStringExtra("NewbornJson")));
 
             } else {
-                if(intent.hasExtra("childno")){ //check if new bron info is given
-                    int childno = intent.getIntExtra("childno", 0);
-                    jsonEditTextMap.get("childno").setText(String.valueOf(childno));
-                }
-                //retrieve it from net
-                //Get the existing information
                 Utilities.Enable(this, R.id.DeliveryNewBornLayout);
                 newbornInfoQueryTask = new AsyncNewbornInfoUpdate(this);
-                Utilities.Disable(this, R.id.deliveryNewBornNo);
-
-                JSONObject jso = buildQueryHeader(true);
-                //newbornInfoQueryTask.execute(jso.toString(), SERVLET, ROOTKEY);
+                //Utilities.Disable(this, R.id.deliveryNewBornNo);
+                if(intent.hasExtra("childno")){ //check if new bron info is given
+                    int childno = intent.getIntExtra("childno", 0);
+                    jsonTextViewsMap.get("childno").setText(String.valueOf(childno));
+                }
             }
+
         } catch (JSONException JSE) {
             JSE.printStackTrace();
         }
@@ -211,13 +207,14 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     @Override
     protected void initiateEditTexts() {
         // for New born layout
-        jsonEditTextMap.put("childno",  getEditText(R.id.deliveryNewBornNo));
+        //jsonEditTextMap.put("childno",  getEditText(R.id.deliveryNewBornNo));
         jsonEditTextMap.put("birthStatus", getEditText(R.id.deliveryNewBornConditionValue));
         jsonEditTextMap.put("weight", getEditText(R.id.deliveryNewBornWeightValue));
     }
 
     @Override
     protected void initiateTextViews() {
+        jsonTextViewsMap.put("childno",  getTextView(R.id.deliveryNewBornNo));
         jsonTextViewsMap.put("immature",  getTextView(R.id.deliveryNewBornMaturity));
         jsonTextViewsMap.put("birthStatus",getTextView(R.id.deliveryNewBornConditionValue));
     }
@@ -370,6 +367,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         Utilities.setEditTexts(jsonEditTextMap, json);
         Utilities.setEditTextDates(jsonEditTextDateMap, json);
         Utilities.setRadioGroupButtons(jsonRadioGroupButtonMap, json);
+        Utilities.setTextViews(jsonTextViewsMap,json);
         //updateEditTextTimes(json);
         setSpecialCases(json);
         Log.d(LOGTAG, "Delivery Response Received:\n\t" + json.toString());
@@ -396,6 +394,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
     public void getSpecialCases(JSONObject json) {
         try {
+           json.put("childno",jsonTextViewsMap.get("childno").getText());
            json.put("immature", (jsonTextViewsMap.get("immature").getVisibility()==View.VISIBLE) ? "1" : "2");
            json.put("outcomeplace", deliveryJsonObj.getInt("dPlace"));
            json.put("outcomedate", deliveryJsonObj.getString("dDate"));

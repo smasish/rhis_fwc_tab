@@ -27,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.sci.rhis.utilities.CustomDatePickerDialog;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -44,6 +45,15 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 // For Date pick added by Al Amin
     private CustomDatePickerDialog datePickerDialog;
     private HashMap<Integer, EditText> datePickerPair;
+
+    final static int FIRST_ANC_1 = 15; //WEEKS
+    final static int FIRST_ANC_2 = 16; //WEEKS
+    final static int SECOND_ANC_1 = 23; //WEEKS
+    final static int SECOND_ANC_2 = 24; //WEEKS
+    final static int THIRD_ANC_1 = 31; //WEEKS
+    final static int THIRD_ANC_2 = 32; //WEEKS
+    final static int FOURTH_ANC_1 = 35; //WEEKS
+    final static int FOURTH_ANC_2 = 36; //WEEKS
 
 
     ExpandableListAdapter listAdapter;
@@ -277,7 +287,19 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         if(mother.hasDeliveryInfo() == 1) {
             Utilities.MakeInvisible(this, R.id.ancEntryMasterLayout);
             Toast.makeText(this, "Mother is not eligible for new ANC",Toast.LENGTH_LONG).show();
+        } else {
+            //set ideal vist periods
+            setAncVisitAdvices();
         }
+    }
+
+    private void setAncVisitAdvices() {
+        Date lmp = mother.getLmp();
+        SimpleDateFormat sdf = new SimpleDateFormat("ddMMMyy");
+        getTextView(R.id.ancVisit1Date).setText(sdf.format(Utilities.addDateOffset(lmp, FIRST_ANC_1 * 7)) + " - " + sdf.format(Utilities.addDateOffset(lmp, FIRST_ANC_2 * 7)));
+        getTextView(R.id.ancVisit2Date).setText(sdf.format(Utilities.addDateOffset(lmp, SECOND_ANC_1 * 7)) + " - " + sdf.format(Utilities.addDateOffset(lmp, SECOND_ANC_2 * 7)));
+        getTextView(R.id.ancVisit3Date).setText(sdf.format(Utilities.addDateOffset(lmp, THIRD_ANC_1 * 7)) + " - " + sdf.format(Utilities.addDateOffset(lmp, THIRD_ANC_2 * 7)));
+        getTextView(R.id.ancVisit4Date).setText(sdf.format(Utilities.addDateOffset(lmp, FOURTH_ANC_1 * 7)) + " - " + sdf.format(Utilities.addDateOffset(lmp, FOURTH_ANC_2 * 7)));
     }
 
     public void pickDate(View view) {
@@ -382,7 +404,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                                 for (String animal : animals) {
                                     System.out.println(animal);
                                     if(animal.length()>0)
-                                        temp = temp+"\n"+details[Integer.parseInt(animal)];
+                                        temp = temp+" "+details[Integer.parseInt(animal)];
                                 }
                                 list.add("" + mainlist[i-1] +temp );
 
@@ -399,7 +421,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                                 for (String animal : animals) {
                                     System.out.println(animal);
                                     if(animal.length()>0)
-                                        temp = temp+"\n"+details[Integer.parseInt(animal)];
+                                        temp = temp+" "+details[Integer.parseInt(animal)];
                                 }
                                 list.add("" + mainlist[i-1] +temp );
 
@@ -420,7 +442,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                                 for (String animal : animals) {
                                     System.out.println(animal);
                                     if(animal.length()>0)
-                                        temp = temp+"\n"+details[Integer.parseInt(animal)];
+                                        temp = temp+" "+details[Integer.parseInt(animal)];
                                 }
                                 list.add("" + mainlist[i-1] +temp );
 
@@ -437,7 +459,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                                 for (String animal : animals) {
                                     System.out.println(animal);
                                     if(animal.length()>0)
-                                        temp = temp+"\n"+details[Integer.parseInt(animal)];
+                                        temp = temp+" "+details[Integer.parseInt(animal)];
                                 }
                                 list.add("" + mainlist[i-1] +temp );
 

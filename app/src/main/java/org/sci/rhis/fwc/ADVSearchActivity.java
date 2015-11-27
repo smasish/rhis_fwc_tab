@@ -2,6 +2,7 @@ package org.sci.rhis.fwc;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.text.InputFilter;
@@ -35,6 +36,25 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
         View.OnClickListener,
         CompoundButton.OnCheckedChangeListener {
 
+    class FileLoader extends AsyncTask<String, Integer, Integer> {
+        Context context;
+        FileLoader(Context c) {context = c;};
+        protected Integer doInBackground(String... params) {
+            loadLocations();
+            return 0;
+        }
+
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            getSpinner(R.id.advSearchDistrict).setAdapter(zillaAdapter);
+            loadVillages.setVisibility(View.GONE);
+        }
+
+        protected void onProgressUpdate (Integer... progress) {
+            Toast.makeText(context,"The Village list is Loading", Toast.LENGTH_LONG).show();
+        }
+    };
+
     private  Button cancelBtn, searchBtn;
     private  final String SERVLET   = "advancesearch";
     private  final String ROOTKEY   = "advanceSearch";
@@ -61,9 +81,13 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
 
     private StringBuilder jsonBuilder = null;
     private StringBuilder jsonBuilderVillage = null;
+    private FileLoader loader = null;
 
     private JSONObject villJson = null;
     private LocationHolder blanc = new LocationHolder();
+    private ProgressBar loadVillages = null;
+    private boolean loaded = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,25 +108,49 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
         initialize();
         addAndSetSpinners();
         addListenerOnButton();
-        Utilities.MakeVisible(this, R.id.loadingPanel);
-        ((ProgressBar)findViewById( R.id.advSearchProgressBar)).animate();
-        ((ProgressBar)findViewById( R.id.advSearchProgressBar)).bringToFront();
-        loadLocations();
+        //Utilities.MakeVisible(this, R.id.loadingPanel);
+
+        //FileLoader loader = new FileLoader();
+        //loader.execute();
+        //AsyncTask<Void, Void, Void> loadVillage = new AsyncTask()
+        loadVillages = (ProgressBar)findViewById(R.id.advSearchProgressBar);
+        loadVillages.setVisibility(View.VISIBLE);
+
+        jsonBuilder = new StringBuilder();
+        jsonBuilderVillage = new StringBuilder();
+        loader = new FileLoader(this);
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        Utilities.MakeInvisible(this, R.id.loadingPanel);
+        //loadVillages.setVisibility(View.GONE);
+        //Utilities.MakeInvisible(this, R.id.loadingPanel);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        loader.execute();
+        // The activity is about to become visible.
+        //loadVillages = (ProgressBar)findViewById(R.id.advSearchProgressBar);
+       // loadVillages.setVisibility(View.VISIBLE);
+        //loadLocations();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // The activity has become visible (it is now "resumed").
+        //loadVillages.setVisibility(View.GONE);
+        jsonSpinnerMap.get("gender").setSelection(1); //select woman by default
     }
 
     private void loadLocations() {
-        jsonSpinnerMap.get("gender").setSelection(1); //select woman by default
+
         try {
-            jsonBuilder = new StringBuilder();
+
             loadJsonFile("zilla.json", jsonBuilder);
             zillaString = jsonBuilder.toString();
-            jsonBuilderVillage = new StringBuilder();
             loadJsonFile("vill.json", jsonBuilderVillage);
             villageString = jsonBuilderVillage.toString();
             districtList.add(blanc);
@@ -113,7 +161,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
                     this, android.R.layout.simple_spinner_item, districtList);
             zillaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-            getSpinner(R.id.advSearchDistrict).setAdapter(zillaAdapter);
+            //getSpinner(R.id.advSearchDistrict).setAdapter(zillaAdapter);
 
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -146,7 +194,9 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                handlePersonListClick(personsList.get(position - 1));
+                if(position >0) {
+                    handlePersonListClick(personsList.get(position - 1));
+                }
             }
         });
     }

@@ -31,7 +31,6 @@
                 android:background="@drawable/button_shape"
                 style="@style/rowHeading"
                 android:id="@+id/pncmother"
-
                 android:layout_gravity="center_horizontal" />
             <!--<Button-->
                 <!--android:layout_width="wrap_content"-->
@@ -109,8 +108,103 @@
             android:textColor="#FFFFFF"
             android:id="@+id/pncLabel"
             android:gravity="center"
-            android:layout_centerVertical="true"
-            />
+            android:layout_centerVertical="true"/>
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/pncVisitDates"
+            android:background="@drawable/layoutborder"
+            android:layout_gravity="fill_horizontal">
+            <TableRow>
+                <TextView
+                    android:layout_width="145sp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_color"
+                    android:background="@drawable/textviewback"
+                    android:text="@string/ancVisit1"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="1sp"
+                    android:padding="2sp"/>
+                <TextView
+                    android:layout_width="145sp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_color"
+                    android:background="@drawable/textviewback"
+                    android:text="@string/ancVisit2"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="1sp"
+                    android:layout_marginRight="1sp"
+                    android:padding="2sp"/>
+                <TextView
+                    android:layout_width="145sp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_color"
+                    android:background="@drawable/textviewback"
+                    android:text="@string/ancVisit3"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="1sp"
+                    android:layout_marginRight="1sp"
+                    android:padding="2sp"/>
+                <TextView
+                    android:layout_width="145sp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_color"
+                    android:background="@drawable/textviewback"
+                    android:text="@string/ancVisit4"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="1sp"
+
+                    android:padding="2sp"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:id="@+id/pncVisit1Date"
+                    android:layout_width="145sp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_color"
+                    android:background="@drawable/textviewback"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="1sp"
+                    android:layout_marginTop="1sp"
+                    android:padding="2sp"/>
+                <TextView
+                    android:id="@+id/pncVisit2Date"
+                    android:layout_width="145sp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_color"
+                    android:background="@drawable/textviewback"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="1sp"
+                    android:layout_marginRight="1sp"
+                    android:layout_marginTop="1sp"
+                    android:padding="2sp"/>
+                <TextView
+                    android:id="@+id/pncVisit3Date"
+                    android:layout_width="145sp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_color"
+                    android:background="@drawable/textviewback"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="1sp"
+                    android:layout_marginRight="1sp"
+                    android:layout_marginTop="1sp"
+                    android:padding="2sp"/>
+                <TextView
+                    android:id="@+id/pncVisit4Date"
+                    android:layout_width="145sp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_color"
+                    android:background="@drawable/textviewback"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="1sp"
+                    android:layout_marginTop="1sp"
+                    android:padding="2sp"/>
+            </TableRow>
+        </TableLayout>
+
         <ScrollView
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
@@ -149,7 +243,7 @@
                     android:textColor="@color/text_color"
                     android:layout_centerVertical="true" />
 
-            <LinearLayout android:id="@+id/pncVisit" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+            <LinearLayout android:id="@+id/pncVisit" android:layout_marginTop="5sp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
                 <TextView
                     android:id="@+id/pncVisitLabel"
                     android:text="@string/visit"
@@ -168,7 +262,7 @@
                     android:textColor="@color/text_color" />
             </LinearLayout>
                 <View android:layout_height="1dip" android:layout_width="fill_parent" android:background="#CCCCCC" />
-                <LinearLayout android:id="@+id/pncServiceDate" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <LinearLayout android:id="@+id/pncServiceDate" android:layout_marginTop="5sp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
                 <TextView
                     android:id="@+id/pncServiceDateLabel"
                     android:text="@string/service_date"
@@ -179,12 +273,12 @@
                     android:layout_marginTop="10dp"/>
                 <EditText
                     android:id="@+id/pncServiceDateValue"
-                    android:inputType="number"
+                    android:inputType="date"
                     android:paddingLeft="10dp"
                     android:layout_width="120dp"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"
-                    android:hint="dd/MM/yyyy"
+                    android:hint="dd/mm/yyyy"
                     android:background="@drawable/edittext_round"/>
 
                 <ImageButton
@@ -222,7 +316,7 @@
                         android:background="@drawable/gradient_spinner"/>
         </LinearLayout>
           <View android:layout_height="1dip" android:layout_width="fill_parent" android:background="#CCCCCC" />
-        <LinearLayout android:id="@+id/pncDrawback" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+        <LinearLayout android:id="@+id/pncDrawback" android:layout_marginTop="5sp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
             <TextView
                 android:id="@+id/pncDrawbackLabel"
                 android:text="@string/drawback"
@@ -242,7 +336,7 @@
         </LinearLayout>
         <View android:layout_height="1dip" android:layout_width="fill_parent" android:background="#CCCCCC" />
 
-        <LinearLayout android:id="@+id/pncTemperature" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+        <LinearLayout android:id="@+id/pncTemperature" android:layout_marginTop="5sp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
                 <TextView
                     android:id="@+id/pncTemperatureLabel"
                     android:text="@string/temperature"
@@ -262,7 +356,7 @@
             </LinearLayout>
        <View android:layout_height="1dip" android:layout_width="fill_parent" android:background="#CCCCCC" />
 
-   <LinearLayout android:id="@+id/pncBloodPresser" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+   <LinearLayout android:id="@+id/pncBloodPresser" android:layout_marginTop="5sp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
                 <TextView
                     android:id="@+id/pncBloodPresserLabel"
                     android:text="@string/blood_presser"
@@ -297,7 +391,7 @@
             </LinearLayout>
                 <View android:layout_height="1dip" android:layout_width="fill_parent" android:background="#CCCCCC" />
 
-                <LinearLayout android:id="@+id/pncAnemia" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <LinearLayout android:id="@+id/pncAnemia" android:layout_marginTop="5sp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
                 <TextView
                     android:id="@+id/pncAnemiaLabel"
                     android:text="@string/anemia"
@@ -317,7 +411,7 @@
                     android:background="@drawable/gradient_spinner"/>
             </LinearLayout>
                 <View android:layout_height="1dip" android:layout_width="fill_parent" android:background="#CCCCCC" />
-            <LinearLayout android:id="@+id/pncHemoglobin" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+            <LinearLayout android:id="@+id/pncHemoglobin" android:layout_marginTop="5sp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
                 <TextView
                     android:id="@+id/pncHemoglobinLabel"
                     android:text="@string/hemoglobin"
@@ -328,7 +422,7 @@
                     android:layout_marginTop="10dp" />
                 <EditText
                     android:id="@+id/pncHemoglobinValue"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:textSize="20dp"
                     android:layout_width="70dp"
                     android:layout_height="50px"
@@ -370,7 +464,7 @@
                     android:background="@drawable/gradient_spinner"/>
             </LinearLayout>
                 <View android:layout_height="1dip" android:layout_width="fill_parent" android:background="#CCCCCC" />
-        <LinearLayout android:id="@+id/pncBreastCondition" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+        <LinearLayout android:id="@+id/pncBreastCondition" android:layout_marginTop="5sp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
                     <TextView
                         android:id="@+id/pncBreastConditionLabel"
                         android:text="@string/breast_condition"
@@ -390,7 +484,7 @@
                         android:background="@drawable/gradient_spinner"/>
                 </LinearLayout>
                 <View android:layout_height="1dip" android:layout_width="fill_parent" android:background="#CCCCCC" />
-            <LinearLayout android:id="@+id/pncCervixInvolution" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+            <LinearLayout android:id="@+id/pncCervixInvolution" android:layout_marginTop="5sp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
                 <TextView
                     android:id="@+id/pncCervixInvolutionLevel"
                     android:text="@string/cervix_involution"
@@ -409,7 +503,7 @@
                     android:background="@drawable/gradient_spinner"/>
             </LinearLayout>
                 <View android:layout_height="1dip" android:layout_width="fill_parent" android:background="#CCCCCC" />
-            <LinearLayout android:id="@+id/pncDischargeBleeding" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+            <LinearLayout android:id="@+id/pncDischargeBleeding" android:layout_marginTop="5sp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
                 <TextView
                     android:id="@+id/ancDischargeBleedingLevel"
                     android:text="@string/discharge_bleeding"
@@ -429,7 +523,7 @@
                     android:background="@drawable/gradient_spinner"/>
             </LinearLayout>
                 <View android:layout_height="1dip" android:layout_width="fill_parent" android:background="#CCCCCC" />
-            <LinearLayout android:id="@+id/pncPerineum" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+            <LinearLayout android:id="@+id/pncPerineum" android:layout_marginTop="5sp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
                 <TextView
                     android:id="@+id/pncPerineumLevel"
                     android:text="@string/perineum"
@@ -449,13 +543,13 @@
                     android:background="@drawable/gradient_spinner"/>
             </LinearLayout>
                 <View android:layout_height="1dip" android:layout_width="fill_parent" android:background="#CCCCCC" />
-            <LinearLayout android:id="@+id/pncFamilyPlanningMethods" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+            <LinearLayout android:id="@+id/pncFamilyPlanningMethods" android:layout_marginTop="5sp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
                 <TextView
                     android:id="@+id/pncFamilyPlanningMethodsLevel"
                     android:text="@string/family_planning_methods"
                     android:textSize="20dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="50px"
+                    android:layout_height="wrap_content"
                     android:textColor="@color/text_color"
                     android:layout_marginTop="10dp" />
                 <Spinner
@@ -471,7 +565,7 @@
                 <View android:layout_height="1dip" android:layout_width="fill_parent" android:background="#CCCCCC" />
             <LinearLayout
                 android:id="@+id/pncDangerSigns"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5sp"
                 android:orientation="horizontal"
                 android:layout_centerVertical="true"
                 android:layout_width="fill_parent"
@@ -494,7 +588,7 @@
                     android:background="@drawable/gradient_spinner"/>
             </LinearLayout>
                 <View android:layout_height="1dip" android:layout_width="fill_parent" android:background="#CCCCCC" />
-            <LinearLayout android:id="@+id/pncDisease" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+            <LinearLayout android:id="@+id/pncDisease" android:layout_marginTop="5sp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
                 <TextView
                     android:id="@+id/pncDiseaseLabel"
                     android:text="@string/disease"
@@ -514,7 +608,7 @@
                     android:background="@drawable/gradient_spinner"/>
             </LinearLayout>
                 <View android:layout_height="1dip" android:layout_width="fill_parent" android:background="#CCCCCC" />
-            <LinearLayout android:id="@+id/pncTreatment" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+            <LinearLayout android:id="@+id/pncTreatment" android:layout_marginTop="5sp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
                 <TextView
                     android:id="@+id/pncTreatmentLabel"
                     android:text="@string/treatment"
@@ -533,7 +627,7 @@
                     android:background="@drawable/gradient_spinner"/>
             </LinearLayout>
                 <View android:layout_height="1dip" android:layout_width="fill_parent" android:background="#CCCCCC" />
-            <LinearLayout android:id="@+id/pncAdvice" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+            <LinearLayout android:id="@+id/pncAdvice" android:layout_marginTop="5sp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
                 <TextView
                     android:id="@+id/pncAdviceLabel"
                     android:text="@string/advice"
@@ -552,7 +646,7 @@
                     android:background="@drawable/gradient_spinner"/>
             </LinearLayout>
                 <View android:layout_height="1dip" android:layout_width="fill_parent" android:background="#CCCCCC" />
-            <LinearLayout android:id="@+id/pncRefer" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+            <LinearLayout android:id="@+id/pncRefer" android:layout_marginTop="5sp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
                 <TextView
                     android:id="@+id/pncReferLabel"
                     android:text="@string/refer"
@@ -570,7 +664,7 @@
                     android:layout_marginTop="10dp" />
             </LinearLayout>
                 <LinearLayout android:id="@+id/pncReferCenterName"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5sp"
                     android:orientation="horizontal"
                     android:layout_centerVertical="true"
                     android:layout_width="fill_parent"
@@ -595,7 +689,7 @@
                     android:background="@drawable/gradient_spinner"
                     android:visibility="gone"/>
             </LinearLayout>
-                <LinearLayout android:id="@+id/pncReason" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <LinearLayout android:id="@+id/pncReason" android:layout_marginTop="5sp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
                 <TextView
                     android:id="@+id/pncReasonLabel"
                     android:text="@string/reason"
@@ -618,7 +712,7 @@
                 <View android:layout_height="1dip" android:id="@+id/pncReferView2" android:visibility="gone" android:layout_width="fill_parent" android:background="#CCCCCC" />
             <LinearLayout
                 android:id="@+id/pncButton"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5sp"
                 android:orientation="horizontal"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
@@ -708,8 +802,8 @@
                     android:layout_marginTop="10dp"/>
                 <EditText
                     android:id="@+id/pncChildServiceDateValue"
-                    android:inputType="number"
-                    android:hint="dd/MM/yyyy"
+                    android:inputType="date"
+                    android:hint="dd/mm/yyyy"
                     android:layout_width="120dp"
                     android:layout_height="50px"
                     android:layout_marginTop="10dp"

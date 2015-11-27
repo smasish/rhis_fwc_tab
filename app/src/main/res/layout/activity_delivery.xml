@@ -9,18 +9,22 @@
         android:layout_height="fill_parent"
         android:background="@drawable/fragmentborder"
         android:focusableInTouchMode="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginRight="1sp"
+        android:layout_marginLeft="1sp"
+        android:layout_marginTop="1sp"
+        android:layout_marginBottom="1sp">
 
-    <LinearLayout
-        android:id="@+id/delivery_info_layout"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:paddingRight="10dp"
-        android:paddingBottom="10dp"
-        android:background="@drawable/fragmentborder"
-        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/delivery_info_layout"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:paddingRight="10sp"
+            android:paddingBottom="10sp"
+            android:background="@drawable/fragmentborder"
+            android:orientation="vertical">
 
-        <TextView
+            <TextView
                 style="@style/rowHeading"
                 android:id="@+id/TextViewClient_info_tab"
                 android:layout_width="fill_parent"
@@ -32,861 +36,862 @@
                 android:textSize="20sp" />
 
 
-        <LinearLayout
-            android:id="@+id/delivery_place"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/delivery_place_label"
-                android:layout_width="wrap_content"
-                android:layout_height="50px"
-                android:layout_marginTop="10dp"
-                android:text="@string/delivery_place"
-                android:textSize="20dp"
-                android:textColor="@color/text_color" />
-
-            <Spinner
-                android:id="@+id/delivery_placeDropdown"
-                android:layout_width="wrap_content"
-                android:layout_height="60px"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:entries="@array/FacilityPlace_DropDown"
-                android:textSize="20dp"
-                android:prompt="@string/delivery_place"
-                android:background="@drawable/gradient_spinner"/>
-
-            <TextView
-                android:id="@+id/delivery_type"
-                android:layout_width="120dp"
-                android:layout_height="50px"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:text="@string/delivery_type"
-                android:textSize="20dp"
-                android:textColor="@color/text_color"/>
-
-            <Spinner
-                android:id="@+id/delivery_typeDropdown"
-                android:layout_width="wrap_content"
-                android:layout_height="60px"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:textSize="20dp"
-                android:entries="@array/DeliveryType_DropDown"
-                android:background="@drawable/gradient_spinner"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/delivery_date_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/TextViewdelivery_date"
-                android:layout_width="140dp"
-                android:layout_height="50px"
-                android:layout_marginTop="10dp"
-                android:text="@string/delivery_date"
-                android:textSize="20dp"
-                android:textColor="@color/text_color"/>
-
-            <EditText
-                android:id="@+id/id_delivery_date"
-                android:layout_width="120dp"
-                android:layout_height="50px"
-                android:layout_marginTop="10dp"
-                android:paddingLeft="10dp"
-                android:background="@drawable/edittext_round"
-                android:inputType="date"
-                android:hint="dd/MM/yyyy"/>
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/imageViewDeliveryDate"
-                android:src="@drawable/calendar_icon"
-                android:layout_marginTop="5dp"
-                android:tag="DateField"
-                android:onClick="pickDate"/>
-
-            <TextView
-                android:id="@+id/TaxtViewdelivery_time"
-                android:layout_width="50dp"
-                android:layout_height="50px"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:text="@string/delivery_time"
-                android:textSize="20dp" android:textColor="@color/text_color" />
-
-            <EditText
-                android:id="@+id/delivery_time_hour"
-                android:layout_width="40dp"
-                android:layout_height="50px"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:paddingLeft="10dp"
-                android:background="@drawable/edittext_round"
-                android:inputType="number" />
-
-            <TextView
-                android:id="@+id/TaxtViewdelivery_time_colon"
-                android:layout_width="10dp"
-                android:layout_height="50px"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:text=":"
-                android:textSize="20dp" android:textColor="@color/text_color"/>
-
-            <EditText
-                android:id="@+id/delivery_time_minute"
-                android:layout_width="40dp"
-                android:layout_height="50px"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"
-                android:paddingLeft="10dp"
-                android:background="@drawable/edittext_round"
-                android:inputType="number" />
-
-            <Spinner
-                android:id="@+id/delivery_time_Dropdown"
-                android:layout_width="60dp"
-                android:layout_height="60px"
-                android:layout_marginTop="10dp"
-                android:entries="@array/DeliveryTime_DropDown"
-               />
-            <ImageButton
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:id="@+id/imageViewDeliveryTime"
-                android:src="@drawable/clock"
-                android:layout_marginTop="10dp"
-                android:onClick="pickTime"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/id_facililties_section_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/TaxtViewdscn"
-                android:layout_width="wrap_content"
-                android:layout_height="50px"
-                android:layout_marginTop="10dp"
-                android:text="@string/service_center_name"
-                android:textSize="20dp" android:textColor="@color/text_color" />
-
-            <Spinner
-                android:id="@+id/id_facility_name_Dropdown"
-                android:layout_width="wrap_content"
-                android:layout_height="60px"
-                android:layout_marginLeft="10dp"
-                android:entries="@array/FacilityType_DropDown"
-                android:layout_marginTop="10dp"
-                android:textSize="20dp"
-                android:background="@drawable/gradient_spinner"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/id_facililties_admission_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="50px"
-                android:layout_marginTop="10dp"
-                android:text="@string/admission_date"
-                android:textSize="20dp" android:textColor="@color/text_color" />
-            <EditText
-                android:id="@+id/id_admissionDate"
-                android:layout_width="120dp"
-                android:layout_height="50px"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:paddingLeft="10dp"
-                android:background="@drawable/edittext_round"
-                android:inputType="date"
-                android:hint="dd/MM/yyyy"/>
-
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/imageViewAdmissionDate"
-                android:src="@drawable/calendar_icon"
-                android:layout_marginTop="5dp"
-                android:tag="DateField"
-                android:onClick="pickDate"/>
-
             <LinearLayout
-                android:id="@+id/id_facililties_admission_ward_layout"
+                android:id="@+id/delivery_place"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="10sp"
                 android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50px"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/ward"
-                    android:textSize="20dp" android:textColor="@color/text_color" />
 
-                <EditText
-                    android:id="@+id/id_ward"
-                    android:layout_width="40dp"
-                    android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:paddingLeft="10dp"
-                    android:background="@drawable/edittext_round"/>
                 <TextView
+                    android:id="@+id/delivery_place_label"
                     android:layout_width="wrap_content"
                     android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:text="@string/bed"
-                    android:textSize="20dp"
+                    android:layout_marginTop="10sp"
+                    android:text="@string/delivery_place"
+                    android:textSize="20sp"
                     android:textColor="@color/text_color" />
-                <EditText
-                    android:id="@+id/id_bed"
-                    android:layout_width="40dp"
-                    android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:paddingLeft="10dp"
-                    android:background="@drawable/edittext_round"/>
-            </LinearLayout>
-        </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/id_deliveryResultLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="10dp">
-
-            <TextView
-                android:id="@+id/TaxtViewdelivery_result"
-                android:layout_width="160dp"
-                android:layout_height="50px"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/title_color"
-                android:text="@string/delivery_result"
-                android:textSize="20dp" />
-
-            <LinearLayout
-                android:id="@+id/new_born"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:orientation="horizontal"
-                android:saveEnabled="false">
-
-                <TextView
-                    android:id="@+id/TaxtViewLive_born"
-                    android:layout_width="110dp"
-                    android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/live_born"
-                    android:textSize="20dp" android:textColor="@color/text_color"/>
-
-                <EditText
-                    android:id="@+id/Live_born"
-                    android:layout_width="40dp"
-                    android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:paddingLeft="10dp"
-                    android:background="@drawable/edittextstyle"
-                    android:inputType="number" />
-
-                <TextView
-                    android:id="@+id/TaxtViewDead_born"
-                    android:layout_width="80dp"
-                    android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:text="@string/dead_born"
-                    android:textSize="20dp" android:textColor="@color/text_color" />
-                <TextView
-                    android:id="@+id/TaxtViewDead_born_fresh"
+                <Spinner
+                    android:id="@+id/delivery_placeDropdown"
                     android:layout_width="wrap_content"
-                    android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:text="@string/dead_born_fresh"
-                    android:textSize="20dp" android:textColor="@color/text_color" />
+                    android:layout_height="60px"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginTop="10sp"
+                    android:entries="@array/FacilityPlace_DropDown"
+                    android:textSize="20sp"
+                    android:prompt="@string/delivery_place"
+                    android:background="@drawable/gradient_spinner"/>
 
-
-                <EditText
-                    android:id="@+id/Dead_born_fresh"
-                    android:layout_width="40dp"
-                    android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:paddingLeft="10dp"
-                    android:background="@drawable/edittextstyle"
-                    android:inputType="number" />
                 <TextView
-                    android:id="@+id/TaxtViewDead_born_macerated"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/delivery_type"
+                    android:layout_width="120sp"
                     android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:text="@string/dead_born_macerated"
-                    android:textSize="20dp" android:textColor="@color/text_color"/>
+                    android:layout_marginTop="10sp"
+                    android:layout_marginLeft="20sp"
+                    android:text="@string/delivery_type"
+                    android:textSize="20sp"
+                    android:textColor="@color/text_color"/>
 
-                <EditText
-                    android:id="@+id/Dead_born_macerated"
-                    android:layout_width="40dp"
-                    android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:paddingLeft="10dp"
-                    android:background="@drawable/edittextstyle"
-                    android:inputType="number" />
+                <Spinner
+                    android:id="@+id/delivery_typeDropdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60px"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginTop="10sp"
+                    android:textSize="20sp"
+                    android:entries="@array/DeliveryType_DropDown"
+                    android:background="@drawable/gradient_spinner"/>
+
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/sex"
+                android:id="@+id/delivery_date_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="10sp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/taxtChildSex"
-                    android:layout_width="50dp"
+                    android:id="@+id/TextViewdelivery_date"
+                    android:layout_width="140sp"
                     android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/child_sex"
-                    android:textSize="20dp" android:textColor="@color/text_color"/>
-
-                <TextView
-                    android:id="@+id/textSon"
-                    android:layout_width="50dp"
-                    android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/Client_Son_Num"
-                    android:textSize="20dp" android:textColor="@color/text_color" />
+                    android:layout_marginTop="10sp"
+                    android:text="@string/delivery_date"
+                    android:textSize="20sp"
+                    android:textColor="@color/text_color"/>
 
                 <EditText
-                    android:id="@+id/son"
-                    android:layout_width="40dp"
+                    android:id="@+id/id_delivery_date"
+                    android:layout_width="120sp"
                     android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:paddingLeft="10dp"
-                    android:background="@drawable/edittextstyle"
+                    android:layout_marginTop="10sp"
+                    android:paddingLeft="10sp"
+                    android:background="@drawable/edittext_round"
+                    android:inputType="date"
+                    android:hint="dd/mm/yyyy"/>
+                <ImageButton
+                    android:layout_width="50px"
+                    android:layout_height="50px"
+                    android:id="@+id/imageViewDeliveryDate"
+                    android:src="@drawable/calendar_icon"
+                    android:layout_marginTop="5sp"
+                    android:tag="DateField"
+                    android:onClick="pickDate"/>
+
+                <TextView
+                    android:id="@+id/TaxtViewdelivery_time"
+                    android:layout_width="50sp"
+                    android:layout_height="50px"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginLeft="10sp"
+                    android:text="@string/delivery_time"
+                    android:textSize="20sp" android:textColor="@color/text_color" />
+
+                <EditText
+                    android:id="@+id/delivery_time_hour"
+                    android:layout_width="40sp"
+                    android:layout_height="50px"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginLeft="10sp"
+                    android:paddingLeft="10sp"
+                    android:background="@drawable/edittext_round"
                     android:inputType="number" />
 
                 <TextView
-                    android:id="@+id/textDaughter"
-                    android:layout_width="50dp"
+                    android:id="@+id/TaxtViewdelivery_time_colon"
+                    android:layout_width="10sp"
                     android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:text="@string/Client_Daughter_Num"
-                    android:textSize="20dp" android:textColor="@color/text_color"/>
+                    android:layout_marginTop="10sp"
+                    android:layout_marginLeft="10sp"
+                    android:text=":"
+                    android:textSize="20sp" android:textColor="@color/text_color"/>
 
                 <EditText
-                    android:id="@+id/daughter"
-                    android:layout_width="40dp"
+                    android:id="@+id/delivery_time_minute"
+                    android:layout_width="40sp"
                     android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:paddingLeft="10dp"
-                    android:background="@drawable/edittextstyle"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginLeft="5sp"
+                    android:paddingLeft="10sp"
+                    android:background="@drawable/edittext_round"
                     android:inputType="number" />
-                <TextView
-                    android:id="@+id/textNotDetected"
-                    android:layout_width="160dp"
-                    android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:text="@string/not_detected"
-                    android:textSize="20dp" android:textColor="@color/text_color" />
 
-                <EditText
-                    android:id="@+id/notDetected"
-                    android:layout_width="40dp"
-                    android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:paddingLeft="10dp"
-                    android:background="@drawable/edittextstyle"
-                    android:inputType="number" />
+                <Spinner
+                    android:id="@+id/delivery_time_Dropdown"
+                    android:layout_width="60sp"
+                    android:layout_height="60px"
+                    android:layout_marginTop="10sp"
+                    android:entries="@array/DeliveryTime_DropDown"
+                    />
+                <ImageButton
+                    android:layout_width="35sp"
+                    android:layout_height="35sp"
+                    android:id="@+id/imageViewDeliveryTime"
+                    android:src="@drawable/clock"
+                    android:layout_marginTop="10sp"
+                    android:onClick="pickTime"/>
             </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/id_DeliveryManagementLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
-
-             <TextView
-                android:id="@+id/textamtsl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:text="@string/amtsl"
-                android:textColor="@color/title_color"
-                android:textSize="20dp" />
 
             <LinearLayout
-                android:id="@+id/amtsl"
+                android:id="@+id/id_facililties_section_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="10sp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/TaxtViewdscn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50px"
+                    android:layout_marginTop="10sp"
+                    android:text="@string/service_center_name"
+                    android:textSize="20sp" android:textColor="@color/text_color" />
+
+                <Spinner
+                    android:id="@+id/id_facility_name_Dropdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60px"
+                    android:layout_marginLeft="10sp"
+                    android:entries="@array/FacilityType_DropDown"
+                    android:layout_marginTop="10sp"
+                    android:textSize="20sp"
+                    android:background="@drawable/gradient_spinner"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/id_facililties_admission_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="10sp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50px"
+                    android:layout_marginTop="10sp"
+                    android:text="@string/admission_date"
+                    android:textSize="20sp" android:textColor="@color/text_color" />
+                <EditText
+                    android:id="@+id/id_admissionDate"
+                    android:layout_width="120sp"
+                    android:layout_height="50px"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginLeft="10sp"
+                    android:paddingLeft="10sp"
+                    android:background="@drawable/edittext_round"
+                    android:inputType="date"
+                    android:hint="dd/MM/yyyy"/>
+
+                <ImageButton
+                    android:layout_width="50px"
+                    android:layout_height="50px"
+                    android:id="@+id/imageViewAdmissionDate"
+                    android:src="@drawable/calendar_icon"
+                    android:layout_marginTop="5sp"
+                    android:tag="DateField"
+                    android:onClick="pickDate"/>
+
+                <LinearLayout
+                    android:id="@+id/id_facililties_admission_ward_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginTop="10sp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="50px"
+                        android:layout_marginLeft="10sp"
+                        android:layout_marginTop="10sp"
+                        android:text="@string/ward"
+                        android:textSize="20sp" android:textColor="@color/text_color" />
+
+                    <EditText
+                        android:id="@+id/id_ward"
+                        android:layout_width="40sp"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginLeft="10sp"
+                        android:paddingLeft="10sp"
+                        android:background="@drawable/edittext_round"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginLeft="20sp"
+                        android:text="@string/bed"
+                        android:textSize="20sp"
+                        android:textColor="@color/text_color" />
+                    <EditText
+                        android:id="@+id/id_bed"
+                        android:layout_width="40sp"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginLeft="10sp"
+                        android:paddingLeft="10sp"
+                        android:background="@drawable/edittext_round"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/id_deliveryResultLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="10sp">
+
+                <TextView
+                    android:id="@+id/TaxtViewdelivery_result"
+                    android:layout_width="160sp"
+                    android:layout_height="50px"
+                    android:layout_marginTop="10sp"
+                    android:textColor="@color/title_color"
+                    android:text="@string/delivery_result"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:id="@+id/new_born"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal"
+                    android:saveEnabled="false">
+
+                    <TextView
+                        android:id="@+id/TaxtViewLive_born"
+                        android:layout_width="110sp"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:text="@string/live_born"
+                        android:textSize="20sp" android:textColor="@color/text_color"/>
+
+                    <EditText
+                        android:id="@+id/Live_born"
+                        android:layout_width="40sp"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:paddingLeft="10sp"
+                        android:background="@drawable/edittextstyle"
+                        android:inputType="number" />
+
+                    <TextView
+                        android:id="@+id/TaxtViewDead_born"
+                        android:layout_width="80sp"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginLeft="10sp"
+                        android:text="@string/dead_born"
+                        android:textSize="20sp" android:textColor="@color/text_color" />
+                    <TextView
+                        android:id="@+id/TaxtViewDead_born_fresh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginLeft="10sp"
+                        android:text="@string/dead_born_fresh"
+                        android:textSize="20sp" android:textColor="@color/text_color" />
+
+
+                    <EditText
+                        android:id="@+id/Dead_born_fresh"
+                        android:layout_width="40sp"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginLeft="10sp"
+                        android:paddingLeft="10sp"
+                        android:background="@drawable/edittextstyle"
+                        android:inputType="number" />
+                    <TextView
+                        android:id="@+id/TaxtViewDead_born_macerated"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginLeft="10sp"
+                        android:text="@string/dead_born_macerated"
+                        android:textSize="20sp" android:textColor="@color/text_color"/>
+
+                    <EditText
+                        android:id="@+id/Dead_born_macerated"
+                        android:layout_width="40sp"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginLeft="10sp"
+                        android:paddingLeft="10sp"
+                        android:background="@drawable/edittextstyle"
+                        android:inputType="number" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/sex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="10sp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/taxtChildSex"
+                        android:layout_width="50sp"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:text="@string/child_sex"
+                        android:textSize="20sp" android:textColor="@color/text_color"/>
+
+                    <TextView
+                        android:id="@+id/textSon"
+                        android:layout_width="50sp"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:text="@string/Client_Son_Num"
+                        android:textSize="20sp" android:textColor="@color/text_color" />
+
+                    <EditText
+                        android:id="@+id/son"
+                        android:layout_width="40sp"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginLeft="10sp"
+                        android:paddingLeft="10sp"
+                        android:background="@drawable/edittextstyle"
+                        android:inputType="number" />
+
+                    <TextView
+                        android:id="@+id/textDaughter"
+                        android:layout_width="50sp"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginLeft="10sp"
+                        android:text="@string/Client_Daughter_Num"
+                        android:textSize="20sp" android:textColor="@color/text_color"/>
+
+                    <EditText
+                        android:id="@+id/daughter"
+                        android:layout_width="40sp"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:paddingLeft="10sp"
+                        android:background="@drawable/edittextstyle"
+                        android:inputType="number" />
+                    <TextView
+                        android:id="@+id/textNotDetected"
+                        android:layout_width="160sp"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginLeft="10sp"
+                        android:text="@string/not_detected"
+                        android:textSize="20sp" android:textColor="@color/text_color" />
+
+                    <EditText
+                        android:id="@+id/notDetected"
+                        android:layout_width="40sp"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginLeft="10sp"
+                        android:paddingLeft="10sp"
+                        android:background="@drawable/edittextstyle"
+                        android:inputType="number" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/id_DeliveryManagementLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10sp"
                 android:orientation="vertical">
 
-                <CheckBox
-                    android:id="@+id/oxytocin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/oxytocin"
-                    android:textSize="20dp" />
-
-                <CheckBox
-                    android:id="@+id/controlChordTraction"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/traction"
-                    android:textSize="20dp" />
-
-                <CheckBox
-                    android:id="@+id/uterusMassage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/massage"
-                    android:textSize="20dp" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id = "@+id/id_Epcotomi_section_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:orientation="horizontal">
-
                 <TextView
-                    android:id="@+id/idEpcotomi"
+                    android:id="@+id/textamtsl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/epcotomi"
-                    android:textSize="20dp" android:textColor="@color/text_color"/>
-                <RadioGroup
-                    android:id="@+id/id_radioGroupEpctiomi"
-                    android:layout_width="fill_parent"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginLeft="10sp"
+                    android:text="@string/amtsl"
+                    android:textColor="@color/title_color"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:id="@+id/amtsl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginLeft="10sp"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/oxytocin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:text="@string/oxytocin"
+                        android:textSize="20sp" />
+
+                    <CheckBox
+                        android:id="@+id/controlChordTraction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:text="@string/traction"
+                        android:textSize="20sp" />
+
+                    <CheckBox
+                        android:id="@+id/uterusMassage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:text="@string/massage"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id = "@+id/id_Epcotomi_section_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10sp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/idEpcotomi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/epcotomi"
+                        android:textSize="20sp" android:textColor="@color/text_color"/>
+                    <RadioGroup
+                        android:id="@+id/id_radioGroupEpctiomi"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/radioEpc_yes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/general_yes"
+                            android:textSize="20sp" />
+
+                        <RadioButton
+                            android:id="@+id/radioEpc_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/general_no"
+                            android:textSize="20sp" />
+                    </RadioGroup>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/no_oxytocin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10sp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/idOxytocin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/oxytocinGiven"
+                        android:textSize="20sp" android:textColor="@color/text_color" />
+                    <RadioGroup
+                        android:id="@+id/id_radioGroupMisoprostol"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <RadioButton
+                            android:id="@+id/radioMisoprostol_yes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/general_yes"
+                            android:textSize="20sp" android:textColor="@color/text_color" />
+
+                        <RadioButton
+                            android:id="@+id/radioMisoprostol_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/general_no"
+                            android:textSize="20sp" />
+                    </RadioGroup>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/deliveryAttendantDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="10sp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/id_attendantNameLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:text="@string/providerName"
+                    android:textSize="20sp"
+                    android:textColor="@color/text_color" />
+
+                <EditText
+                    android:id="@+id/id_attendantName"
+                    android:layout_width="200sp"
+                    android:layout_height="50px"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginLeft="10sp"
+                    android:paddingLeft="10sp"
+                    android:background="@drawable/edittext_round"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/attendantTitleLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10sp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/id_attendantTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginTop="10sp"
+                    android:text="@string/providerTitle"
+                    android:textSize="20sp" android:textColor="@color/text_color"/>
+
+                <Spinner
+                    android:id="@+id/id_attendantTitleDropdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50px"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginLeft="10sp"
+                    android:entries="@array/DeliveryAttendant_DropDown"
+                    android:background="@drawable/gradient_spinner"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/complication"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="10sp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/idCOmplication"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/deliveryComplication"
+                    android:textColor="@color/title_color"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:id="@+id/first_complication_layout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <RadioButton
-                        android:id="@+id/radioEpc_yes"
+                    <CheckBox
+                        android:id="@+id/id_delayedDelivery"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/general_yes"
-                        android:textSize="20dp" />
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:text="@string/delayedDelivery"
+                        android:textSize="20sp" />
 
-                    <RadioButton
-                        android:id="@+id/radioEpc_no"
+                    <CheckBox
+                        android:id="@+id/id_BloodLoss"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/general_no"
-                        android:textSize="20dp" />
-                </RadioGroup>
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:text="@string/bloodLoss"
+                        android:textSize="20sp" />
 
+                    <CheckBox
+                        android:id="@+id/id_blockedDelivery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:text="@string/blockedDelivery"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/second_complication_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/id_blockedPlacenta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:text="@string/blockedPlacenta"
+                        android:textSize="20sp" />
+
+                    <CheckBox
+                        android:id="@+id/id_heavyHedache"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:text="@string/heavyHeadache"
+                        android:textSize="20sp" />
+
+                    <CheckBox
+                        android:id="@+id/id_blurryVision"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:text="@string/blurryVision"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/third_complication_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/id_onlyHead"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:text="@string/onlyHead"
+                        android:textSize="20sp" />
+
+                    <CheckBox
+                        android:id="@+id/id_convulsion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:text="@string/convulsion"
+                        android:textSize="20sp" />
+
+                    <CheckBox
+                        android:id="@+id/id_deleiveryExtra"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:text="@string/deliveryExtra"
+                        android:textSize="20sp" />
+                </LinearLayout>
             </LinearLayout>
-
             <LinearLayout
-                android:id="@+id/no_oxytocin"
+                android:id="@+id/treatment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10sp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/idOxytocin"
+                    android:id="@+id/id_general_treatment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/oxytocinGiven"
-                    android:textSize="20dp" android:textColor="@color/text_color" />
-                <RadioGroup
-                    android:id="@+id/id_radioGroupMisoprostol"
-                    android:layout_width="fill_parent"
+                    android:layout_marginTop="10sp"
+                    android:text="@string/general_treatment"
+                    android:textSize="20sp" android:textColor="@color/text_color" />
+
+                <org.sci.rhis.fwc.MultiSelectionSpinner
+                    android:id="@+id/id_spinner_treatment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50px"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginTop="10sp"
+                    android:background="@drawable/gradient_spinner"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/advice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="10sp"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/id_general_advice"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <RadioButton
-                        android:id="@+id/radioMisoprostol_yes"
+                    android:layout_marginTop="10sp"
+                    android:text="@string/general_advice"
+                    android:textSize="20sp" android:textColor="@color/text_color"/>
+
+                <org.sci.rhis.fwc.MultiSelectionSpinner
+                    android:id="@+id/id_spinner_advice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50px"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginLeft="10sp"
+                    android:background="@drawable/gradient_spinner"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/refer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10sp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/id_delivery_refer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50px"
+                    android:layout_marginTop="10sp"
+                    android:textColor="@color/title_color"
+                    android:text="@string/child_refer"
+                    android:textSize="20sp" />
+                <LinearLayout
+                    android:id="@+id/id_referCenterDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/id_refer_facility_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/general_yes"
-                    android:textSize="20dp" android:textColor="@color/text_color" />
+                        android:layout_marginLeft="10sp"
+                        android:layout_marginTop="10sp"
+                        android:text="@string/general_facility_name"
+                        android:textSize="20sp"
+                        android:textColor="@color/text_color"
+                        android:visibility="gone"/>
 
-                    <RadioButton
-                        android:id="@+id/radioMisoprostol_no"
+                    <Spinner
+                        android:id="@+id/id_spinner_refer_facilities"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/general_no"
-                        android:textSize="20dp" />
-                </RadioGroup>
-
+                        android:layout_height="50px"
+                        android:layout_marginTop="10sp"
+                        android:entries="@array/FacilityType_DropDown"
+                        android:textSize="20sp"
+                        android:layout_marginLeft="10sp"
+                        android:visibility="gone"
+                        android:background="@drawable/gradient_spinner"/>
+                </LinearLayout>
             </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/deliveryAttendantDetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/id_attendantNameLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/providerName"
-                android:textSize="20dp"
-                android:textColor="@color/text_color" />
-
-            <EditText
-                android:id="@+id/id_attendantName"
-                android:layout_width="200dp"
-                android:layout_height="50px"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/edittext_round"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/attendantTitleLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/id_attendantTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/providerTitle"
-                android:textSize="20dp" android:textColor="@color/text_color"/>
-
-            <Spinner
-                android:id="@+id/id_attendantTitleDropdown"
-                android:layout_width="wrap_content"
-                android:layout_height="50px"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:entries="@array/DeliveryAttendant_DropDown"
-                android:background="@drawable/gradient_spinner"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/complication"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/idCOmplication"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/deliveryComplication"
-                android:textColor="@color/title_color"
-                android:textSize="20dp" />
-
-            <LinearLayout
-                android:id="@+id/first_complication_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/id_delayedDelivery"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/delayedDelivery"
-                    android:textSize="20dp" />
-
-                <CheckBox
-                    android:id="@+id/id_BloodLoss"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/bloodLoss"
-                    android:textSize="20dp" />
-
-                <CheckBox
-                    android:id="@+id/id_blockedDelivery"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/blockedDelivery"
-                    android:textSize="20dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/second_complication_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/id_blockedPlacenta"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/blockedPlacenta"
-                    android:textSize="20dp" />
-
-                <CheckBox
-                    android:id="@+id/id_heavyHedache"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/heavyHeadache"
-                    android:textSize="20dp" />
-
-                <CheckBox
-                    android:id="@+id/id_blurryVision"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/blurryVision"
-                    android:textSize="20dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/third_complication_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/id_onlyHead"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/onlyHead"
-                    android:textSize="20dp" />
-
-                <CheckBox
-                    android:id="@+id/id_convulsion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/convulsion"
-                    android:textSize="20dp" />
-
-                <CheckBox
-                    android:id="@+id/id_deleiveryExtra"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/deliveryExtra"
-                    android:textSize="20dp" />
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/treatment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/id_general_treatment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/general_treatment"
-                android:textSize="20dp" android:textColor="@color/text_color" />
-
-            <org.sci.rhis.fwc.MultiSelectionSpinner
-                android:id="@+id/id_spinner_treatment"
-                android:layout_width="wrap_content"
-                android:layout_height="50px"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/gradient_spinner"/>
-        </LinearLayout>
-            <LinearLayout
-            android:id="@+id/advice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:id="@+id/id_general_advice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/general_advice"
-                android:textSize="20dp" android:textColor="@color/text_color"/>
-
-            <org.sci.rhis.fwc.MultiSelectionSpinner
-                android:id="@+id/id_spinner_advice"
-                android:layout_width="wrap_content"
-                android:layout_height="50px"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/gradient_spinner"/>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/refer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="10dp"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/id_delivery_refer"
-                android:layout_width="wrap_content"
-                android:layout_height="50px"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/title_color"
-                android:text="@string/child_refer"
-                android:textSize="20dp" />
-            <LinearLayout
-                android:id="@+id/id_referCenterDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/id_refer_facility_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/general_facility_name"
-                android:textSize="20dp"
-                android:textColor="@color/text_color"
-                android:visibility="gone"/>
-
-            <Spinner
-                android:id="@+id/id_spinner_refer_facilities"
-                android:layout_width="wrap_content"
-                android:layout_height="50px"
-                android:layout_marginTop="10dp"
-                android:entries="@array/FacilityType_DropDown"
-                android:textSize="20dp"
-                android:layout_marginLeft="10dp"
-                android:visibility="gone"
-                android:background="@drawable/gradient_spinner"/>
-            </LinearLayout>
-        </LinearLayout>
             <LinearLayout
                 android:id="@+id/reason"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="10sp"
                 android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/id_refer_delivery_cause"
-                android:layout_width="wrap_content"
-                android:layout_height="50px"
-                android:layout_marginTop="10dp"
-                android:text="@string/general_cause"
-                android:textSize="20dp"
-                android:textColor="@color/text_color"
-                android:visibility="invisible"/>
+                <TextView
+                    android:id="@+id/id_refer_delivery_cause"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50px"
+                    android:layout_marginTop="10sp"
+                    android:text="@string/general_cause"
+                    android:textSize="20sp"
+                    android:textColor="@color/text_color"
+                    android:visibility="invisible"/>
 
-            <org.sci.rhis.fwc.MultiSelectionSpinner
-                android:id="@+id/id_spinner_refer_delivery_cause"
-                android:layout_width="wrap_content"
-                android:layout_height="50px"
-                android:layout_marginTop="10dp"
-                android:visibility="invisible"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/gradient_spinner" />
+                <org.sci.rhis.fwc.MultiSelectionSpinner
+                    android:id="@+id/id_spinner_refer_delivery_cause"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50px"
+                    android:layout_marginTop="10sp"
+                    android:visibility="invisible"
+                    android:layout_marginLeft="10sp"
+                    android:background="@drawable/gradient_spinner" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_save_add_child"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+                <Button
+                    android:text="Save &amp; Open Newborn Information"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80px"
+                    android:id="@+id/id_saveDeliveryButton"
+                    android:onClick="onClick"/>
+                <Button
+                    android:text="Save &amp; Serve NextbClient"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80px"
+                    android:layout_marginLeft="5sp"
+                    android:id="@+id/id_editDeliveryButton"
+                    android:onClick="onClick"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/btn_save_add_child"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-            <Button
-                android:text="Save &amp; Open Newborn Information "
-                android:layout_width="wrap_content"
-                android:layout_height="80px"
-                android:id="@+id/id_saveDeliveryButton"
-                android:onClick="onClick"/>
-            <Button
-                android:text="Save &amp; Serve NextbClient"
-                android:layout_width="wrap_content"
-                android:layout_height="80px"
-                android:layout_marginLeft="5dp"
-                android:id="@+id/id_editDeliveryButton"
-                android:onClick="onClick"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
         <TableLayout
             android:id="@+id/newborn_Tabla_Layout"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:visibility="gone"
-            android:layout_marginBottom="10dp"
-           >
+            android:layout_marginTop="10sp"
+            android:visibility="visible"
+            android:layout_marginBottom="10sp"
+            >
 
             <LinearLayout android:layout_width="wrap_content"
                 android:layout_height="match_parent">
@@ -921,19 +926,18 @@
                     android:text="@string/death_macerated_add"
                     android:layout_width="wrap_content"
                     android:layout_height="80px"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="5sp"
                     android:id="@+id/deathmaceratedButton"
                     android:onClick="onClick"/>
                 <Spinner
                     android:id="@+id/id_childListDropdown"
                     android:layout_width="wrap_content"
                     android:layout_height="50px"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginLeft="10sp"
                     android:background="@drawable/gradient_spinner"
                     />
             </TableRow>
         </TableLayout>
-
     </LinearLayout>
 </ScrollView>

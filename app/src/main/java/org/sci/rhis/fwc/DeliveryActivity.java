@@ -3,6 +3,7 @@ package org.sci.rhis.fwc;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.text.InputFilter;
 import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -56,13 +59,10 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     final private String ROOTKEY = "deliveryInfo";
     private  final String LOGTAG = "FWC-DELIVERY";
     private boolean hasDeliveryInfo = false;
-
-
+    private int countSaveClick = 0;
 
     AsyncDeliveryInfoUpdate deliveryInfoQueryTask;
     AsyncDeliveryInfoUpdate deliveryInfoUpdateTask;
-
-
 
     private MultiSelectionSpinner multiSelectionSpinner;
     @Override
@@ -120,25 +120,16 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         //is deliveryInfo present
         hasDeliveryInfo = false;
 
-       // Log.e("Is there Found mother dPlace?", "" + mother.getHealthId());
-        //get info from database
-        String queryString = "";
-                /* =
-                "{" +
-                "healthid:" + mother.getHealthId() + "," +
-                "pregno:" + mother.getPregNo() + "," +
-                "deliveryLoad:" + "retrieve" +
-                "}"*/
-        //String
         getMotherInfo();
         getExistingChild();  //get child Info
 
-        LinearLayout mNewbornLayout = (LinearLayout) findViewById(R.id.newborn_Tabla_Layout);
-        mNewbornLayout.setVisibility(View.VISIBLE);
+        //LinearLayout mNewbornLayout = (LinearLayout) findViewById(R.id.newborn_Tabla_Layout);
+        //mNewbornLayout.setVisibility(View.VISIBLE);
         passJson = new Intent(this, DeliveryNewbornActivity.class);
 
         //disable delivery result
         Utilities.Disable(this,R.id.id_deliveryResultLayout);
+        Utilities.SetVisibility(this, R.id.newborn_Tabla_Layout,View.INVISIBLE);
     }
 
     @Override
@@ -168,10 +159,11 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
                 //TODO Make the fields non-modifiable
                 Utilities.Disable(this, R.id.delivery_info_layout);
-                Utilities.MakeInvisible(this, R.id.btn_save_add_child);
+                Utilities.SetVisibility(this, R.id.btn_save_add_child, View.INVISIBLE);
                 mother.setHasDeliveryInfo(1);
                 hasDeliveryInfo = true;
-
+                mother.setActualDelivery(json.getString("dDate"), "yyyy-MM-dd");
+                Utilities.SetVisibility(this, R.id.newborn_Tabla_Layout, View.VISIBLE);
             }
 
         } catch (JSONException jse) {
@@ -271,25 +263,47 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     public void onClick(View view) {
         if(view.getTag() != null && view.getTag().equals("DateField")) {
             datePickerDialog.show(datePickerPair.get(view.getId()));
-        } else
+        } else if(view.getId() == R.id.id_saveDeliveryButton) {
+            countSaveClick++;
+            if( countSaveClick == 2 ) {
+                saveToJson();
+                getButton(R.id.id_saveDeliveryButton).setText("Save &amp; Open Newborn Information");
+                Utilities.MakeVisible(this, R.id.newborn_Tabla_Layout);
 
-        if(view.getId() == R.id.id_saveDeliveryButton) {
-            saveToJson();
+            } else if(countSaveClick == 1) {
+                Utilities.Disable(this, R.id.delivery_info_layout);
+                getButton( R.id.id_saveDeliveryButton).setText("Confirm");
+                Utilities.Enable(this, R.id.id_saveDeliveryButton);
+                getButton( R.id.id_editDeliveryButton).setText("Cancel");
+                Utilities.Enable(this, R.id.id_editDeliveryButton);
+                Utilities.MakeVisible(this, R.id.id_editDeliveryButton);
 
-            LinearLayout mNewbornLayout = (LinearLayout) findViewById(R.id.newborn_Tabla_Layout);
-            mNewbornLayout.setVisibility(View.VISIBLE);
-
+                Toast toast = Toast.makeText(this, R.string.DeliverySavePrompt, Toast.LENGTH_LONG);
+                LinearLayout toastLayout = (LinearLayout) toast.getView();
+                TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                toastTV.setTextSize(20);
+                toast.show();
+            }
+        } else if(view.getId() == R.id.id_editDeliveryButton) {
+            if(countSaveClick == 1) {
+                countSaveClick = 0;
+                Utilities.Enable(this, R.id.delivery_info_layout);
+                getButton(R.id.id_saveDeliveryButton).setText("Save &amp; Open Newborn Information");
+                //TODO - Review
+                Utilities.MakeInvisible(this, R.id.id_editDeliveryButton);
+            }
         }
 
-        if(passJson.hasExtra("NewbornJson")) { //when adding new child remove the reference of the old
-            passJson.removeExtra("NewbornJson");
-        } else {
+        if( view.getId()== R.id.newbornAddButton ||
+            view.getId()== R.id.deathFreshButton ||
+            view.getId()== R.id.deathmaceratedButton ) {
+
+            if(passJson.hasExtra("NewbornJson")) { //when adding new child remove the reference of the old
+                passJson.removeExtra("NewbornJson");
+            }
+
             passJson.putExtra("childno", currentChildCount + 1);
-        }
-
-        if(view.getId()==R.id.newbornAddButton){
-        //Intent intent = new Intent(this, DeliveryNewbornActivity.class);
-        passJson.putExtra("Layout", 1);
+            passJson.putExtra("Layout", getLayoutType(view.getId()));
             passJson.putExtra("DeliveryJson",dJson.toString());
 
             if(checkClientInfo() && mother.isEligibleFor(PregWoman.PREG_SERVICE.NEWBORN)) {
@@ -300,35 +314,28 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             } else {
                 Toast.makeText(this, "Newborn cannot be added, verify ...", Toast.LENGTH_LONG).show();
             }
+        }
+    }
+
+    private int getLayoutType (int id) {
+        int layoutType = -1; //default newborn
+
+        switch (id) {
+            case R.id.newbornAddButton:
+                layoutType = 1;
+                break;
+            case R.id.deathFreshButton:
+                layoutType = 2;
+                break;
+            case R.id.deathmaceratedButton:
+                layoutType = 3;
+                break;
+            default:
+                Log.e(LOGTAG, "Unknown type: " + id + findViewById(id).getClass().getName());
 
         }
-        else  if(view.getId()==R.id.deathFreshButton){
 
-            passJson.putExtra("Layout", 2);
-            passJson.putExtra("DeliveryJson", dJson.toString());
-            if(checkClientInfo() && mother.isEligibleFor(PregWoman.PREG_SERVICE.NEWBORN)) {
-                passJson.putExtra("PregWoman", mother);
-                passJson.putExtra("Provider", ProviderInfo.getProvider());
-                Log.d(LOGTAG, dJson.toString());
-                startActivityForResult(passJson, ActivityResultCodes.NEWBORN_ACTIVITY);
-            } else {
-                Toast.makeText(this, "Too Late for PNC, verify ...", Toast.LENGTH_LONG).show();
-            }
-        }
-
-        else if(view.getId()==R.id.deathmaceratedButton){
-
-            passJson.putExtra("Layout", 3);
-            passJson.putExtra("DeliveryJson", dJson.toString());
-            if(checkClientInfo() && mother.isEligibleFor(PregWoman.PREG_SERVICE.NEWBORN)) {
-                passJson.putExtra("PregWoman", mother);
-                passJson.putExtra("Provider", ProviderInfo.getProvider());
-                Log.d(LOGTAG, dJson.toString());
-                startActivityForResult(passJson, ActivityResultCodes.NEWBORN_ACTIVITY);
-            } else {
-                Toast.makeText(this, "Too Late for PNC, verify ...", Toast.LENGTH_LONG).show();
-            }
-        }
+        return layoutType;
     }
 
     @Override
@@ -413,9 +420,10 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         jsonEditTextMap.put("dNewBornBoy",getEditText(R.id.son));
         jsonEditTextMap.put("dNewBornGirl",getEditText(R.id.daughter));
         jsonEditTextMap.put("dNewBornUnidentified",getEditText(R.id.notDetected));
-
         //attendant name
         jsonEditTextMap.put("dAttendantName",getEditText(R.id.id_attendantName));
+        getEditText(R.id.id_attendantName).setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        //set all CAP
     }
 
     @Override
@@ -666,7 +674,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
-
+                        Log.d(LOGTAG, "No Child selected, position:" + parent.getSelectedItemPosition());
                     }
                 });
 

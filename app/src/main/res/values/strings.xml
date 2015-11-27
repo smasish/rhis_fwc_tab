@@ -37,6 +37,17 @@
     <string name = "ClientsCoupleNo">"দম্পতি নম্বর:"</string>
     <string name = "ClientsMobileNo">"মোবাইল নম্বর:"</string>
 
+    <!-- NRC Deatils -->
+    <string name = "NRCClientsName">"*নাম: "</string>
+    <string name = "NRCClientsAge">"*বয়স:"</string>
+    <string name = "NRCClientsFather">"*পিতার নাম:"</string>
+    <string name = "NRCClientsMother">"*মাতার নাম:"</string>
+    <string name = "NRCClientsDist">"*জেলা:"</string>
+    <string name = "NRCClientsSex">"*লিঙ্গ:"</string>
+    <string name = "NRCClientsUpazila">"*উপজেলা:"</string>
+    <string name = "NRCClientsUnion">"*ইউনিয়ন:"</string>
+    <string name = "NRCClientsVillage">"*গ্রাম / মহল্লা:"</string>
+
     <string name = "reg_no">"রেজি: নম্বর:"</string>
     <string name = "ClientsInfoFragment">"সেবাগ্রহীতার তথ্য"</string>
     <string name = "LMPDate">"শেষ মাসিকের তারিখ:"</string>
@@ -66,6 +77,10 @@
     <string name = "swelling_legs_or_whole_body">" পা বা সমস্ত শরীর বেশি রকম ফোলা (ইডিমা) "</string>
     <string name = "with_convulsion_senseless">" একল্যাম্পসিয়া বা খিঁচুনিসহ বার বার অজ্ঞান হওয়া "</string>
     <string name = "caesar">" সিজারিয়ান অপারেশন বা যন্ত্রের মাধ্যমে (ফরসেফ/ভেকুয়াম) প্রসব "</string>
+    <string name = "PNCWarning">প্রসবের তথ্য অনুপস্থিত। অনুগ্রহ করে \nপ্রসবোত্তর সেবার পূর্বে প্রসবের তথ্য নিন। </string>
+    <string name = "NRCSaveWarning">দয়া করে তারকা (*) চিহ্নিত ঘর গুলি পূরণ করে পুনরায় save চাপুন </string>
+    <string name = "DeliverySavePrompt">দয়া করে সংগৃহিত তথ্য যাচাই করুন, নিশ্চিত করে CONFIRM চাপুন</string>
+
     <string-array name="Blood_Group_Dropdown">
         <item></item>
         <item> A+ </item>
@@ -355,7 +370,7 @@
     <string name="son">"ছেলে "</string>
     <string name="daughter">"মেয়ে "</string>
     <string name="born_weight">"জন্ম ওজন (কেজি):"</string>
-    <string name="premature_birth_before_37_weeks_full">"অপরিণত জন্ম (৩৭ সপ্তাহ পূর্ণ হওয়ার আগে):"</string>
+    <string name="premature_birth_before_37_weeks_full">"অপরিণত জন্ম (৩৭ সপ্তাহ পূর্ণ হওয়ার আগে)"</string>
     <string name="wipe_within_one_minute">"১ মিনিটের মধ্যে মোছানো হয়েছে:"</string>
     <string name="resastation">"রিসাসসিটেশন:"</string>
     <string name="stimulation">" স্টিমুলেশন"</string>
@@ -371,6 +386,11 @@
     <string name="title_activity_delevery">" প্রসবকালীন সেবা "</string>
     <string name="title_activity_pnc">প্রসবোত্তর সেবা</string>
     <string name="pnc_others">অন্যান্য</string>
+
+    <string name="ancVisit1">পরিদর্শন ১</string>
+    <string name="ancVisit2">পরিদর্শন ২</string>
+    <string name="ancVisit3">পরিদর্শন ৩</string>
+    <string name="ancVisit4">পরিদর্শন ৪</string>
 
     <string name="history_visit1">পরিদর্শন</string>
     <string name="history_date">সেবাগ্রহনের তারিখ:</string>
@@ -669,7 +689,7 @@
     <string-array name="Edema_Dropdown">
         <item></item>
         <item> নাই </item>
-        <item> + (অল্প) </item>
+        <item>+ (অল্প) </item>
         <item> ++ (মোটামুটি) </item>
         <item> +++ (অধিক) </item>
     </string-array>
@@ -704,9 +724,9 @@
     </string-array>
     <string-array name="pnc_Anemia_Dropdown">
         <item></item>
-        <item> +  </item>
-        <item> ++  </item>
-        <item> +++  </item>
+        <item>+</item>
+        <item>++</item>
+        <item>+++</item>
     </string-array>
 
     <string name="title_activity_nrc">NRCActivity</string>

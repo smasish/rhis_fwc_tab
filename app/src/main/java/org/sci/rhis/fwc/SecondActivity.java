@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -133,15 +134,6 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         );
 
         addListenerOnButton();
-
-        /*Intent intent = getIntent();
-        String str = intent.getStringExtra("HealthId");
-        if(intent.hasExtra("HealthId")) {
-            str = intent.getStringExtra("HealthId");
-            getSpinner(R.id.ClientsIdentityDropdown).setSelection(0);
-            getEditText(R.id.searchableTextId).setText(str.substring(str.indexOf("||")+3));
-            startSearch((ImageButton)findViewById(R.id.searchButton));
-        }*/
     }
 
     public void startSearch(View view) {
@@ -345,7 +337,12 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             intent.putExtra("Provider", ProviderInfo.getProvider());
             startActivity(intent);
         } else {
-            Toast.makeText(this, "Client is not eligible for PNC \nPlease check other info first", Toast.LENGTH_LONG).show();
+
+            Toast toast = Toast.makeText(this, R.string.PNCWarning, Toast.LENGTH_LONG);
+            LinearLayout toastLayout = (LinearLayout) toast.getView();
+            TextView toastTV = (TextView) toastLayout.getChildAt(0);
+            toastTV.setTextSize(20);
+            toast.show();
         }
     }
 
