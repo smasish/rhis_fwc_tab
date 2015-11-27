@@ -275,6 +275,7 @@
                 android:paddingRight="10dp"
                 android:background="@drawable/button_style"
                 android:id="@+id/deathButton"
+                android:onClick="startDeath"
                 />
 
             <Button
