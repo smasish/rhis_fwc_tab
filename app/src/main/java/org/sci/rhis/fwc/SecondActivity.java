@@ -1,8 +1,10 @@
 
 package org.sci.rhis.fwc;
 
+import android.app.AlertDialog;
 import android.app.Instrumentation;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -352,6 +354,40 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        // your code.
+        /*Intent finishIntent = new Intent();
+
+        finishIntent.putExtra("hasDeliveryInformation", hasDeliveryInfo);
+
+        setResult(RESULT_OK, finishIntent);
+        finishActivity(ActivityResultCodes.DELIVERY_ACTIVITY);
+        */
+        AlertDialog alertDialog = new AlertDialog.Builder(SecondActivity.this).create();
+        alertDialog.setTitle("Logout?");
+        alertDialog.setMessage("আপনি কি বের হয়ে যেতে চান? \nনিশ্চিত করতে OK চাপুন, ফিরে যেতে CANCEL চাপুন ");
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        //finish();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+        //alertDialog.s
+
+        alertDialog.show();
+        //finish();
     }
 
     @Override
