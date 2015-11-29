@@ -15,6 +15,10 @@
         android:layout_marginTop="1sp"
         android:layout_marginBottom="1sp">
 
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
         <LinearLayout
             android:id="@+id/delivery_info_layout"
             android:layout_width="match_parent"
@@ -48,7 +52,7 @@
                 <TextView
                     android:id="@+id/delivery_place_label"
                     android:layout_width="wrap_content"
-                    android:layout_height="50px"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10sp"
                     android:text="@string/delivery_place"
                     android:textSize="20sp"
@@ -57,7 +61,7 @@
                 <Spinner
                     android:id="@+id/delivery_placeDropdown"
                     android:layout_width="wrap_content"
-                    android:layout_height="60px"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10sp"
                     android:layout_marginTop="10sp"
                     android:entries="@array/FacilityPlace_DropDown"
@@ -68,7 +72,7 @@
                 <TextView
                     android:id="@+id/delivery_type"
                     android:layout_width="120sp"
-                    android:layout_height="50px"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10sp"
                     android:layout_marginLeft="20sp"
                     android:text="@string/delivery_type"
@@ -78,7 +82,7 @@
                 <Spinner
                     android:id="@+id/delivery_typeDropdown"
                     android:layout_width="wrap_content"
-                    android:layout_height="60px"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10sp"
                     android:layout_marginTop="10sp"
                     android:textSize="20sp"
@@ -89,7 +93,7 @@
 
             <LinearLayout
                 android:id="@+id/delivery_date_time"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10sp"
@@ -99,7 +103,7 @@
                 <TextView
                     android:id="@+id/TextViewdelivery_date"
                     android:layout_width="140sp"
-                    android:layout_height="50px"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10sp"
                     android:text="@string/delivery_date"
                     android:textSize="20sp"
@@ -108,7 +112,7 @@
                 <EditText
                     android:id="@+id/id_delivery_date"
                     android:layout_width="120sp"
-                    android:layout_height="50px"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10sp"
                     android:paddingLeft="10sp"
                     android:background="@drawable/edittext_round"
@@ -116,7 +120,7 @@
                     android:hint="dd/mm/yyyy"/>
                 <ImageButton
                     android:layout_width="50px"
-                    android:layout_height="50px"
+                    android:layout_height="wrap_content"
                     android:id="@+id/imageViewDeliveryDate"
                     android:src="@drawable/calendar_icon"
                     android:layout_marginTop="5sp"
@@ -126,7 +130,7 @@
                 <TextView
                     android:id="@+id/TaxtViewdelivery_time"
                     android:layout_width="50sp"
-                    android:layout_height="50px"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10sp"
                     android:layout_marginLeft="10sp"
                     android:text="@string/delivery_time"
@@ -135,7 +139,7 @@
                 <EditText
                     android:id="@+id/delivery_time_hour"
                     android:layout_width="40sp"
-                    android:layout_height="50px"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10sp"
                     android:layout_marginLeft="10sp"
                     android:paddingLeft="10sp"
@@ -145,7 +149,7 @@
                 <TextView
                     android:id="@+id/TaxtViewdelivery_time_colon"
                     android:layout_width="10sp"
-                    android:layout_height="50px"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10sp"
                     android:layout_marginLeft="10sp"
                     android:text=":"
@@ -154,7 +158,7 @@
                 <EditText
                     android:id="@+id/delivery_time_minute"
                     android:layout_width="40sp"
-                    android:layout_height="50px"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10sp"
                     android:layout_marginLeft="5sp"
                     android:paddingLeft="10sp"
@@ -164,7 +168,7 @@
                 <Spinner
                     android:id="@+id/delivery_time_Dropdown"
                     android:layout_width="60sp"
-                    android:layout_height="60px"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10sp"
                     android:entries="@array/DeliveryTime_DropDown"
                     />
@@ -189,7 +193,7 @@
                 <TextView
                     android:id="@+id/TaxtViewdscn"
                     android:layout_width="wrap_content"
-                    android:layout_height="50px"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10sp"
                     android:text="@string/service_center_name"
                     android:textSize="20sp" android:textColor="@color/text_color" />
@@ -197,7 +201,7 @@
                 <Spinner
                     android:id="@+id/id_facility_name_Dropdown"
                     android:layout_width="wrap_content"
-                    android:layout_height="60px"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10sp"
                     android:entries="@array/FacilityType_DropDown"
                     android:layout_marginTop="10sp"
@@ -216,14 +220,14 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="50px"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10sp"
                     android:text="@string/admission_date"
                     android:textSize="20sp" android:textColor="@color/text_color" />
                 <EditText
                     android:id="@+id/id_admissionDate"
                     android:layout_width="120sp"
-                    android:layout_height="50px"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10sp"
                     android:layout_marginLeft="10sp"
                     android:paddingLeft="10sp"
@@ -233,10 +237,10 @@
 
                 <ImageButton
                     android:layout_width="50px"
-                    android:layout_height="50px"
+                    android:layout_height="wrap_content"
                     android:id="@+id/imageViewAdmissionDate"
                     android:src="@drawable/calendar_icon"
-                    android:layout_marginTop="5sp"
+                    android:layout_marginTop="10sp"
                     android:tag="DateField"
                     android:onClick="pickDate"/>
 
@@ -246,11 +250,10 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10sp"
-                    android:layout_marginTop="10sp"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="10sp"
                         android:layout_marginTop="10sp"
                         android:text="@string/ward"
@@ -259,14 +262,14 @@
                     <EditText
                         android:id="@+id/id_ward"
                         android:layout_width="40sp"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:layout_marginLeft="10sp"
                         android:paddingLeft="10sp"
                         android:background="@drawable/edittext_round"/>
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:layout_marginLeft="20sp"
                         android:text="@string/bed"
@@ -275,7 +278,7 @@
                     <EditText
                         android:id="@+id/id_bed"
                         android:layout_width="40sp"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:layout_marginLeft="10sp"
                         android:paddingLeft="10sp"
@@ -293,7 +296,7 @@
                 <TextView
                     android:id="@+id/TaxtViewdelivery_result"
                     android:layout_width="160sp"
-                    android:layout_height="50px"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10sp"
                     android:textColor="@color/title_color"
                     android:text="@string/delivery_result"
@@ -310,7 +313,7 @@
                     <TextView
                         android:id="@+id/TaxtViewLive_born"
                         android:layout_width="110sp"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:text="@string/live_born"
                         android:textSize="20sp" android:textColor="@color/text_color"/>
@@ -318,7 +321,7 @@
                     <EditText
                         android:id="@+id/Live_born"
                         android:layout_width="40sp"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:paddingLeft="10sp"
                         android:background="@drawable/edittextstyle"
@@ -327,7 +330,7 @@
                     <TextView
                         android:id="@+id/TaxtViewDead_born"
                         android:layout_width="80sp"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:layout_marginLeft="10sp"
                         android:text="@string/dead_born"
@@ -335,7 +338,7 @@
                     <TextView
                         android:id="@+id/TaxtViewDead_born_fresh"
                         android:layout_width="wrap_content"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:layout_marginLeft="10sp"
                         android:text="@string/dead_born_fresh"
@@ -345,7 +348,7 @@
                     <EditText
                         android:id="@+id/Dead_born_fresh"
                         android:layout_width="40sp"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:layout_marginLeft="10sp"
                         android:paddingLeft="10sp"
@@ -354,7 +357,7 @@
                     <TextView
                         android:id="@+id/TaxtViewDead_born_macerated"
                         android:layout_width="wrap_content"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:layout_marginLeft="10sp"
                         android:text="@string/dead_born_macerated"
@@ -363,7 +366,7 @@
                     <EditText
                         android:id="@+id/Dead_born_macerated"
                         android:layout_width="40sp"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:layout_marginLeft="10sp"
                         android:paddingLeft="10sp"
@@ -382,7 +385,7 @@
                     <TextView
                         android:id="@+id/taxtChildSex"
                         android:layout_width="50sp"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:text="@string/child_sex"
                         android:textSize="20sp" android:textColor="@color/text_color"/>
@@ -390,7 +393,7 @@
                     <TextView
                         android:id="@+id/textSon"
                         android:layout_width="50sp"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:text="@string/Client_Son_Num"
                         android:textSize="20sp" android:textColor="@color/text_color" />
@@ -398,7 +401,7 @@
                     <EditText
                         android:id="@+id/son"
                         android:layout_width="40sp"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:layout_marginLeft="10sp"
                         android:paddingLeft="10sp"
@@ -408,7 +411,7 @@
                     <TextView
                         android:id="@+id/textDaughter"
                         android:layout_width="50sp"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:layout_marginLeft="10sp"
                         android:text="@string/Client_Daughter_Num"
@@ -417,7 +420,7 @@
                     <EditText
                         android:id="@+id/daughter"
                         android:layout_width="40sp"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:paddingLeft="10sp"
                         android:background="@drawable/edittextstyle"
@@ -425,7 +428,7 @@
                     <TextView
                         android:id="@+id/textNotDetected"
                         android:layout_width="160sp"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:layout_marginLeft="10sp"
                         android:text="@string/not_detected"
@@ -434,7 +437,7 @@
                     <EditText
                         android:id="@+id/notDetected"
                         android:layout_width="40sp"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:layout_marginLeft="10sp"
                         android:paddingLeft="10sp"
@@ -449,6 +452,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="10sp"
+                android:layout_marginBottom="10sp"
                 android:orientation="vertical">
 
                 <TextView
@@ -473,7 +477,7 @@
                     <CheckBox
                         android:id="@+id/oxytocin"
                         android:layout_width="wrap_content"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:text="@string/oxytocin"
                         android:textSize="20sp" />
@@ -481,7 +485,7 @@
                     <CheckBox
                         android:id="@+id/controlChordTraction"
                         android:layout_width="wrap_content"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:text="@string/traction"
                         android:textSize="20sp" />
@@ -489,13 +493,11 @@
                     <CheckBox
                         android:id="@+id/uterusMassage"
                         android:layout_width="wrap_content"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:text="@string/massage"
                         android:textSize="20sp" />
                 </LinearLayout>
-
-
                 <LinearLayout
                     android:id = "@+id/id_Epcotomi_section_layout"
                     android:layout_width="match_parent"
@@ -589,7 +591,7 @@
                 <EditText
                     android:id="@+id/id_attendantName"
                     android:layout_width="200sp"
-                    android:layout_height="50px"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10sp"
                     android:layout_marginLeft="10sp"
                     android:paddingLeft="10sp"
@@ -607,7 +609,6 @@
                     android:id="@+id/id_attendantTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10sp"
                     android:layout_marginTop="10sp"
                     android:text="@string/providerTitle"
                     android:textSize="20sp" android:textColor="@color/text_color"/>
@@ -615,7 +616,7 @@
                 <Spinner
                     android:id="@+id/id_attendantTitleDropdown"
                     android:layout_width="wrap_content"
-                    android:layout_height="50px"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10sp"
                     android:layout_marginLeft="10sp"
                     android:entries="@array/DeliveryAttendant_DropDown"
@@ -649,7 +650,7 @@
                     <CheckBox
                         android:id="@+id/id_delayedDelivery"
                         android:layout_width="wrap_content"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:text="@string/delayedDelivery"
                         android:textSize="20sp" />
@@ -657,7 +658,7 @@
                     <CheckBox
                         android:id="@+id/id_BloodLoss"
                         android:layout_width="wrap_content"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:text="@string/bloodLoss"
                         android:textSize="20sp" />
@@ -665,7 +666,7 @@
                     <CheckBox
                         android:id="@+id/id_blockedDelivery"
                         android:layout_width="wrap_content"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:text="@string/blockedDelivery"
                         android:textSize="20sp" />
@@ -681,7 +682,7 @@
                     <CheckBox
                         android:id="@+id/id_blockedPlacenta"
                         android:layout_width="wrap_content"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:text="@string/blockedPlacenta"
                         android:textSize="20sp" />
@@ -689,7 +690,7 @@
                     <CheckBox
                         android:id="@+id/id_heavyHedache"
                         android:layout_width="wrap_content"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:text="@string/heavyHeadache"
                         android:textSize="20sp" />
@@ -697,7 +698,7 @@
                     <CheckBox
                         android:id="@+id/id_blurryVision"
                         android:layout_width="wrap_content"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:text="@string/blurryVision"
                         android:textSize="20sp" />
@@ -712,7 +713,7 @@
                     <CheckBox
                         android:id="@+id/id_onlyHead"
                         android:layout_width="wrap_content"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:text="@string/onlyHead"
                         android:textSize="20sp" />
@@ -720,7 +721,7 @@
                     <CheckBox
                         android:id="@+id/id_convulsion"
                         android:layout_width="wrap_content"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:text="@string/convulsion"
                         android:textSize="20sp" />
@@ -728,7 +729,7 @@
                     <CheckBox
                         android:id="@+id/id_deleiveryExtra"
                         android:layout_width="wrap_content"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:text="@string/deliveryExtra"
                         android:textSize="20sp" />
@@ -753,7 +754,7 @@
                 <org.sci.rhis.fwc.MultiSelectionSpinner
                     android:id="@+id/id_spinner_treatment"
                     android:layout_width="wrap_content"
-                    android:layout_height="50px"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10sp"
                     android:layout_marginTop="10sp"
                     android:background="@drawable/gradient_spinner"/>
@@ -779,7 +780,7 @@
                 <org.sci.rhis.fwc.MultiSelectionSpinner
                     android:id="@+id/id_spinner_advice"
                     android:layout_width="wrap_content"
-                    android:layout_height="50px"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10sp"
                     android:layout_marginLeft="10sp"
                     android:background="@drawable/gradient_spinner"/>
@@ -799,7 +800,7 @@
                 <CheckBox
                     android:id="@+id/id_delivery_refer"
                     android:layout_width="wrap_content"
-                    android:layout_height="50px"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10sp"
                     android:textColor="@color/title_color"
                     android:text="@string/child_refer"
@@ -823,7 +824,7 @@
                     <Spinner
                         android:id="@+id/id_spinner_refer_facilities"
                         android:layout_width="wrap_content"
-                        android:layout_height="50px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:entries="@array/FacilityType_DropDown"
                         android:textSize="20sp"
@@ -844,7 +845,7 @@
                 <TextView
                     android:id="@+id/id_refer_delivery_cause"
                     android:layout_width="wrap_content"
-                    android:layout_height="50px"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10sp"
                     android:text="@string/general_cause"
                     android:textSize="20sp"
@@ -854,7 +855,7 @@
                 <org.sci.rhis.fwc.MultiSelectionSpinner
                     android:id="@+id/id_spinner_refer_delivery_cause"
                     android:layout_width="wrap_content"
-                    android:layout_height="50px"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10sp"
                     android:visibility="invisible"
                     android:layout_marginLeft="10sp"
@@ -870,20 +871,28 @@
                 <Button
                     android:text="Save &amp; Open Newborn Information"
                     android:layout_width="wrap_content"
-                    android:layout_height="80px"
+                    android:layout_margin="2sp"
+                    android:layout_height="80sp"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
+                    android:background="@drawable/button_style"
                     android:id="@+id/id_saveDeliveryButton"
                     android:onClick="onClick"/>
                 <Button
                     android:text="Save &amp; Serve NextbClient"
                     android:layout_width="wrap_content"
-                    android:layout_height="80px"
-                    android:layout_marginLeft="5sp"
+                    android:layout_margin="2sp"
+                    android:layout_height="80sp"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
+                    android:background="@drawable/button_style"
                     android:id="@+id/id_editDeliveryButton"
                     android:onClick="onClick"
                     android:visibility="gone"/>
             </LinearLayout>
 
         </LinearLayout>
+        </HorizontalScrollView>
         <TableLayout
             android:id="@+id/newborn_Tabla_Layout"
             android:layout_height="wrap_content"
@@ -909,30 +918,29 @@
             <TableRow
                 android:id="@+id/tableRow2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
                 <Button
                     android:text="@string/newborn_add"
                     android:layout_width="wrap_content"
-                    android:layout_height="80px"
+                    android:layout_height="wrap_content"
                     android:id="@+id/newbornAddButton"
                     android:onClick="onClick"/>
                 <Button
                     android:text="@string/death_fresh_add"
                     android:layout_width="wrap_content"
-                    android:layout_height="80px"
+                    android:layout_height="wrap_content"
                     android:id="@+id/deathFreshButton"
                     android:onClick="onClick"/>
                 <Button
                     android:text="@string/death_macerated_add"
                     android:layout_width="wrap_content"
-                    android:layout_height="80px"
-                    android:layout_marginLeft="5sp"
+                    android:layout_height="wrap_content"
                     android:id="@+id/deathmaceratedButton"
                     android:onClick="onClick"/>
                 <Spinner
                     android:id="@+id/id_childListDropdown"
                     android:layout_width="wrap_content"
-                    android:layout_height="50px"
+                    android:layout_height="fill_parent"
                     android:layout_marginTop="10sp"
                     android:layout_marginLeft="10sp"
                     android:background="@drawable/gradient_spinner"
@@ -940,4 +948,5 @@
             </TableRow>
         </TableLayout>
     </LinearLayout>
+
 </ScrollView>
