@@ -341,14 +341,13 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
             }
         }
 
-        int fieldSelector = (
-                            getSpinner(R.id.Clients_District).getSelectedItemPosition() &
-                            getSpinner(R.id.Clients_Upazila).getSelectedItemPosition() &
-                            getSpinner(R.id.Clients_Union).getSelectedItemPosition() &
-                            getSpinner(R.id.Clients_Village).getSelectedItemPosition()
-        );
+        boolean allSelected =  getSpinner(R.id.Clients_District).getSelectedItemPosition() != 0 &&
+                               getSpinner(R.id.Clients_Upazila).getSelectedItemPosition() != 0 &&
+                               getSpinner(R.id.Clients_Union).getSelectedItemPosition() != 0 &&
+                               getSpinner(R.id.Clients_Village).getSelectedItemPosition() != 0;
 
-        if(isEmpty || fieldSelector == 0) {
+        //TODO - there may not exist a village
+        if(isEmpty || !allSelected) {
             Toast toast = Toast.makeText(this, R.string.NRCSaveWarning, Toast.LENGTH_LONG);
             LinearLayout toastLayout = (LinearLayout) toast.getView();
             TextView toastTV = (TextView) toastLayout.getChildAt(0);
