@@ -285,7 +285,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
                 "\"villagemouza\":" + villageList.get(getSpinner(R.id.advSearchVillage).getSelectedItemPosition()).getCode()+
                 "}";
         // Log.e("selected Item's Value", String.valueOf(distValue));
-        Log.e("QueryStrig",queryString);
+        Log.i("QueryStrig",queryString);
         return new JSONObject(queryString);
     }
 

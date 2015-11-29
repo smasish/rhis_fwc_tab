@@ -271,7 +271,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                 client.put("cPregNo", json.get("pregNo"));
                 client.put("cNewMCHClient", "false");
 
-                Log.d("json", client.toString());
+                Log.d(LOGTAG, "CREATING PREGNANCY INFO " + client.toString());
 
                 woman = PregWoman.CreatePregWoman(client);
                 responseID = new BigInteger(client.get("cHealthID").toString());
@@ -282,7 +282,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             /////////////////////////////////////////////////////////////////////////////////////////////////////
         }
         catch (JSONException jse) {
-            System.out.println("JSON Exception Thrown( At callbackAsyncTask ):\n ");
+            Log.d(LOGTAG, "JSON Exception Thrown( At callbackAsyncTask ):\n ");
             jse.printStackTrace();
         }
 
@@ -562,8 +562,8 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             }
 
         } catch (JSONException JSE) {
-            System.out.println("JSON Exception:");
-            JSE.printStackTrace();
+            Log.e(LOGTAG, "JSON Exception:");
+            Utilities.printTrace(JSE.getStackTrace());
         }
     }
 
@@ -596,7 +596,8 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         try{
             json.put("complicatedHistoryNote", complicatedHistories);
         } catch (JSONException JSE) {
-            Log.e(LOGTAG, "Error:\n\t" + JSE.getStackTrace());
+            Log.e(LOGTAG, "Error:\n\t");
+            Utilities.printTrace(JSE.getStackTrace());
         }
     }
 

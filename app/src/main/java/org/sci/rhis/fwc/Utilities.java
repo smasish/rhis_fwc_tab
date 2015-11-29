@@ -66,7 +66,8 @@ public class Utilities {
              i <count && view != null; i++) {
             view = testgroup != null ? testgroup.getChildAt(i) : view;
 
-            if(view instanceof LinearLayout  || view instanceof  ViewGroup) {
+            if(view instanceof LinearLayout  || //LinearLayout is also view group so exclude it
+               ((view instanceof  ViewGroup) && !(view instanceof  Spinner))) {
                 Disable(activity, view);
             }
 
@@ -137,7 +138,8 @@ public class Utilities {
              i <count && view != null; i++) {
             view = testgroup != null ? testgroup.getChildAt(i) : view;
 
-            if(view instanceof LinearLayout || view instanceof  ViewGroup) {
+            if(view instanceof LinearLayout || //LinearLayout is also view group so exclude it
+            ((view instanceof  ViewGroup) && !(view instanceof  Spinner))) {
                 MakeInvisible(activity, view);
                 Disable(activity, view);
             }
@@ -162,7 +164,8 @@ public class Utilities {
              i <count && view != null; i++) {
             view = testgroup != null ? testgroup.getChildAt(i) : view;
 
-            if(view instanceof  LinearLayout || view instanceof  ViewGroup) {
+            if(view instanceof  LinearLayout || //LinearLayout is also view group so exclude it
+                    ((view instanceof  ViewGroup) && !(view instanceof  Spinner))) {
                 MakeVisible(activity, view);
                 Enable(activity, view);
             }
@@ -286,7 +289,8 @@ public class Utilities {
              i <count && view != null; i++) {
              view = testgroup != null ? testgroup.getChildAt(i) : view;
 
-            if(view instanceof LinearLayout || view instanceof  ViewGroup) {
+            if(view instanceof LinearLayout || //LinearLayout is also view group so exclude it
+               ((view instanceof  ViewGroup) && !(view instanceof  Spinner))) {
                 Enable(activity, view);
             }
 
