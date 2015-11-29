@@ -66,7 +66,7 @@ public class Utilities {
              i <count && view != null; i++) {
             view = testgroup != null ? testgroup.getChildAt(i) : view;
 
-            if(view instanceof LinearLayout) {
+            if(view instanceof LinearLayout  || view instanceof  ViewGroup) {
                 Disable(activity, view);
             }
 
@@ -137,7 +137,7 @@ public class Utilities {
              i <count && view != null; i++) {
             view = testgroup != null ? testgroup.getChildAt(i) : view;
 
-            if(view instanceof LinearLayout) {
+            if(view instanceof LinearLayout || view instanceof  ViewGroup) {
                 MakeInvisible(activity, view);
                 Disable(activity, view);
             }
@@ -286,8 +286,8 @@ public class Utilities {
              i <count && view != null; i++) {
              view = testgroup != null ? testgroup.getChildAt(i) : view;
 
-            if(view instanceof LinearLayout) {
-                Enable(activity, view.getId());
+            if(view instanceof LinearLayout || view instanceof  ViewGroup) {
+                Enable(activity, view);
             }
 
             else if (view instanceof CheckBox) {

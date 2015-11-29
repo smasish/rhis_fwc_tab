@@ -38,10 +38,6 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                                                                                CompoundButton.OnCheckedChangeListener{
 
     //UI References
-    //private DatePickerDialog fromDatePickerDialog;
-    private ImageView deliveryDateButton;
-    private ImageView admissionDateButton;
-    private ImageView anyDateButton;
     private CustomDatePickerDialog datePickerDialog;
     private CustomTimePickerDialog timePickerDialog;
     private HashMap<Integer, EditText> datePickerPair;

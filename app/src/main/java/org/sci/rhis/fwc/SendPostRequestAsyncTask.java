@@ -6,9 +6,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -53,7 +50,7 @@ public class SendPostRequestAsyncTask extends AsyncTask<String, Void, String> {
         Log.i(LOGTAG, "Sending JSON:\t" + queryString);
 
         Log.i(LOGTAG, "RootKey:\t"+jsonRootkey + "\tServlet:\t" + servlet);
-        HttpClient httpClient = new DefaultHttpClient();
+
         // In a POST request, we don't pass the values in the URL.
         //Therefore we use only the web page URL as the parameter of the HttpPost argument
 

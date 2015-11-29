@@ -20,6 +20,7 @@ import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -101,6 +102,8 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     private int lastAncVisit;
     JSONArray json_Array = null;
     private Context con;
+    private int countSaveClick = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -584,14 +587,8 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         expListView.setIndicatorBounds(0, 0);
         expListView.setChildIndicatorBounds(0, 0);
         expListView.setStackFromBottom(true);
-
-
        // ll.addView(expListView);
       //  expListView.smoothScrollToPosition(expListView.getCount() - 1);
-
-
-
-
     }
 
 
@@ -619,17 +616,53 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     // Added by Al Amin
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.ancServiceDateValue || v.getId() == R.id.Date_Picker_Button) {
 
+        if( v.getId() == R.id.ancServiceDateValue ||
+            v.getId() == R.id.Date_Picker_Button ) {
             datePickerDialog.show(datePickerPair.get(v.getId()));
         }
 
-        if(v.getId() == R.id.ancSaveButton){
+        if(v.getId() == R.id.ancSaveButton) {
+
             ll.removeAllViews();
-            saveAnc(v);
+
+            //-- confirm first
+            countSaveClick++;
+            if( countSaveClick == 2 ) {
+                saveAnc(v);
+                getButton(R.id.ancSaveButton).setText("Save");
+                Utilities.Enable(this, R.id.ancEntryMasterLayout);
+                Utilities.MakeInvisible(this, R.id.ancEditButton);
+                countSaveClick = 0;
+
+            } else if(countSaveClick == 1) {
+                Utilities.Disable(this, R.id.ancEntryMasterLayout);
+                getButton( R.id.ancSaveButton).setText("Confirm");
+                Utilities.Enable(this, R.id.ancSaveButton);
+                getButton( R.id.ancEditButton).setText("Cancel");
+                Utilities.Enable(this, R.id.ancEditButton);
+                Utilities.MakeVisible(this, R.id.ancEditButton);
+
+                Toast toast = Toast.makeText(this, R.string.DeliverySavePrompt, Toast.LENGTH_LONG);
+                LinearLayout toastLayout = (LinearLayout) toast.getView();
+                TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                toastTV.setTextSize(20);
+                toast.show();
+            }
+        } else if(v.getId() == R.id.ancEditButton) {
+            if(countSaveClick == 1) {
+                countSaveClick = 0;
+                Utilities.Enable(this, R.id.ancEntryMasterLayout);
+                getButton(R.id.ancSaveButton).setText("Save");
+                //TODO - Review
+                Utilities.MakeInvisible(this, R.id.ancEditButton);
+            }
+        }
+            // --
+
             //initPage();
             //loadANCHistory();
-        }
+
     }
 
     @Override
