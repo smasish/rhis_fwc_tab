@@ -148,7 +148,7 @@
             android:layout_marginTop="10sp"
             style="@style/rowStyle0"
             android:background="@drawable/fragmentborder"
-            android:visibility="gone">
+            android:visibility="visible">
             <TableRow
                 android:id="@+id/tableRow1"
                 android:layout_width="match_parent"
