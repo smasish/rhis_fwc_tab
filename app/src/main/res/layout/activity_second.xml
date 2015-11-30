@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    android:fillViewport="true">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -34,7 +35,8 @@
 
         <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -103,9 +105,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/fragment_client_intro_scroll" >
             <HorizontalScrollView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/hzScrollClientIntro">
+                android:id="@+id/hzScrollClientIntro"
+                android:fillViewport="true">
 
                     <fragment
                         android:layout_width="wrap_content"
@@ -122,9 +125,10 @@
             android:layout_marginTop="10sp"
             android:id="@+id/fragment_client_info_scroll" >
             <HorizontalScrollView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/hzScrollClientInfo">
+                android:id="@+id/hzScrollClientInfo"
+                android:fillViewport="true">
                 <fragment
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -135,7 +139,8 @@
         </LinearLayout>
         <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
         <TableLayout
             android:id="@+id/table_Layout"
             android:layout_height="wrap_content"

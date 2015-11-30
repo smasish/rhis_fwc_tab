@@ -559,7 +559,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/oxytocinGiven"
-                        android:textSize="20sp" android:textColor="@color/text_color" />
+                        android:textSize="18sp" android:textColor="@color/text_color" />
                     <RadioGroup
                         android:id="@+id/id_radioGroupMisoprostol"
                         android:layout_width="fill_parent"
@@ -570,14 +570,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/general_yes"
-                            android:textSize="20sp" android:textColor="@color/text_color" />
+                            android:textSize="18sp" android:textColor="@color/text_color" />
 
                         <RadioButton
                             android:id="@+id/radioMisoprostol_no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/general_no"
-                            android:textSize="20sp" />
+                            android:textSize="18sp" />
                     </RadioGroup>
 
                 </LinearLayout>
