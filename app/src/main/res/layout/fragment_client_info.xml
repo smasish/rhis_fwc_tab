@@ -80,6 +80,7 @@
                 android:paddingLeft="10sp"
                 android:hint="dd/MM/yyyy"
                 android:background="@drawable/edittext_round"
+                android:inputType="date"
                 style="@style/styleEdittext"/>
 
             <ImageButton
@@ -108,6 +109,7 @@
                 android:background="@drawable/edittext_round"
                 android:id="@+id/para"
                 android:paddingLeft="5sp"
+                android:inputType="number"
                 style="@style/styleEdittext"/>
             <TextView
                 android:textSize="20sp"
@@ -128,6 +130,7 @@
                 android:background="@drawable/edittext_round"
                 android:id="@+id/gravida"
                 android:paddingLeft="5sp"
+                android:inputType="number"
                 style="@style/styleEdittext"
                 />
         </LinearLayout>
@@ -221,6 +224,7 @@
                 android:background="@drawable/edittext_round"
                 android:id="@+id/SonNum"
                 android:paddingLeft="10sp"
+                android:inputType="number"
                 style="@style/styleEdittext"
                 />
 
@@ -242,6 +246,7 @@
                 android:background="@drawable/edittext_round"
                 android:id="@+id/DaughterNum"
                 android:paddingLeft="10sp"
+                android:inputType="number"
                 style="@style/styleEdittext"
                 />
 
@@ -275,6 +280,7 @@
                 android:background="@drawable/edittext_round"
                 android:id="@+id/lastChildYear"
                 android:paddingLeft="10sp"
+                android:inputType="number"
                 style="@style/styleEdittext"
                 />
 
@@ -297,6 +303,7 @@
                 android:id="@+id/lastChildMonth"
                 android:paddingLeft="10sp"
                 style="@style/styleEdittext"
+                android:inputType="number"
                 />
             <TextView
                 android:textSize="20sp"
