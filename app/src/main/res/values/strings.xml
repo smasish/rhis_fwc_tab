@@ -80,6 +80,7 @@
     <string name = "PNCWarning">প্রসবের তথ্য অনুপস্থিত। অনুগ্রহ করে \nপ্রসবোত্তর সেবার পূর্বে প্রসবের তথ্য নিন। </string>
     <string name = "NRCSaveWarning">দয়া করে তারকা (*) চিহ্নিত ঘর গুলি পূরণ করে পুনরায় save চাপুন </string>
     <string name = "DeliverySavePrompt">দয়া করে সংগৃহিত তথ্য যাচাই করুন, নিশ্চিত করে CONFIRM চাপুন</string>
+    <string name = "DeliveryWithoutPregnancyPrompt">গর্ভ সংক্রান্ত তথ্য অনুপস্থিত।\n তথ্য ব্যতীত সেবা দিতে OK চাপুন ফেরত যেতে CANCEL চাপুন</string>
 
     <string-array name="Blood_Group_Dropdown">
         <item></item>

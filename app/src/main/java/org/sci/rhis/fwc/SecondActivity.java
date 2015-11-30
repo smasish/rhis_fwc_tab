@@ -12,6 +12,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Pair;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -107,32 +108,32 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         eddEditText = (EditText) findViewById(R.id.edd);
 
         lmpEditText.addTextChangedListener(
-            new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                    SimpleDateFormat uiFormat = new SimpleDateFormat("dd/MM/yyyy");
-
-                    try {
-                        Date lmp = uiFormat.parse(lmpEditText.getText().toString());
-
-                        Date edd = Utilities.addDateOffset(lmp, PregWoman.PREG_PERIOD);
-                        eddEditText.setText(uiFormat.format(edd));
-
-                    } catch (ParseException PE) {
+                new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
                     }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        SimpleDateFormat uiFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+                        try {
+                            Date lmp = uiFormat.parse(lmpEditText.getText().toString());
+
+                            Date edd = Utilities.addDateOffset(lmp, PregWoman.PREG_PERIOD);
+                            eddEditText.setText(uiFormat.format(edd));
+
+                        } catch (ParseException PE) {
+
+                        }
+                    }
                 }
-            }
         );
 
         addListenerOnButton();
@@ -240,6 +241,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
                     if (json.getString("cSex").equals("2") && Integer.parseInt(json.getString("cAge")) >= 15 && Integer.parseInt(json.getString("cAge")) <= 49) {
                         //Elco Women
+                        Log.d(LOGTAG, "CREATING PREGNANCY REMOTE" + client.toString());
                         woman = PregWoman.CreatePregWoman(json);
                         responseID = new BigInteger(json.get("cHealthID").toString());
                         if (woman != null) {//Elco Women with pregInfo
@@ -260,8 +262,6 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                 }
             }
 
-            /////////////////////////////////////////////////////////////////////////////////////////////////////
-
             //////////////////callback for PregInfo servlet//////////////////////////////////////////////////////
 
             else {
@@ -271,15 +271,13 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                 client.put("cPregNo", json.get("pregNo"));
                 client.put("cNewMCHClient", "false");
 
-                Log.d(LOGTAG, "CREATING PREGNANCY INFO " + client.toString());
+                Log.d(LOGTAG, "CREATING PREGNANCY LOCAL" + client.toString());
 
                 woman = PregWoman.CreatePregWoman(client);
                 responseID = new BigInteger(client.get("cHealthID").toString());
 
                 getView_WomenWithPregInfo();
             }
-
-            /////////////////////////////////////////////////////////////////////////////////////////////////////
         }
         catch (JSONException jse) {
             Log.d(LOGTAG, "JSON Exception Thrown( At callbackAsyncTask ):\n ");
@@ -319,7 +317,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             intent.putExtra("Provider", ProviderInfo.getProvider());
             startActivityForResult(intent, ActivityResultCodes.DELIVERY_ACTIVITY);
         } else {
-            Toast.makeText(this, "Too Late for Delivery, verify ...", Toast.LENGTH_LONG).show();
+            deliveryWithoutPregInfo();
         }
     }
 
@@ -356,18 +354,47 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         return true;
     }
 
+    private void deliveryWithoutPregInfo() {
+        AlertDialog alertDialog = new AlertDialog.Builder(SecondActivity.this).create();
+        alertDialog.setTitle("LOGOUT CONFIRMATION");
+        alertDialog.setMessage(getString(R.string.DeliveryWithoutPregnancyPrompt));
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        //finish();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        saveClientToJson(new AsyncCallback() {
+                            @Override
+                            public void callbackAsyncTask(String result) {
+                                startDeliveryWithoutPregInfo(result);
+                            }
+                        }, false);
+                    }
+                });
+
+        alertDialog.show();
+    }
+
+    private void startDeliveryWithoutPregInfo(String result) {
+        Log.d(LOGTAG, "PSUDO PREG INFO RETURNED:\n\t" + result);
+        callbackAsyncTask(result); //will create PregWoman
+        Intent intent = new Intent(this, DeliveryActivity.class);
+        intent.putExtra("PregWoman", woman);
+        intent.putExtra("Provider", ProviderInfo.getProvider());
+        startActivityForResult(intent, ActivityResultCodes.DELIVERY_ACTIVITY);
+    }
+
     @Override
     public void onBackPressed() {
-        // your code.
-        /*Intent finishIntent = new Intent();
-
-        finishIntent.putExtra("hasDeliveryInformation", hasDeliveryInfo);
-
-        setResult(RESULT_OK, finishIntent);
-        finishActivity(ActivityResultCodes.DELIVERY_ACTIVITY);
-        */
         AlertDialog alertDialog = new AlertDialog.Builder(SecondActivity.this).create();
-        alertDialog.setTitle("Logout?");
+        alertDialog.setTitle("LOGOUT CONFIRMATION");
         alertDialog.setMessage("আপনি কি বের হয়ে যেতে চান? \nনিশ্চিত করতে OK চাপুন, ফিরে যেতে CANCEL চাপুন ");
 
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
@@ -518,23 +545,31 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
     }
 
     private void saveClientToJson() {
-        clientInfoUpdateTask = new AsyncClientInfoUpdate(this);
+        saveClientToJson(this, true);
+    }
+
+    private void saveClientToJson(AsyncCallback callback, boolean storeLocalJson) {
+        clientInfoUpdateTask = new AsyncClientInfoUpdate(callback);
         JSONObject json;
         try {
             json = buildQueryHeader(false);
+            if(!storeLocalJson) {
+                json.put("lmp", new SimpleDateFormat("yyyy-MM-dd").format(Utilities.addDateOffset(new Date(), -280)));
+                json.put("edd", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+            }
             Utilities.getEditTexts(jsonEditTextMap, json);
             Utilities.getEditTextDates(jsonEditTextDateMapSave, json);
             Utilities.getCheckboxesBlank(jsonCheckboxMapSave, json);
             Utilities.getSpinners(jsonSpinnerMapSave, json);
             getSpecialCases(json);
-            Log.d("Pregwomen", "***************In progress :" + json.toString());
-            storeInfoToJsonfirst(json);
+            Log.d(LOGTAG, "PREPARE PREGNANCY JSON:\n\t" + json.toString());
+            //if(storeLocalJson) {
+                storeInfoToJsonfirst(json);
+            //}
             clientInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
-        }
-        catch (JSONException jse) {
+        } catch (JSONException jse) {
             Log.e("Pregwomen", "JSON Exception: " + jse.getMessage());
         }
-
     }
 
     private void storeInfoToJsonfirst(JSONObject json) {
@@ -668,14 +703,14 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
     private void getView_WomenWithOutPregInfo(){
         Utilities.EnableField(this, R.id.Clients_House_No, "edit");
-        Utilities.EnableField(this, R.id.Clients_Mobile_no,"edit");
+        Utilities.EnableField(this, R.id.Clients_Mobile_no, "edit");
 
         Utilities.VisibleButton(this, R.id.client_Save_Button);
         Utilities.InVisibleButton(this, R.id.client_update_Button);
         Utilities.InVisibleButton(this, R.id.client_edit_Button);
         Utilities.InVisibleButton(this, R.id.client_New_preg_Button);
 
-        Utilities.InVisibleLayout(this, R.id.table_Layout);
+        Utilities.VisibleLayout(this, R.id.table_Layout);
         Utilities.VisibleLayout(this, R.id.clients_info_layout);
     }
     private void getView_NoClient(){

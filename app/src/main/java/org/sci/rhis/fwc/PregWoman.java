@@ -217,6 +217,7 @@ public class PregWoman extends GeneralPerson implements Parcelable{
             this.lmp = df.parse(_lmp);
             UpdateEdd();
         } catch (ParseException PE) {
+            this.lmp = new Date();
             System.out.println("Parsing Exception:");
             PE.printStackTrace();
         }
