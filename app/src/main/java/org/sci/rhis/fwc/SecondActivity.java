@@ -107,32 +107,32 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         eddEditText = (EditText) findViewById(R.id.edd);
 
         lmpEditText.addTextChangedListener(
-            new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                    SimpleDateFormat uiFormat = new SimpleDateFormat("dd/MM/yyyy");
-
-                    try {
-                        Date lmp = uiFormat.parse(lmpEditText.getText().toString());
-
-                        Date edd = Utilities.addDateOffset(lmp, PregWoman.PREG_PERIOD);
-                        eddEditText.setText(uiFormat.format(edd));
-
-                    } catch (ParseException PE) {
+                new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
                     }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        SimpleDateFormat uiFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+                        try {
+                            Date lmp = uiFormat.parse(lmpEditText.getText().toString());
+
+                            Date edd = Utilities.addDateOffset(lmp, PregWoman.PREG_PERIOD);
+                            eddEditText.setText(uiFormat.format(edd));
+
+                        } catch (ParseException PE) {
+
+                        }
+                    }
                 }
-            }
         );
 
         addListenerOnButton();
@@ -211,7 +211,25 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         Utilities.setSpinners(jsonSpinnerMap, json);
         Utilities.setCheckboxes(jsonCheckboxMap, json);
         Utilities.setEditTextDates(jsonEditTextDateMap, json);
+        setSpecialCase(json);
 
+    }
+
+    private void setSpecialCase(JSONObject json){
+        try {
+            if(json.has("regDate") && json.has("regSerialNo")) {
+                //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                //Date regDae = sdf.
+                String regSerial = json.getString("regSerialNo") + "/"
+                        + json.getString("regDate").split("-")[0].substring(2);
+
+                getTextView(R.id.reg_NO).setText(regSerial);
+            }
+
+        } catch (JSONException jse) {
+            Log.e(LOGTAG, "JSON Exception Thrown(test):\n ");
+            Utilities.printTrace(jse.getStackTrace());
+        }
     }
 
     @Override
@@ -235,7 +253,8 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                 client = json;
                 if (json.getString("False").equals("")) { //Client exists
                     populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
-                    Utilities.VisibleLayout(this, R.id.client_intro_layout);
+                    //Utilities.VisibleLayout(this, R.id.client_intro_layout);
+                    Utilities.MakeVisible(this, R.id.client_intro_layout);
                     Utilities.Disable(this, R.id.client_intro_layout);
 
                     if (json.getString("cSex").equals("2") && Integer.parseInt(json.getString("cAge")) >= 15 && Integer.parseInt(json.getString("cAge")) <= 49) {
@@ -252,7 +271,8 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                     } else {//Men & Not-Elco Women
                         Toast.makeText(this, "Male or Not Eligible Women for Pregnancy", Toast.LENGTH_LONG).show();
                         getView_NoClient();
-                        Utilities.VisibleLayout(this, R.id.client_intro_layout);
+                        //Utilities.VisibleLayout(this, R.id.client_intro_layout);
+                        Utilities.MakeVisible(this, R.id.client_intro_layout);
                     }
                 } else {//Client doesn't exist
                     Toast.makeText(this, "Provided information is not valid! Please try again....", Toast.LENGTH_LONG).show();
@@ -647,6 +667,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
         Utilities.InVisibleButton(this, R.id.client_edit_Button);
         Utilities.VisibleButton(this, R.id.client_update_Button);
+        Utilities.Enable(this, R.id.client_Save_Button);
     }
 
     private void getView_WomenWithPregInfo() {
@@ -660,6 +681,9 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         Utilities.InVisibleButton(this, R.id.client_update_Button);
         Utilities.VisibleButton(this, R.id.client_edit_Button);
         Utilities.VisibleButton(this, R.id.client_New_preg_Button);
+
+        Utilities.Enable(this, R.id.client_edit_Button);
+        Utilities.Enable(this, R.id.client_New_preg_Button);
 
         Utilities.VisibleLayout(this, R.id.table_Layout);
         Utilities.VisibleLayout(this, R.id.client_intro_layout);
@@ -677,6 +701,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
         Utilities.InVisibleLayout(this, R.id.table_Layout);
         Utilities.VisibleLayout(this, R.id.clients_info_layout);
+        Utilities.VisibleLayout(this, R.id.client_intro_layout);
     }
     private void getView_NoClient(){
         Utilities.InVisibleLayout(this, R.id.client_intro_layout);
