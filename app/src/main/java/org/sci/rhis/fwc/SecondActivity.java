@@ -218,17 +218,22 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
     private void setSpecialCase(JSONObject json){
         try {
             if(json.has("regDate") && json.has("regSerialNo")) {
-                //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                //Date regDae = sdf.
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String regDate = json.getString("regDate");
+                if(regDate.equals(""))
+                    return;
+                Date regD = sdf.parse(regDate);
                 String regSerial = json.getString("regSerialNo") + "/"
                         + json.getString("regDate").split("-")[0].substring(2);
-
+                regSerial += " " + new SimpleDateFormat("dd/MM/yyyy").format(regD);
                 getTextView(R.id.reg_NO).setText(regSerial);
             }
 
         } catch (JSONException jse) {
             Log.e(LOGTAG, "JSON Exception Thrown(test):\n ");
             Utilities.printTrace(jse.getStackTrace());
+        } catch (ParseException pe) {
+
         }
     }
 
@@ -651,6 +656,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
     public void resetFields(View view){//OnClick Method
         Utilities.Reset(this, R.id.clients_info_layout);
+        Utilities.Enable(this, R.id.clients_info_layout);
         Utilities.EnableField(this, R.id.Clients_House_No, "edit");
         Utilities.EnableField(this, R.id.Clients_Mobile_no, "edit");
 
