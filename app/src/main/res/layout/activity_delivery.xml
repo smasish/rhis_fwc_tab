@@ -42,12 +42,13 @@
 
             <LinearLayout
                 android:id="@+id/delivery_place"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginTop="5sp"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10sp"
-                android:layout_marginTop="10sp"
-                android:orientation="horizontal">
+                android:background="@drawable/layoutbordersimple">
 
                 <TextView
                     android:id="@+id/delivery_place_label"
@@ -65,7 +66,6 @@
                     android:layout_marginLeft="10sp"
                     android:layout_marginTop="10sp"
                     android:entries="@array/FacilityPlace_DropDown"
-                    android:textSize="20sp"
                     android:prompt="@string/delivery_place"
                     android:background="@drawable/gradient_spinner"/>
 
@@ -93,12 +93,13 @@
 
             <LinearLayout
                 android:id="@+id/delivery_date_time"
-                android:layout_width="wrap_content"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginTop="5sp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10sp"
-                android:layout_marginTop="10sp"
-                android:orientation="horizontal">
+                android:background="@drawable/layoutbordersimple">
 
                 <TextView
                     android:id="@+id/TextViewdelivery_date"
@@ -119,11 +120,11 @@
                     android:inputType="date"
                     android:hint="dd/mm/yyyy"/>
                 <ImageButton
-                    android:layout_width="50px"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40sp"
+                    android:layout_height="40sp"
                     android:id="@+id/imageViewDeliveryDate"
                     android:src="@drawable/calendar_icon"
-                    android:layout_marginTop="5sp"
+                    android:layout_marginTop="3sp"
                     android:tag="DateField"
                     android:onClick="pickDate"/>
 
@@ -167,7 +168,7 @@
 
                 <Spinner
                     android:id="@+id/delivery_time_Dropdown"
-                    android:layout_width="60sp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10sp"
                     android:entries="@array/DeliveryTime_DropDown"
@@ -183,12 +184,13 @@
 
             <LinearLayout
                 android:id="@+id/id_facililties_section_layout"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginTop="5sp"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10sp"
-                android:layout_marginTop="10sp"
-                android:orientation="horizontal">
+                android:background="@drawable/layoutbordersimple">
 
                 <TextView
                     android:id="@+id/TaxtViewdscn"
@@ -204,19 +206,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10sp"
                     android:entries="@array/FacilityType_DropDown"
-                    android:layout_marginTop="10sp"
-                    android:textSize="20sp"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginBottom="2sp"
                     android:background="@drawable/gradient_spinner"/>
 
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/id_facililties_admission_layout"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginTop="5sp"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10sp"
-                android:layout_marginTop="10sp"
-                android:orientation="horizontal">
+                android:background="@drawable/layoutbordersimple">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -236,11 +239,11 @@
                     android:hint="dd/MM/yyyy"/>
 
                 <ImageButton
-                    android:layout_width="50px"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40sp"
+                    android:layout_height="40sp"
                     android:id="@+id/imageViewAdmissionDate"
                     android:src="@drawable/calendar_icon"
-                    android:layout_marginTop="10sp"
+                    android:layout_marginTop="3sp"
                     android:tag="DateField"
                     android:onClick="pickDate"/>
 
@@ -290,24 +293,27 @@
                 android:id="@+id/id_deliveryResultLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="10sp">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/TaxtViewdelivery_result"
                     android:layout_width="160sp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10sp"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginLeft="5sp"
                     android:textColor="@color/title_color"
                     android:text="@string/delivery_result"
                     android:textSize="20sp" />
 
                 <LinearLayout
                     android:id="@+id/new_born"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:orientation="horizontal"
+                    android:background="@drawable/layoutbordersimple"
                     android:saveEnabled="false">
 
                     <TextView
@@ -376,11 +382,13 @@
 
                 <LinearLayout
                     android:id="@+id/sex"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="10sp"
-                    android:orientation="horizontal">
+                    android:background="@drawable/layoutbordersimple">
 
                     <TextView
                         android:id="@+id/taxtChildSex"
@@ -450,9 +458,7 @@
                 android:id="@+id/id_DeliveryManagementLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="10sp"
-                android:layout_marginBottom="10sp"
+                android:layout_marginTop="5sp"
                 android:orientation="vertical">
 
                 <TextView
@@ -463,15 +469,16 @@
                     android:layout_marginLeft="10sp"
                     android:text="@string/amtsl"
                     android:textColor="@color/title_color"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <LinearLayout
                     android:id="@+id/amtsl"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="10sp"
-                    android:layout_marginLeft="10sp"
+                    android:background="@drawable/layoutbordersimple"
                     android:orientation="vertical">
 
                     <CheckBox
@@ -500,10 +507,13 @@
                 </LinearLayout>
                 <LinearLayout
                     android:id = "@+id/id_Epcotomi_section_layout"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10sp"
-                    android:orientation="horizontal">
+                    android:background="@drawable/layoutbordersimple">
 
                     <TextView
                         android:id="@+id/idEpcotomi"
@@ -536,10 +546,13 @@
 
                 <LinearLayout
                     android:id="@+id/no_oxytocin"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10sp"
-                    android:orientation="horizontal">
+                    android:background="@drawable/layoutbordersimple">
 
                     <TextView
                         android:id="@+id/idOxytocin"
@@ -573,12 +586,13 @@
 
             <LinearLayout
                 android:id="@+id/deliveryAttendantDetails"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginTop="5sp"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10sp"
-                android:layout_marginTop="10sp"
-                android:orientation="horizontal">
+                android:background="@drawable/layoutbordersimple">
                 <TextView
                     android:id="@+id/id_attendantNameLabel"
                     android:layout_width="wrap_content"
@@ -600,11 +614,13 @@
 
             <LinearLayout
                 android:id="@+id/attendantTitleLayout"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginTop="5sp"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10sp"
-                android:orientation="horizontal">
+                android:background="@drawable/layoutbordersimple">
                 <TextView
                     android:id="@+id/id_attendantTitle"
                     android:layout_width="wrap_content"
@@ -617,7 +633,8 @@
                     android:id="@+id/id_attendantTitleDropdown"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10sp"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginBottom="2sp"
                     android:layout_marginLeft="10sp"
                     android:entries="@array/DeliveryAttendant_DropDown"
                     android:background="@drawable/gradient_spinner"/>
@@ -626,11 +643,12 @@
 
             <LinearLayout
                 android:id="@+id/complication"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginTop="5sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10sp"
-                android:layout_marginTop="10sp"
+                android:background="@drawable/layoutbordersimple"
                 android:orientation="vertical">
 
                 <TextView
@@ -737,11 +755,13 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/treatment"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginTop="5sp"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="10sp"
-                android:orientation="horizontal">
+                android:background="@drawable/layoutbordersimple">
 
                 <TextView
                     android:id="@+id/id_general_treatment"
@@ -756,19 +776,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10sp"
-                    android:layout_marginTop="10sp"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginBottom="2sp"
                     android:background="@drawable/gradient_spinner"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/advice"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginTop="5sp"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="10sp"
-                android:layout_marginTop="10sp"
-                android:orientation="horizontal">
-
-
+                android:background="@drawable/layoutbordersimple">
                 <TextView
                     android:id="@+id/id_general_advice"
                     android:layout_width="wrap_content"
@@ -781,21 +801,21 @@
                     android:id="@+id/id_spinner_advice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10sp"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginBottom="2sp"
                     android:layout_marginLeft="10sp"
                     android:background="@drawable/gradient_spinner"/>
-
-
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/refer"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginTop="5sp"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10sp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="10sp"
-                android:orientation="horizontal">
+                android:background="@drawable/layoutbordersimple">
 
                 <CheckBox
                     android:id="@+id/id_delivery_refer"
@@ -835,12 +855,13 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/reason"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginTop="5sp"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="10sp"
-                android:layout_marginTop="10sp"
-                android:orientation="horizontal">
+                android:background="@drawable/layoutbordersimple">
 
                 <TextView
                     android:id="@+id/id_refer_delivery_cause"
