@@ -24,31 +24,32 @@
             style="@style/rowHeading">
 
             <TextView
-                android:id="@+id/Reg._No._Label"
+                android:id="@+id/RegLabel"
                 android:gravity="start"
                 android:text="@string/reg_no"
-                android:layout_width="wrap_content"
+                android:layout_width="0sp"
                 android:textColor="#FFFFFF"
                 android:layout_height="wrap_content"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:layout_weight="1" />
             <TextView
-                android:layout_width="130sp"
+                android:layout_width="0sp"
                 android:layout_height="wrap_content"
                 android:id="@+id/reg_NO"
                 android:textColor="#FFFFFF"
-                style="@style/rowHeading"
-                android:paddingLeft="10sp"
+                android:paddingLeft="1sp"
                 android:textSize="20sp"
-                />
+                android:layout_weight="2" />
 
             <TextView
                 android:id="@+id/TextViewClient_info_tab"
                 android:gravity="center"
                 android:text="@string/ClientsInfoFragment"
-                android:layout_width="fill_parent"
+                android:layout_width="0sp"
                 android:textColor="#FFFFFF"
                 android:layout_height="wrap_content"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:layout_weight="2" />
         </LinearLayout>
 
         <LinearLayout
