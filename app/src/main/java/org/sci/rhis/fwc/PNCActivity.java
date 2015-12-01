@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -87,6 +88,7 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
     private ArrayList<String> childList;
 
     private int lastPncVisit = 0;
+    private int lastPncVisitChild = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -364,13 +366,8 @@ pnc child history
 
                 int in=1;
 
-                // woman = PregWoman.CreatePregWoman(json);
-                Log.d("--:::>", "---complicationsign=====>" + result);
                 //DEBUG
                 Resources res = getResources();
-                // String[] mainlist = res.getStringArray(R.array.list_item);
-                Log.d("-->", "---=jsonStr.keys()====>" + jsonStr.keys());
-
                 int item=0;
                 for (Iterator<String> ii = jsonStr.keys(); ii.hasNext(); ) {
                     key = ii.next();
@@ -660,6 +657,7 @@ pnc child history
             Utilities.getEditTextDates(jsonEditTextDateMapChild, json);
             Utilities.getSpinners(jsonSpinnerMapChild, json);
             Utilities.getMultiSelectSpinnerIndices(jsonMultiSpinnerMapChild, json);
+            getSpeciaTextViews(jsonTextViewMapChild, json);
 
             pncInfoUpdateTask.execute(json.toString(), SERVLET_CHILD, ROOTKEY_CHILD);
 
@@ -672,8 +670,18 @@ pnc child history
             Log.e("PNCC JSON Exception: ", jse.getMessage());
         }
 
+    }
 
-
+    private void getSpeciaTextViews(HashMap<String, TextView> keyMap, JSONObject json) {
+        for (String key: keyMap.keySet()) {
+            try {
+                //keyMap.get(key).setText(json.getString(key));
+                json.put(key, (keyMap.get(key).getText()));
+            } catch (JSONException jse) {
+                Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
+                Utilities.printTrace(jse.getStackTrace());
+            }
+        }
     }
 
     private JSONObject buildQueryHeaderChild(boolean isRetrieval) throws JSONException {
@@ -763,7 +771,6 @@ pnc child history
 
 
         //PNC Child visit
-        jsonEditTextMapChild.put("pncchildno", getEditText(R.id.pncNewBornNumber));
         jsonEditTextMapChild.put("pnctemperature", getEditText(R.id.pncChildTemperatureValue));
         jsonEditTextMapChild.put("pncweight", getEditText(R.id.pncChildWeightValue));
         jsonEditTextMapChild.put("pncbreathingperminute", getEditText(R.id.pncChildBreathValue));
@@ -772,7 +779,7 @@ pnc child history
 
     @Override
     protected void initiateTextViews() {
-
+        jsonTextViewMapChild.put("pncchildno", getTextView(R.id.pncNewBornNumber));
     }
 
     @Override
@@ -831,6 +838,7 @@ pnc child history
 
     private void handleChild(String result) {
 
+        Log.d(LOGTAG, "Handle child:\n\t" + result);
         ll_pnc_child.removeAllViews();
         try {
             JSONObject jsonStr = new JSONObject(result);
@@ -840,10 +848,15 @@ pnc child history
                 return;
             }
 
+            getTextView(R.id.pncNewBornNumber).setText(String.valueOf(selected_child));
+            //Utilities.Disable(this, R.id.pncNewBornNumber);
+
             JSONObject childJson = jsonStr.getJSONObject(String.valueOf(selected_child));
 
             int serviceCount = childJson.getInt("serviceCount");
-            if(childJson.getInt("serviceCount") > 0) {
+            getTextView(R.id.pncChildVisitValue).setText(String.valueOf(serviceCount+1));
+            if(serviceCount > 0) {
+
                 for(int in = 1; in <= serviceCount; in++ ) {
 //////
                     JSONObject jsonObject = childJson.getJSONObject("" + in);
