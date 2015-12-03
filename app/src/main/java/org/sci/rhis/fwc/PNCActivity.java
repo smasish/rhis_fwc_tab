@@ -1,6 +1,8 @@
 package org.sci.rhis.fwc;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
@@ -22,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.sci.rhis.utilities.CustomDatePickerDialog;
@@ -89,6 +92,9 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
 
     private int lastPncVisit = 0;
     private int lastPncVisitChild = 0;
+
+    private JSONObject jsonRespChild = null;
+    private JSONObject jsonRespMother = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -346,21 +352,24 @@ pnc child history
         Log.d(LOGTAG, "Handle Mother:\n" + result);
 
             try {
-                JSONObject jsonStr = new JSONObject(result);
+                jsonRespMother = new JSONObject(result);
                 String key;
 
-                lastPncVisit = jsonStr.getInt("count") + 1;
-                getTextView(R.id.pncVisitValue).setText(String.valueOf(lastPncVisit));
+                lastPncVisit = jsonRespMother.getInt("count");
+                getTextView(R.id.pncVisitValue).setText(String.valueOf(lastPncVisit+1)); //next visit
 
                 //Check if eligible for new PNC
-                if(jsonStr.has("pncStatus") &&
-                   jsonStr.getBoolean("pncStatus")) {
+                if(jsonRespMother.has("pncStatus") &&
+                   jsonRespMother.getBoolean("pncStatus")) {
                     Utilities.MakeInvisible(this, R.id.pncMotherInfo);
                     Toast.makeText(this, "Mother is not eligible for new PNC",Toast.LENGTH_LONG).show();
                 } else {
                     //get outcome date and populate ideal pnc visit info
-                    mother.setActualDelivery(jsonStr.getString("outcomeDate"), "yyyy-MM-dd");
+                    mother.setActualDelivery(jsonRespMother.getString("outcomeDate"), "yyyy-MM-dd");
                     setPncVisitAdvices();
+                    if(lastPncVisit>0) {
+                        showHidePncDeleteButton(jsonRespMother.getJSONObject(String.valueOf(lastPncVisit)));
+                    }
                 }
                 //
 
@@ -369,24 +378,24 @@ pnc child history
                 //DEBUG
                 Resources res = getResources();
                 int item=0;
-                for (Iterator<String> ii = jsonStr.keys(); ii.hasNext(); ) {
+                for (Iterator<String> ii = jsonRespMother.keys(); ii.hasNext(); ) {
                     key = ii.next();
                     item++;
                     Log.d("--:::>", "---key=====>" + item);
                 }
 
-                for (Iterator<String> ii = jsonStr.keys(); ii.hasNext(); ) {
+                for (Iterator<String> ii = jsonRespMother.keys(); ii.hasNext(); ) {
                     key = ii.next();
 
 
-                    System.out.println("1.Key:" + key + " Value:\'" + jsonStr.get(key) + "\'");
+                    System.out.println("1.Key:" + key + " Value:\'" + jsonRespMother.get(key) + "\'");
 
                     //if(in == item-3)
-                    if(in > jsonStr.getInt("count"))
+                    if(in > jsonRespMother.getInt("count"))
                         break;
                     //It's just json and not so hard to understand, keep getiing exception at this point
 
-                    JSONObject jsonRootObject = jsonStr.getJSONObject(""+in);
+                    JSONObject jsonRootObject = jsonRespMother.getJSONObject(""+in);
                     Log.d("--:::>", "---serviceSource=====>" + jsonRootObject.getString("serviceSource"));
 
                     String complicationsign = jsonRootObject.getString("complicationsign");
@@ -431,7 +440,7 @@ pnc child history
                     Log.d("--:::>", "---complicationsign=====>"+str1);
                     String[] animals = str1.split(" ");
                     String temp = "";
-                    details = res1.getStringArray(R.array.pnc_Anemia_Dropdown);
+                    details = res1.getStringArray(R.array.Anemia_Dropdown);
                     for (String animal : animals) {
                         System.out.println(animal);
                         if(animal.length()>0)
@@ -684,6 +693,17 @@ pnc child history
         }
     }
 
+    private JSONObject buildQueryHeader(boolean isRetrieval, boolean isMother) throws JSONException {
+        //get info from database
+        JSONObject query = null;
+        if (isMother) {
+            query = buildQueryHeaderMother(isRetrieval);
+        } else {
+            query = buildQueryHeaderChild(isRetrieval);
+        }
+        return query;
+    }
+
     private JSONObject buildQueryHeaderChild(boolean isRetrieval) throws JSONException {
         //get info from database
         String queryString =   "{" +
@@ -698,13 +718,13 @@ pnc child history
 
     public void savePnc(View view) {
             pncMotherSaveToJson();
-             Toast.makeText(this, "Save Button onClick performed", Toast.LENGTH_LONG).show();
+             Toast.makeText(this, "Saving Mother's Information", Toast.LENGTH_LONG).show();
 
     }
 
     public void savePNCChild (View view){
         pncChildSaveToJson();
-        Toast.makeText(this, "Save Button onClick performed", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Saving Child's Information", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -838,10 +858,14 @@ pnc child history
 
     private void handleChild(String result) {
 
+        if(!result.equals(child_result)) {
+            child_result = result;
+        }
+
         Log.d(LOGTAG, "Handle child:\n\t" + result);
         ll_pnc_child.removeAllViews();
         try {
-            JSONObject jsonStr = new JSONObject(result);
+            jsonRespChild = new JSONObject(result);
             String key;
             //int num=1;
             if(selected_child == 0) { //no child is selected
@@ -851,11 +875,12 @@ pnc child history
             getTextView(R.id.pncNewBornNumber).setText(String.valueOf(selected_child));
             //Utilities.Disable(this, R.id.pncNewBornNumber);
 
-            JSONObject childJson = jsonStr.getJSONObject(String.valueOf(selected_child));
+            JSONObject childJson = jsonRespChild.getJSONObject(String.valueOf(selected_child));
 
             int serviceCount = childJson.getInt("serviceCount");
             getTextView(R.id.pncChildVisitValue).setText(String.valueOf(serviceCount+1));
             if(serviceCount > 0) {
+                showHidePncDeleteButton(childJson.getJSONObject(String.valueOf(serviceCount)));
 
                 for(int in = 1; in <= serviceCount; in++ ) {
 //////
@@ -964,6 +989,7 @@ pnc child history
             pnclay_child.setVisibility(View.GONE);
             getSpinner(R.id.id_pncChildListDropdown).setSelection(0);// un-select selected children
 
+            showHidePncDeleteButton(jsonRespMother);
 
             if(mother_flag==false) {
                 lay_frag_mother.setVisibility(View.VISIBLE);
@@ -1148,7 +1174,86 @@ pnc child history
             //child_flag = false;
             ll_pnc_child.invalidate();
         }
+    }
 
+    private void showHidePncDeleteButton(JSONObject jso) {
+        Utilities.SetVisibility(this, R.id.deleteLastPncButton, isLastPncDeletable(jso) ? View.VISIBLE :View.GONE);
+    }
 
+    private boolean isLastPncDeletable(JSONObject jso) {
+
+        String providerCode = null;
+        try {
+
+            providerCode = jso.getString("providerId");
+            Log.d(LOGTAG,"Last Service was provide by: \t" + providerCode);
+            return (provider.getProviderCode().equals(providerCode));
+
+        } catch (JSONException jse) {
+            Utilities.printTrace(jse.getStackTrace());
+        }
+
+        //Set<String> keySey = jso.
+
+        return false;
+    }
+
+    private void deleteConfirmed(boolean isMother) {
+        try {
+
+            JSONObject deleteJson = buildQueryHeader(false, isMother);
+            String servlet = "";
+            String rootkey = "";
+            String loadKey = "";
+
+            if(isMother) {
+                servlet = SERVLET_MOTHER;
+                rootkey = ROOTKEY_MOTHER;
+                loadKey = "pncMLoad";
+                pncInfoUpdateTask = new AsyncPNCInfoUpdate(this);
+            } else {
+                servlet = SERVLET_CHILD;
+                rootkey = ROOTKEY_CHILD;
+                loadKey = "pncCLoad";
+                deleteJson.put("pncchildno", selected_child);
+                pncInfoUpdateTask = new AsyncPNCInfoUpdate(new AsyncCallback() {
+                    @Override
+                    public void callbackAsyncTask(String result) {
+                        handleChild(result);
+                    }
+                });
+            }
+
+            deleteJson.put(loadKey, "delete");
+
+            pncInfoUpdateTask.execute(deleteJson.toString(), servlet, rootkey);
+        } catch (JSONException jse) {
+            Log.e(LOGTAG, "Could not build delete ANC request");
+            Utilities.printTrace(jse.getStackTrace());
+        }
+    }
+
+    public void deleteLastPNC(View view) {
+        AlertDialog alertDialog = new AlertDialog.Builder(PNCActivity.this).create();
+        alertDialog.setIcon(android.R.drawable.ic_delete);
+        alertDialog.setTitle("Delete Service?");
+        alertDialog.setMessage(getString(R.string.ServiceDeletionWarning));
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        //finish();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        deleteConfirmed(findViewById(R.id.pncMotherInfo).getVisibility() == View.VISIBLE);
+                    }
+                });
+
+        alertDialog.show();
     }
 }

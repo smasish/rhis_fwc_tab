@@ -81,6 +81,7 @@
     <string name = "NRCSaveWarning">দয়া করে তারকা (*) চিহ্নিত ঘর গুলি পূরণ করে পুনরায় save চাপুন </string>
     <string name = "DeliverySavePrompt">দয়া করে সংগৃহিত তথ্য যাচাই করুন, নিশ্চিত করে CONFIRM চাপুন</string>
     <string name = "DeliveryWithoutPregnancyPrompt">গর্ভ সংক্রান্ত তথ্য অনুপস্থিত।\n তথ্য ব্যতীত সেবা দিতে OK চাপুন ফেরত যেতে CANCEL চাপুন</string>
+    <string name = "ServiceDeletionWarning">সাবধান!  সেবা গ্রহনের তথ্য DELETE করতে \n OK চাপুন ফেরত যেতে CANCEL চাপুন</string>
 
     <string-array name="Blood_Group_Dropdown">
         <item></item>
@@ -128,12 +129,10 @@
 
 
     <string-array name="list_item">
-
         <item>সেবাগ্রহনের তারিখ:</item>
         <item>রক্তচাপ (মিঃ মিঃ মার্কারি):</item>
         <item>রক্তচাপ (মিঃ মিঃ মার্কারি):</item>
         <item>ওজন (কেজি):</item>
-
         <item>ইডিমা:</item>
         <item>জরায়ুর উচ্চতা (সপ্তাহ):</item>
         <item>ফিটাসের হৃদপিণ্ডের গতি \n(প্রতি মিনিটে):</item>
@@ -153,8 +152,6 @@
         <item>রক্তস্বল্পতা :</item>
         <item>রেফার:</item>
         <item>কেন্দ্রের নাম:</item>
-
-
     </string-array>
 
     <string name="pnc_m_poridorshan">পরিদর্শন</string>
@@ -723,7 +720,7 @@
         <item> ++  </item>
         <item> +++  </item>
     </string-array>
-    <string-array name="pnc_Anemia_Dropdown">
+    <string-array name="Anemia_Dropdown">
         <item></item>
         <item>+</item>
         <item>++</item>

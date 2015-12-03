@@ -43,6 +43,9 @@ public class Utilities {
                 MakeVisible(activity, id);
                 break;
             case View.INVISIBLE:
+                Reset(activity, id);
+                MakeInvisible(activity, activity.findViewById(id), visibity);
+                break;
             case View.GONE:
                 Reset(activity, id);
                 MakeInvisible(activity, id);
@@ -123,10 +126,10 @@ public class Utilities {
 
     public static void MakeInvisible(Activity activity, int id)
     {
-        MakeInvisible(activity, activity.findViewById(id));
+        MakeInvisible(activity, activity.findViewById(id), View.GONE);
     }
 
-    public static void MakeInvisible(Activity activity, View view)
+    public static void MakeInvisible(Activity activity, View view, int visibility)
     {
         ViewGroup testgroup = null;
         //View view  = activity.findViewById(id);
@@ -140,10 +143,10 @@ public class Utilities {
 
             if(view instanceof LinearLayout || //LinearLayout is also view group so exclude it
             ((view instanceof  ViewGroup) && !(view instanceof  Spinner))) {
-                MakeInvisible(activity, view);
+                MakeInvisible(activity, view, visibility);
                 Disable(activity, view);
             }
-            view.setVisibility(View.GONE);
+            view.setVisibility(visibility);
 
         }
         /////
@@ -198,15 +201,20 @@ public class Utilities {
         visibility.setVisibility(View.GONE);
     }
 
-    public static void Reset(Activity activity, View view) {
-
-    }
 
     public static void Reset(Activity activity, int id) {
+        Reset(activity, activity.findViewById(id));
+    }
 
-        ViewGroup testgroup = (ViewGroup)activity.findViewById(id);
-        for(int i = 0, count = testgroup != null ? testgroup.getChildCount(): 0; i <count; i++) {
-            View view = testgroup.getChildAt(i);
+    public static void Reset(Activity activity, View view) {
+
+        ViewGroup testgroup = null;
+        if(view instanceof ViewGroup) { //if not a layout but single button is passed
+            testgroup  = (ViewGroup) view;
+        }
+
+        for(int i = 0, count = testgroup != null ? testgroup.getChildCount(): 1; i <count; i++) {
+            view = testgroup != null ? testgroup.getChildAt(i) : view;
 
             if(view instanceof LinearLayout) {
                 Reset(activity, view.getId());
@@ -685,7 +693,7 @@ public class Utilities {
         printTrace(ste, 3); //default to first 3 lines
     }
 
-    private static void printTrace(StackTraceElement ste [], int level) {
+    public static void printTrace(StackTraceElement ste [], int level) {
         //
         for(int i = 0; i< level; i++) {
             Log.e(LOGTAG, ste[i].toString());
