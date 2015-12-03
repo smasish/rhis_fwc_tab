@@ -1,7 +1,9 @@
 package org.sci.rhis.fwc;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -35,6 +37,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 public class ANCActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener,
                                                                      CompoundButton.OnCheckedChangeListener{
@@ -56,6 +59,8 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     final static int FOURTH_ANC_1 = 35; //WEEKS
     final static int FOURTH_ANC_2 = 36; //WEEKS
 
+    //whoprovide last service
+    final static int PROVIDER_CODE = 23;
 
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
@@ -80,7 +85,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
     final private String SERVLET = "anc";
     final private String ROOTKEY = "ANCInfo";
 
-
+    private  final String LOGTAG    = "FWC-ANC";
 
     //JSONArray visits = null;
 
@@ -358,12 +363,14 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
             //Check if eligible for new ANC
             if(jsonStr.has("ancStatus") &&
                jsonStr.getBoolean("ancStatus")) {
-                Utilities.MakeInvisible(this, R.id.ancEntryMasterLayout);
+                //Utilities.MakeInvisible(this, R.id.ancEntryMasterLayout);
+                Utilities.Disable(this, R.id.ancEntryMasterLayout);
                 Toast.makeText(this, "Mother is not eligible for new ANC",Toast.LENGTH_LONG).show();
             }
-            else
+            else {
                 Utilities.MakeVisible(this, R.id.ancEntryMasterLayout);
-            //
+                showHideAncDeleteButton(jsonStr);
+            }
 
             //DEBUG
             Resources res = getResources();
@@ -509,7 +516,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                             else if (i == 21) {
 
                             }
-                            else if (i == 22) {
+                            else if (i == 22) { //anemia
                                 String[] details;
                                 Resources res1 = con.getResources();
                                 String str1 = det;
@@ -517,13 +524,13 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
 
                                 String[] animals = str1.split(" ");
                                 String temp = "";
-                                details = res1.getStringArray(R.array.pnc_Anemia_Dropdown);
+                                details = res1.getStringArray(R.array.Anemia_Dropdown);
                                 for (String animal : animals) {
                                     System.out.println(animal);
                                     if(animal.length()>0)
-                                        temp = temp+"\n"+details[Integer.parseInt(animal)];
+                                        temp = temp+details[Integer.parseInt(animal)];
                                 }
-                                list.add("" + mainlist[i-1] +temp );
+                                list.add("" + mainlist[i-2] +temp );
 
                             }
                             else
@@ -556,6 +563,9 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                     } catch (JSONException e) {
                         Log.e("::::", "onPostExecute > Try > JSONException => " + e);
                         e.printStackTrace();
+                    } catch (ArrayIndexOutOfBoundsException aiob) {
+                        Log.e(LOGTAG, "Array Exception:\n\t\t");
+                        Utilities.printTrace(aiob.getStackTrace(), 10);
                     }
                 }
             }
@@ -786,6 +796,11 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         }
     }
 
+    private void showHideAncDeleteButton(JSONObject jso) {
+        Utilities.SetVisibility(this, R.id.deleteLastAncButton, isLastAncDeletable(jso) ? View.VISIBLE :View.INVISIBLE);
+        //findViewById(R.id.deleteLastAncButton).setVisibility(isLastAncDeletable(jso) ? View.VISIBLE :View.INVISIBLE);
+    }
+
     private JSONObject buildQueryHeader(boolean isRetrieval) throws JSONException {
         //get info from database
         String queryString =   "{" +
@@ -798,5 +813,64 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         //SendPostRequestAsyncTask retrieveDelivery = new AsyncDeliveryInfoUpdate(this);
         //retrieveDelivery.execute(queryString, SERVLET, ROOTKEY);
         return new JSONObject(queryString);
+    }
+
+    private boolean isLastAncDeletable(JSONObject jso) {
+        String lastAncKey = "ancVisit";
+        lastAncKey += (lastAncVisit <10 ? "0" : "") + String.valueOf(lastAncVisit);
+
+        JSONArray lastVisit = null;
+        String providerCode = null;
+        try {
+            lastVisit = jso.getJSONArray(lastAncKey);
+            providerCode = lastVisit.getString(PROVIDER_CODE);
+            Log.d(LOGTAG,"Last Service "+lastAncKey+" was provide by: \t" + providerCode);
+
+            return (provider.getProviderCode().equals(providerCode));
+
+        } catch (JSONException jse) {
+
+        }
+
+        //Set<String> keySey = jso.
+
+        return false;
+    }
+
+    private void deleteConfirmed() {
+        try {
+
+            JSONObject deleteJson = buildQueryHeader(false);
+            deleteJson.put("ancLoad", "delete");
+            ancInfoUpdate = new AsyncAncInfoUpdate(this);
+            ancInfoUpdate.execute(deleteJson.toString(), SERVLET, ROOTKEY);
+        } catch (JSONException jse) {
+            Log.e(LOGTAG, "Could not build delete ANC request");
+            Utilities.printTrace(jse.getStackTrace());
+        }
+    }
+
+    public void deleteLastANC(View view) {
+        AlertDialog alertDialog = new AlertDialog.Builder(ANCActivity.this).create();
+        alertDialog.setIcon(android.R.drawable.ic_delete);
+        alertDialog.setTitle("Delete Service?");
+        alertDialog.setMessage(getString(R.string.ServiceDeletionWarning));
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        //finish();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        deleteConfirmed();
+                    }
+                });
+
+        alertDialog.show();
     }
 }
