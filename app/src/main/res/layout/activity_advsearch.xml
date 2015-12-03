@@ -1,8 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:focusableInTouchMode="true"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="1sp"
     android:id = "@+id/adv_search_layout"
     android:background="@drawable/fragmentborder"
     android:orientation="vertical"
@@ -40,16 +41,16 @@
 
         <LinearLayout
             android:id="@+id/name_age"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
+            android:layout_marginTop="5sp"
             android:orientation="horizontal"
-            android:layout_centerVertical="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/layoutbordersimple"
-            android:layout_gravity="center">
+            android:background="@drawable/layoutbordersimple">
 
             <TextView
                 android:textSize="20dp"
-                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/Client_name_label"
                 android:text="@string/ClientsName"
@@ -101,18 +102,18 @@
 
     <LinearLayout
         android:id="@+id/father_district"
+        android:layout_marginLeft="5sp"
+        android:layout_marginRight="5sp"
+        android:layout_marginTop="5sp"
         android:orientation="horizontal"
-        android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/layoutbordersimple"
-        android:layout_gravity="center">
+        android:background="@drawable/layoutbordersimple">
 
 
         <TextView
             android:textSize="20dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
             android:id="@+id/TextViewClientsDist"
             android:text="@string/ClientsDist"
             android:layout_width="0dp"
@@ -159,19 +160,17 @@
 
     <LinearLayout
         android:id="@+id/union_village"
-
-
+        android:layout_marginLeft="5sp"
+        android:layout_marginRight="5sp"
+        android:layout_marginTop="5sp"
         android:orientation="horizontal"
-        android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/layoutbordersimple"
-        android:layout_gravity="center">
+        android:background="@drawable/layoutbordersimple">
 
         <TextView
             android:textSize="20dp"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
             android:id="@+id/TextViewClientsUnion"
             android:text="@string/ClientsUnion"
             android:layout_width="0dp"
@@ -222,17 +221,16 @@
 
     <LinearLayout
         android:id="@+id/search_button_layout"
-        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="5sp"
+        android:layout_marginRight="5sp"
+        android:layout_marginTop="5sp"
         android:orientation="horizontal"
-        android:layout_centerVertical="true"
-        android:paddingBottom="10dp"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/layoutborder">
+        android:background="@drawable/layoutbordersimple"
+        android:gravity="center">
 
         <Button
-            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/cancelBtn"
@@ -245,10 +243,10 @@
 
         <Button
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/searchBtn"
+            android:id="@+id/advSearchBtn"
             android:paddingRight="10dp"
             android:paddingLeft="10dp"
             android:ellipsize="start"

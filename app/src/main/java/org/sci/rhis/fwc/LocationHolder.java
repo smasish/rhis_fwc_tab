@@ -1,10 +1,13 @@
 package org.sci.rhis.fwc;
 
+import android.content.res.AssetManager;
 import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -48,6 +51,25 @@ public class LocationHolder {
     private String banglaName;
     private JSONObject sublocation;
     private String sublocationStr;
+
+    private static String villageString;
+    private static String zillaUpazillaUnionString;
+
+    public static String getVillageString() {
+        return villageString;
+    }
+
+    public static void setVillageString(String villageString) {
+        LocationHolder.villageString = villageString;
+    }
+
+    public static String getZillaUpazillaUnionString() {
+        return zillaUpazillaUnionString;
+    }
+
+    public static void setZillaUpazillaUnionString(String zillaUpazillaUnionString) {
+        LocationHolder.zillaUpazillaUnionString = zillaUpazillaUnionString;
+    }
 
     public String getCode() {
         return code;
@@ -123,5 +145,14 @@ public class LocationHolder {
         } catch (JSONException jse) {
             jse.printStackTrace();
         }
+    }
+
+    public static void loadJsonFile(String fileName, StringBuilder jsonBuilder, AssetManager am) throws IOException {
+        InputStream is = am.open(fileName);
+        int size = is.available();
+        byte[] buffer = new byte[size];
+        is.read(buffer);
+        is.close();
+        jsonBuilder.append(new String(buffer, "UTF-8"));
     }
 }

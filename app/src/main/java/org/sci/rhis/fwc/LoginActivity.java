@@ -1,7 +1,9 @@
 package org.sci.rhis.fwc;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.util.DisplayMetrics;
@@ -17,14 +19,58 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.Iterator;
 
 public class LoginActivity extends FWCServiceActivity {
 
-    Button button;
-    int placeIndex=0;
-    String placeName="";
+    private Button button;
+    private int placeIndex=0;
+    private String placeName="";
+    private static boolean fileLoaded = false;
 
+
+    class FileLoader extends AsyncTask<String, Integer, Integer> {
+        Context context;
+        FileLoader(Context c) {context = c;};
+        protected Integer doInBackground(String... params) {
+            loadLocations();
+            return 0;
+        }
+
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            allowNextActivity();
+            //getSpinner(R.id.advSearchDistrict).setAdapter(zillaAdapter);
+            //loadVillages.setVisibility(View.GONE);
+        }
+
+        protected void onProgressUpdate (Integer... progress) {
+            Toast.makeText(context,"The Village list is Loading", Toast.LENGTH_LONG).show();
+        }
+    };
+
+    private LoginActivity.FileLoader loader = null;
+
+
+    private void loadLocations() {
+
+        try {
+            StringBuilder jsonBuilder = new StringBuilder();
+            LocationHolder.loadJsonFile("zilla.json", jsonBuilder, getAssets());
+            LocationHolder.setZillaUpazillaUnionString(jsonBuilder.toString());
+            StringBuilder jsonBuilderVillage = new StringBuilder();
+            LocationHolder.loadJsonFile("vill.json", jsonBuilderVillage, getAssets());
+            LocationHolder.setVillageString(jsonBuilderVillage.toString());
+            fileLoaded = true;
+        } catch (IOException IO) {
+            Utilities.printTrace(IO.getStackTrace());
+        }
+    }
+
+    private void allowNextActivity() {
+        fileLoaded = true;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,10 +86,15 @@ public class LoginActivity extends FWCServiceActivity {
         //textview.setTypeface(tf);
         DatabaseFieldMapping.InitializeClientIntroduction();
         DatabaseFieldMapping.InitializeClientInformation();
-
+        loader = new FileLoader(this);
+        loader.execute();
     }
 
     public void startLogin(View view) {
+        if(!fileLoaded) {
+            Toast.makeText(this, "দুঃখিত, দয়া করে ৫ সেকেন্ড অপেক্ষা করে আবার চেষ্টা করুণ", Toast.LENGTH_LONG).show();
+            return;
+        }
         final EditText passwdText = (EditText)findViewById(R.id.providerPassword);
         final EditText providerText = (EditText)findViewById(R.id.providerId);
 

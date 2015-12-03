@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.text.InputFilter;
 import android.util.Log;
-import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,11 +14,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -28,9 +24,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 
 public class ADVSearchActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener,
         View.OnClickListener,
@@ -48,6 +42,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
             super.onPostExecute(result);
             getSpinner(R.id.advSearchDistrict).setAdapter(zillaAdapter);
             loadVillages.setVisibility(View.GONE);
+            setSearchability(true);
         }
 
         protected void onProgressUpdate (Integer... progress) {
@@ -98,7 +93,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
         actionBar.hide();
 
         cancelBtn=(Button)findViewById(R.id.cancelBtn);
-        searchBtn=(Button)findViewById(R.id.searchBtn);
+        searchBtn=(Button)findViewById(R.id.advSearchBtn);
 
         districtList    =  new ArrayList<>();
         upazillaList    =  new ArrayList<>();
@@ -124,6 +119,10 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+        if(!loader.isCancelled()) {
+            setSearchability(false);
+            loader.execute();
+        }
         //loadVillages.setVisibility(View.GONE);
         //Utilities.MakeInvisible(this, R.id.loadingPanel);
     }
@@ -131,7 +130,6 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
     @Override
     protected void onStart() {
         super.onStart();
-        loader.execute();
         // The activity is about to become visible.
         //loadVillages = (ProgressBar)findViewById(R.id.advSearchProgressBar);
        // loadVillages.setVisibility(View.VISIBLE);
@@ -149,10 +147,22 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
 
         try {
 
-            loadJsonFile("zilla.json", jsonBuilder);
-            zillaString = jsonBuilder.toString();
-            loadJsonFile("vill.json", jsonBuilderVillage);
-            villageString = jsonBuilderVillage.toString();
+            //LocationHolder.loadJsonFile("zilla.json", jsonBuilder, getAssets());
+            //zillaString = jsonBuilder.toString();
+            //LocationHolder.loadJsonFile ("vill.json", jsonBuilderVillage, getAssets());
+            //villageString = jsonBuilderVillage.toString();
+
+            zillaString = LocationHolder.getZillaUpazillaUnionString();
+            villageString = LocationHolder.getVillageString();
+            try {
+                if(villJson == null) {
+                    villJson = new JSONObject(villageString);
+                }
+            } catch (JSONException jse) {
+                Log.e(LOGTAG, "JSON Exception in loading village");
+                Utilities.printTrace(jse.getStackTrace());
+            }
+
             districtList.add(blanc);
             LocationHolder.loadListFromJson(zillaString, "nameEnglish", "nameBangla", "Upazila", districtList);
 
@@ -163,7 +173,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
 
             //getSpinner(R.id.advSearchDistrict).setAdapter(zillaAdapter);
 
-        } catch (IOException ioe) {
+        } catch (Exception ioe) {
             ioe.printStackTrace();
         }
     }
@@ -194,7 +204,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                if(position >0) {
+                if (position > 0) {
                     handlePersonListClick(personsList.get(position - 1));
                 }
             }
@@ -278,14 +288,19 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
     private JSONObject buildQueryHeader() throws JSONException {
         //Log.e("Selected District Value",String.valueOf(distValue));
         //get info from database
-        String queryString =   "{" +
-                "\"zilla\":" + districtList.get(getSpinner(R.id.advSearchDistrict).getSelectedItemPosition()).getCode()+ "," +
-                "\"upz\":" + upazillaList.get(getSpinner(R.id.advSearchUpazila).getSelectedItemPosition()).getCode()+ "," +
-                "\"union\":" + unionList.get(getSpinner(R.id.advSearchUnion).getSelectedItemPosition()).getCode()+ "," +
-                "\"villagemouza\":" + villageList.get(getSpinner(R.id.advSearchVillage).getSelectedItemPosition()).getCode()+
-                "}";
-        // Log.e("selected Item's Value", String.valueOf(distValue));
-        Log.i("QueryStrig",queryString);
+        String queryString = "{}";
+        try {
+            queryString = "{" +
+                    "\"zilla\":" + districtList.get(getSpinner(R.id.advSearchDistrict).getSelectedItemPosition()).getCode() + "," +
+                    "\"upz\":" + upazillaList.get(getSpinner(R.id.advSearchUpazila).getSelectedItemPosition()).getCode() + "," +
+                    "\"union\":" + unionList.get(getSpinner(R.id.advSearchUnion).getSelectedItemPosition()).getCode() + "," +
+                    "\"villagemouza\":" + villageList.get(getSpinner(R.id.advSearchVillage).getSelectedItemPosition()).getCode() +
+                    "}";
+            // Log.e("selected Item's Value", String.valueOf(distValue));
+            Log.d("QueryStrig", queryString);
+        } catch (ArrayIndexOutOfBoundsException aiob) {
+            Log.e(LOGTAG, "System not ready yet ");
+        }
         return new JSONObject(queryString);
     }
 
@@ -333,7 +348,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
             @Override
             public void onClick(View v) {
 
-                if (v.getId() == R.id.searchBtn) {
+                if (v.getId() == R.id.advSearchBtn) {
                     advSearchSaveToJson();
                 }
             }
@@ -486,17 +501,9 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
                 getSpinner(R.id.advSearchUnion).setAdapter(unionAdapter);
                 break;
             case R.id.advSearchUnion:
-                LocationHolder union = unionList.get(position);
                 villageList.clear();
                 villageAdapter.clear();
                 villageList.add(blanc);
-                /*Thread t = new Thread(new Runnable() {
-                    public void run() {
-
-                    }
-                });
-
-                t.start();*/
 
                 loadVillageFromJson(
                         ((LocationHolder) getSpinner(R.id.advSearchDistrict).getSelectedItem()).getCode().split("_")[0],
@@ -506,7 +513,6 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
                 for (LocationHolder holder : villageList) {
                     Log.d(LOGTAG, "Village: -> " + holder.getBanglaName());
                 }
-
 
                 villageAdapter.addAll(villageList);
                 getSpinner(R.id.advSearchVillage).setAdapter(villageAdapter);
@@ -530,5 +536,11 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
 
     }
 
-
+    public void setSearchability(boolean enable) {
+        if(enable) {
+            Utilities.Enable(this, R.id.advSearchBtn);
+        } else {
+            Utilities.Disable(this, R.id.advSearchBtn);
+        }
+    }
 }

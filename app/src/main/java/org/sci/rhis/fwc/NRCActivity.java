@@ -1,6 +1,8 @@
 package org.sci.rhis.fwc;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.text.InputFilter;
@@ -15,6 +17,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,8 +38,27 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
                                                                     View.OnClickListener,
                                                                     CompoundButton.OnCheckedChangeListener {
 
-    AsyncNonRegisterClientInfoUpdate NRCInfoUpdateTask;
+    class FileLoader extends AsyncTask<String, Integer, Integer> {
+        Context context;
+        FileLoader(Context c) {context = c;};
+        protected Integer doInBackground(String... params) {
+            loadLocations();
+            return 0;
+        }
 
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            getSpinner(R.id.Clients_District).setAdapter(zillaAdapter);
+            loadVillages.setVisibility(View.GONE);
+        }
+
+        protected void onProgressUpdate (Integer... progress) {
+            Toast.makeText(context,"The Village list is Loading", Toast.LENGTH_LONG).show();
+        }
+    };
+
+    FileLoader loader = null;
+    AsyncNonRegisterClientInfoUpdate NRCInfoUpdateTask;
     private String SERVLET = "nonRegisteredClient";
     private String ROOTKEY = "nonRegisteredClientGeneralInfo";
     private String LOGTAG = "FWC-REGISTRATION";
@@ -70,6 +92,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
 
     private JSONObject villJson = null;
     private LocationHolder blanc = new LocationHolder();
+    private ProgressBar loadVillages = null;
 
     public NRCActivity() {
     }
@@ -102,11 +125,15 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         unionList       =  new ArrayList<>();
         villageList     =  new ArrayList<>();
 
+        loader = new FileLoader(this);
+
         initialize();
         addListenerOnButton();
         addAndSetSpinners();
         Utilities.MakeVisible(this, R.id.loadingPanelNrc);
-        loadLocations();
+        loadVillages = (ProgressBar)findViewById(R.id.nrcProgressBar);
+        loadVillages.setVisibility(View.VISIBLE);
+        //loadLocations();
 
         // ---- JAMIL END----- //
 
@@ -115,7 +142,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        Utilities.MakeInvisible(this, R.id.loadingPanelNrc);
+        loader.execute();
     }
 
     private void loadLocations() {
@@ -135,7 +162,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
                     this, android.R.layout.simple_spinner_item, districtList);
             zillaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-            getSpinner(R.id.Clients_District).setAdapter(zillaAdapter);
+            //getSpinner(R.id.Clients_District).setAdapter(zillaAdapter);
 
         } catch (IOException ioe) {
             ioe.printStackTrace();

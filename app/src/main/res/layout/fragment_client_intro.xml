@@ -14,7 +14,7 @@
         android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:visibility="visible">
 
     <LinearLayout
         android:id="@+id/client_intro_title"
@@ -61,7 +61,7 @@
             android:layout_marginTop="10sp"
             android:id="@+id/TextViewClient_name"
             android:text="@string/ClientsName"
-            android:layout_width="120sp"
+            android:layout_width="115sp"
             android:layout_height="wrap_content"
             android:textColor="@color/text_color"/>
 
@@ -118,7 +118,7 @@
             android:layout_marginTop="10sp"
             android:id="@+id/TextViewClientsHusband"
             android:text="@string/ClientsHusband"
-            android:layout_width="120sp"
+            android:layout_width="115sp"
             android:layout_height="wrap_content"
             android:textColor="@color/text_color"/>
 
@@ -177,7 +177,7 @@
             android:layout_marginTop="10sp"
             android:id="@+id/ClientsUpazila"
             android:text="@string/ClientsUpazila"
-            android:layout_width="120sp"
+            android:layout_width="115sp"
             android:layout_height="wrap_content"
             android:textColor="@color/text_color"/>
 
@@ -235,7 +235,7 @@
             android:layout_marginTop="10sp"
             android:id="@+id/TextViewClientsVillage"
             android:text="@string/ClientsVillage"
-            android:layout_width="120sp"
+            android:layout_width="115sp"
             android:layout_height="wrap_content"
             android:textColor="@color/text_color"/>
 
@@ -293,7 +293,7 @@
             android:layout_marginTop="10sp"
             android:id="@+id/TextViewClientsUniteNo"
             android:text="@string/ClientsUniteNo"
-            android:layout_width="120sp"
+            android:layout_width="115sp"
             android:layout_height="wrap_content"
             android:textColor="@color/text_color"/>
 
@@ -317,7 +317,7 @@
                 android:text="@string/ClientsHouseNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10sp"
+                android:layout_marginLeft="5sp"
                 android:textColor="@color/text_color"/>
 
             <EditText
@@ -352,7 +352,7 @@
             android:layout_marginTop="10sp"
             android:id="@+id/TextViewClientsCoupleNo"
             android:text="@string/ClientsCoupleNo"
-            android:layout_width="120sp"
+            android:layout_width="115sp"
             android:layout_height="wrap_content"
             android:textColor="@color/text_color"/>
 
