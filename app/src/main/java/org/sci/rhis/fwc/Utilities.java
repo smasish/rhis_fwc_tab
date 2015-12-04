@@ -137,18 +137,18 @@ public class Utilities {
             testgroup  = (ViewGroup) view;
         }
 
-        for( int i = 0, count = testgroup != null ? testgroup.getChildCount(): 1; //if not a viewgroup only 1 item
+        for( int i = 0, count = testgroup != null ? testgroup.getChildCount(): 0; //if not a viewgroup only 1 item
              i <count && view != null; i++) {
-            view = testgroup != null ? testgroup.getChildAt(i) : view;
+            View child = testgroup.getChildAt(i);
 
-            if(view instanceof LinearLayout || //LinearLayout is also view group so exclude it
-            ((view instanceof  ViewGroup) && !(view instanceof  Spinner))) {
-                MakeInvisible(activity, view, visibility);
-                Disable(activity, view);
+            if(child instanceof LinearLayout || //LinearLayout is also view group so exclude it
+            ((child instanceof  ViewGroup) && !(child instanceof  Spinner))) {
+                MakeInvisible(activity, child, visibility);
+                Disable(activity, child);
             }
-            view.setVisibility(visibility);
-
+            child.setVisibility(visibility);
         }
+        view.setVisibility(visibility);
         /////
     }
     public static void MakeVisible(Activity activity, int id)
@@ -163,18 +163,18 @@ public class Utilities {
             testgroup  = (ViewGroup) view;
         }
 
-        for( int i = 0, count = testgroup != null ? testgroup.getChildCount(): 1; //if not a viewgroup only 1 item
+        for( int i = 0, count = testgroup != null ? testgroup.getChildCount(): 0; //if not a viewgroup only 1 item
              i <count && view != null; i++) {
-            view = testgroup != null ? testgroup.getChildAt(i) : view;
+            View child = testgroup.getChildAt(i);
 
             if(view instanceof  LinearLayout || //LinearLayout is also view group so exclude it
-                    ((view instanceof  ViewGroup) && !(view instanceof  Spinner))) {
-                MakeVisible(activity, view);
-                Enable(activity, view);
+                    ((child instanceof  ViewGroup) && !(child instanceof  Spinner))) {
+                MakeVisible(activity, child);
+                Enable(activity, child);
             }
-            view.setVisibility(View.VISIBLE);
-
+            child.setVisibility(View.VISIBLE);
         }
+        view.setVisibility(View.VISIBLE);
     }
 
     public static void VisibleButton(Activity activity,int id)
@@ -690,7 +690,7 @@ public class Utilities {
     }
 
     public static void printTrace(StackTraceElement ste []) {
-        printTrace(ste, 3); //default to first 3 lines
+        printTrace(ste, 5); //default to first 3 lines
     }
 
     public static void printTrace(StackTraceElement ste [], int level) {
