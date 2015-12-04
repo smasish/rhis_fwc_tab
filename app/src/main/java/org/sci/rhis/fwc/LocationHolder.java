@@ -1,7 +1,10 @@
 package org.sci.rhis.fwc;
 
+import android.content.Context;
 import android.content.res.AssetManager;
+import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,6 +18,28 @@ import java.util.Iterator;
  * Created by jamil.zaman on 18/11/15.
  */
 public class LocationHolder {
+
+    class JsonBuilder extends AsyncTask<String, Integer, Integer> {
+
+
+        protected Integer doInBackground(String... params) {
+
+            return 0;
+        }
+
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+
+            //getSpinner(R.id.advSearchDistrict).setAdapter(zillaAdapter);
+            //loadVillages.setVisibility(View.GONE);
+        }
+
+        protected void onProgressUpdate (Integer... progress) {
+            //Toast.makeText(context, "The Village list is Loading", Toast.LENGTH_LONG).show();
+        }
+
+
+    };
     LocationHolder(String code, String nameEng, String nameBeng, String sublocationStr) {
         this.code = code;
         englishName = nameEng;
@@ -54,13 +79,38 @@ public class LocationHolder {
 
     private static String villageString;
     private static String zillaUpazillaUnionString;
+    private static JSONObject villageJson = null;
+    private static JsonBuilder jsonBuilder = null;
+
+    public static JSONObject getVillageJson() {
+        return villageJson;
+    }
+
+    public static JsonBuilder getJsonBuilder() {
+        return jsonBuilder;
+    }
+
+    public String getSublocationStr() {
+        return sublocationStr;
+    }
 
     public static String getVillageString() {
         return villageString;
     }
 
-    public static void setVillageString(String villageString) {
+    public static void setVillageString(String villageString) throws JSONException{
         LocationHolder.villageString = villageString;
+        //jsonBuilder = new
+        villageJson = new JSONObject(villageString);
+
+    }
+
+    /*public static JsonBuilder getJsonBuilder() {
+        return new JsonBuilder();
+    }*/
+
+    public static void setJsonBuilder(JsonBuilder builder) {
+        jsonBuilder = builder;
     }
 
     public static String getZillaUpazillaUnionString() {

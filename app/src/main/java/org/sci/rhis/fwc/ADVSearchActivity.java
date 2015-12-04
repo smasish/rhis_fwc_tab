@@ -156,9 +156,9 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
             villageString = LocationHolder.getVillageString();
             try {
                 if(villJson == null) {
-                    villJson = new JSONObject(villageString);
+                    villJson = LocationHolder.getVillageJson();
                 }
-            } catch (JSONException jse) {
+            } catch (Exception jse) {
                 Log.e(LOGTAG, "JSON Exception in loading village");
                 Utilities.printTrace(jse.getStackTrace());
             }

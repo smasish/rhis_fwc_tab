@@ -51,20 +51,25 @@ public class LoginActivity extends FWCServiceActivity {
     };
 
     private LoginActivity.FileLoader loader = null;
+    private LocationHolder.JsonBuilder jsonBuilder = null;
 
 
     private void loadLocations() {
 
         try {
+            //jsonBuilder = new LocationHolder.JsonBuilder();
             StringBuilder jsonBuilder = new StringBuilder();
             LocationHolder.loadJsonFile("zilla.json", jsonBuilder, getAssets());
             LocationHolder.setZillaUpazillaUnionString(jsonBuilder.toString());
             StringBuilder jsonBuilderVillage = new StringBuilder();
             LocationHolder.loadJsonFile("vill.json", jsonBuilderVillage, getAssets());
             LocationHolder.setVillageString(jsonBuilderVillage.toString());
+            //LocationHolder.setBuilder(jsonBuilder);
             fileLoaded = true;
         } catch (IOException IO) {
             Utilities.printTrace(IO.getStackTrace());
+        } catch(JSONException jse) {
+            Utilities.printTrace(jse.getStackTrace());
         }
     }
 
