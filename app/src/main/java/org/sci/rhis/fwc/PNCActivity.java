@@ -20,6 +20,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -92,6 +93,7 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
 
     private int lastPncVisit = 0;
     private int lastPncVisitChild = 0;
+    private int pncSaveClick = 0;
 
     private JSONObject jsonRespChild = null;
     private JSONObject jsonRespMother = null;
@@ -137,6 +139,15 @@ public class PNCActivity extends ClinicalServiceActivity implements AdapterView.
         pnc_mother.setOnClickListener(this);
         //   pnc_child.setOnClickListener(this);
         //   expand.setOnClickListener(this);
+
+        //Radio button listener
+        getRadioGroup(R.id.pncMotherChildSelector).setOnCheckedChangeListener(
+                new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        handleRadioButton(group, checkedId);
+                    }
+                });
 
         child_tree=true;
         childList  = new ArrayList<>(); //childList
@@ -308,6 +319,39 @@ pnc child history
         datePickerPair = new HashMap<Integer, EditText>();
         datePickerPair.put(R.id.Date_Picker_Button, (EditText) findViewById(R.id.pncServiceDateValue));
         datePickerPair.put(R.id.Date_Picker_Button_Child, (EditText) findViewById(R.id.pncChildServiceDateValue));
+
+        //getRadioButton(R.id.pncMotherSelector).setChecked(true); //select mother by default
+    }
+
+    private void handleRadioButton(RadioGroup group, int checkedId) {
+        //getRadioButton(checkedId).setChecked();
+        group.getCheckedRadioButtonId();
+        if(checkedId == R.id.pncMotherSelector) {
+            enableMotherLayout();
+            Utilities.MakeInvisible(this, R.id.id_pncChildListDropdown);
+            /*try {
+                if(lastPncVisit> 0) {*/
+                    showHidePncDeleteButton(jsonRespMother, true);
+               /* } else { //no visit means nothing to show
+
+                }
+            } catch (JSONException jse) {
+                Log.e(LOGTAG, "Could not check last provider:\n\t\t"
+                 + " lastVisit: " + lastPncVisit
+                 + " JSON:\t" + jsonRespMother.toString());
+
+                Utilities.printTrace(jse.getStackTrace());
+            }*/
+            //findViewById(R.id.id_pncChildListDropdown).setVisibility(View.GONE);
+            //getCheckbox(R.id.stimulation).setChecked(true);
+            //getCheckbox(R.id.bag_n_mask).setChecked(false);
+        } else if (checkedId == R.id.pncChildSelector) {
+            //Utilities.SetVisibility(this, R.id.id_pncChildListDropdown, View.VISIBLE);
+            Utilities.MakeVisible(this, R.id.id_pncChildListDropdown);
+            //findViewById(R.id.id_pncChildListDropdown).setVisibility(View.VISIBLE);
+            //getCheckbox(R.id.stimulation).setChecked(false);
+            //getCheckbox(R.id.bag_n_mask).setChecked(false);
+        }
     }
 
     private void setPncVisitAdvices() {
@@ -367,9 +411,9 @@ pnc child history
                     //get outcome date and populate ideal pnc visit info
                     mother.setActualDelivery(jsonRespMother.getString("outcomeDate"), "yyyy-MM-dd");
                     setPncVisitAdvices();
-                    if(lastPncVisit>0) {
-                        showHidePncDeleteButton(jsonRespMother.getJSONObject(String.valueOf(lastPncVisit)));
-                    }
+
+                        showHidePncDeleteButton(jsonRespMother, true);
+
                 }
                 //
 
@@ -715,11 +759,37 @@ pnc child history
         return new JSONObject(queryString);
     }
 
-
     public void savePnc(View view) {
-            pncMotherSaveToJson();
-             Toast.makeText(this, "Saving Mother's Information", Toast.LENGTH_LONG).show();
 
+        if(view.getId() == R.id.pncSaveButton) {
+            pncSaveClick++;
+            if(pncSaveClick == 2) {
+                pncMotherSaveToJson();
+                Toast.makeText(this, "Saving Mother's Information", Toast.LENGTH_LONG).show();
+                pncSaveClick = 0;
+                Utilities.Enable(this, R.id.pncMotherInfo);
+                Utilities.MakeInvisible(this, R.id.pncCancelButton);
+                getButton(R.id.pncSaveButton).setText("Save");
+
+            } else if (pncSaveClick == 1) {
+
+                Utilities.Disable(this, R.id.pncMotherInfo);
+                getButton(R.id.pncSaveButton).setText("Confirm");
+                Utilities.Enable(this, R.id.pncCancelButton);
+                Utilities.Enable(this, R.id.pncSaveButton);
+                Utilities.MakeVisible(this, R.id.pncCancelButton);
+                Toast toast = Toast.makeText(this, R.string.DeliverySavePrompt, Toast.LENGTH_LONG);
+                LinearLayout toastLayout = (LinearLayout) toast.getView();
+                TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                toastTV.setTextSize(20);
+                toast.show();
+            }
+        } else if(view.getId() == R.id.pncCancelButton) {
+            pncSaveClick = 0;
+            getButton(R.id.pncSaveButton).setText("Save");
+            Utilities.Enable(this, R.id.pncMotherInfo);
+            Utilities.MakeInvisible(this, R.id.pncCancelButton);
+        }
     }
 
     public void savePNCChild (View view){
@@ -880,7 +950,7 @@ pnc child history
             int serviceCount = childJson.getInt("serviceCount");
             getTextView(R.id.pncChildVisitValue).setText(String.valueOf(serviceCount+1));
             if(serviceCount > 0) {
-                showHidePncDeleteButton(childJson.getJSONObject(String.valueOf(serviceCount)));
+                showHidePncDeleteButton(childJson, false);
 
                 for(int in = 1; in <= serviceCount; in++ ) {
 //////
@@ -974,6 +1044,24 @@ pnc child history
         }
     }
 
+    private void enableMotherLayout() {
+        lay_frag_child.setVisibility(View.GONE);
+        pnclay_child.setVisibility(View.GONE);
+        getSpinner(R.id.id_pncChildListDropdown).setSelection(0);// un-select selected children
+
+        if(mother_flag==false) {
+            lay_frag_mother.setVisibility(View.VISIBLE);
+            pnclay_mother.setVisibility(View.VISIBLE);
+            // mother_flag = true;
+        }
+        else
+        {
+            //  lay_frag_mother.setVisibility(View.GONE);
+            //   pnclay_mother.setVisibility(View.GONE);
+            mother_flag = false;
+        }
+    }
+
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.pncServiceDateValue || v.getId() == R.id.Date_Picker_Button || v.getId() == R.id.Date_Picker_Button_Child) {
@@ -983,25 +1071,7 @@ pnc child history
 
 
         if(v.getId() == R.id.pncmother){
-            //pnclay_mother.setVisibility(View.GONE);
-           // lay_frag_mother.setVisibility(View.GONE);
-            lay_frag_child.setVisibility(View.GONE);
-            pnclay_child.setVisibility(View.GONE);
-            getSpinner(R.id.id_pncChildListDropdown).setSelection(0);// un-select selected children
-
-            showHidePncDeleteButton(jsonRespMother);
-
-            if(mother_flag==false) {
-                lay_frag_mother.setVisibility(View.VISIBLE);
-                pnclay_mother.setVisibility(View.VISIBLE);
-               // mother_flag = true;
-            }
-            else
-            {
-              //  lay_frag_mother.setVisibility(View.GONE);
-             //   pnclay_mother.setVisibility(View.GONE);
-                mother_flag = false;
-            }
+           enableMotherLayout();
         }
 //        else if(v.getId() == R.id.expandview){
 //            //int width=600;
@@ -1110,7 +1180,7 @@ pnc child history
         childAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         childDropdown.setAdapter(childAdapter);
         if(childArray.length > 0) {
-            childDropdown.setVisibility(View.VISIBLE);
+            childDropdown.setVisibility(getRadioButton(R.id.pncChildSelector).isChecked()? View.VISIBLE:View.INVISIBLE);
             childDropdown.setSelection(0);
         }
 
@@ -1118,10 +1188,9 @@ pnc child history
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                    if(position != 0) {
-                        handleChildSelected(position);
-                    }
-
+                if(position != 0) {
+                    handleChildSelected(position);
+                }
             }
 
             @Override
@@ -1176,13 +1245,33 @@ pnc child history
         }
     }
 
-    private void showHidePncDeleteButton(JSONObject jso) {
-        Utilities.SetVisibility(this, R.id.deleteLastPncButton, isLastPncDeletable(jso) ? View.VISIBLE :View.GONE);
+    private void showHidePncDeleteButton(JSONObject jso, boolean isMother) {
+        String key = (isMother? "count":"serviceCount");
+        int lastVisit = 0; // no last visit
+
+        try {
+            if (jso != null && jso.has(key)) {
+                lastVisit = jso.getInt(key);
+
+                //if (lastVisit > 0) {
+                Utilities.SetVisibility(
+                        this,
+                        R.id.deleteLastPncButton,
+                        (lastVisit > 0) && isLastPncDeletable(jso.getJSONObject(String.valueOf(lastVisit))) ? View.VISIBLE : View.GONE);
+                //}
+            }
+        } catch (JSONException jse) {
+            Log.e(LOGTAG, "Could determine visibility:\n\t\t");
+            Utilities.printTrace(jse.getStackTrace());
+        }
     }
 
     private boolean isLastPncDeletable(JSONObject jso) {
 
         String providerCode = null;
+        if(jso == null) { //initial response
+            return false;
+        }
         try {
 
             providerCode = jso.getString("providerId");
@@ -1190,7 +1279,11 @@ pnc child history
             return (provider.getProviderCode().equals(providerCode));
 
         } catch (JSONException jse) {
-            Utilities.printTrace(jse.getStackTrace());
+            Log.e(LOGTAG,"JSON Exception Caught\n\t\t");
+            if(jso != null) {
+                Log.e(LOGTAG,"JSON ->" + jso.toString());
+            }
+            Utilities.printTrace(jse.getStackTrace(), 10);
         }
 
         //Set<String> keySey = jso.
