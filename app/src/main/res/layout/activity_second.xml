@@ -213,7 +213,7 @@
                     android:paddingRight="10sp"
                     android:background="@drawable/button_style"
                     android:id="@+id/deathButton"
-                android:onClick="startDeath"
+                    android:onClick="startDeath"
                     />
 
                 <Button
@@ -225,6 +225,7 @@
                     android:paddingRight="10sp"
                     android:background="@drawable/button_style"
                     android:id="@+id/pacButton"
+                    android:onClick="startPAC"
                     />
             </TableRow>
         </TableLayout>

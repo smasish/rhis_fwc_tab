@@ -355,6 +355,16 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
     }
 
+    public void startPAC(View view) {
+        Intent intent = new Intent(this, PACActivity.class);
+
+        intent.putExtra("PregWoman", woman);
+        intent.putExtra("Provider", ProviderInfo.getProvider());
+        startActivity(intent);
+
+    }
+
+
     public void startPNC(View view) {
         Intent intent = new Intent(this, PNCActivity.class);
         if (checkClientInfo() && woman.isEligibleFor(PregWoman.PREG_SERVICE.PNC)) {

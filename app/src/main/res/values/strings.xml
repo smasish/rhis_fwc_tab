@@ -733,5 +733,6 @@
     <string name="death_service">মৃত্যু </string>
     <string name="title_activity_delivery_newborn">DeliveryNewbornActivity</string>
     <string name="title_activity_death">DeathActivity</string>
+    <string name="title_activity_pac">গর্ভপাত পরবর্তী সেবা</string>
     <string name="title_activity_advsearch">ADVSearchActivity</string>
 </resources>
