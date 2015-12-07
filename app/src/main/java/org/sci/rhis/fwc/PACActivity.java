@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Spinner;
 
 public class PACActivity extends ClinicalServiceActivity {
 
@@ -17,6 +20,18 @@ public class PACActivity extends ClinicalServiceActivity {
         setContentView(R.layout.activity_pac);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+
+
+        getCheckbox(R.id.pacOtherCheckBox).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                switch (buttonView.getId()) {
+                    case R.id.pacOtherCheckBox:
+                        setItemVisible(R.id.pacOtherCenterNameSpinner, isChecked);
+                        break;
+                }
+            }
+        });
     }
 
     @Override
@@ -45,6 +60,12 @@ public class PACActivity extends ClinicalServiceActivity {
     public void callbackAsyncTask(String result) {
         Log.d(LOGTAG, "PAC Response Received:\n\t" + result);
         //handleExistingChild(result);
+    }
+
+    void setItemVisible(int ItemId, boolean isChecked) {
+        Spinner Item=(Spinner)findViewById(ItemId);
+        Item.setSelection(0);
+        findViewById(ItemId).setVisibility(isChecked ? View.VISIBLE : View.INVISIBLE);
     }
 
     protected void initiateCheckboxes(){};

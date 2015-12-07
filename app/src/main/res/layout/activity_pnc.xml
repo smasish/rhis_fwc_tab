@@ -157,7 +157,7 @@
                 android:layout_marginRight="1sp"
                 android:background="@drawable/textviewback"
                 android:padding="2sp"
-                android:text="@string/ancVisit1"
+                android:text="@string/Visit1"
                 android:textColor="@color/text_color"
                 android:textSize="15sp" />
 
@@ -168,7 +168,7 @@
                 android:layout_marginRight="1sp"
                 android:background="@drawable/textviewback"
                 android:padding="2sp"
-                android:text="@string/ancVisit2"
+                android:text="@string/Visit2"
                 android:textColor="@color/text_color"
                 android:textSize="15sp" />
 
@@ -179,7 +179,7 @@
                 android:layout_marginRight="1sp"
                 android:background="@drawable/textviewback"
                 android:padding="2sp"
-                android:text="@string/ancVisit3"
+                android:text="@string/Visit3"
                 android:textColor="@color/text_color"
                 android:textSize="15sp" />
 
@@ -189,7 +189,7 @@
                 android:layout_marginLeft="1sp"
                 android:background="@drawable/textviewback"
                 android:padding="2sp"
-                android:text="@string/ancVisit4"
+                android:text="@string/Visit4"
                 android:textColor="@color/text_color"
 
                 android:textSize="15sp" />
@@ -356,7 +356,7 @@
                         android:layout_width="220sp"
                         android:layout_height="wrap_content"
                         
-                        android:text="@string/pnc_others"
+                        android:text="@string/other_source"
                         android:textColor="@color/text_color"
                         android:textSize="20sp" />
                 </LinearLayout>
@@ -1103,7 +1103,7 @@
                         android:layout_width="220sp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0sp"
-                        android:text="@string/pnc_others"
+                        android:text="@string/other_source"
                         android:textColor="@color/text_color"
                         android:textSize="20sp" />
                 </LinearLayout>
