@@ -366,7 +366,7 @@
                         android:layout_marginTop="10sp"
                         android:background="@drawable/edittext_round"/>
                     <TextView
-                        android:id="@+id/pncHemoglobinLabelp"
+                        android:id="@+id/pncHemoglobinLabel"
                         android:text=" %"
                         android:textSize="25sp"
                         android:layout_marginTop="10sp"
@@ -376,7 +376,33 @@
                         />
                 </LinearLayout>
 
-                <LinearLayout android:id="@+id/pacUterusHeight" android:layout_marginLeft="5sp"
+                <LinearLayout android:id="@+id/pacAbdomen"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/layoutbordersimple">
+                    <TextView
+                        android:id="@+id/pacAbdomenLabel"
+                        android:text="@string/pac_abdomen"
+                        android:textSize="20sp"
+                        android:layout_width="220sp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
+                        android:textColor="@color/text_color"/>
+                    <org.sci.rhis.fwc.MultiSelectionSpinner
+                        android:id="@+id/pacAbdomenSpinner"
+                        android:textSize="20sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/gradient_spinner"
+                        android:layout_marginTop="10sp" />
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/pacUterusHeight"
+                    android:layout_marginLeft="5sp"
                     android:layout_marginRight="5sp"
                     android:layout_marginTop="5sp"
                     android:orientation="horizontal"
@@ -385,83 +411,74 @@
                     android:background="@drawable/layoutbordersimple">
                     <TextView
                         android:id="@+id/pacUterusHeightLabel"
-                        android:text="@string/uterus_height"
+                        android:text="@string/pac_uterus_height"
                         android:textSize="20sp"
                         android:layout_width="220sp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:textColor="@color/text_color"/>
                     <Spinner
-                        android:id="@+id/pacAbdomenSpinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5sp"
-                        android:layout_marginBottom="5sp"
-                        android:background="@drawable/gradient_spinner"
-                        android:textSize="20sp"
-                        android:entries="@array/PACUterusInvolution"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/pacCervix"
-                    android:layout_marginLeft="5sp"
-                    android:layout_marginRight="5sp"
-                    android:layout_marginTop="5sp"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/layoutbordersimple">
-
-                    <TextView
-                        android:id="@+id/pacCervixLevel"
-                        android:layout_width="220sp"
-                        android:layout_height="wrap_content"
-
-                        android:text="@string/cervix"
-                        android:textColor="@color/text_color"
-                        android:textSize="20sp" />
-
-                    <Spinner
-                        android:id="@+id/pacCervixSpinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5sp"
-                        android:layout_marginBottom="5sp"
-                        android:background="@drawable/gradient_spinner"
-                        android:entries="@array/Cervix_Involution_DropDown"
-                        android:textSize="20sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/pacDischargeBleeding"
-                    android:layout_marginLeft="5sp"
-                    android:layout_marginRight="5sp"
-                    android:layout_marginTop="5sp"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/layoutbordersimple">
-
-                    <TextView
-                        android:id="@+id/pacDischargeBleedingLevel"
-                        android:layout_width="220sp"
-                        android:layout_height="wrap_content"
-
-                        android:text="@string/discharge_bleeding"
-                        android:textColor="@color/text_color"
-                        android:textSize="20sp" />
-
-                    <Spinner
-                        android:id="@+id/pacDischargeBleedingSpinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5sp"
-                        android:layout_marginBottom="5sp"
-                        android:background="@drawable/gradient_spinner"
-                        android:entries="@array/Discharge_Bleeding_DropDown"
+                        android:id="@+id/pacUterusHeightSpinner"
                         android:inputType="text"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:paddingLeft="10sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
+                        android:entries="@array/PACUterusDropdown"
+                        android:background="@drawable/gradient_spinner"/>
                 </LinearLayout>
+
+                <LinearLayout android:id="@+id/pacCervix"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/layoutbordersimple">
+                    <TextView
+                        android:id="@+id/pacCervixLabel"
+                        android:text="@string/cervix"
+                        android:textSize="20sp"
+                        android:layout_width="220sp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
+                        android:textColor="@color/text_color"/>
+                    <org.sci.rhis.fwc.MultiSelectionSpinner
+                        android:id="@+id/pacCervixSpinner"
+                        android:textSize="20sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/gradient_spinner"
+                        android:layout_marginTop="10sp" />
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/pacHematuria"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/layoutbordersimple">
+                    <TextView
+                        android:id="@+id/pacHematuriaLabel"
+                        android:text="@string/hematuria"
+                        android:textSize="20sp"
+                        android:layout_width="220sp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
+                        android:textColor="@color/text_color"/>
+                    <org.sci.rhis.fwc.MultiSelectionSpinner
+                        android:id="@+id/pacHematuriaSpinner"
+                        android:textSize="20sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/gradient_spinner"
+                        android:layout_marginTop="10sp" />
+                </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/pacPerineum"
                     android:layout_marginLeft="5sp"
