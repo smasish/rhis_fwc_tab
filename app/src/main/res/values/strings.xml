@@ -725,6 +725,31 @@
         <item>++</item>
         <item>+++</item>
     </string-array>
+	
+	<string-array name="PACProblemDropDown">
+        <item></item>
+        <item>	তলপেটে আটকে ধরা ব্যথা		</item>
+        <item>	রক্তক্ষরণ		</item>
+        <item>	গায়ে ব্যথা		</item>
+        <item>	কাঁধে ব্যথা	</item>
+        <item>	বমিভাব / বমি		</item>
+        <item>	জ্বর		</item>
+        <item>	দুর্গন্ধযুক্ত যোনিপথে স্রাব	</item>
+        <item>	নড়াচড়ায় জরায়ুমুখের ব্যথা	</item>
+        <item>	পেট ফোলা	</item>
+        <item>	ভ্রূণ / ভ্রূণের অংশবিশেষ বের হয়ে আসার ইতিহাস	</item>
+        <item>	প্রসব পরবর্তী জ্বর		</item>
+        <item>	প্রসব পরবর্তী উচ্চ রক্তচাপ	</item>
+        <item>	প্রসব পরবর্তী  ডায়াবেটিস	</item>
+    </string-array>
+	<string-array name="PACUterusInvolution">
+		<item></item>
+		<item>	গর্ভমেয়াদের সাথে সঙ্গতিপূর্ণ</item>
+		<item>	গর্ভমেয়াদের তুলনায় জরায়ুর আকার কম</item>
+		<item>	গর্ভমেয়াদের তুলনায় জরায়ুর আকার বেশী</item>
+	</string-array>
+
+
 
     <string name="title_activity_nrc">NRCActivity</string>
     <string name="mr_service">এম আর সেবা</string>
