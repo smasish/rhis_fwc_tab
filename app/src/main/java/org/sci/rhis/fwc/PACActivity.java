@@ -2,7 +2,6 @@ package org.sci.rhis.fwc;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,9 +9,17 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class PACActivity extends ClinicalServiceActivity {
 
-    final static String LOGTAG = "FWC_PAC";
+
+    final private String SERVLET = "pac";
+    final private String ROOTKEY = "PACInfo";
+
+    private  final String LOGTAG    = "FWC-PAC";
+    private MultiSelectionSpinner multiSelectionSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +27,9 @@ public class PACActivity extends ClinicalServiceActivity {
         setContentView(R.layout.activity_pac);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+
+        //initiate multiselect spinners
+        setMultiSelectSpinners();
 
 
         getCheckbox(R.id.pacOtherCheckBox).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -32,6 +42,41 @@ public class PACActivity extends ClinicalServiceActivity {
                 }
             }
         });
+    }
+
+    private void setMultiSelectSpinners() {
+        final List<String> pncmdrawbacklist = Arrays.asList(getResources().getStringArray(R.array.PACProblemDropDown));
+        multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.pacDrawbackSpinner);
+        multiSelectionSpinner.setItems(pncmdrawbacklist);
+        multiSelectionSpinner.setSelection(new int[]{});
+
+        final List<String> dangersignlist = Arrays.asList(getResources().getStringArray(R.array.ANC_Danger_Sign_DropDown));
+        final List<String> diseaselist = Arrays.asList(getResources().getStringArray(R.array.ANC_Disease_DropDown));
+        final List<String> treatmentlist = Arrays.asList(getResources().getStringArray(R.array.Treatment_DropDown));
+        final List<String> advicelist = Arrays.asList(getResources().getStringArray(R.array.ANC_Advice_DropDown));
+        final List<String> referreasonlist = Arrays.asList(getResources().getStringArray(R.array.ANC_Refer_Reason_DropDown));
+        multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.pacDangerSignsSpinner);
+        if(multiSelectionSpinner == null){
+            Log.d("------"+ dangersignlist.get(1),".........");
+        }
+        multiSelectionSpinner.setItems(dangersignlist);
+        multiSelectionSpinner.setSelection(new int[]{});
+
+        multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.pacDiseaseSpinner);
+        multiSelectionSpinner.setItems(diseaselist);
+        multiSelectionSpinner.setSelection(new int[]{});
+
+        multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.pacTreatmentSpinner);
+        multiSelectionSpinner.setItems(treatmentlist);
+        multiSelectionSpinner.setSelection(new int[]{});
+
+        multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.pacAdviceSpinner);
+        multiSelectionSpinner.setItems(advicelist);
+        multiSelectionSpinner.setSelection(new int[]{});
+
+        multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.pacReasonSpinner);
+        multiSelectionSpinner.setItems(referreasonlist);
+        multiSelectionSpinner.setSelection(new int[]{});
     }
 
     @Override
@@ -69,9 +114,19 @@ public class PACActivity extends ClinicalServiceActivity {
     }
 
     protected void initiateCheckboxes(){};
-    protected void initiateEditTexts(){};
+    protected void initiateEditTexts(){
+        jsonEditTextMap.put("temperature", getEditText(R.id.pacTemperatureValue));
+        jsonEditTextMap.put("bpSystolic", getEditText(R.id.pacBloodPresserValueSystolic));
+        jsonEditTextMap.put("bpDiastolic", getEditText(R.id.pacBloodPresserValueDiastolic));
+        jsonEditTextMap.put("hemoglobin", getEditText(R.id.pacHemoglobinValue));
+    };
     protected void initiateTextViews(){};
-    protected void initiateSpinners(){};
+    protected void initiateSpinners(){
+        jsonSpinnerMap.put("anemia",getSpinner(R.id.pacAnemiaSpinner));
+        jsonSpinnerMap.put("ancjaundice", getSpinner(R.id.ancJaundiceSpinner));
+        jsonSpinnerMap.put("ancsugar", getSpinner(R.id.ancUrineSugarSpinner));
+        jsonSpinnerMap.put("ancalbumin", getSpinner(R.id.ancUrineAlbuminSpinner));
+    };
     protected void initiateMultiSelectionSpinners(){};
     protected void initiateEditTextDates(){};
     ;
