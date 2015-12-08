@@ -7,13 +7,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Spinner;
 
+import org.sci.rhis.utilities.CustomDatePickerDialog;
+
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
-public class PACActivity extends ClinicalServiceActivity {
+public class PACActivity extends ClinicalServiceActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
+    private CustomDatePickerDialog datePickerDialog;
+    private HashMap<Integer, EditText> datePickerPair;
 
     final private String SERVLET = "pac";
     final private String ROOTKEY = "PACInfo";
@@ -42,6 +48,18 @@ public class PACActivity extends ClinicalServiceActivity {
                 }
             }
         });
+
+        getEditText(R.id.pacServiceDateValue).setOnClickListener(this);
+        getCheckbox(R.id.pacReferCheckBox).setOnCheckedChangeListener(this);
+
+        datePickerDialog = new CustomDatePickerDialog(this, "dd/MM/yyyy");
+        datePickerPair = new HashMap<Integer, EditText>();
+        datePickerPair.put(R.id.Date_Picker_Button, (EditText) findViewById(R.id.pacServiceDateValue));
+
+    }
+
+    public void pickDate(View view) {
+        datePickerDialog.show(datePickerPair.get(view.getId()));
     }
 
     private void setMultiSelectSpinners() {
@@ -131,4 +149,24 @@ public class PACActivity extends ClinicalServiceActivity {
     protected void initiateEditTextDates(){};
     ;
     protected void initiateRadioGroups(){};
+
+    @Override
+    public void onClick(View v) {
+        if( v.getId() == R.id.pacServiceDateValue ||
+                v.getId() == R.id.Date_Picker_Button ) {
+            datePickerDialog.show(datePickerPair.get(v.getId()));
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (buttonView.getId() == R.id.pacReferCheckBox) {
+            int visibility = isChecked? View.VISIBLE: View.GONE;
+            int layouts[] = {R.id.pacReferCenterNameLayout, R.id.pacReasonLayout};
+
+            for(int i = 0 ; i < layouts.length; i++) {
+                Utilities.SetVisibility(this, layouts[i],visibility);
+            }
+        }
+    }
 }
