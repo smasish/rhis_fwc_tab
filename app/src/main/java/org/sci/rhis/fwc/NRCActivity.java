@@ -142,7 +142,9 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        loader.execute();
+        if(!loader.isCancelled()) {
+            loader.execute();
+        }
     }
 
     private void loadLocations() {
