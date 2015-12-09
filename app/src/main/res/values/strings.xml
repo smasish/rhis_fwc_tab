@@ -368,7 +368,8 @@
     <string name="son">"ছেলে "</string>
     <string name="daughter">"মেয়ে "</string>
     <string name="born_weight">"জন্ম ওজন (কেজি):"</string>
-    <string name="premature_birth_before_37_weeks_full">"অপরিণত জন্ম (৩৭ সপ্তাহ পূর্ণ হওয়ার আগে)"</string>
+    <string name="premature_birth_before_37_weeks_full">"অপরিণত জন্ম: "</string>
+    <string name="week"> " সপ্তাহ " </string>
     <string name="wipe_within_one_minute">"১ মিনিটের মধ্যে মোছানো হয়েছে:"</string>
     <string name="resastation">"রিসাসসিটেশন:"</string>
     <string name="stimulation">" স্টিমুলেশন"</string>

@@ -699,4 +699,53 @@ public class Utilities {
             Log.e(LOGTAG, ste[i].toString());
         }
     }
+
+
+
+    public static String ConvertNumberToBangla(String givenNumber) throws NumberFormatException {
+
+        char[] numberMap = {'0','1','2','3','4','5','6','7','8','9'}; //first 40 byte is wastage but its acceptable
+        char[] banglaMap = {'০','১','২','৩','৪','৫','৬','৭','৮','৯'};
+        String banglaResponse = "";
+
+        for(int i = 0; i< givenNumber.length(); i++) {
+            switch(givenNumber.charAt(i)) {
+                case '0':
+                    banglaResponse += banglaMap[0];
+                break;
+                case '1':
+                    banglaResponse += banglaMap[1];
+                    break;
+                case '2':
+                    banglaResponse += banglaMap[2];
+                    break;
+                case '3':
+                    banglaResponse += banglaMap[3];
+                    break;
+                case '4':
+                    banglaResponse += banglaMap[4];
+                    break;
+                case '5':
+                    banglaResponse += banglaMap[5];
+                    break;
+                case '6':
+                    banglaResponse += banglaMap[6];
+                    break;
+                case '7':
+                    banglaResponse += banglaMap[7];
+                    break;
+                case '8':
+                    banglaResponse += banglaMap[8];
+                    break;
+                case '9':
+                    banglaResponse += banglaMap[9];
+                    break;
+                default:
+                        throw new NumberFormatException("Character:" + givenNumber.charAt(i) + " is not convertible to bangla");
+
+            }
+        }
+
+        return banglaResponse;
+    }
 }
