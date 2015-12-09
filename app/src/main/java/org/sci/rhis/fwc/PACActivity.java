@@ -131,4 +131,8 @@ public class PACActivity extends ClinicalServiceActivity {
     protected void initiateEditTextDates(){};
     ;
     protected void initiateRadioGroups(){};
+
+    public void onClick(View v) {
+        Utilities.Reset(this, R.id.pacEntryMasterLayout);
+    }
 }
