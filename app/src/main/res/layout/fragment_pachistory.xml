@@ -1,0 +1,63 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="org.sci.rhis.fwc.ANCActivityFragment">
+
+   <!-- <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView" />-->
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="1dp"
+        android:padding="0dp"
+        android:scrollbarAlwaysDrawHorizontalTrack="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:orientation="horizontal"
+            android:layout_margin="0dp"
+            android:id="@+id/llay"
+            style="@style/rowHeading"
+            android:padding="0dp"
+            android:background="#F3F3F3">
+
+
+            <!-- <GridView
+                 android:id="@+id/gridAncVisit"
+                 android:layout_width="320dp"
+                 android:numColumns="5"
+                 android:stretchMode="columnWidth"
+                 android:layout_height="wrap_content"
+                 android:scrollbars="horizontal"
+                 android:horizontalSpacing="5sp" />-->
+
+
+            <!-- <ExpandableListView
+                 android:id="@+id/lvExp"
+                 android:layout_height="match_parent"
+                 android:layout_width="match_parent"
+                 android:scrollbarTrackHorizontal="@drawable/abc_btn_check_material"
+
+                 android:cacheColorHint="#00000000"/>
+
+             -->
+
+
+
+        </LinearLayout>
+    </HorizontalScrollView>
+    <View
+        android:layout_height="1dip"
+        android:layout_width="fill_parent"
+        android:background="#00B7FB" />
+
+</RelativeLayout>
