@@ -750,6 +750,13 @@
 		<item>	গর্ভমেয়াদের তুলনায় জরায়ুর আকার বেশী</item>
 	</string-array>
 
+    <string-array name="PACcervixDropDown">
+        <item></item>
+        <item>বন্ধ জরায়ুমুখ</item>
+        <item>সম্প্রসারিত</item>
+        <item>পুঁজযুক্ত জরায়ুমুখে স্রাব</item>
+    </string-array>
+
     <string-array name="PACHematuriaDropdown">
         <item></item>
         <item>	স্বাভাবিক</item>

@@ -624,6 +624,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         passJson.putExtra("Layout", child.has("birthStatus") ? child.getInt("birthStatus"): 3);
         passJson.putExtra("DeliveryJson", dJson.toString());
         passJson.putExtra("NewbornJson", child.toString());
+        //put extra last child ?
 
         if(checkClientInfo() && mother.isEligibleFor(PregWoman.PREG_SERVICE.NEWBORN)) {
             passJson.putExtra("PregWoman", mother);

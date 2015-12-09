@@ -1,5 +1,7 @@
 package org.sci.rhis.fwc;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
@@ -30,6 +32,8 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
 
     private int lastPacVisit = 0;
     private int pacSaveClick = 0;
+    private String serviceProvider="";
+    private JSONObject jsonResponse = null;
 
     final private String SERVLET = "pac";
     final private String ROOTKEY = "PACInfo";
@@ -75,6 +79,7 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
         lastPacVisit = 0;
 
         initialize();
+        //showHidePacDeleteButton();
     }
 
     public void pickDate(View view) {
@@ -91,10 +96,10 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
         final List<String> dangersignlist = Arrays.asList(getResources().getStringArray(R.array.ANC_Danger_Sign_DropDown));
         final List<String> diseaselist = Arrays.asList(getResources().getStringArray(R.array.ANC_Disease_DropDown));
         final List<String> treatmentlist = Arrays.asList(getResources().getStringArray(R.array.Treatment_DropDown));
-        final List<String> advicelist = Arrays.asList(getResources().getStringArray(R.array.ANC_Advice_DropDown));
-        final List<String> referreasonlist = Arrays.asList(getResources().getStringArray(R.array.ANC_Refer_Reason_DropDown));
+        final List<String> advicelist = Arrays.asList(getResources().getStringArray(R.array.PNC_Mother_Advice_DropDown));
+        final List<String> referreasonlist = Arrays.asList(getResources().getStringArray(R.array.PNC_Mother_Refer_Reason_DropDown));
         final List<String> pacabdomenlist = Arrays.asList(getResources().getStringArray(R.array.PACAbdomenDropdown));
-        final List<String> pacuteruslist = Arrays.asList(getResources().getStringArray(R.array.PACUterusDropdown));
+        final List<String> paccervixlist = Arrays.asList(getResources().getStringArray(R.array.PACcervixDropDown));
 
         multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.pacDangerSignsSpinner);
         if(multiSelectionSpinner == null){
@@ -128,7 +133,7 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
         multiSelectionSpinner.setSelection(new int[]{});
 
         multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.pacCervixSpinner);
-        multiSelectionSpinner.setItems(pacuteruslist);
+        multiSelectionSpinner.setItems(paccervixlist);
         multiSelectionSpinner.setSelection(new int[]{});
 
     }
@@ -157,8 +162,25 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
 
     @Override
     public void callbackAsyncTask(String result) {
-        Log.d(LOGTAG, "PAC Response Received:\n\t" + result);
-        //handleExistingChild(result);
+
+        try {
+            jsonResponse = new JSONObject(result);
+            String key;
+            Log.d(LOGTAG,"here:"+jsonResponse.toString());
+
+            lastPacVisit = jsonResponse.getInt("count");
+            serviceProvider=jsonResponse.getJSONObject(String.valueOf(lastPacVisit)).getString("providerId");
+            getTextView(R.id.pacVisitValue).setText(String.valueOf(lastPacVisit + 1)); //next visit
+
+
+            showHidePacDeleteButton();
+
+            Log.d(LOGTAG, "PAC Response Received:\n\t" + result);
+            //handleExistingChild(result);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
     void setItemVisible(int ItemId, boolean isChecked) {
@@ -179,7 +201,7 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
     protected void initiateTextViews(){};
     protected void initiateSpinners(){
         jsonSpinnerMap.put("anemia",getSpinner(R.id.pacAnemiaSpinner));
-        jsonSpinnerMap.put("uterusInvolution", getSpinner(R.id.pacCervixSpinner));
+        jsonSpinnerMap.put("uterusInvolution", getSpinner(R.id.pacUterusHeightSpinner));
         jsonSpinnerMap.put("perineum", getSpinner(R.id.pacPerineumSpinner));
         jsonSpinnerMap.put("FPMethod", getSpinner(R.id.pacFamilyPlanningMethodsSpinner));
         jsonSpinnerMap.put("referCenterName", getSpinner(R.id.pacReferCenterNameSpinner));
@@ -266,11 +288,56 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
         //get info from database
         String queryString =   "{" +
                 "healthId:" + mother.getHealthId() + "," +
-                (isRetrieval ? "": "providerid:\""+String.valueOf(provider.getProviderCode())+"\",") +
+                (isRetrieval ? "": "providerId:\""+String.valueOf(provider.getProviderCode())+"\",") +
                 "pregNo:" + mother.getPregNo() + "," +
                 "pacLoad:" + (isRetrieval? "retrieve":"\"\"") +
                 "}";
 
         return new JSONObject(queryString);
+    }
+
+    private void showHidePacDeleteButton() {
+        //serviceProvider=jsonResponse.getString("providerId");
+        Log.d("provider Id's",provider.getProviderCode().toString()+" & "+serviceProvider);
+        Utilities.SetVisibility(this, R.id.deleteLastPacButton, ((lastPacVisit > 0) && provider.getProviderCode().equals(serviceProvider)) ? View.VISIBLE : View.GONE);
+    }
+
+    private void deleteConfirmed() {
+        try {
+
+            JSONObject deleteJson = buildQueryHeader(false);
+            deleteJson.put("pacLoad", "delete");
+
+            pacInfoUpdateTask = new AsyncPACInfoUpdate(this);
+            pacInfoUpdateTask.execute(deleteJson.toString(), SERVLET, ROOTKEY);
+        }
+        catch (JSONException jse) {
+            Log.e(LOGTAG, "Could not build delete ANC request");
+            Utilities.printTrace(jse.getStackTrace());
+        }
+    }
+
+    public void deleteLastPAC(View view) {
+        AlertDialog alertDialog = new AlertDialog.Builder(PACActivity.this).create();
+        alertDialog.setIcon(android.R.drawable.ic_delete);
+        alertDialog.setTitle("Delete Service?");
+        alertDialog.setMessage(getString(R.string.ServiceDeletionWarning));
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        //finish();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        deleteConfirmed();
+                    }
+                });
+
+        alertDialog.show();
     }
 }
