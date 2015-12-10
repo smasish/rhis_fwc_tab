@@ -902,7 +902,7 @@
                     android:id="@+id/id_saveDeliveryButton"
                     android:onClick="onClick"/>
                 <Button
-                    android:text="Save &amp; Serve NextbClient"
+                    android:text="Save &amp; Serve Next Client"
                     android:layout_width="wrap_content"
                     android:layout_margin="2sp"
                     android:layout_height="80sp"

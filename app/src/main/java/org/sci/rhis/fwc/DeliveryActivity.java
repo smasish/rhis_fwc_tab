@@ -263,7 +263,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             countSaveClick++;
             if( countSaveClick == 2 ) {
                 saveToJson();
-                getButton(R.id.id_saveDeliveryButton).setText("Save &amp; Open Newborn Information");
+                getButton(R.id.id_saveDeliveryButton).setText("Save & Open Newborn Information");
                 Utilities.MakeVisible(this, R.id.newborn_Tabla_Layout);
 
             } else if(countSaveClick == 1) {
@@ -284,7 +284,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             if(countSaveClick == 1) {
                 countSaveClick = 0;
                 Utilities.Enable(this, R.id.delivery_info_layout);
-                getButton(R.id.id_saveDeliveryButton).setText("Save &amp; Open Newborn Information");
+                getButton(R.id.id_saveDeliveryButton).setText("Save  Open Newborn Information");
                 //TODO - Review
                 Utilities.MakeInvisible(this, R.id.id_editDeliveryButton);
             }
@@ -621,6 +621,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
     private void startChildActivity(int index, JSONObject child) throws JSONException{
         child.put("childno", index);
+        child.put("lastchildno", currentChildCount);
         passJson.putExtra("Layout", child.has("birthStatus") ? child.getInt("birthStatus"): 3);
         passJson.putExtra("DeliveryJson", dJson.toString());
         passJson.putExtra("NewbornJson", child.toString());

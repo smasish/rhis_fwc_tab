@@ -1,5 +1,7 @@
 package org.sci.rhis.fwc;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -40,7 +42,8 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
 
     private PregWoman mother;
-    private  JSONObject deliveryJsonObj;
+    private JSONObject deliveryJsonObj;
+    private JSONObject newbornDeleteObj;
     private ProviderInfo provider;
     private int flag =0;
     private int integerRecd = 0;
@@ -70,11 +73,10 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
         integerRecd = intent.getIntExtra("Layout", flag);
 
-        switch(integerRecd) {
+        switch(integerRecd) {   /*Design different Layouts for different types*/
             case 1:
                 Utilities.MakeInvisible(this, R.id.newBornDetectionLayout);
                 jsonEditTextMap.get("birthStatus").setText("1");
-
                 break;
             case 2:
                 Utilities.MakeInvisible(this, R.id.newBornDetectionLayout);
@@ -91,6 +93,8 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
                 jsonEditTextMap.get("birthStatus").setText("3");
                 break;
         }
+
+        newbornDeleteObj=new JSONObject();
 
         //Intent outComePlace = getIntent();
         String str = intent.getStringExtra("DeliveryJson");
@@ -128,13 +132,20 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
             if(intent.hasExtra("NewbornJson")) { //check if new bron info is given
                 Log.d(LOGTAG, "Restoring Child Info");
-                restoreNewbornFromJSON(new JSONObject(getIntent().getStringExtra("NewbornJson")));
+
+                JSONObject restoreJson=new JSONObject(getIntent().getStringExtra("NewbornJson"));
+
+                newbornDeleteObj.put("gender", restoreJson.getString("gender"));
+                newbornDeleteObj.put("childno",restoreJson.getString("childno"));
+                newbornDeleteObj.put("birthStatus", String.valueOf(integerRecd));
+
+                restoreNewbornFromJSON(restoreJson);
+
 
             } else {
                 Utilities.Enable(this, R.id.DeliveryNewBornLayout);
-                newbornInfoQueryTask = new AsyncNewbornInfoUpdate(this);
                 //Utilities.Disable(this, R.id.deliveryNewBornNo);
-                if(intent.hasExtra("childno")){ //check if new bron info is given
+                if(intent.hasExtra("childno")){ //set child no in UI
                     int childno = intent.getIntExtra("childno", 0);
                     jsonTextViewsMap.get("childno").setText(String.valueOf(childno));
                 }
@@ -314,6 +325,8 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         } else if (v.getId() == R.id.id_OkNewbornButton) {
             finishActivity(ActivityResultCodes.NEWBORN_ACTIVITY);
             finish();
+        } else if (v.getId() == R.id.DeleteLastNewbornButton) {
+            deleteLastNewborn(v);
         }
     }
 
@@ -373,8 +386,11 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
         Log.d(LOGTAG, "Delivery Response Received:\n\t" + json.toString());
         //dJson = json;
 
+        showHideNewbornDeleteButton(json);
+
         Utilities.Disable(this, R.id.DeliveryNewBornLayout);
         Utilities.Enable(this, R.id.id_OkNewbornButton);
+        Utilities.Enable(this, R.id.DeleteLastNewbornButton);
     }
 
     public void setSpecialCases(JSONObject json) {
@@ -390,6 +406,20 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
         }
 
+    }
+
+    private void showHideNewbornDeleteButton(JSONObject json) {
+        Utilities.SetVisibility(this, R.id.DeleteLastNewbornButton, isLastNewborn(json) ? View.VISIBLE :View.INVISIBLE);
+        //findViewById(R.id.deleteLastAncButton).setVisibility(isLastAncDeletable(jso) ? View.VISIBLE :View.INVISIBLE);
+    }
+
+    private boolean isLastNewborn(JSONObject json){
+        try {
+            return (json.getString("lastchildno").equals(json.getString("childno")));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public void getSpecialCases(JSONObject json) {
@@ -416,7 +446,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
                 "newbornLoad:" + (isRetrieval? "retrieve":"\"\"") +
                 "}";
 
-          Log.e("Is there have Values?", queryString);
+          //Log.e("Is there have Values?", queryString);
 
         return new JSONObject(queryString);
     }
@@ -432,5 +462,48 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
         }
         return (days < (37 * 7) );
+    }
+
+    private void deleteConfirmed() {
+        try {
+
+            JSONObject deleteJson = buildQueryHeader(false);
+            deleteJson.put("newbornLoad", "delete");
+            deleteJson.put("birthStatus", newbornDeleteObj.getString("birthStatus"));
+            deleteJson.put("gender", newbornDeleteObj.getString("gender"));
+            deleteJson.put("childno", newbornDeleteObj.getString("childno"));
+
+            Log.d("look", deleteJson.toString());
+
+            newbornInfoQueryTask = new AsyncNewbornInfoUpdate(this);
+            newbornInfoQueryTask.execute(deleteJson.toString(), SERVLET, ROOTKEY);
+        } catch (JSONException jse) {
+            Log.e(LOGTAG, "Could not build delete ANC request");
+            Utilities.printTrace(jse.getStackTrace());
+        }
+    }
+
+    public void deleteLastNewborn(View view) {
+        AlertDialog alertDialog = new AlertDialog.Builder(DeliveryNewbornActivity.this).create();
+        alertDialog.setIcon(android.R.drawable.ic_delete);
+        alertDialog.setTitle("Delete Service?");
+        alertDialog.setMessage(getString(R.string.ServiceDeletionWarning));
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        //finish();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        deleteConfirmed();
+                    }
+                });
+
+        alertDialog.show();
     }
 }
