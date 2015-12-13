@@ -312,9 +312,11 @@ public class PACActivity extends ClinicalServiceActivity {
                 // for hematuria value
                 str1 = "";
                 str1 = uterusInvolution;
+                str1 = str1.replaceAll("[^0-9]+", " ");
                 System.out.println("-----"+str1);
                 animals = str1.split(" ");
-                System.out.println("---splitted--"+animals);
+                System.out.println("---splitted--");
+
                 temp = "";
                 details = res1.getStringArray(R.array.Cervix_Involution_DropDown);
                 for (String animal : animals) {
@@ -329,10 +331,10 @@ public class PACActivity extends ClinicalServiceActivity {
                 // for hematuria value
                 str1 = "";
                 str1 = hematuria;
-
+                str1 = str1.replaceAll("[^0-9]+", " ");
                 animals = str1.split(" ");
                 temp = "";
-                details = res1.getStringArray(R.array.Discharge_Bleeding_DropDown);
+                details = res1.getStringArray(R.array.Family_Planning_Methods_DropDown);// discharge_bleeding_dropdown
                 for (String animal : animals) {
                     System.out.println(animal);
                     if(animal.length()>0)
@@ -346,7 +348,7 @@ public class PACActivity extends ClinicalServiceActivity {
                 str1 = "";
                 str1 = perineum;
 
-
+                str1 = str1.replaceAll("[^0-9]+", " ");
                 animals = str1.split(" ");
                 temp = "";
                 details = res1.getStringArray(R.array.Perineum_DropDown);
@@ -362,7 +364,7 @@ public class PACActivity extends ClinicalServiceActivity {
                 // for Family_Planning value
                 str1 = "";
                 str1 = FPMethod;
-
+                str1 = str1.replaceAll("[^0-9]+", " ");
                 animals = str1.split(" ");
                 temp = "";
                 details = res1.getStringArray(R.array.Family_Planning_Methods_DropDown);
