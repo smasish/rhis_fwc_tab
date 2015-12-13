@@ -48,20 +48,47 @@
 
         android:layout_width="match_parent"
         android:layout_height="0sp"
-        android:id="@+id/history_lay"
+        android:id="@+id/idPacHistory"
         android:orientation="vertical"
         android:layout_weight="7"
         >
 
-
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/anchistory_fragment"
-            android:name="org.sci.rhis.fwc.ANCActivityFragment"
-            tools:layout="@layout/fragment_anchistory"
+        <LinearLayout
+            android:id="@+id/historyFragmentLayout"
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            >
 
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/pachistory_fragment"
+                android:name="org.sci.rhis.fwc.MinimumDeliveryInfoFragment"
+                tools:layout="@layout/fragment_anchistory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/idMinDeliveryFragmentHolder"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/layoutbordersimple">
+
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/minimal_delivery_fragment"
+                android:name="org.sci.rhis.fwc.MinimumDeliveryInfoFragment"
+                tools:layout="@layout/fragment_minimal_delivery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
         <!-- <Button
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
@@ -109,7 +136,7 @@
             android:id="@+id/pacLayoutScrollview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <LinearLayout
                 android:id="@+id/pacText"
@@ -239,7 +266,6 @@
                         android:layout_marginTop="5sp"
                         android:layout_marginBottom="5sp"
                         android:background="@drawable/gradient_spinner"
-                        android:entries="@array/PACProblemDropDown"
                         android:inputType="text"
                         android:textSize="20sp" />
                 </LinearLayout>
@@ -727,4 +753,5 @@
         </ScrollView>
     </LinearLayout>
 </LinearLayout>
+
 

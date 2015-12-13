@@ -8,53 +8,14 @@
     android:background="@drawable/fragmentborder"
     android:id = "@+id/client_info_layout"    >
     <LinearLayout
-        android:id="@+id/clients_info_layout"
+        android:id="@+id/idPacAbortionInfo"
         android:orientation="vertical"
-        android:layout_centerVertical="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/layoutbordersimple">
 
         <LinearLayout
-            android:id="@+id/client_info_title"
-            android:paddingTop="10sp"
-            android:paddingBottom="10sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            style="@style/rowHeading">
-
-            <TextView
-                android:id="@+id/RegLabel"
-                android:gravity="start"
-                android:text="@string/reg_no"
-                android:layout_width="0sp"
-                android:textColor="#FFFFFF"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:layout_weight="1" />
-            <TextView
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:id="@+id/reg_NO"
-                android:textColor="#FFFFFF"
-                android:paddingLeft="1sp"
-                android:textSize="20sp"
-                android:layout_weight="2" />
-
-            <TextView
-                android:id="@+id/TextViewClient_info_tab"
-                android:gravity="center"
-                android:text="@string/ClientsInfoFragment"
-                android:layout_width="0sp"
-                android:textColor="#FFFFFF"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:layout_weight="2" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/lmp_para"
+            android:id="@+id/idAbortionPlaceDate"
             android:layout_marginLeft="5sp"
             android:layout_marginRight="5sp"
             android:layout_marginTop="5sp"
@@ -64,658 +25,112 @@
             android:background="@drawable/layoutbordersimple">
 
             <TextView
-                android:textSize="20sp"
-                android:layout_marginTop="10sp"
-                android:id="@+id/TextViewLMPDate"
-                android:text="@string/LMPDate"
-                android:textColor="@color/text_color"
+                android:id="@+id/delivery_place_label"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:text="@string/delivery_place"
+                android:textSize="20sp"
+                android:textColor="@color/text_color" />
+
+            <Spinner
+                android:id="@+id/idAbortionPlaceDropdown"
+                android:layout_width="150sp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="10sp"
+                android:entries="@array/FacilityPlace_DropDown"
+                android:prompt="@string/delivery_place"
+                android:background="@drawable/gradient_spinner"/>
+            <TextView
+                android:id="@+id/TextViewdelivery_date"
+                android:layout_width="140sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:layout_marginLeft="10sp"
+                android:text="@string/delivery_date"
+                android:textSize="20sp"
+                android:textColor="@color/text_color"/>
 
             <EditText
-                android:id="@+id/lmpDate"
+                android:id="@+id/id_delivery_date"
                 android:layout_width="120sp"
-                android:layout_marginTop="10sp"
-                android:layout_marginLeft="5sp"
                 android:layout_height="wrap_content"
-                android:editable="false"
+                android:layout_marginTop="10sp"
                 android:paddingLeft="10sp"
-                android:hint="dd/MM/yyyy"
                 android:background="@drawable/edittext_round"
                 android:inputType="date"
-                style="@style/styleEdittext"/>
-
+                android:hint="dd/mm/yyyy"/>
             <ImageButton
-                android:id="@+id/Date_Picker_Button"
-                android:layout_marginLeft="5sp"
-                android:layout_marginTop="5sp"
                 android:layout_width="40sp"
                 android:layout_height="40sp"
+                android:id="@+id/imageViewDeliveryDate"
                 android:src="@drawable/calendar_icon"
-                />
-            <TextView
-                android:textSize="20sp"
-                android:layout_marginTop="10sp"
-                android:layout_marginLeft="5sp"
-                android:id="@+id/TextViewClients_Para"
-                android:text="@string/Clients_Para"
-                android:textColor="@color/text_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <EditText
-                android:layout_marginTop="10sp"
-                android:layout_marginLeft="5sp"
-                android:layout_width="30sp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_round"
-                android:id="@+id/para"
-                android:paddingLeft="5sp"
-                android:inputType="number"
-                style="@style/styleEdittext"/>
-            <TextView
-                android:textSize="20sp"
-                android:layout_marginLeft="5sp"
-                android:layout_marginTop="10sp"
-                android:id="@+id/TextViewClients_Gravida"
-                android:text="@string/Clients_Gravida"
-                android:textColor="@color/text_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <EditText
-                android:layout_marginTop="10sp"
-                android:layout_marginLeft="5sp"
-                android:layout_marginRight="10sp"
-                android:layout_width="30sp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_round"
-                android:id="@+id/gravida"
-                android:paddingLeft="5sp"
-                android:inputType="number"
-                style="@style/styleEdittext"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/edd_gravida"
-            android:layout_marginLeft="5sp"
-            android:layout_marginRight="5sp"
-            android:layout_marginTop="1sp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/layoutbordersimple">
-            <TextView
-                android:textSize="20sp"
-                android:layout_marginTop="10sp"
-                android:id="@+id/TextViewDeliveryDate"
-                android:text="@string/DeliveryDate"
-                android:textColor="@color/text_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-
-            <EditText
-                android:layout_width="120sp"
-                android:layout_marginTop="10sp"
-                android:layout_marginLeft="5sp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_round"
-                android:id="@+id/edd"
-                android:inputType="date"
-                android:paddingLeft="10sp"
-                style="@style/styleEdittext"
-                />
-
-            <!--TextView
-                android:textSize="20sp"
-                android:layout_marginLeft="55sp"
-                android:layout_marginTop="10sp"
-                android:id="@+id/TextViewClients_Gravida"
-                android:text="@string/Clients_Gravida"
-                android:textColor="@color/text_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" /-->
-
-            <!--EditText
-                android:layout_marginTop="10sp"
-                android:layout_marginLeft="10sp"
-                android:layout_width="120sp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_round"
-                android:id="@+id/gravida"
-                android:paddingLeft="10sp"
-                style="@style/styleEdittext"
-                /-->
+                android:layout_marginTop="3sp"
+                android:tag="DateField"
+                android:onClick="pickDate"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/born_blood"
+            android:id="@+id/idAbortionFacility"
             android:layout_marginLeft="5sp"
             android:layout_marginRight="5sp"
-            android:layout_marginTop="1sp"
+            android:layout_marginTop="5sp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/layoutbordersimple">
 
             <TextView
-                android:textSize="20sp"
-                android:layout_marginTop="10sp"
-                android:id="@+id/TextViewLive_son_Num"
-                android:text="@string/TextViewLive_child_Num"
-                android:textColor="@color/text_color"
-                android:layout_width="180sp"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:textSize="20sp"
-                android:layout_marginTop="10sp"
-                android:id="@+id/TextViewClient_Son_Num"
-                android:text="@string/Client_Son_Num"
-                android:textColor="@color/text_color"
-                android:layout_width="50sp"
-                android:layout_height="wrap_content" />
-
-            <EditText
-                android:layout_marginTop="10sp"
-                android:layout_marginLeft="10sp"
-                android:layout_width="40sp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_round"
-                android:id="@+id/SonNum"
-                android:paddingLeft="10sp"
-                android:inputType="number"
-                style="@style/styleEdittext"
-                />
-
-            <TextView
-                android:textSize="20sp"
-                android:layout_marginLeft="10sp"
-                android:layout_marginTop="10sp"
-                android:id="@+id/TextViewClient_Daughter_Num"
-                android:text="@string/Client_Daughter_Num"
-                android:textColor="@color/text_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <EditText
-                android:layout_marginTop="10sp"
-                android:layout_marginLeft="10sp"
-                android:layout_width="40sp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_round"
-                android:id="@+id/DaughterNum"
-                android:paddingLeft="10sp"
-                android:inputType="number"
-                style="@style/styleEdittext"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/age_lasr_child_height"
-            android:layout_marginLeft="5sp"
-            android:layout_marginRight="5sp"
-            android:layout_marginTop="1sp"
-            android:orientation="horizontal"
-            android:layout_centerVertical="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/layoutbordersimple">
-
-            <TextView
-                android:textSize="20sp"
-                android:layout_marginTop="10sp"
-                android:id="@+id/TextViewLast_Child_Age"
-                android:text="@string/TextViewLast_child_Age"
-                android:textColor="@color/text_color"
-                android:layout_width="230sp"
-                android:layout_height="wrap_content" />
-
-
-            <EditText
-                android:layout_marginTop="10sp"
-                android:layout_marginLeft="10sp"
-                android:layout_width="40sp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_round"
-                android:id="@+id/lastChildYear"
-                android:paddingLeft="10sp"
-                android:inputType="number"
-                style="@style/styleEdittext"
-                />
-
-            <TextView
-                android:textSize="20sp"
-                android:layout_marginTop="10sp"
-                android:id="@+id/TextViewAge_of_last_child_year"
-                android:text="@string/Age_of_last_child_year"
-                android:textColor="@color/text_color"
+                android:id="@+id/TaxtViewdscn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10sp"/>
-
-            <EditText
                 android:layout_marginTop="10sp"
-                android:layout_width="40sp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15sp"
-                android:background="@drawable/edittext_round"
-                android:id="@+id/lastChildMonth"
-                android:paddingLeft="10sp"
-                style="@style/styleEdittext"
-                android:inputType="number"
-                />
-            <TextView
-                android:textSize="20sp"
-                android:layout_marginTop="10sp"
-                android:id="@+id/TextViewAge_of_last_child_mont"
-                android:text="@string/Age_of_last_child_mont"
-                android:textColor="@color/text_color"
-                android:layout_width="50sp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10sp"/>
+                android:text="@string/service_center_name"
+                android:textSize="20sp" android:textColor="@color/text_color" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/height"
-            android:layout_marginLeft="5sp"
-            android:layout_marginRight="5sp"
-            android:layout_marginTop="1sp"
-            android:orientation="horizontal"
-            android:layout_centerVertical="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/layoutbordersimple">
-
-            <TextView
-                android:textSize="20sp"
-                android:layout_marginTop="10sp"
-                android:id="@+id/TextViewClients_hight"
-                android:text="@string/Clients_Hight"
-                android:textColor="@color/text_color"
-                android:layout_width="70sp"
-                android:layout_height="wrap_content" />
-
-
-            <EditText
-                android:layout_marginTop="10sp"
-                android:layout_width="40sp"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:background="@drawable/edittext_round"
-                android:id="@+id/heightFeet"
-                android:paddingLeft="10sp"
-                style="@style/styleEdittext"
-                />
-
-            <TextView
-                android:textSize="20sp"
-                android:id="@+id/TextViewClients_Hight_feet"
-                android:text="@string/Clients_Hight_feet"
-                android:textColor="@color/text_color"
-                android:layout_marginTop="10sp"
-                android:layout_width="40sp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10sp"/>
-
-
-            <EditText
-                android:layout_marginTop="10sp"
-                android:layout_width="40sp"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:background="@drawable/edittext_round"
-                android:id="@+id/heightInch"
-                android:paddingLeft="10sp"
-                style="@style/styleEdittext"
-                />
-
-            <TextView
-                android:textSize="20sp"
-                android:layout_marginTop="10sp"
-                android:id="@+id/TextViewClients_Hight_Inch"
-                android:text="@string/Clients_Hight_Inch"
-                android:textColor="@color/text_color"
-                android:layout_width="60sp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10sp"/>
-            <TextView
-                android:textSize="20sp"
-                android:layout_marginTop="10sp"
-                android:layout_marginLeft="10sp"
-                android:id="@+id/TextViewClients_Blood_group"
-                android:text="@string/Clients_Blood_Group"
-                android:textColor="@color/text_color"
-                android:layout_width="110sp"
-                android:layout_height="wrap_content" />
             <Spinner
-                android:id="@+id/Blood_Group_Dropdown"
-                android:layout_marginLeft="8sp"
-                android:layout_width="70sp"
+                android:id="@+id/id_facility_name_Dropdown"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10sp"
-                android:layout_marginTop="10sp"
-                android:entries="@array/Blood_Group_Dropdown"
-                android:background="@drawable/gradient_spinner"
-                style="@style/styleEdittext"/>
-
+                android:layout_marginLeft="10sp"
+                android:entries="@array/FacilityType_DropDown"
+                android:layout_marginTop="5sp"
+                android:layout_marginBottom="2sp"
+                android:background="@drawable/gradient_spinner"/>
         </LinearLayout>
 
-
         <LinearLayout
-            android:id="@+id/tt_tika"
+            android:id="@+id/id_facililties_section_layout"
             android:layout_marginLeft="5sp"
             android:layout_marginRight="5sp"
-            android:layout_marginTop="1sp"
+            android:layout_marginTop="5sp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/layoutbordersimple">
-
-            <TextView
-                android:textSize="20sp"
-                android:layout_marginTop="10sp"
-                android:id="@+id/TextViewClients_TT_Tika"
-                android:text="@string/Clients_TT_Tika"
-                android:textColor="@color/text_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <CheckBox
-                android:textSize="20sp"
-                android:layout_marginTop="10sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="১ "
-                android:id="@+id/Clients_TT_Tika1"
-                style="@style/styleEdittext"/>
-
-            <CheckBox
-                android:textSize="20sp"
-                android:layout_marginTop="10sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="২ "
-                android:id="@+id/Clients_TT_Tika2"
-                style="@style/styleEdittext"/>
-
-            <CheckBox
-                android:textSize="20sp"
-                android:layout_marginTop="10sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="৩ "
-                android:id="@+id/Clients_TT_Tika3"
-                style="@style/styleEdittext"/>
-
-            <CheckBox
-                android:textSize="20sp"
-                android:layout_marginTop="10sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="৪ "
-                android:id="@+id/Clients_TT_Tika4"
-                style="@style/styleEdittext"/>
-            <CheckBox
-                android:textSize="20sp"
-                android:layout_marginTop="10sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="৫ "
-                android:id="@+id/Clients_TT_Tika5"
-                style="@style/styleEdittext"/>
-
-
         </LinearLayout>
-
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
-
-            <EditText
-                android:layout_marginTop="10sp"
-                android:layout_marginLeft="10sp"
-                android:layout_width="40sp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_round"
-                android:id="@+id/ttDate1"
-                android:paddingLeft="10sp"
-                style="@style/styleEdittext"
-                />
-
-            <EditText
-                android:layout_marginTop="10sp"
-                android:layout_marginLeft="10sp"
-                android:layout_width="40sp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_round"
-                android:id="@+id/ttDate2"
-                android:paddingLeft="10sp"
-                style="@style/styleEdittext"
-                />
-            <EditText
-                android:layout_marginTop="10sp"
-                android:layout_marginLeft="10sp"
-                android:layout_width="40sp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_round"
-                android:id="@+id/ttDate3"
-                android:paddingLeft="10sp"
-                style="@style/styleEdittext"
-                />
-            <EditText
-                android:layout_marginTop="10sp"
-                android:layout_marginLeft="10sp"
-                android:layout_width="40sp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_round"
-                android:id="@+id/ttDate4"
-                android:paddingLeft="10sp"
-                style="@style/styleEdittext"
-                />
-            <EditText
-                android:layout_marginTop="10sp"
-                android:layout_marginLeft="10sp"
-                android:layout_width="40sp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_round"
-                android:id="@+id/ttDate5"
-                android:paddingLeft="10sp"
-                style="@style/styleEdittext"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/Previous_Delivery"
+            android:id="@+id/saveConfirmation"
             android:layout_marginLeft="5sp"
             android:layout_marginRight="5sp"
-            android:layout_marginTop="1sp"
-            android:orientation="vertical"
+            android:layout_marginTop="5sp"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/layoutbordersimple">
-            <TextView
-                android:textSize="20sp"
-                android:layout_marginTop="10sp"
-                android:id="@+id/TextViewPrivious_History"
-                android:text="@string/Privious_History"
-                android:textColor="@color/title_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:id="@+id/first_layout"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:textSize="20sp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/bleeding"
-                    android:id="@+id/previousDeliveryBleedingCheckBox"
-                    style="@style/styleEdittext"/>
-
-                <CheckBox
-                    android:layout_marginLeft="10sp"
-                    android:textSize="20sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/delayed_birth"
-                    android:id="@+id/delayedBirthCheckBox"
-                    style="@style/styleEdittext"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/second_layout"
-                android:orientation="horizontal"
-                android:layout_centerVertical="true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <CheckBox
-                    android:textSize="20sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lines_birth"
-                    android:id="@+id/blockedDeliveryCheckBox"
-                    style="@style/styleEdittext"/>
-
-                <CheckBox
-                    android:textSize="20sp"
-                    android:layout_marginLeft="10sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/placenta_inside_uterus"
-                    android:id="@+id/placentaInsideUterusCheckBox"
-                    style="@style/styleEdittext"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/third_layout"
-                android:orientation="horizontal"
-                android:layout_centerVertical="true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <CheckBox
-                    android:textSize="20sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/give_birth_as_dead"
-                    android:id="@+id/giveBirthDeadCheckBox"
-                    style="@style/styleEdittext"/>
-                <CheckBox
-                    android:textSize="20sp"
-                    android:layout_width="wrap_content"
-                    android:layout_marginLeft="10sp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/newborn_die_within_48hours"
-                    android:id="@+id/newbornDieWithin48hoursCheckBox"
-                    style="@style/styleEdittext"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/fourth_layout"
-                android:orientation="horizontal"
-                android:layout_centerVertical="true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <CheckBox
-                    android:textSize="20sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/swelling_legs_or_whole_body"
-                    android:id="@+id/swellingLegsOrWholeBodyCheckBox"
-                    style="@style/styleEdittext"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/fifth_layout"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <CheckBox
-                    android:textSize="20sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/with_convulsion_senseless"
-                    android:id="@+id/withConvulsionSenselessCheckBox"
-                    style="@style/styleEdittext"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/caesar_layout"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <CheckBox
-                    android:textSize="20sp"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="10sp"
-                    android:text="@string/caesar"
-                    android:id="@+id/caesarCheckBox"
-                    style="@style/styleEdittext" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginLeft="10sp"
-            android:layout_marginBottom="10sp"
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/idSaveAbobortion"
                 android:text="Save"
-                android:id="@+id/client_Save_Button"
-                android:paddingRight="10sp"
-                android:paddingLeft="10sp"
-                android:background="@drawable/button_style"
-                android:layout_gravity="center_horizontal"
-                android:onClick="onClickSaveClient"/>
-
+                />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10sp"
-                android:paddingRight="10sp"
-                android:paddingLeft="10sp"
-                android:text="Add new pregnancy info"
-                android:background="@drawable/button_style"
-                android:id="@+id/client_New_preg_Button"
-                android:layout_gravity="center_horizontal"
-                android:onClick="handleAddNewPregnancy"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10sp"
-                android:paddingRight="10sp"
-                android:paddingLeft="10sp"
-                android:text="Edit"
-                android:background="@drawable/button_style"
-                android:id="@+id/client_edit_Button"
-                android:layout_gravity="center_horizontal"
-                android:onClick="editFields"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10sp"
-                android:paddingRight="10sp"
-                android:paddingLeft="10sp"
-                android:text="Update"
-                android:background="@drawable/button_style"
-                android:id="@+id/client_update_Button"
-                android:layout_gravity="center_horizontal"
-                android:onClick="onClickSaveClient"
-                android:layout_marginRight="20sp" />
+                android:id="@+id/idCancelAbobortion"
+                android:text="Cancel"/>
 
         </LinearLayout>
     </LinearLayout>

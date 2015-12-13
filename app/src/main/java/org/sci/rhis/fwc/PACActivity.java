@@ -1,18 +1,21 @@
 package org.sci.rhis.fwc;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class PACActivity extends ClinicalServiceActivity {
+public class PACActivity extends ClinicalServiceActivity  implements MinimumDeliveryInfoFragment.DeliverySavedListener{
 
 
     final private String SERVLET = "pac";
@@ -20,6 +23,9 @@ public class PACActivity extends ClinicalServiceActivity {
 
     private  final String LOGTAG    = "FWC-PAC";
     private MultiSelectionSpinner multiSelectionSpinner;
+
+    private PregWoman woman = null;
+    private ProviderInfo provider = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,23 @@ public class PACActivity extends ClinicalServiceActivity {
                 }
             }
         });
+
+        Intent intent = getIntent();
+
+        woman = intent.getParcelableExtra("PregWoman");
+        provider = intent.getParcelableExtra("Provider");
+
+        if( woman.getAbortionInfo() == 0) {
+            getAbortionInformation();
+        }
+    }
+
+    private void getAbortionInformation() {
+        //Disable PAC and History Layout first
+        // Utilities.Disable(this, R.id.pacEntryMasterLayout);
+        Utilities.MakeInvisible(this, R.id.historyFragmentLayout);
+        Utilities.MakeVisible(this, R.id.idPacAbortionInfo);
+        Utilities.Disable(this, R.id.pacEntryMasterLayout);
     }
 
     private void setMultiSelectSpinners() {
@@ -134,5 +157,20 @@ public class PACActivity extends ClinicalServiceActivity {
 
     public void onClick(View v) {
         Utilities.Reset(this, R.id.pacEntryMasterLayout);
+    }
+
+    private Activity getActivity() {
+        return this;
+    }
+
+    //Callback method of delivery Saved even notification
+    @Override
+    public void onDeliverySaved(String result) {
+        Log.d(LOGTAG, "Abortion Info saved response:\n\t\t" + result);
+        Utilities.MakeInvisible(this, R.id.idMinDeliveryFragmentHolder);
+        Utilities.MakeVisible(this, R.id.pacEntryMasterLayout);
+        Utilities.MakeVisible(this,R.id.historyFragmentLayout);
+        Utilities.Enable(this, R.id.historyFragmentLayout);
+        Utilities.Enable(this, R.id.pacEntryMasterLayout);
     }
 }
