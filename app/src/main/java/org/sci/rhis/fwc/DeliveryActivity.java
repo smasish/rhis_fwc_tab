@@ -99,6 +99,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         getEditText(R.id.id_delivery_date).setOnClickListener(this);
         getEditText(R.id.id_admissionDate).setOnClickListener(this);
         getCheckbox(R.id.id_delivery_refer).setOnCheckedChangeListener(this);
+        getCheckbox(R.id.deliveryMyselfCheckbox).setOnCheckedChangeListener(this);
 
         //custom date picker
         datePickerDialog = new CustomDatePickerDialog(this, "dd/MM/yyyy");
@@ -125,7 +126,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
         //disable delivery result
         Utilities.Disable(this, R.id.id_deliveryResultLayout);
-        Utilities.SetVisibility(this, R.id.newborn_Tabla_Layout,View.INVISIBLE);
+        Utilities.SetVisibility(this, R.id.newborn_Tabla_Layout, View.INVISIBLE);
     }
 
     @Override
@@ -254,7 +255,22 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             int layouts[] = {R.id.reason, R.id.id_referCenterDetails};
 
             for(int i = 0 ; i < layouts.length; i++) {
-                Utilities.SetVisibility(this, layouts[i],visibility);
+                Utilities.SetVisibility(this, layouts[i], visibility);
+            }
+        }
+
+        if (buttonView.getId() == R.id.deliveryMyselfCheckbox) {
+            if(isChecked) {
+                getEditText(R.id.id_attendantName).setText(provider.getProviderName());
+                getSpinner(R.id.id_attendantTitleDropdown).setSelection(3);
+                Utilities.Disable(this,R.id.id_attendantName);
+                Utilities.Disable(this, R.id.attendantTitleLayout);
+            }
+            else {
+                getEditText(R.id.id_attendantName).setText("");
+                getSpinner(R.id.id_attendantTitleDropdown).setSelection(0);
+                Utilities.Enable(this, R.id.id_attendantName);
+                Utilities.Enable(this, R.id.attendantTitleLayout);
             }
         }
     }
@@ -409,6 +425,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         jsonCheckboxMap.put("dOBodyPart", getCheckbox(R.id.id_onlyHead));
         jsonCheckboxMap.put("dConvulsions", getCheckbox(R.id.id_convulsion));
         jsonCheckboxMap.put("dOthers", getCheckbox(R.id.id_deleiveryExtra));
+        jsonCheckboxMap.put("dAttendantThisProvider", getCheckbox(R.id.deliveryMyselfCheckbox));
         //refer
         jsonCheckboxMap.put("dRefer", getCheckbox(R.id.id_delivery_refer));
 

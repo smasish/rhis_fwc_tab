@@ -212,6 +212,8 @@
     <string name="epcotomi">"ইপিসিওটমি করা হয়েছে? "</string>
     <string name="oxytocinGiven">"অক্সিটোসিন না থাকলে মিসোপ্রোস্টল খাওয়ানো হয়েছে?"</string>
     <string name="providerName">"প্রসব সম্পাদনকারীর নাম:"</string>
+    <string name="providerSelfLabel">"প্রসব সম্পাদনকারী:"</string>
+    <string name="providerSelfValue">" আমি নিজে"</string>
     <string name="providerTitle">"পদবী:"</string>
     <string name="deliveryComplication">"প্রসব সংক্রান্ত জটিলতা:"</string>
     <string name="bloodLoss">"অতিরিক্ত রক্তক্ষরণ"</string>
