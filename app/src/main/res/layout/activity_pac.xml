@@ -15,10 +15,10 @@
         <TextView
             android:layout_width="0sp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text=""
-            android:id="@+id/ancBlanLabelLabel"
+            android:id="@+id/pacBlanLabelLabel"
             style="@style/rowHeading"
             android:gravity="center"
             android:layout_centerVertical="true"
@@ -26,21 +26,21 @@
         <TextView
             android:layout_width="0sp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="ANC History"
-            android:id="@+id/ancHistoryLabel"
+            android:text="PAC History"
+            android:id="@+id/pacHistoryLabel"
             style="@style/rowHeading"
             android:gravity="center"
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal" />
        <Button
-           android:id="@+id/deleteLastAncButton"
+           android:id="@+id/deleteLastPacButton"
            android:layout_width="0sp"
            android:layout_height="wrap_content"
-           android:layout_weight="2"
+           android:layout_weight="1"
            android:text="DELETE LAST SERVICE"
-           android:onClick="deleteLastANC"
+           android:onClick="deleteLastPAC"
            android:visibility="invisible"/>
     </LinearLayout>
 
@@ -48,26 +48,69 @@
 
         android:layout_width="match_parent"
         android:layout_height="0sp"
-        android:id="@+id/history_lay_anc"
+        android:id="@+id/idPacHistory"
         android:orientation="vertical"
         android:layout_weight="7"
-        android:background="#F3F3F3">
+        >
 
-
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/anchistory_fragment"
-            android:name="org.sci.rhis.fwc.ANCActivityFragment"
-            tools:layout="@layout/fragment_anchistory"
+        <LinearLayout
+            android:id="@+id/historyFragmentLayout"
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            >
+
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/pachistory_fragment"
+                android:name="org.sci.rhis.fwc.MinimumDeliveryInfoFragment"
+                tools:layout="@layout/fragment_anchistory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/idMinDeliveryFragmentHolder"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/layoutbordersimple">
+
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/minimal_delivery_fragment"
+                android:name="org.sci.rhis.fwc.MinimumDeliveryInfoFragment"
+                tools:layout="@layout/fragment_minimal_delivery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
+        <!-- <Button
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:textAppearance="?android:attr/textAppearanceLarge"
+             android:text="New ANC"
+             android:id="@+id/newanc_id"
+             style="@style/rowHeading"
+             android:gravity="center"
+             android:layout_marginRight="1sp"
+             android:layout_marginTop="1sp"
+             android:layout_marginLeft="3sp"
+             android:layout_marginBottom="2sp"
+             android:layout_centerVertical="true"
+             android:layout_gravity="center_horizontal" />-->
+
     </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="0sp"
-        android:id="@+id/ancEntryMasterLayout"
+        android:id="@+id/pacEntryMasterLayout"
         android:layout_weight="10"
         >
 
@@ -75,114 +118,28 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             style="@style/rowHeading"
-            android:text="@string/title_activity_anc"
-            android:id="@+id/ancLabelButton"
+            android:text="@string/title_activity_pac"
+            android:id="@+id/pacLabelButton"
             android:gravity="center"
             android:layout_centerVertical="true"
             android:textColor="@color/text_color"/>
-        <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/ancVisitDates"
-            android:background="@drawable/layoutborder"
-            android:layout_gravity="fill_horizontal">
-            <TableRow>
-                <TextView
-                    android:layout_width="145sp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_color"
-                    android:background="@drawable/textviewback"
-                    android:text="@string/Visit1"
-                    android:textSize="15sp"
-                    android:layout_marginLeft="5sp"
-                    android:layout_marginRight="1sp"
-                    android:padding="2sp"/>
-                <TextView
-                    android:layout_width="145sp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_color"
-                    android:background="@drawable/textviewback"
-                    android:text="@string/Visit2"
-                    android:textSize="15sp"
-                    android:layout_marginLeft="1sp"
-                    android:layout_marginRight="1sp"
-                    android:padding="2sp"/>
-                <TextView
-                    android:layout_width="145sp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_color"
-                    android:background="@drawable/textviewback"
-                    android:text="@string/Visit3"
-                    android:textSize="15sp"
-                    android:layout_marginLeft="1sp"
-                    android:layout_marginRight="1sp"
-                    android:padding="2sp"/>
-                <TextView
-                    android:layout_width="145sp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_color"
-                    android:background="@drawable/textviewback"
-                    android:text="@string/Visit4"
-                    android:textSize="15sp"
-                    android:layout_marginLeft="1sp"
 
-                    android:padding="2sp"/>
-            </TableRow>
-            <TableRow>
-                <TextView
-                    android:id="@+id/ancVisit1Date"
-                    android:layout_width="145sp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_color"
-                    android:background="@drawable/textviewback"
-                    android:textSize="15sp"
-                    android:layout_marginLeft="5sp"
-                    android:layout_marginRight="1sp"
-                    android:layout_marginTop="1sp"
-                    android:padding="2sp"/>
-                <TextView
-                    android:id="@+id/ancVisit2Date"
-                    android:layout_width="145sp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_color"
-                    android:background="@drawable/textviewback"
-                    android:textSize="15sp"
-                    android:layout_marginLeft="1sp"
-                    android:layout_marginRight="1sp"
-                    android:layout_marginTop="1sp"
-                    android:padding="2sp"/>
-                <TextView
-                    android:id="@+id/ancVisit3Date"
-                    android:layout_width="145sp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_color"
-                    android:background="@drawable/textviewback"
-                    android:textSize="15sp"
-                    android:layout_marginLeft="1sp"
-                    android:layout_marginRight="1sp"
-                    android:layout_marginTop="1sp"
-                    android:padding="2sp"/>
-                <TextView
-                    android:id="@+id/ancVisit4Date"
-                    android:layout_width="145sp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_color"
-                    android:background="@drawable/textviewback"
-                    android:textSize="15sp"
-                    android:layout_marginLeft="1sp"
-                    android:layout_marginTop="1sp"
-                    android:padding="2sp"/>
-            </TableRow>
-        </TableLayout>
+        <ListView
+            android:id="@+id/list"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            >
+        </ListView>
 
         <ScrollView
-            android:id="@+id/ancLayoutScrollview"
+            android:id="@+id/pacLayoutScrollview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <LinearLayout
-                android:id="@+id/ancText"
+                android:id="@+id/pacText"
                 android:layout_marginLeft="2sp"
                 android:layout_marginRight="2sp"
                 android:layout_marginTop="5sp"
@@ -194,7 +151,7 @@
                 android:background="@drawable/fragmentborder">
 
                 <LinearLayout
-                    android:id="@+id/ancVisit"
+                    android:id="@+id/pacVisit"
                     android:layout_marginLeft="5sp"
                     android:layout_marginRight="5sp"
                     android:layout_marginTop="5sp"
@@ -203,160 +160,52 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/layoutbordersimple">
                     <TextView
-                        android:id="@+id/ancVisitLabel"
+                        android:id="@+id/pacVisitLabel"
                         android:text="@string/visit"
                         android:textSize="20sp"
-                        android:layout_width="wrap_content"
+                        android:layout_width="80sp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:textColor="@color/text_color"  />
                     <TextView
-                        android:id="@+id/ancVisitValue"
+                        android:id="@+id/pacVisitValue"
                         android:text=""
                         android:textSize="20sp"
                         android:layout_width="30sp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
-                        android:layout_marginLeft="5sp"
                         android:textColor="@color/text_color" />
                     <CheckBox
-                        android:id="@+id/ancOtherCheckBox"
+                        android:id="@+id/pacOtherCheckBox"
                         android:inputType="text"
                         android:textSize="20sp"
                         android:layout_width="40sp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10sp" />
                     <TextView
-                        android:id="@+id/ancOtherVisit"
+                        android:id="@+id/pacOtherVisit"
                         android:text="@string/other_source"
                         android:textSize="20sp"
-                        android:layout_width="120sp"
+                        android:layout_width="100sp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
-                        android:layout_marginLeft="5sp"
+                        android:layout_marginLeft="20sp"
                         android:textColor="@color/text_color"  />
 
                     <Spinner
-                        android:id="@+id/ancOtherCenterNameSpinner"
+                        android:id="@+id/pacOtherCenterNameSpinner"
                         android:inputType="text"
                         android:textSize="20sp"
-                        android:layout_width="280sp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/gradient_spinner"
                         android:layout_marginTop="10sp"
-                        android:layout_marginLeft="5sp"
                         android:entries="@array/FacilityType_DropDown"
                         android:visibility="gone"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/ancServiceDate"
+                    android:id="@+id/pacServiceDate"
                     android:layout_marginLeft="5sp"
-                    android:layout_marginRight="5sp"
-                    android:layout_marginTop="5sp"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/layoutbordersimple"
-                    android:layout_gravity="center_horizontal"
-                    android:padding="2sp">
-                    <TextView
-                        android:id="@+id/ancServiceDateLabel"
-                        android:text="@string/service_date"
-                        android:textSize="20sp"
-                        android:layout_width="220sp"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/text_color"
-                        android:layout_gravity="center" />
-                    <EditText
-                        android:id="@+id/ancServiceDateValue"
-                        android:inputType="number"
-                        android:hint="dd/mm/yyyy"
-                        android:paddingLeft="10sp"
-                        android:layout_width="120sp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/edittext_round"
-                        android:layout_gravity="center" />
-
-                    <ImageButton
-                        android:id="@+id/Date_Picker_Button"
-                        android:layout_marginLeft="10sp"
-                        android:layout_width="35sp"
-                        android:layout_height="35sp"
-                        android:onClick="pickDate"
-                        android:src="@drawable/calendar_icon"
-                        android:layout_gravity="center" />
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/ancBloospresser"
-                    android:layout_marginLeft="5sp"
-                    android:layout_marginRight="5sp"
-                    android:layout_marginTop="5sp"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/layoutbordersimple"
-                    android:layout_gravity="center_horizontal"
-                    android:padding="2sp">
-                    <TextView
-                        android:id="@+id/ancBloospresserLabel"
-                        android:text="@string/blood_presser"
-                        android:textSize="20sp"
-                        android:layout_width="220sp"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/text_color"/>
-                    <EditText
-                        android:id="@+id/ancBloodPresserValueSystolic"
-                        android:inputType="number"
-                        android:textSize="20sp"
-                        android:paddingLeft="10sp"
-                        android:layout_width="80sp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/edittext_round"/>
-                    <TextView
-                        android:id="@+id/ancBloodPresserLabelMid"
-                        android:text=" / "
-                        android:textSize="20sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/text_color"/>
-                    <EditText
-                        android:id="@+id/ancBloodPresserValueDiastolic"
-                        android:inputType="number"
-                        android:textSize="20sp"
-                        android:paddingLeft="10sp"
-                        android:layout_width="80sp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/edittext_round"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/ancWeight"
-                    android:layout_marginLeft="5sp"
-                    android:layout_marginRight="5sp"
-                    android:layout_marginTop="5sp"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/layoutbordersimple"
-                    android:padding="2sp">
-                    <TextView
-                        android:id="@+id/ancWeightLabel"
-                        android:text="@string/weight"
-                        android:textSize="20sp"
-                        android:layout_width="220sp"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/text_color"
-                        android:layout_gravity="center_horizontal" />
-                    <EditText
-                        android:id="@+id/ancWeightValue"
-                        android:inputType="numberDecimal"
-                        android:textSize="20sp"
-                        android:paddingLeft="10sp"
-                        android:layout_width="120sp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/edittext_round"
-                        android:layout_gravity="center_horizontal" />
-                </LinearLayout>
-                <LinearLayout android:id="@+id/ancEdemaLayout" android:layout_marginLeft="5sp"
                     android:layout_marginRight="5sp"
                     android:layout_marginTop="5sp"
                     android:orientation="horizontal"
@@ -364,24 +213,93 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/layoutbordersimple" >
                     <TextView
-                        android:id="@+id/ancEdemaLabel"
-                        android:text="@string/edema"
+                        android:id="@+id/pacServiceDateLabel"
+                        android:text="@string/service_date"
                         android:textSize="20sp"
                         android:layout_width="220sp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
+                        android:textColor="@color/text_color"/>
+                    <EditText
+                        android:id="@+id/pacServiceDateValue"
+                        android:inputType="number"
+                        android:hint="dd/mm/yyyy"
+                        android:paddingLeft="10sp"
+                        android:layout_width="120sp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
+                        android:background="@drawable/edittext_round"/>
+
+                    <ImageButton
+                        android:id="@+id/Date_Picker_Button"
+                        android:layout_marginLeft="10sp"
+                        android:layout_marginTop="10sp"
+                        android:layout_width="40sp"
+                        android:layout_height="40sp"
+                        android:onClick="pickDate"
+                        android:src="@drawable/calendar_icon"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/pacDrawback"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/layoutbordersimple">
+
+                    <TextView
+                        android:id="@+id/pacDrawbackLabel"
+                        android:layout_width="220sp"
+                        android:layout_height="wrap_content"
+
+                        android:text="@string/drawback"
                         android:textColor="@color/text_color"
-                        android:padding="2sp" />
-                    <Spinner
-                        android:id="@+id/ancEdemaSpinner"
-                        android:inputType="text"
-                        android:textSize="20sp"
+                        android:textSize="20sp" />
+
+                    <org.sci.rhis.fwc.MultiSelectionSpinner
+                        android:id="@+id/pacDrawbackSpinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginBottom="5sp"
                         android:background="@drawable/gradient_spinner"
-                        android:entries="@array/Edema_Dropdown"
-                        android:padding="2sp" />
+                        android:inputType="text"
+                        android:textSize="20sp" />
                 </LinearLayout>
-                <LinearLayout android:id="@+id/ancUterusHeight" android:layout_marginLeft="5sp"
+                <LinearLayout
+                    android:id="@+id/pacTemperature"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/layoutbordersimple">
+
+                    <TextView
+                        android:id="@+id/pncTemperatureLabel"
+                        android:layout_width="220sp"
+                        android:layout_height="wrap_content"
+
+                        android:text="@string/temperature"
+                        android:textColor="@color/text_color"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/pacTemperatureValue"
+                        android:layout_width="120sp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edittext_round"
+                        android:inputType="numberDecimal"
+                        android:textSize="20sp"
+                        android:paddingLeft="2sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/pacBloospresser"
+                    android:layout_marginLeft="5sp"
                     android:layout_marginRight="5sp"
                     android:layout_marginTop="5sp"
                     android:orientation="horizontal"
@@ -389,392 +307,424 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/layoutbordersimple">
                     <TextView
-                        android:id="@+id/ancUterusHeightLabel"
-                        android:text="@string/uterus_height"
+                        android:id="@+id/pacBloospresserLabel"
+                        android:text="@string/blood_presser"
                         android:textSize="20sp"
                         android:layout_width="220sp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
                         android:textColor="@color/text_color"/>
                     <EditText
-                        android:id="@+id/ancUterusHeightValue"
+                        android:id="@+id/pacBloodPresserValueSystolic"
                         android:inputType="number"
                         android:textSize="20sp"
                         android:paddingLeft="10sp"
-                        android:layout_width="120sp"
+                        android:layout_width="80sp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
                         android:background="@drawable/edittext_round"/>
-                </LinearLayout>
-                <LinearLayout android:id="@+id/ancHeartSpeed" android:layout_marginLeft="5sp"
-                    android:layout_marginRight="5sp"
-                    android:layout_marginTop="5sp"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/layoutbordersimple"
-                    android:padding="2sp">
                     <TextView
-                        android:id="@+id/ancHeartSpeedLabel"
-                        android:text="ফিটাসের হৃদপিণ্ডের গতি (প্রতি মিনিটে):"
-                        android:textSize="20sp"
-                        android:layout_width="330sp"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/text_color" />
-                    <EditText
-                        android:id="@+id/ancHeartSpeedValue"
-                        android:inputType="number"
-                        android:textSize="20sp"
-                        android:layout_width="70sp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/edittext_round"/>
-                </LinearLayout>
-                <LinearLayout android:id="@+id/ancFetalPresentationLayout" android:layout_marginLeft="5sp"
-                    android:layout_marginRight="5sp"
-                    android:layout_marginTop="5sp"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/layoutbordersimple"
-                    android:padding="2sp">
-                    <TextView
-                        android:id="@+id/ancFetalPresentationLabel"
-                        android:text="@string/fetal_presentation"
-                        android:textSize="20sp"
-                        android:layout_width="220sp"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/text_color" />
-                    <Spinner
-                        android:id="@+id/ancFetalPresentationSpinner"
-                        android:inputType="text"
+                        android:id="@+id/pacBloodPresserLabelMid"
+                        android:text=" / "
                         android:textSize="20sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/gradient_spinner"
-                        android:entries="@array/Fetal_Presentation_Dropdown"/>
+                        android:layout_marginTop="10sp"
+                        android:textColor="@color/text_color"/>
+                    <EditText
+                        android:id="@+id/pacBloodPresserValueDiastolic"
+                        android:inputType="number"
+                        android:textSize="20sp"
+                        android:paddingLeft="10sp"
+                        android:layout_width="80sp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
+                        android:background="@drawable/edittext_round"/>
                 </LinearLayout>
-                <LinearLayout android:id="@+id/ancAnemia" android:layout_marginLeft="5sp"
+                <LinearLayout android:id="@+id/pacAnemia" android:layout_marginLeft="5sp"
                     android:layout_marginRight="5sp"
                     android:layout_marginTop="5sp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/layoutbordersimple"
-                    android:padding="2sp">
+                    android:background="@drawable/layoutbordersimple">
                     <TextView
-                        android:id="@+id/ancAnemiaLabel"
+                        android:id="@+id/pacAnemiaLabel"
                         android:text="@string/anemia"
                         android:textSize="20sp"
                         android:layout_width="220sp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
                         android:textColor="@color/text_color"/>
                     <Spinner
-                        android:id="@+id/ancAnemiaSpinner"
+                        android:id="@+id/pacAnemiaSpinner"
                         android:inputType="text"
                         android:textSize="20sp"
                         android:paddingLeft="10sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
                         android:entries="@array/Anemia_Dropdown"
                         android:background="@drawable/gradient_spinner"/>
                 </LinearLayout>
-                <LinearLayout android:id="@+id/ancHemoglobin" android:layout_marginLeft="5sp"
+                <LinearLayout android:id="@+id/pacHemoglobin" android:layout_marginLeft="5sp"
                     android:layout_marginRight="5sp"
                     android:layout_marginTop="5sp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/layoutbordersimple"
-                    android:padding="2sp">
+                    android:background="@drawable/layoutbordersimple">
                     <TextView
-                        android:id="@+id/ancHemoglobinLabel"
+                        android:id="@+id/pacHemoglobinLabel"
                         android:text="@string/hemoglobin"
                         android:textSize="20sp"
                         android:layout_width="220sp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
                         android:textColor="@color/text_color"/>
                     <EditText
-                        android:id="@+id/ancHemoglobinValue"
+                        android:id="@+id/pacHemoglobinValue"
                         android:inputType="number"
                         android:textSize="20sp"
                         android:paddingLeft="10sp"
                         android:layout_width="70sp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
                         android:background="@drawable/edittext_round"/>
                     <TextView
                         android:id="@+id/pncHemoglobinLabelp"
                         android:text=" %"
                         android:textSize="25sp"
+                        android:layout_marginTop="10sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_color"
                         />
                 </LinearLayout>
-                <LinearLayout android:id="@+id/ancJaundiceLayout" android:layout_marginLeft="5sp"
+
+                <LinearLayout android:id="@+id/pacUterusHeight" android:layout_marginLeft="5sp"
                     android:layout_marginRight="5sp"
                     android:layout_marginTop="5sp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/layoutbordersimple"
-                    android:padding="2sp">
+                    android:background="@drawable/layoutbordersimple">
                     <TextView
-                        android:id="@+id/ancJaundiceLabel"
-                        android:text="@string/jaundice"
+                        android:id="@+id/pacUterusHeightLabel"
+                        android:text="@string/uterus_height"
                         android:textSize="20sp"
                         android:layout_width="220sp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
                         android:textColor="@color/text_color"/>
                     <Spinner
-                        android:id="@+id/ancJaundiceSpinner"
-                        android:inputType="text"
-                        android:textSize="20sp"
+                        android:id="@+id/pacAbdomenSpinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginBottom="5sp"
                         android:background="@drawable/gradient_spinner"
-                        android:entries="@array/Jaundice_Dropdown"/>
+                        android:textSize="20sp"
+                        android:entries="@array/PACUterusInvolution"/>
                 </LinearLayout>
-                <LinearLayout android:id="@+id/ancUrineSugarLayout" android:layout_marginLeft="5sp"
+
+                <LinearLayout
+                    android:id="@+id/pacCervix"
+                    android:layout_marginLeft="5sp"
                     android:layout_marginRight="5sp"
                     android:layout_marginTop="5sp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/layoutbordersimple"
-                    android:padding="2sp">
+                    android:background="@drawable/layoutbordersimple">
+
                     <TextView
-                        android:id="@+id/ancUrineSugarLabel"
-                        android:text="@string/urine_test_sugar"
-                        android:textSize="20sp"
+                        android:id="@+id/pacCervixLevel"
                         android:layout_width="220sp"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_color"/>
+
+                        android:text="@string/cervix"
+                        android:textColor="@color/text_color"
+                        android:textSize="20sp" />
+
                     <Spinner
-                        android:id="@+id/ancUrineSugarSpinner"
-                        android:inputType="text"
-                        android:textSize="20sp"
+                        android:id="@+id/pacCervixSpinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginBottom="5sp"
                         android:background="@drawable/gradient_spinner"
-                        android:entries="@array/Urine_Test_Sugar_Dropdown"/>
+                        android:entries="@array/Cervix_Involution_DropDown"
+                        android:textSize="20sp" />
                 </LinearLayout>
-                <LinearLayout android:id="@+id/ancUrineAlbuminLayout" android:layout_marginLeft="5sp"
+
+                <LinearLayout
+                    android:id="@+id/pacDischargeBleeding"
+                    android:layout_marginLeft="5sp"
                     android:layout_marginRight="5sp"
                     android:layout_marginTop="5sp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/layoutbordersimple"
-                    android:padding="2sp">
+                    android:background="@drawable/layoutbordersimple">
+
                     <TextView
-                        android:id="@+id/ancUrineAlbuminLabel"
-                        android:text="@string/urine_test_albumin"
-                        android:textSize="20sp"
+                        android:id="@+id/pacDischargeBleedingLevel"
                         android:layout_width="220sp"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_color"/>
+
+                        android:text="@string/discharge_bleeding"
+                        android:textColor="@color/text_color"
+                        android:textSize="20sp" />
+
                     <Spinner
-                        android:id="@+id/ancUrineAlbuminSpinner"
-                        android:inputType="text"
-                        android:textSize="20sp"
+                        android:id="@+id/pacDischargeBleedingSpinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginBottom="5sp"
                         android:background="@drawable/gradient_spinner"
-                        android:entries="@array/Urine_Test_Albumin_Dropdown"/>
+                        android:entries="@array/Discharge_Bleeding_DropDown"
+                        android:inputType="text"
+                        android:textSize="20sp" />
                 </LinearLayout>
-                <LinearLayout android:id="@+id/ancDangerSigns" android:layout_marginLeft="5sp"
+                <LinearLayout
+                    android:id="@+id/pacPerineum"
+                    android:layout_marginLeft="5sp"
                     android:layout_marginRight="5sp"
                     android:layout_marginTop="5sp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/layoutbordersimple"
-                    android:padding="2sp">
+                    android:background="@drawable/layoutbordersimple">
+
                     <TextView
-                        android:id="@+id/ancDangerSignsLabel"
+                        android:id="@+id/pacPerineumLevel"
+                        android:layout_width="220sp"
+                        android:layout_height="wrap_content"
+
+                        android:text="@string/perineum"
+                        android:textColor="@color/text_color"
+                        android:textSize="20sp" />
+
+                    <Spinner
+                        android:id="@+id/pacPerineumSpinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginBottom="5sp"
+                        android:background="@drawable/gradient_spinner"
+                        android:entries="@array/Perineum_DropDown"
+                        android:inputType="text"
+                        android:textSize="20sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/pacFamilyPlanningMethods"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/layoutbordersimple">
+
+                    <TextView
+                        android:id="@+id/pacFamilyPlanningMethodsLevel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="@string/family_planning_methods"
+                        android:textColor="@color/text_color"
+                        android:textSize="20sp" />
+
+                    <Spinner
+                        android:id="@+id/pacFamilyPlanningMethodsSpinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginBottom="5sp"
+                        android:background="@drawable/gradient_spinner"
+                        android:entries="@array/Family_Planning_Methods_DropDown"
+                        android:inputType="text"
+                        android:textSize="20sp" />
+                </LinearLayout>
+                <LinearLayout android:id="@+id/pacDangerSigns" android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/layoutbordersimple">
+                    <TextView
+                        android:id="@+id/pacDangerSignsLabel"
                         android:text="@string/danger_signs"
                         android:textSize="20sp"
                         android:layout_width="220sp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
                         android:textColor="@color/text_color"/>
                     <org.sci.rhis.fwc.MultiSelectionSpinner
-                        android:id="@+id/ancDangerSignsSpinner"
+                        android:id="@+id/pacDangerSignsSpinner"
                         android:textSize="20sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/gradient_spinner" />
+                        android:background="@drawable/gradient_spinner"
+                        android:layout_marginTop="10sp" />
                 </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/ancDrawback"
-                    android:layout_marginLeft="5sp"
+                <LinearLayout android:id="@+id/pacDisease" android:layout_marginLeft="5sp"
                     android:layout_marginRight="5sp"
                     android:layout_marginTop="5sp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/layoutbordersimple"
-                    android:padding="2sp">
+                    android:background="@drawable/layoutbordersimple">
                     <TextView
-                        android:id="@+id/ancDrawbackLabel"
-                        android:text="@string/drawback"
-                        android:textSize="20sp"
-                        android:layout_width="220sp"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/text_color"/>
-                    <org.sci.rhis.fwc.MultiSelectionSpinner
-                        android:id="@+id/ancDrawbackSpinner"
-                        android:inputType="text"
-                        android:textSize="20sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/gradient_spinner" />
-                </LinearLayout>
-                <LinearLayout android:id="@+id/ancDisease" android:layout_marginLeft="5sp"
-                    android:layout_marginRight="5sp"
-                    android:layout_marginTop="5sp"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/layoutbordersimple"
-                    android:padding="2sp">
-                    <TextView
-                        android:id="@+id/ancDiseaseLabel"
+                        android:id="@+id/pacDiseaseLabel"
                         android:text="@string/disease" android:textSize="20sp"
                         android:layout_width="220sp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
                         android:textColor="@color/text_color"/>
                     <org.sci.rhis.fwc.MultiSelectionSpinner
-                        android:id="@+id/ancDiseaseSpinner"
+                        android:id="@+id/pacDiseaseSpinner"
                         android:inputType="text"
                         android:textSize="20sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/gradient_spinner" />
+                        android:background="@drawable/gradient_spinner"
+                        android:layout_marginTop="10sp" />
                 </LinearLayout>
-                <LinearLayout android:id="@+id/ancTreatment" android:layout_marginLeft="5sp"
+                <LinearLayout android:id="@+id/pacTreatment" android:layout_marginLeft="5sp"
                     android:layout_marginRight="5sp"
                     android:layout_marginTop="5sp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/layoutbordersimple"
-                    android:padding="2sp">
+                    android:background="@drawable/layoutbordersimple">
                     <TextView
-                        android:id="@+id/ancTreatmentLabel"
+                        android:id="@+id/pacTreatmentLabel"
                         android:text="@string/treatment"
                         android:textSize="20sp"
                         android:layout_width="220sp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
                         android:textColor="@color/text_color" />
                     <org.sci.rhis.fwc.MultiSelectionSpinner
-                        android:id="@+id/ancTreatmentSpinner"
+                        android:id="@+id/pacTreatmentSpinner"
                         android:inputType="text"
                         android:textSize="20sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/gradient_spinner" />
+                        android:background="@drawable/gradient_spinner"
+                        android:layout_marginTop="10sp" />
                 </LinearLayout>
-                <LinearLayout android:id="@+id/ancAdvice" android:layout_marginLeft="5sp"
+                <LinearLayout android:id="@+id/pacAdvice" android:layout_marginLeft="5sp"
                     android:layout_marginRight="5sp"
                     android:layout_marginTop="5sp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/layoutbordersimple"
-                    android:padding="2sp">
+                    android:background="@drawable/layoutbordersimple">
                     <TextView
-                        android:id="@+id/ancAdviceLabel"
+                        android:id="@+id/pacAdviceLabel"
                         android:text="@string/advice"
                         android:textSize="20sp"
                         android:layout_width="220sp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
                         android:textColor="@color/text_color"/>
                     <org.sci.rhis.fwc.MultiSelectionSpinner
-                        android:id="@+id/ancAdviceSpinner"
+                        android:id="@+id/pacAdviceSpinner"
                         android:inputType="text"
                         android:textSize="20sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/gradient_spinner" />
+                        android:background="@drawable/gradient_spinner"
+                        android:layout_marginTop="10sp" />
                 </LinearLayout>
-                <LinearLayout android:id="@+id/ancRefer"
+                <LinearLayout android:id="@+id/pacRefer"
                     android:layout_marginLeft="5sp"
                     android:layout_marginRight="5sp"
                     android:layout_marginTop="5sp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/layoutbordersimple"
-                    android:padding="2sp">
+                    android:background="@drawable/layoutbordersimple">
 
                     <TextView
-                        android:id="@+id/ancReferLabel"
+                        android:id="@+id/pacReferLabel"
                         android:text="@string/refer"
                         android:textSize="20sp"
                         android:layout_width="220sp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
                         android:textColor="@color/text_color"/>
                     <CheckBox
-                        android:id="@+id/ancReferCheckBox"
+                        android:id="@+id/pacReferCheckBox"
                         android:inputType="text"
                         android:textSize="20sp"
                         android:layout_width="120sp"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/ancReferCenterNameLayout"
+                    android:id="@+id/pacReferCenterNameLayout"
                     android:layout_marginLeft="5sp"
                     android:layout_marginRight="5sp"
                     android:layout_marginTop="5sp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/layoutbordersimple"
-                    android:padding="2sp">
+                    android:background="@drawable/layoutbordersimple">
                     <TextView
-                        android:id="@+id/ancReferCenterNameLabel"
+                        android:id="@+id/pacReferCenterNameLabel"
                         android:text="@string/center_name"
                         android:textSize="20sp"
                         android:layout_width="220sp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
                         android:textColor="@color/text_color"
                         android:visibility="invisible"/>
                     <Spinner
-                        android:id="@+id/ancReferCenterNameSpinner"
+                        android:id="@+id/pacReferCenterNameSpinner"
                         android:inputType="text"
                         android:textSize="20sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/gradient_spinner"
+                        android:layout_marginTop="10sp"
                         android:entries="@array/FacilityType_DropDown"
                         android:visibility="invisible"/>
                 </LinearLayout>
-                <LinearLayout android:id="@+id/ancReasonLayout"
+                <LinearLayout android:id="@+id/pacReasonLayout"
                     android:layout_marginLeft="5sp"
                     android:layout_marginRight="5sp"
                     android:layout_marginTop="5sp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/layoutbordersimple"
-                    android:padding="2sp">
+                    android:background="@drawable/layoutbordersimple">
                     <TextView
-                        android:id="@+id/ancReasonLabel"
+                        android:id="@+id/pacReasonLabel"
                         android:text="@string/reason"
                         android:textSize="20sp"
                         android:layout_width="220sp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
                         android:textColor="@color/text_color"
                         android:visibility="invisible"/>
                     <org.sci.rhis.fwc.MultiSelectionSpinner
-                        android:id="@+id/ancReasonSpinner"
+                        android:id="@+id/pacReasonSpinner"
                         android:inputType="text"
                         android:textSize="20sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/gradient_spinner"
+                        android:layout_marginTop="10sp"
                         android:visibility="invisible"/>
                 </LinearLayout>
-                <LinearLayout android:id="@+id/ancButton" android:layout_marginLeft="5sp"
+                <LinearLayout android:id="@+id/pacButton" android:layout_marginLeft="5sp"
                     android:layout_marginRight="5sp"
                     android:layout_marginTop="5sp"
                     android:orientation="horizontal"
@@ -782,7 +732,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/layoutbordersimple">
                     <Button
-                        android:id="@+id/ancSaveButton"
+                        android:id="@+id/pacSaveButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Save"
@@ -790,7 +740,7 @@
                         android:textColor="@color/text_color"
                         android:onClick="onClick"/>
                     <Button
-                        android:id="@+id/ancEditButton"
+                        android:id="@+id/pacEditButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Cancel"
@@ -803,4 +753,5 @@
         </ScrollView>
     </LinearLayout>
 </LinearLayout>
+
 

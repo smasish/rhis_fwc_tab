@@ -2,8 +2,6 @@
 package org.sci.rhis.fwc;
 
 import android.app.AlertDialog;
-import android.app.Instrumentation;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +10,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Pair;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -355,6 +352,16 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
     }
 
+    public void startPAC(View view) {
+        Intent intent = new Intent(this, PACActivity.class);
+
+        intent.putExtra("PregWoman", woman);
+        intent.putExtra("Provider", ProviderInfo.getProvider());
+        startActivity(intent);
+
+    }
+
+
     public void startPNC(View view) {
         Intent intent = new Intent(this, PNCActivity.class);
         if (checkClientInfo() && woman.isEligibleFor(PregWoman.PREG_SERVICE.PNC)) {
@@ -463,7 +470,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         } else if (requestCode == ActivityResultCodes.DELIVERY_ACTIVITY) {
             if (resultCode == RESULT_OK) {
                 boolean hasDeliveryInformation = data.getBooleanExtra("hasDeliveryInformation", false);
-                woman.setHasDeliveryInfo(hasDeliveryInformation ? 1:0);
+                woman.setDeliveryInfo(hasDeliveryInformation ? 1 : 0);
             }
         }
     }

@@ -273,7 +273,7 @@
 
     <string name="anc_title">" প্রসব সংক্রান্ত তথ্য "</string>
     <string name="visit">"পরিদর্শন:"</string>
-    <string name="anc_others">অন্যান্য</string>
+    <string name="other_source">অন্যান্য উৎস</string>
     <string name="service_date">"সেবাগ্রহনের তারিখ:"</string>
     <string name="blood_presser">"রক্তচাপ (মিঃ মিঃ মার্কারি):"</string>
     <string name="weight">"ওজন (কেজি):"</string>
@@ -303,7 +303,7 @@
     <string name="perineum">"পেরিনিয়াম:"</string>
     <string name="family_planning_methods">"পরিবার পরিকল্পনা পদ্ধতি\n(পরামর্শ / পদ্ধতি প্রদান):"</string>
 
-
+    <string name="cervix">"জরায়ুমুখ:"</string>
 
     <string name="visitDate">"সেবাগ্রহনের তারিখ:"</string>
     <string name="bpSystolic">"রক্তচাপ (মিঃ মিঃ মার্কারি) :"</string>
@@ -384,12 +384,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_delevery">" প্রসবকালীন সেবা "</string>
     <string name="title_activity_pnc">প্রসবোত্তর সেবা</string>
-    <string name="pnc_others">অন্যান্য</string>
 
-    <string name="ancVisit1">পরিদর্শন ১</string>
-    <string name="ancVisit2">পরিদর্শন ২</string>
-    <string name="ancVisit3">পরিদর্শন ৩</string>
-    <string name="ancVisit4">পরিদর্শন ৪</string>
+    <string name="Visit1">পরিদর্শন ১</string>
+    <string name="Visit2">পরিদর্শন ২</string>
+    <string name="Visit3">পরিদর্শন ৩</string>
+    <string name="Visit4">পরিদর্শন ৪</string>
 
     <string name="history_visit1">পরিদর্শন</string>
     <string name="history_date">সেবাগ্রহনের তারিখ:</string>
@@ -727,6 +726,31 @@
         <item>++</item>
         <item>+++</item>
     </string-array>
+	
+	<string-array name="PACProblemDropDown">
+        <item></item>
+        <item>	তলপেটে আটকে ধরা ব্যথা		</item>
+        <item>	রক্তক্ষরণ		</item>
+        <item>	গায়ে ব্যথা		</item>
+        <item>	কাঁধে ব্যথা	</item>
+        <item>	বমিভাব / বমি		</item>
+        <item>	জ্বর		</item>
+        <item>	দুর্গন্ধযুক্ত যোনিপথে স্রাব	</item>
+        <item>	নড়াচড়ায় জরায়ুমুখের ব্যথা	</item>
+        <item>	পেট ফোলা	</item>
+        <item>	ভ্রূণ / ভ্রূণের অংশবিশেষ বের হয়ে আসার ইতিহাস	</item>
+        <item>	প্রসব পরবর্তী জ্বর		</item>
+        <item>	প্রসব পরবর্তী উচ্চ রক্তচাপ	</item>
+        <item>	প্রসব পরবর্তী  ডায়াবেটিস	</item>
+    </string-array>
+	<string-array name="PACUterusInvolution">
+		<item></item>
+		<item>	গর্ভমেয়াদের সাথে সঙ্গতিপূর্ণ</item>
+		<item>	গর্ভমেয়াদের তুলনায় জরায়ুর আকার কম</item>
+		<item>	গর্ভমেয়াদের তুলনায় জরায়ুর আকার বেশী</item>
+	</string-array>
+
+
 
     <string name="title_activity_nrc">NRCActivity</string>
     <string name="mr_service">এম আর সেবা</string>
@@ -734,5 +758,6 @@
     <string name="death_service">মৃত্যু </string>
     <string name="title_activity_delivery_newborn">DeliveryNewbornActivity</string>
     <string name="title_activity_death">DeathActivity</string>
+    <string name="title_activity_pac">গর্ভপাত পরবর্তী সেবা</string>
     <string name="title_activity_advsearch">ADVSearchActivity</string>
 </resources>
