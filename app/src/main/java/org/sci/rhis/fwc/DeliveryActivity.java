@@ -124,7 +124,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         passJson = new Intent(this, DeliveryNewbornActivity.class);
 
         //disable delivery result
-        Utilities.Disable(this,R.id.id_deliveryResultLayout);
+        Utilities.Disable(this, R.id.id_deliveryResultLayout);
         Utilities.SetVisibility(this, R.id.newborn_Tabla_Layout,View.INVISIBLE);
     }
 
@@ -155,11 +155,15 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
                 //TODO Make the fields non-modifiable
                 Utilities.Disable(this, R.id.delivery_info_layout);
-                Utilities.SetVisibility(this, R.id.btn_save_add_child, View.INVISIBLE);
+                Utilities.Enable(this, R.id.btn_save_add_child);
+                Utilities.MakeVisible(this,R.id.editDeliveryButton);
+                Utilities.MakeInvisible(this, R.id.saveDeliveryButton);
+                Utilities.MakeInvisible(this, R.id.dynamicCancelButton);
                 mother.setHasDeliveryInfo(1);
                 hasDeliveryInfo = true;
                 mother.setActualDelivery(json.getString("dDate"), "yyyy-MM-dd");
                 Utilities.SetVisibility(this, R.id.newborn_Tabla_Layout, View.VISIBLE);
+
             }
 
         } catch (JSONException jse) {
@@ -259,37 +263,61 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     public void onClick(View view) {
         if(view.getTag() != null && view.getTag().equals("DateField")) {
             datePickerDialog.show(datePickerPair.get(view.getId()));
-        } else if(view.getId() == R.id.id_saveDeliveryButton) {
-            countSaveClick++;
-            if( countSaveClick == 2 ) {
-                saveToJson();
-                getButton(R.id.id_saveDeliveryButton).setText("Save & Open Newborn Information");
-                Utilities.MakeVisible(this, R.id.newborn_Tabla_Layout);
+        } else {
+            if (view.getId() == R.id.saveDeliveryButton) {
+                countSaveClick++;
+                if (countSaveClick == 2) {
+                    saveToJson();
+                    Utilities.MakeVisible(this, R.id.newborn_Tabla_Layout);
+                    getButton(R.id.saveDeliveryButton).setText("Save & Open Newborn Information");
+                    countSaveClick = 0;
 
-            } else if(countSaveClick == 1) {
-                Utilities.Disable(this, R.id.delivery_info_layout);
-                getButton( R.id.id_saveDeliveryButton).setText("Confirm");
-                Utilities.Enable(this, R.id.id_saveDeliveryButton);
-                getButton( R.id.id_editDeliveryButton).setText("Cancel");
-                Utilities.Enable(this, R.id.id_editDeliveryButton);
-                Utilities.MakeVisible(this, R.id.id_editDeliveryButton);
+                } else if (countSaveClick == 1) {
+                    Utilities.Disable(this, R.id.delivery_info_layout);
+                    Utilities.Enable(this, R.id.btn_save_add_child);
+                    getButton(R.id.saveDeliveryButton).setText("Confirm");
+                    Utilities.MakeVisible(this, R.id.dynamicCancelButton);
 
-                Toast toast = Toast.makeText(this, R.string.DeliverySavePrompt, Toast.LENGTH_LONG);
-                LinearLayout toastLayout = (LinearLayout) toast.getView();
-                TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                toastTV.setTextSize(20);
-                toast.show();
+                    Toast toast = Toast.makeText(this, R.string.DeliverySavePrompt, Toast.LENGTH_LONG);
+                    LinearLayout toastLayout = (LinearLayout) toast.getView();
+                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                    toastTV.setTextSize(20);
+                    toast.show();
+                }
+            } else if (view.getId() == R.id.dynamicCancelButton) {
+                if (countSaveClick == 1) {
+                    countSaveClick = 0;
+                    Utilities.MakeInvisible(this, R.id.dynamicCancelButton);
+                    if(getButton(R.id.saveDeliveryButton).getText().equals("Confirm")) {
+                        Utilities.Enable(this, R.id.delivery_info_layout);
+                        getButton(R.id.saveDeliveryButton).setText("Save & Open Newborn Information");
+                        }
+                    else if(getButton(R.id.saveDeliveryButton).getText().equals("Update")) {
+                        Utilities.Disable(this, R.id.delivery_info_layout);
+                        getButton(R.id.editDeliveryButton).setText("Edit");
+                    }
+                }
+            } else if (view.getId() == R.id.editDeliveryButton) {
+                countSaveClick++;
+                if (countSaveClick == 2) {
+                    saveToJson();
+                    getButton(R.id.editDeliveryButton).setText("Edit");
+                    countSaveClick = 0;
+                }
+                else if (countSaveClick == 1) {
+                    Utilities.Enable(this, R.id.delivery_info_layout);
+                    getButton(R.id.editDeliveryButton).setText("Update");
+                    Utilities.MakeVisible(this, R.id.dynamicCancelButton);
+
+                    Toast toast = Toast.makeText(this, R.string.DeliverySavePrompt, Toast.LENGTH_LONG);
+                    LinearLayout toastLayout = (LinearLayout) toast.getView();
+                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                    toastTV.setTextSize(20);
+                    toast.show();
+                }
             }
-        } else if(view.getId() == R.id.id_editDeliveryButton) {
-            if(countSaveClick == 1) {
-                countSaveClick = 0;
-                Utilities.Enable(this, R.id.delivery_info_layout);
-                getButton(R.id.id_saveDeliveryButton).setText("Save  Open Newborn Information");
-                //TODO - Review
-                Utilities.MakeInvisible(this, R.id.id_editDeliveryButton);
-            }
+
         }
-
         if( view.getId()== R.id.newbornAddButton ||
             view.getId()== R.id.deathFreshButton ||
             view.getId()== R.id.deathmaceratedButton ) {

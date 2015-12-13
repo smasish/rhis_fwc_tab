@@ -895,21 +895,32 @@
                     android:text="Save &amp; Open Newborn Information"
                     android:layout_width="wrap_content"
                     android:layout_margin="2sp"
-                    android:layout_height="80sp"
+                    android:layout_height="wrap_content"
                     android:paddingLeft="10sp"
                     android:paddingRight="10sp"
                     android:background="@drawable/button_style"
-                    android:id="@+id/id_saveDeliveryButton"
+                    android:id="@+id/saveDeliveryButton"
                     android:onClick="onClick"/>
                 <Button
-                    android:text="Save &amp; Serve Next Client"
+                    android:text="Edit"
                     android:layout_width="wrap_content"
                     android:layout_margin="2sp"
-                    android:layout_height="80sp"
+                    android:layout_height="wrap_content"
                     android:paddingLeft="10sp"
                     android:paddingRight="10sp"
                     android:background="@drawable/button_style"
-                    android:id="@+id/id_editDeliveryButton"
+                    android:id="@+id/editDeliveryButton"
+                    android:onClick="onClick"
+                    android:visibility="gone"/>
+                <Button
+                    android:text="Cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_margin="2sp"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
+                    android:background="@drawable/button_style"
+                    android:id="@+id/dynamicCancelButton"
                     android:onClick="onClick"
                     android:visibility="gone"/>
             </LinearLayout>
