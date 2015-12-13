@@ -11,10 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -156,7 +154,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 //TODO Make the fields non-modifiable
                 Utilities.Disable(this, R.id.delivery_info_layout);
                 Utilities.SetVisibility(this, R.id.btn_save_add_child, View.INVISIBLE);
-                mother.setHasDeliveryInfo(1);
+                mother.setDeliveryInfo(1);
                 hasDeliveryInfo = true;
                 mother.setActualDelivery(json.getString("dDate"), "yyyy-MM-dd");
                 Utilities.SetVisibility(this, R.id.newborn_Tabla_Layout, View.VISIBLE);
@@ -367,22 +365,22 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     @Override
     protected void initiateCheckboxes() {
         //AMTSL
-        jsonCheckboxMap.put("dOxytocin", getCheckbox(R.id.oxytocin));
-        jsonCheckboxMap.put("dTraction", getCheckbox(R.id.controlChordTraction));
-        jsonCheckboxMap.put("dUMassage", getCheckbox(R.id.uterusMassage));
+        jsonCheckboxMap.put("dOxytocin",        getCheckbox(R.id.oxytocin));
+        jsonCheckboxMap.put("dTraction",        getCheckbox(R.id.controlChordTraction));
+        jsonCheckboxMap.put("dUMassage",        getCheckbox(R.id.uterusMassage));
 
         //Complicacy
-        jsonCheckboxMap.put("dLateDelivery", getCheckbox(R.id.id_delayedDelivery));
-        jsonCheckboxMap.put("dBloodLoss", getCheckbox(R.id.id_BloodLoss));
+        jsonCheckboxMap.put("dLateDelivery",    getCheckbox(R.id.id_delayedDelivery));
+        jsonCheckboxMap.put("dBloodLoss",       getCheckbox(R.id.id_BloodLoss));
         jsonCheckboxMap.put("dBlockedDelivery", getCheckbox(R.id.id_blockedDelivery));
-        jsonCheckboxMap.put("dPlacenta", getCheckbox(R.id.id_blockedPlacenta));
-        jsonCheckboxMap.put("dHeadache", getCheckbox(R.id.id_heavyHedache));
-        jsonCheckboxMap.put("dBVision", getCheckbox(R.id.id_blurryVision));
-        jsonCheckboxMap.put("dOBodyPart", getCheckbox(R.id.id_onlyHead));
-        jsonCheckboxMap.put("dConvulsions", getCheckbox(R.id.id_convulsion));
-        jsonCheckboxMap.put("dOthers", getCheckbox(R.id.id_deleiveryExtra));
+        jsonCheckboxMap.put("dPlacenta",        getCheckbox(R.id.id_blockedPlacenta));
+        jsonCheckboxMap.put("dHeadache",        getCheckbox(R.id.id_heavyHedache));
+        jsonCheckboxMap.put("dBVision",         getCheckbox(R.id.id_blurryVision));
+        jsonCheckboxMap.put("dOBodyPart",       getCheckbox(R.id.id_onlyHead));
+        jsonCheckboxMap.put("dConvulsions",     getCheckbox(R.id.id_convulsion));
+        jsonCheckboxMap.put("dOthers",          getCheckbox(R.id.id_deleiveryExtra));
         //refer
-        jsonCheckboxMap.put("dRefer", getCheckbox(R.id.id_delivery_refer));
+        jsonCheckboxMap.put("dRefer",           getCheckbox(R.id.id_delivery_refer));
 
     }
 
