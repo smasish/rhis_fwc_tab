@@ -290,18 +290,24 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             //////////////////callback for PregInfo servlet//////////////////////////////////////////////////////
 
             else {
-                client.put("regSerialNo", json.get("regSerialNo"));
-                client.put("regDate", json.get("regDate"));
-                client.put("highRiskPreg", json.get("highRiskPreg"));
-                client.put("cPregNo", json.get("pregNo"));
-                client.put("cNewMCHClient", "false");
+                if(!json.getString("pregNo").equals("")) {
+                    client.put("regSerialNo", json.get("regSerialNo"));
+                    client.put("regDate", json.get("regDate"));
+                    client.put("highRiskPreg", json.get("highRiskPreg"));
+                    client.put("cPregNo", json.get("pregNo"));
+                    client.put("cNewMCHClient", "false");
 
-                Log.d(LOGTAG, "CREATING PREGNANCY LOCAL" + client.toString());
+                    Log.d(LOGTAG, "CREATING PREGNANCY LOCAL" + client.toString());
 
-                woman = PregWoman.CreatePregWoman(client);
-                responseID = new BigInteger(client.get("cHealthID").toString());
+                    woman = PregWoman.CreatePregWoman(client);
+                    responseID = new BigInteger(client.get("cHealthID").toString());
 
-                getView_WomenWithPregInfo();
+                    getView_WomenWithPregInfo();
+                }
+                else{
+                    Toast.makeText(this, "Provided information is not valid! Please try again", Toast.LENGTH_LONG).show();
+                    getView_WomenWithOutPregInfo();
+                }
             }
         }
         catch (JSONException jse) {
