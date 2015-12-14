@@ -12,6 +12,9 @@ import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -128,6 +131,13 @@ public class PACActivity extends ClinicalServiceActivity  implements MinimumDeli
     public void callbackAsyncTask(String result) {
         Log.d(LOGTAG, "PAC Response Received:\n\t" + result);
         //handleExistingChild(result);
+        try {
+            JSONObject json = new JSONObject(result);
+            Utilities.setTextViews(jsonTextViewsMap, json);
+        } catch (JSONException jse) {
+            Log.e(LOGTAG, "PAC Error:\n\t\t");
+            Utilities.printTrace(jse.getStackTrace());
+        }
     }
 
     void setItemVisible(int ItemId, boolean isChecked) {
@@ -143,7 +153,10 @@ public class PACActivity extends ClinicalServiceActivity  implements MinimumDeli
         jsonEditTextMap.put("bpDiastolic", getEditText(R.id.pacBloodPresserValueDiastolic));
         jsonEditTextMap.put("hemoglobin", getEditText(R.id.pacHemoglobinValue));
     };
-    protected void initiateTextViews(){};
+    protected void initiateTextViews(){
+        jsonTextViewsMap.put("outcomeDate", getTextView(R.id.pacDate));
+        jsonTextViewsMap.put("outcomePlace", getTextView(R.id.pacPlace));
+    };
     protected void initiateSpinners(){
         jsonSpinnerMap.put("anemia",getSpinner(R.id.pacAnemiaSpinner));
         jsonSpinnerMap.put("ancjaundice", getSpinner(R.id.ancJaundiceSpinner));

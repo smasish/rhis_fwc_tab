@@ -56,8 +56,9 @@ public class SendPostRequestAsyncTask extends AsyncTask<String, Void, String> {
 
         URL url;
         try {
+            //url = new URL("http://10.12.6.123:8080/rhis/"+servlet);
+            //("http://192.168.2.14:8080/rhis/"+servlet);
             url = new URL("http://119.148.6.215:8080/RHIS_DEV/"+servlet);
-            //("http://119.148.6.215:8080/RHIS_BETA/"+servlet);
             //("http://10.12.0.32:8080/RHIS_BETA/"+servlet);
             //("http://119.148.6.215:8080/RHISv2/"+servlet);
 
@@ -81,7 +82,11 @@ public class SendPostRequestAsyncTask extends AsyncTask<String, Void, String> {
             int responseCode=conn.getResponseCode();
             if (responseCode != HttpURLConnection.HTTP_OK) {
                 return null; //if not OK then return null
+            } else {
+                //TODO - think about disconnection
+               // conn.disconnect();
             }
+
 
             InputStreamReader inputStreamReader = new InputStreamReader(conn.getInputStream());
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);

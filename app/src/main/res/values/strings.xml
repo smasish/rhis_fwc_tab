@@ -82,6 +82,10 @@
     <string name = "DeliverySavePrompt">দয়া করে সংগৃহিত তথ্য যাচাই করুন, নিশ্চিত করে CONFIRM চাপুন</string>
     <string name = "DeliveryWithoutPregnancyPrompt">গর্ভ সংক্রান্ত তথ্য অনুপস্থিত।\n তথ্য ব্যতীত সেবা দিতে OK চাপুন ফেরত যেতে CANCEL চাপুন</string>
     <string name = "ServiceDeletionWarning">সাবধান!  সেবা গ্রহনের তথ্য DELETE করতে \n OK চাপুন ফেরত যেতে CANCEL চাপুন</string>
+    <string name = "StartPACfromDeliveryMessage">গর্ভপাতের তথ্য উপস্থিত। গর্ভপাত পরবর্তী সেবা দিতে OK চাপুন, ফিরে যেতে CANCEL চাপুন </string>
+    <string name = "OutcomeDate">তারিখ </string>
+    <string name = "OutcomePlace">স্থান </string>
+
 
     <string-array name="Blood_Group_Dropdown">
         <item></item>

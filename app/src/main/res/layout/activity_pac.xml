@@ -75,7 +75,7 @@
         <LinearLayout
             android:id="@+id/idMinDeliveryFragmentHolder"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:background="@drawable/layoutbordersimple">
 
@@ -136,7 +136,7 @@
             android:id="@+id/pacLayoutScrollview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <LinearLayout
                 android:id="@+id/pacText"
@@ -149,6 +149,53 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/fragmentborder">
+                <LinearLayout
+                    android:id="@+id/pacFixedInformation"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/layoutbordersimple">
+                    <TextView
+                        android:id="@+id/pacDateLabel"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="@string/OutcomeDate"
+                        android:textColor="@color/text_color"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginBottom="5sp"
+                        android:textSize="20sp"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/pacDate"
+                        android:layout_width="0sp"
+                        android:layout_height="wrap_content"
+
+                        android:textColor="@color/text_color"
+                        android:textSize="20sp"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/pacPlaceLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/OutcomePlace"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginBottom="5sp"
+                        android:textColor="@color/text_color"
+                        android:textSize="20sp"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:id="@+id/pacPlace"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginBottom="5sp"
+                        android:textSize="20sp"
+                        android:layout_weight="1"/>
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/pacVisit"

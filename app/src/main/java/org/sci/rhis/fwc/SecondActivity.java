@@ -223,8 +223,8 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                 Date regD = sdf.parse(regDate);
                 String regSerial = json.getString("regSerialNo") + "/"
                         + json.getString("regDate").split("-")[0].substring(2);
-                regSerial += " " + new SimpleDateFormat("dd/MM/yyyy").format(regD);
-                getTextView(R.id.reg_NO).setText(regSerial);
+                regSerial += "\t" + new SimpleDateFormat("dd/MM/yyyy").format(regD);
+                getTextView(R.id.reg_NO).setText(Utilities.ConvertNumberToBangla(regSerial));
             }
 
         } catch (JSONException jse) {
@@ -338,6 +338,8 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             intent.putExtra("PregWoman", woman);
             intent.putExtra("Provider", ProviderInfo.getProvider());
             startActivityForResult(intent, ActivityResultCodes.DELIVERY_ACTIVITY);
+        } else if(woman.getAbortionInfo() == 1) {
+            askToStartPAC();
         } else {
             deliveryWithoutPregInfo();
         }
@@ -386,6 +388,29 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         return true;
     }
 
+    private void askToStartPAC() {
+        AlertDialog alertDialog = new AlertDialog.Builder(SecondActivity.this).create();
+        alertDialog.setTitle("LOGOUT CONFIRMATION");
+        alertDialog.setMessage(getString(R.string.StartPACfromDeliveryMessage));
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        //finish();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        startPAC(findViewById(R.id.pacButton));
+                    }
+                });
+
+        alertDialog.show();
+    }
+
     private void deliveryWithoutPregInfo() {
         AlertDialog alertDialog = new AlertDialog.Builder(SecondActivity.this).create();
         alertDialog.setTitle("LOGOUT CONFIRMATION");
@@ -426,16 +451,10 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
     @Override
     public void onBackPressed() {
         AlertDialog alertDialog = new AlertDialog.Builder(SecondActivity.this).create();
+        alertDialog.setIcon(R.drawable.logout);
         alertDialog.setTitle("LOGOUT CONFIRMATION");
         alertDialog.setMessage("আপনি কি বের হয়ে যেতে চান? \nনিশ্চিত করতে OK চাপুন, ফিরে যেতে CANCEL চাপুন ");
 
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        //finish();
-                    }
-                });
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -443,10 +462,15 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                         finish();
                     }
                 });
-        //alertDialog.s
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        //finish();
+                    }
+                });
 
         alertDialog.show();
-        //finish();
     }
 
     @Override
@@ -570,6 +594,12 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
         jsonEditTextDateMapSave.put("lmp", getEditText(R.id.lmpDate));
         jsonEditTextDateMapSave.put("edd", getEditText(R.id.edd));
+
+        jsonEditTextDateMapSave.put("ttDate1", getEditText(R.id.ttDate1));
+        jsonEditTextDateMapSave.put("ttDate2", getEditText(R.id.ttDate2));
+        jsonEditTextDateMapSave.put("ttDate3", getEditText(R.id.ttDate3));
+        jsonEditTextDateMapSave.put("ttDate4", getEditText(R.id.ttDate4));
+        jsonEditTextDateMapSave.put("ttDate5", getEditText(R.id.ttDate5));
     }
 
     @Override
@@ -585,7 +615,9 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         JSONObject json;
         try {
             json = buildQueryHeader(false);
+
             if(!storeLocalJson) {
+                //TODO - Prompt to Enter delivery date here, datePickerDialog
                 json.put("lmp", new SimpleDateFormat("yyyy-MM-dd").format(Utilities.addDateOffset(new Date(), -280)));
                 json.put("edd", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
             }
@@ -702,10 +734,10 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         Utilities.EnableField(this, R.id.Clients_House_No, "edit");
         Utilities.EnableField(this, R.id.Clients_Mobile_no, "edit");
 
-        Utilities.InVisibleButton(this, R.id.client_edit_Button);
-        Utilities.InVisibleButton(this, R.id.client_update_Button);
-        Utilities.InVisibleButton(this, R.id.client_New_preg_Button);
-        Utilities.VisibleButton(this, R.id.client_Save_Button);
+        Utilities.MakeInvisible(this, R.id.client_edit_Button);
+        Utilities.MakeInvisible(this, R.id.client_update_Button);
+        Utilities.MakeInvisible(this, R.id.client_New_preg_Button);
+        Utilities.MakeVisible(this, R.id.client_Save_Button);
     }
 
     public void editFields(View view){//OnClick Method
@@ -713,8 +745,8 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         Utilities.EnableField(this, R.id.Clients_House_No, "edit");
         Utilities.EnableField(this, R.id.Clients_Mobile_no, "edit");
 
-        Utilities.InVisibleButton(this, R.id.client_edit_Button);
-        Utilities.VisibleButton(this, R.id.client_update_Button);
+        Utilities.MakeInvisible(this, R.id.client_edit_Button);
+        Utilities.MakeVisible(this, R.id.client_update_Button);
         Utilities.Enable(this, R.id.client_Save_Button);
     }
 
@@ -725,10 +757,10 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         Utilities.DisableField(this, R.id.Clients_House_No);
         Utilities.DisableField(this, R.id.Clients_Mobile_no);
 
-        Utilities.InVisibleButton(this, R.id.client_Save_Button);
-        Utilities.InVisibleButton(this, R.id.client_update_Button);
-        Utilities.VisibleButton(this, R.id.client_edit_Button);
-        Utilities.VisibleButton(this, R.id.client_New_preg_Button);
+        Utilities.MakeInvisible(this, R.id.client_Save_Button);
+        Utilities.MakeInvisible(this, R.id.client_update_Button);
+        Utilities.MakeVisible(this, R.id.client_edit_Button);
+        Utilities.MakeVisible(this, R.id.client_New_preg_Button);
 
         Utilities.Enable(this, R.id.client_edit_Button);
         Utilities.Enable(this, R.id.client_New_preg_Button);
@@ -742,10 +774,10 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         Utilities.EnableField(this, R.id.Clients_House_No, "edit");
         Utilities.EnableField(this, R.id.Clients_Mobile_no, "edit");
 
-        Utilities.VisibleButton(this, R.id.client_Save_Button);
-        Utilities.InVisibleButton(this, R.id.client_update_Button);
-        Utilities.InVisibleButton(this, R.id.client_edit_Button);
-        Utilities.InVisibleButton(this, R.id.client_New_preg_Button);
+        Utilities.MakeVisible(this, R.id.client_Save_Button);
+        Utilities.MakeInvisible(this, R.id.client_update_Button);
+        Utilities.MakeInvisible(this, R.id.client_edit_Button);
+        Utilities.MakeInvisible(this, R.id.client_New_preg_Button);
 
         Utilities.VisibleLayout(this, R.id.table_Layout);
         Utilities.VisibleLayout(this, R.id.clients_info_layout);
