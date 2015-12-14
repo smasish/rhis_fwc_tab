@@ -13,7 +13,7 @@
         android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             android:id="@+id/client_info_title"
@@ -432,6 +432,7 @@
                 android:layout_height="wrap_content"
                 android:text="১ "
                 android:id="@+id/Clients_TT_Tika1"
+                android:tag="TT"
                 style="@style/styleEdittext"/>
 
             <CheckBox
@@ -441,6 +442,7 @@
                 android:layout_height="wrap_content"
                 android:text="২ "
                 android:id="@+id/Clients_TT_Tika2"
+                android:tag="TT"
                 style="@style/styleEdittext"/>
 
             <CheckBox
@@ -450,6 +452,7 @@
                 android:layout_height="wrap_content"
                 android:text="৩ "
                 android:id="@+id/Clients_TT_Tika3"
+                android:tag="TT"
                 style="@style/styleEdittext"/>
 
             <CheckBox
@@ -459,6 +462,7 @@
                 android:layout_height="wrap_content"
                 android:text="৪ "
                 android:id="@+id/Clients_TT_Tika4"
+                android:tag="TT"
                 style="@style/styleEdittext"/>
             <CheckBox
                 android:textSize="20sp"
@@ -467,6 +471,7 @@
                 android:layout_height="wrap_content"
                 android:text="৫ "
                 android:id="@+id/Clients_TT_Tika5"
+                android:tag="TT"
                 style="@style/styleEdittext"/>
 
 
