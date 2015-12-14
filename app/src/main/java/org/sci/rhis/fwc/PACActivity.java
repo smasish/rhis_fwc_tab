@@ -23,25 +23,23 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class PACActivity extends ClinicalServiceActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
-public class PACActivity extends ClinicalServiceActivity  implements MinimumDeliveryInfoFragment.DeliverySavedListener{
+public class PACActivity extends ClinicalServiceActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, MinimumDeliveryInfoFragment.DeliverySavedListener {
 
     private CustomDatePickerDialog datePickerDialog;
     private HashMap<Integer, EditText> datePickerPair;
 
     private PregWoman mother;
-    private ProviderInfo provider;
     AsyncPACInfoUpdate pacInfoUpdateTask;
 
     private int lastPacVisit = 0;
     private int pacSaveClick = 0;
-    private String serviceProvider="";
+    private String serviceProvider = "";
     private JSONObject jsonResponse = null;
 
     final private String SERVLET = "pac";
     final private String ROOTKEY = "PACInfo";
 
-    private  final String LOGTAG    = "FWC-PAC";
+    private final String LOGTAG = "FWC-PAC";
     private MultiSelectionSpinner multiSelectionSpinner;
 
     private PregWoman woman = null;
@@ -85,23 +83,25 @@ public class PACActivity extends ClinicalServiceActivity  implements MinimumDeli
         woman = intent.getParcelableExtra("PregWoman");
         provider = intent.getParcelableExtra("Provider");
 
-        if( woman.getAbortionInfo() == 0) {
+        if (woman.getAbortionInfo() == 0) {
             getAbortionInformation();
         }
-    }
+
 
         //pacvisit
-        lastPacVisit = 0;
+        lastPacVisit=0;
 
         initialize();
         //showHidePacDeleteButton();
     }
+
     private void getAbortionInformation() {
         //Disable PAC and History Layout first
         // Utilities.Disable(this, R.id.pacEntryMasterLayout);
         Utilities.MakeInvisible(this, R.id.historyFragmentLayout);
         Utilities.MakeVisible(this, R.id.idPacAbortionInfo);
         Utilities.Disable(this, R.id.pacEntryMasterLayout);
+    }
 
     public void pickDate(View view) {
         datePickerDialog.show(datePickerPair.get(view.getId()));
@@ -123,8 +123,8 @@ public class PACActivity extends ClinicalServiceActivity  implements MinimumDeli
         final List<String> paccervixlist = Arrays.asList(getResources().getStringArray(R.array.PACcervixDropDown));
 
         multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.pacDangerSignsSpinner);
-        if(multiSelectionSpinner == null){
-            Log.d("------"+ dangersignlist.get(1),".........");
+        if (multiSelectionSpinner == null) {
+            Log.d("------" + dangersignlist.get(1), ".........");
         }
         multiSelectionSpinner.setItems(dangersignlist);
         multiSelectionSpinner.setSelection(new int[]{});
@@ -187,10 +187,10 @@ public class PACActivity extends ClinicalServiceActivity  implements MinimumDeli
         try {
             jsonResponse = new JSONObject(result);
             String key;
-            Log.d(LOGTAG,"here:"+jsonResponse.toString());
+            Log.d(LOGTAG, "here:" + jsonResponse.toString());
 
             lastPacVisit = jsonResponse.getInt("count");
-            serviceProvider=jsonResponse.getJSONObject(String.valueOf(lastPacVisit)).getString("providerId");
+            serviceProvider = jsonResponse.getJSONObject(String.valueOf(lastPacVisit)).getString("providerId");
             getTextView(R.id.pacVisitValue).setText(String.valueOf(lastPacVisit + 1)); //next visit
 
 
@@ -205,71 +205,64 @@ public class PACActivity extends ClinicalServiceActivity  implements MinimumDeli
     }
 
     void setItemVisible(int ItemId, boolean isChecked) {
-        Spinner Item=(Spinner)findViewById(ItemId);
+        Spinner Item = (Spinner) findViewById(ItemId);
         Item.setSelection(0);
         findViewById(ItemId).setVisibility(isChecked ? View.VISIBLE : View.INVISIBLE);
     }
 
-    protected void initiateCheckboxes(){
+    protected void initiateCheckboxes() {
         jsonCheckboxMap.put("refer", getCheckbox(R.id.pacReferCheckBox));
-    };
-    protected void initiateEditTexts(){
+    }
+
+    protected void initiateEditTexts() {
         jsonEditTextMap.put("temperature", getEditText(R.id.pacTemperatureValue));
         jsonEditTextMap.put("bpSystolic", getEditText(R.id.pacBloodPresserValueSystolic));
         jsonEditTextMap.put("bpDiastolic", getEditText(R.id.pacBloodPresserValueDiastolic));
         jsonEditTextMap.put("hemoglobin", getEditText(R.id.pacHemoglobinValue));
-    };
-    protected void initiateTextViews(){};
-    protected void initiateSpinners(){
-        jsonSpinnerMap.put("anemia",getSpinner(R.id.pacAnemiaSpinner));
+    }
+
+    protected void initiateTextViews() {
+    }
+
+    protected void initiateSpinners() {
+        jsonSpinnerMap.put("anemia", getSpinner(R.id.pacAnemiaSpinner));
         jsonSpinnerMap.put("uterusInvolution", getSpinner(R.id.pacUterusHeightSpinner));
         jsonSpinnerMap.put("perineum", getSpinner(R.id.pacPerineumSpinner));
         jsonSpinnerMap.put("FPMethod", getSpinner(R.id.pacFamilyPlanningMethodsSpinner));
         jsonSpinnerMap.put("referCenterName", getSpinner(R.id.pacReferCenterNameSpinner));
         jsonSpinnerMap.put("serviceSource", getSpinner(R.id.pacOtherCenterNameSpinner));
 
-    };
-    protected void initiateMultiSelectionSpinners(){
-        jsonMultiSpinnerMap.put("symptom",  getMultiSelectionSpinner(R.id.pacDrawbackSpinner));
-        jsonMultiSpinnerMap.put("complicationSign",  getMultiSelectionSpinner(R.id.pacDangerSignsSpinner));
-        jsonMultiSpinnerMap.put("disease",  getMultiSelectionSpinner(R.id.pacDiseaseSpinner));
-        jsonMultiSpinnerMap.put("treatment",  getMultiSelectionSpinner(R.id.pacTreatmentSpinner));
-        jsonMultiSpinnerMap.put("advice",  getMultiSelectionSpinner(R.id.pacAdviceSpinner));
-        jsonMultiSpinnerMap.put("referReason",  getMultiSelectionSpinner(R.id.pacReasonSpinner));
-        jsonMultiSpinnerMap.put("cervix",  getMultiSelectionSpinner(R.id.pacCervixSpinner));
-        jsonMultiSpinnerMap.put("hematuria",  getMultiSelectionSpinner(R.id.pacHematuriaSpinner));
-        jsonMultiSpinnerMap.put("abdomen",  getMultiSelectionSpinner(R.id.pacAbdomenSpinner));
-    };
-    protected void initiateEditTextDates(){
-        jsonEditTextDateMap.put("visitDate", getEditText(R.id.pacServiceDateValue));
-    };
+    }
 
-    protected void initiateRadioGroups(){};
+    protected void initiateMultiSelectionSpinners() {
+        jsonMultiSpinnerMap.put("symptom", getMultiSelectionSpinner(R.id.pacDrawbackSpinner));
+        jsonMultiSpinnerMap.put("complicationSign", getMultiSelectionSpinner(R.id.pacDangerSignsSpinner));
+        jsonMultiSpinnerMap.put("disease", getMultiSelectionSpinner(R.id.pacDiseaseSpinner));
+        jsonMultiSpinnerMap.put("treatment", getMultiSelectionSpinner(R.id.pacTreatmentSpinner));
+        jsonMultiSpinnerMap.put("advice", getMultiSelectionSpinner(R.id.pacAdviceSpinner));
+        jsonMultiSpinnerMap.put("referReason", getMultiSelectionSpinner(R.id.pacReasonSpinner));
+        jsonMultiSpinnerMap.put("cervix", getMultiSelectionSpinner(R.id.pacCervixSpinner));
+        jsonMultiSpinnerMap.put("hematuria", getMultiSelectionSpinner(R.id.pacHematuriaSpinner));
+        jsonMultiSpinnerMap.put("abdomen", getMultiSelectionSpinner(R.id.pacAbdomenSpinner));
+    }
+
+    protected void initiateEditTextDates() {
+        jsonEditTextDateMap.put("visitDate", getEditText(R.id.pacServiceDateValue));
+    }
+
+    protected void initiateRadioGroups() {
+    }
 
     @Override
     public void onClick(View v) {
-        if( v.getId() == R.id.pacServiceDateValue ||
-                v.getId() == R.id.Date_Picker_Button ) {
+        if (v.getId() == R.id.pacServiceDateValue ||
+                v.getId() == R.id.Date_Picker_Button) {
             datePickerDialog.show(datePickerPair.get(v.getId()));
         }
 
-        if( v.getId() == R.id.pacSaveButton){
+        if (v.getId() == R.id.pacSaveButton) {
             pacSaveToJson();
         }
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (buttonView.getId() == R.id.pacOtherCheckBox) {
-            int visibility = isChecked? View.VISIBLE: View.GONE;
-
-            if(!isChecked)
-    public void onClick(View v) {
-        Utilities.Reset(this, R.id.pacEntryMasterLayout);
-    }
-
-    private Activity getActivity() {
-        return this;
     }
 
     //Callback method of delivery Saved even notification
@@ -282,6 +275,17 @@ public class PACActivity extends ClinicalServiceActivity  implements MinimumDeli
         Utilities.Enable(this, R.id.historyFragmentLayout);
         Utilities.Enable(this, R.id.pacEntryMasterLayout);
     }
+
+    private Activity getActivity () {
+        return this;
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (buttonView.getId() == R.id.pacOtherCheckBox) {
+            int visibility = isChecked? View.VISIBLE: View.GONE;
+
+            if(!isChecked)
                 getSpinner(R.id.pacOtherCenterNameSpinner).setSelection(0);
             else
                 getSpinner(R.id.pacOtherCenterNameSpinner).setSelection(0);
@@ -325,11 +329,11 @@ public class PACActivity extends ClinicalServiceActivity  implements MinimumDeli
 
     private JSONObject buildQueryHeader(boolean isRetrieval) throws JSONException {
         //get info from database
-        String queryString =   "{" +
+        String queryString = "{" +
                 "healthId:" + mother.getHealthId() + "," +
-                (isRetrieval ? "": "providerId:\""+String.valueOf(provider.getProviderCode())+"\",") +
+                (isRetrieval ? "" : "providerId:\"" + String.valueOf(provider.getProviderCode()) + "\",") +
                 "pregNo:" + mother.getPregNo() + "," +
-                "pacLoad:" + (isRetrieval? "retrieve":"\"\"") +
+                "pacLoad:" + (isRetrieval ? "retrieve" : "\"\"") +
                 "}";
 
         return new JSONObject(queryString);
@@ -337,7 +341,7 @@ public class PACActivity extends ClinicalServiceActivity  implements MinimumDeli
 
     private void showHidePacDeleteButton() {
         //serviceProvider=jsonResponse.getString("providerId");
-        Log.d("provider Id's",provider.getProviderCode().toString()+" & "+serviceProvider);
+        Log.d("provider Id's", provider.getProviderCode().toString() + " & " + serviceProvider);
         Utilities.SetVisibility(this, R.id.deleteLastPacButton, ((lastPacVisit > 0) && provider.getProviderCode().equals(serviceProvider)) ? View.VISIBLE : View.GONE);
     }
 
@@ -349,8 +353,7 @@ public class PACActivity extends ClinicalServiceActivity  implements MinimumDeli
 
             pacInfoUpdateTask = new AsyncPACInfoUpdate(this);
             pacInfoUpdateTask.execute(deleteJson.toString(), SERVLET, ROOTKEY);
-        }
-        catch (JSONException jse) {
+        } catch (JSONException jse) {
             Log.e(LOGTAG, "Could not build delete ANC request");
             Utilities.printTrace(jse.getStackTrace());
         }

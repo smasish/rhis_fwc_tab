@@ -155,10 +155,10 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                 //TODO Make the fields non-modifiable
                 Utilities.Disable(this, R.id.delivery_info_layout);
                 Utilities.Enable(this, R.id.btn_save_add_child);
-                Utilities.MakeVisible(this,R.id.editDeliveryButton);
+                Utilities.MakeVisible(this, R.id.editDeliveryButton);
                 Utilities.MakeInvisible(this, R.id.saveDeliveryButton);
                 Utilities.MakeInvisible(this, R.id.dynamicCancelButton);
-                mother.setHasDeliveryInfo(1);
+                mother.setDeliveryInfo(1);
                 hasDeliveryInfo = true;
                 mother.setActualDelivery(json.getString("dDate"), "yyyy-MM-dd");
                 Utilities.SetVisibility(this, R.id.newborn_Tabla_Layout, View.VISIBLE);
