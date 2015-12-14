@@ -1,5 +1,8 @@
 package org.sci.rhis.fwc;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.app.Activity;
@@ -13,14 +16,21 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import org.json.JSONObject;
 import org.sci.rhis.utilities.CustomDatePickerDialog;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public class PACActivity extends ClinicalServiceActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, MinimumDeliveryInfoFragment.DeliverySavedListener {
@@ -45,6 +55,21 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
     private PregWoman woman = null;
     private ProviderInfo provider = null;
 
+    private LinearLayout lay_pac;
+
+    private Context con;
+    private LinearLayout lay_frag_pac;
+    private PregWoman mother;
+   // private ProviderInfo provider;
+
+    private JSONObject jsonRespMother = null;
+    ExpandableListView expListView;
+
+    List<String> listDataHeader;
+    HashMap<String, List<String>> listDataChild;
+    ExpandableListAdapterforPAC listAdapter;
+    LinearLayout ll;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +81,34 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
 
         //initiate multiselect spinners
         setMultiSelectSpinners();
+        con = this;
+
+        lay_frag_pac = (LinearLayout)findViewById(R.id.history_lay);
+        Intent intent = getIntent();
+        mother = getIntent().getParcelableExtra("PregWoman");
+
+        //int name = intent.getIntExtra("PregWoman",0);
+        //provider = getIntent().getParcelableExtra("Provider");
+
+        Log.d("------>>>------------", "START-----PAC----" );
+        ll = (LinearLayout)findViewById(R.id.llay);
+
+        expListView = new ExpandableListView(this);
+        ll.addView(expListView);
+
+        AsyncPNCInfoUpdate sendPostReqAsyncTask = new AsyncPNCInfoUpdate(PACActivity.this);
+
+        String queryString =   "{" +
+                "pregNo:" + mother.getPregNo() + "," +
+                "healthId:" + mother.getHealthId() + "," +
+                "pacLoad:" + "retrieve" +
+                "}";
+
+        String servlet = "pac";
+        String jsonRootkey = "PACInfo";
+        Log.d(LOGTAG, "Mother Part:\n" + queryString);
+        sendPostReqAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, queryString, servlet, jsonRootkey);
+
 
 
         getCheckbox(R.id.pacOtherCheckBox).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -181,6 +234,19 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
         return super.onOptionsItemSelected(item);
     }
 
+
+
+
+    private void initPage() {
+        expListView = new ExpandableListView(this);
+        expListView.setTranscriptMode(ExpandableListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+
+        expListView.setIndicatorBounds(0, 0);
+        expListView.setChildIndicatorBounds(0, 0);
+        expListView.setStackFromBottom(true);
+        //  expListView.smoothScrollToPosition(expListView.getCount() - 1);
+    }
+
     @Override
     public void callbackAsyncTask(String result) {
 
@@ -205,6 +271,254 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
             Log.e(LOGTAG, "PAC Error:\n\t\t");
             Utilities.printTrace(jse.getStackTrace());
         }
+        ll.removeAllViews();
+        Log.d(LOGTAG, "Handle Mother:\n" + result);
+
+        try {
+            jsonRespMother = new JSONObject(result);
+            String key;
+
+        //    lastPncVisit = jsonRespMother.getInt("count");
+        //    getTextView(R.id.pncVisitValue).setText(String.valueOf(lastPncVisit+1)); //next visit
+
+            //Check if eligible for new PNC
+//            if(jsonRespMother.has("pncStatus") &&
+//                    jsonRespMother.getBoolean("pncStatus")) {
+//                Utilities.MakeInvisible(this, R.id.pncMotherInfo);
+//                Toast.makeText(this, "Mother is not eligible for new PNC", Toast.LENGTH_LONG).show();
+//            } else {
+//                //get outcome date and populate ideal pnc visit info
+//                mother.setActualDelivery(jsonRespMother.getString("outcomeDate"), "yyyy-MM-dd");
+//                setPncVisitAdvices();
+//
+//                showHidePncDeleteButton(jsonRespMother, true);
+//
+//            }
+            //
+
+            int in=1;
+
+            //DEBUG
+            Resources res = getResources();
+            int item=0;
+            for (Iterator<String> ii = jsonRespMother.keys(); ii.hasNext(); ) {
+                key = ii.next();
+                item++;
+                Log.d("--:::>", "---key=====>" + item);
+            }
+
+            for (Iterator<String> ii = jsonRespMother.keys(); ii.hasNext(); ) {
+                key = ii.next();
+
+
+                System.out.println("1.Key:" + key + " Value:\'" + jsonRespMother.get(key) + "\'");
+
+                //if(in == item-3)
+                if(in > jsonRespMother.getInt("count"))
+                    break;
+                //It's just json and not so hard to understand, keep getiing exception at this point
+
+                JSONObject jsonRootObject = jsonRespMother.getJSONObject("" + in);
+                Log.d("--:::>", "---serviceSource=====>" + jsonRootObject.getString("serviceSource"));
+
+                String complicationsign = jsonRootObject.getString("complicationSign");
+                String serviceSource = jsonRootObject.getString("serviceSource");
+                String anemia = jsonRootObject.getString("anemia");
+                String referCenterName = jsonRootObject.getString("referCenterName");
+                String treatment = jsonRootObject.getString("treatment");
+                String perineum = jsonRootObject.getString("perineum");
+                String uterusInvolution = jsonRootObject.getString("uterusInvolution");
+                String visitDate = jsonRootObject.getString("visitDate");
+                String bpDiastolic = jsonRootObject.getString("bpDiastolic");
+                String disease = jsonRootObject.getString("disease");
+                String bpSystolic = jsonRootObject.getString("bpSystolic");
+                String hematuria = jsonRootObject.getString("hematuria");
+                String temperature = jsonRootObject.getString("temperature");
+                String referReason = jsonRootObject.getString("referReason");
+                String refer = jsonRootObject.getString("refer");
+               // String edema = jsonRootObject.getString("edema");
+                String serviceId = jsonRootObject.getString("serviceId");
+                String hemoglobin = jsonRootObject.getString("hemoglobin");
+                String FPMethod = jsonRootObject.getString("FPMethod");
+               // String breastCondition = jsonRootObject.getString("breastCondition");
+                String advice = jsonRootObject.getString("advice");
+                String symptom = jsonRootObject.getString("symptom");
+                // String  pncStatus= jsonRootObject.getString("pncStatus");
+                //Log.d("--:::>", "---complicationsign=====>"+jsonStr.get(key));
+
+                ArrayList<String> list = new ArrayList<String>();
+
+                String[] details;
+                Resources res1 = con.getResources();
+                String str1 = "";
+
+                list.add("" + getString(R.string.visitDate) + " " + visitDate);
+                list.add("" + getString(R.string.complicationsign) + " " + symptom);
+                list.add("" + getString(R.string.temperature) + " " + temperature);
+                list.add("" + getString(R.string.bpSystolic) + " " + bpSystolic+"/"+bpDiastolic);
+
+                // for anemia value
+                str1 = "";
+                str1 = anemia;
+                Log.d("--:::>", "---complicationsign=====>"+str1);
+                String[] animals = str1.split(" ");
+                String temp = "";
+                details = res1.getStringArray(R.array.Anemia_Dropdown);
+                for (String animal : animals) {
+                    System.out.println(animal);
+                    if(animal.length()>0)
+                        temp = temp+" "+details[Integer.parseInt(animal)];
+                }
+                list.add("" + getString(R.string.anemia) + " " + temp);
+
+
+                list.add("" + getString(R.string.hemoglobin) + " " + hemoglobin+"%");
+
+
+                // for edema value
+                str1 = "";
+//                str1 = edema;
+//
+//                animals = str1.split(" ");
+//                temp = "";
+//                details = res1.getStringArray(R.array.Edema_Dropdown);
+//                for (String animal : animals) {
+//                    System.out.println(animal);
+//                    if(animal.length()>0)
+//                        temp = temp+" "+details[Integer.parseInt(animal)];
+//                }
+//                list.add("" + getString(R.string.edema) + " " + temp.trim());
+
+                // for breastCondition value
+                str1 = "";
+//                str1 = breastCondition;
+//
+//                animals = str1.split(" ");
+//                temp = "";
+//                details = res1.getStringArray(R.array.Breast_Condition_DropDown);
+//                for (String animal : animals) {
+//                    System.out.println(animal);
+//                    if(animal.length()>0)
+//                        temp = temp+" "+details[Integer.parseInt(animal)];
+//                }
+//
+//                list.add("" + getString(R.string.breastCondition) + " " + temp);
+
+                // for hematuria value
+                str1 = "";
+                str1 = uterusInvolution;
+                str1 = str1.replaceAll("[^0-9]+", " ");
+                System.out.println("-----"+str1);
+                animals = str1.split(" ");
+                System.out.println("---splitted--");
+
+                temp = "";
+                details = res1.getStringArray(R.array.Cervix_Involution_DropDown);
+                for (String animal : animals) {
+                    System.out.println(animal);
+                    if(animal.length()>0)
+                        temp = temp+" "+details[Integer.parseInt(animal)];
+                }
+
+                list.add("" + getString(R.string.uterusInvolution) + " " + temp);
+
+
+                // for hematuria value
+                str1 = "";
+                str1 = hematuria;
+                str1 = str1.replaceAll("[^0-9]+", " ");
+                animals = str1.split(" ");
+                temp = "";
+                details = res1.getStringArray(R.array.Family_Planning_Methods_DropDown);// discharge_bleeding_dropdown
+                for (String animal : animals) {
+                    System.out.println(animal);
+                    if(animal.length()>0)
+                        temp = temp+" "+details[Integer.parseInt(animal)];
+                }
+
+                list.add("" + getString(R.string.hematuria) + " " + temp);
+
+
+                // for perineum value
+                str1 = "";
+                str1 = perineum;
+
+                str1 = str1.replaceAll("[^0-9]+", " ");
+                animals = str1.split(" ");
+                temp = "";
+                details = res1.getStringArray(R.array.Perineum_DropDown);
+                for (String animal : animals) {
+                    System.out.println(animal);
+                    if(animal.length()>0)
+                        temp = temp+" "+details[Integer.parseInt(animal)];
+                }
+
+
+                list.add("" + getString(R.string.perineum) + " " + temp);
+
+                // for Family_Planning value
+                str1 = "";
+                str1 = FPMethod;
+                str1 = str1.replaceAll("[^0-9]+", " ");
+                animals = str1.split(" ");
+                temp = "";
+                details = res1.getStringArray(R.array.Family_Planning_Methods_DropDown);
+                for (String animal : animals) {
+                    System.out.println(animal);
+                    if(animal.length()>0)
+                        temp = temp+" "+details[Integer.parseInt(animal)];
+                }
+
+                list.add("" + getString(R.string.family_planning_methods) + " " + temp);
+                list.add("" + getString(R.string.danger_signs) + " " + complicationsign);
+                list.add("" + getString(R.string.disease) + " " + disease);
+                list.add("" + getString(R.string.treatment) + " " + treatment);
+                list.add("" + getString(R.string.advice) + " " + advice);
+                if(Integer.parseInt(refer) == 1)
+                    list.add("" + getString(R.string.refer) + " " + "Yes");
+                else if(Integer.parseInt(refer) == 2)
+                    list.add("" + getString(R.string.refer) + " " + "No");
+                list.add("" + getString(R.string.referCenterName) + " " + referCenterName);
+                list.add("" + getString(R.string.referReason) + " " + referReason);
+
+
+                try {
+                    // JSONArray jsonArray = jsonStr.getJSONArray(key);
+
+
+                    listDataHeader = new ArrayList<String>();
+                    listDataChild = new HashMap<String, List<String>>();
+
+
+                    // listDataHeader.add(getString(R.string.history_visit1) + "" + jsonArray.get(0).toString() + " :");
+                    listDataHeader.add("Visit " + in + ":");//jsonArray.get(0).toString()
+                    listDataChild.put(listDataHeader.get(0), list);
+
+                    listAdapter = new ExpandableListAdapterforPAC(this, listDataHeader, listDataChild);
+
+                    in++;
+
+                    initPage();
+
+                    ll.addView(expListView);
+                    expListView.setScrollingCacheEnabled(true);
+                    expListView.setAdapter(listAdapter);
+                    ll.invalidate();
+                    // expListView.setAdapter(listAdapter);
+
+
+                } catch (Exception e) {
+                    Log.e("::::", "onPostExecute > Try > JSONException => " + e);
+                    e.printStackTrace();
+                }
+            }
+
+
+        } catch (JSONException jse) {
+            System.out.println("JSON Exception Thrown::\n ");
+            jse.printStackTrace();
+        }
+
     }
 
     void setItemVisible(int ItemId, boolean isChecked) {

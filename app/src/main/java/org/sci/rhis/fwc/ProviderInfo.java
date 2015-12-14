@@ -1,5 +1,6 @@
 package org.sci.rhis.fwc;
 
+import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -21,10 +22,13 @@ public class ProviderInfo implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         //"IMPORTANT" ->Do not change the order by which the 'data' is written
+
         dest.writeString(mProviderCode);
         dest.writeString(mProviderName);
         dest.writeString(mProviderFacility);
         dest.writeString(mSatelliteName);
+
+
     }
 
     public static final Parcelable.Creator<ProviderInfo> CREATOR= new Parcelable.Creator<ProviderInfo>() {
