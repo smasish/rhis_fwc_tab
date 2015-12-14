@@ -198,7 +198,7 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
 
             Log.d(LOGTAG, "PAC Response Received:\n\t" + result);
             //handleExistingChild(result);
-        try {
+
             JSONObject json = new JSONObject(result);
             Utilities.setTextViews(jsonTextViewsMap, json);
         } catch (JSONException jse) {
