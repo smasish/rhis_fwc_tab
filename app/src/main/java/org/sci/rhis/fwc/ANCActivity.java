@@ -172,8 +172,8 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         getCheckbox(R.id.ancOtherCheckBox).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                switch(buttonView.getId()) {
-                    case R.id.ancOtherCheckBox :
+                switch (buttonView.getId()) {
+                    case R.id.ancOtherCheckBox:
                         setItemVisible(R.id.ancOtherCenterNameSpinner, isChecked);
                         break;
                 }
@@ -346,7 +346,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
             jsonStr = new JSONObject(result);
             String key;
             lastAncVisit = jsonStr.length() -1 ; //each anc visit has 1 extra ket denoting current anc status
-            getTextView(R.id.ancVisitValue).setText((String.valueOf(lastAncVisit >= 0 ? lastAncVisit + 1 : 1)));
+            getTextView(R.id.ancVisitValue).setText(Utilities.ConvertNumberToBangla(String.valueOf(lastAncVisit >= 0 ? lastAncVisit + 1 : 1)));
             Log.d("ANC", "JSON Response:\n"+jsonStr.toString());
 
             //Check if eligible for new ANC
@@ -357,7 +357,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                 Toast.makeText(this, "Mother is not eligible for new ANC",Toast.LENGTH_LONG).show();
             }
             else {
-                Utilities.MakeVisible(this, R.id.ancEntryMasterLayout);
+                Utilities.Enable(this, R.id.ancEntryMasterLayout);
                 showHideAncDeleteButton(jsonStr);
             }
 

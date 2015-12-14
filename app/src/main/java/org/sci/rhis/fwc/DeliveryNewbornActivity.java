@@ -332,11 +332,11 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
     private void handleRadioButton(RadioGroup group, int checkedId) {
         if(checkedId == R.id.deliveryResastationYesButton) {
-            Utilities.VisibleLayout(this, R.id.StimulationBagNMask);
+            Utilities.MakeVisible(this, R.id.StimulationBagNMask);
             getCheckbox(R.id.stimulation).setChecked(true);
             getCheckbox(R.id.bag_n_mask).setChecked(false);
         } else if (checkedId == R.id.deliveryResastationNoButton) {
-            Utilities.InVisibleLayout(this, R.id.StimulationBagNMask);
+            Utilities.MakeInvisible(this, R.id.StimulationBagNMask);
             getCheckbox(R.id.stimulation).setChecked(false);
             getCheckbox(R.id.bag_n_mask).setChecked(false);
         }

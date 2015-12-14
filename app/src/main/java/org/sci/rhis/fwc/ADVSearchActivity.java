@@ -314,7 +314,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
             getSpecialCases(json);
             //Utilities.getSpinnerValues(jsonSpinnerMap, json); // for upz, union Spinner
 
-            Log.e("ADVSearch JSON 2SERVLET", json.toString());
+            Log.d("ADVSearch JSON 2SERVLET", json.toString());
 
             ADVSearchUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
 

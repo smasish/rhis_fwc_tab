@@ -177,7 +177,7 @@ public class Utilities {
         view.setVisibility(View.VISIBLE);
     }
 
-    public static void VisibleButton(Activity activity,int id)
+    /*public static void VisibleButton(Activity activity,int id)
     {
         Button visibility = (Button)activity.findViewById(id);
         visibility.setVisibility(Button.VISIBLE);
@@ -187,7 +187,7 @@ public class Utilities {
     {
         Button visibility = (Button)activity.findViewById(id);
         visibility.setVisibility(Button.GONE);
-    }
+    }*/
 
     public static void VisibleLayout(Activity activity,int id)
     {
@@ -702,7 +702,7 @@ public class Utilities {
 
 
 
-    public static String ConvertNumberToBangla(String givenNumber) throws NumberFormatException {
+    public static String ConvertNumberToBangla2(String givenNumber) throws NumberFormatException {
 
         char[] numberMap = {'0','1','2','3','4','5','6','7','8','9'}; //first 40 byte is wastage but its acceptable
         char[] banglaMap = {'০','১','২','৩','৪','৫','৬','৭','৮','৯'};
@@ -743,6 +743,27 @@ public class Utilities {
                 default:
                         throw new NumberFormatException("Character:" + givenNumber.charAt(i) + " is not convertible to bangla");
 
+            }
+        }
+
+        return banglaResponse;
+    }
+
+    public static String ConvertNumberToBangla(String givenNumber) {
+
+        char[] numberMap = {'0','1','2','3','4','5','6','7','8','9'}; //first 40 byte is wastage but its acceptable
+        char[] banglaMap = {'০','১','২','৩','৪','৫','৬','৭','৮','৯'};
+        String banglaResponse = "";
+
+        for(int i = 0; i< givenNumber.length(); i++) {
+            try {
+                banglaResponse += banglaMap[givenNumber.charAt(i) - 48];
+            } catch (ArrayIndexOutOfBoundsException aiob) {
+                if(givenNumber.charAt(i) > 57 || givenNumber.charAt(i) < 48) {
+                       banglaResponse += givenNumber.charAt(i);
+                } else {
+                    Log.e(LOGTAG, "Number out of range:" + givenNumber);
+                }
             }
         }
 
