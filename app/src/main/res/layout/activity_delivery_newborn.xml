@@ -463,6 +463,13 @@
                     android:layout_height="80px"
                     android:id="@+id/id_OkNewbornButton"
                     android:onClick="onClick"/>
+                <Button
+                    android:text="Delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80px"
+                    android:visibility="invisible"
+                    android:id="@+id/DeleteLastNewbornButton"
+                    android:onClick="onClick"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

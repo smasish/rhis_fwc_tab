@@ -660,7 +660,7 @@
                         android:layout_width="220sp"
                         android:layout_height="wrap_content"
                         
-                        android:text="@string/discharge_bleeding"
+                        android:text="@string/hematuria"
                         android:textColor="@color/text_color"
                         android:textSize="20sp" />
 

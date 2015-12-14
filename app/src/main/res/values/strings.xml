@@ -216,6 +216,8 @@
     <string name="epcotomi">"ইপিসিওটমি করা হয়েছে? "</string>
     <string name="oxytocinGiven">"অক্সিটোসিন না থাকলে মিসোপ্রোস্টল খাওয়ানো হয়েছে?"</string>
     <string name="providerName">"প্রসব সম্পাদনকারীর নাম:"</string>
+    <string name="providerSelfLabel">"প্রসব সম্পাদনকারী:"</string>
+    <string name="providerSelfValue">" আমি নিজে"</string>
     <string name="providerTitle">"পদবী:"</string>
     <string name="deliveryComplication">"প্রসব সংক্রান্ত জটিলতা:"</string>
     <string name="bloodLoss">"অতিরিক্ত রক্তক্ষরণ"</string>
@@ -303,11 +305,12 @@
     <string name="temperature">"তাপমাত্রা:"</string>
     <string name="breast_condition">"স্তনের অবস্থা:"</string>
     <string name="cervix_involution">"জরায়ুর ইনভলিউশন:"</string>
-    <string name="discharge_bleeding">"স্রাব/ রক্তস্রাব:"</string>
+
     <string name="perineum">"পেরিনিয়াম:"</string>
     <string name="family_planning_methods">"পরিবার পরিকল্পনা পদ্ধতি\n(পরামর্শ / পদ্ধতি প্রদান):"</string>
 
     <string name="cervix">"জরায়ুমুখ:"</string>
+    <string name="pac_uterus_height">"জরায়ুর উচ্চতা :"</string>
 
     <string name="visitDate">"সেবাগ্রহনের তারিখ:"</string>
     <string name="bpSystolic">"রক্তচাপ (মিঃ মিঃ মার্কারি) :"</string>
@@ -747,14 +750,38 @@
         <item>	প্রসব পরবর্তী উচ্চ রক্তচাপ	</item>
         <item>	প্রসব পরবর্তী  ডায়াবেটিস	</item>
     </string-array>
-	<string-array name="PACUterusInvolution">
+	<string-array name="PACUterusDropdown">
 		<item></item>
 		<item>	গর্ভমেয়াদের সাথে সঙ্গতিপূর্ণ</item>
 		<item>	গর্ভমেয়াদের তুলনায় জরায়ুর আকার কম</item>
 		<item>	গর্ভমেয়াদের তুলনায় জরায়ুর আকার বেশী</item>
 	</string-array>
 
+    <string-array name="PACcervixDropDown">
+        <item></item>
+        <item>বন্ধ জরায়ুমুখ</item>
+        <item>সম্প্রসারিত</item>
+        <item>পুঁজযুক্ত জরায়ুমুখে স্রাব</item>
+    </string-array>
 
+    <string-array name="PACHematuriaDropdown">
+        <item></item>
+        <item>	স্বাভাবিক</item>
+        <item> হালকা রক্তক্ষরণ (১টা শুকনো প্যাড কিংবা কাপড় ভিজে যাওয়ার জন্য ৫ মিনিটের বেশী সময় লাগে)</item>
+        <item>	অতিরিক্ত রক্তক্ষরণ (১টা শুকনো প্যাড কিংবা কাপড় ভিজে যাওয়ার জন্য ৫ মিনিটের কম সময় লাগে)</item>
+        <item> দুর্গন্ধযুক্ত স্রাব</item>
+    </string-array>
+
+    <string-array name="PACAbdomenDropdown">
+        <item></item>
+        <item>	 স্বাভাবিক (নরম) পেট</item>
+        <item> অনমনীয় (পীড়িত এবং শক্ত) পেট</item>
+        <item> চেপে ছেড়ে দিলে ব্যথা</item>
+        <item> স্বাভাবিকের চেয়ে নরম জরায়ু </item>
+        <item>  জরায়ুতে  চাপ দিলে ব্যথা</item>
+    </string-array>
+
+    <string name="pac_abdomen"> পেট </string>
 
     <string name="title_activity_nrc">NRCActivity</string>
     <string name="mr_service">এম আর সেবা</string>
