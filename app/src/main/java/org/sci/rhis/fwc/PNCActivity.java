@@ -320,7 +320,7 @@ pnc child history
         datePickerPair.put(R.id.Date_Picker_Button, (EditText) findViewById(R.id.pncServiceDateValue));
         datePickerPair.put(R.id.Date_Picker_Button_Child, (EditText) findViewById(R.id.pncChildServiceDateValue));
 
-        //getRadioButton(R.id.pncMotherSelector).setChecked(true); //select mother by default
+        getRadioButton(R.id.pncMotherSelector).setChecked(true); //select mother by default
     }
 
     private void handleRadioButton(RadioGroup group, int checkedId) {
@@ -346,7 +346,7 @@ pnc child history
             //getCheckbox(R.id.stimulation).setChecked(true);
             //getCheckbox(R.id.bag_n_mask).setChecked(false);
         } else if (checkedId == R.id.pncChildSelector) {
-            //Utilities.SetVisibility(this, R.id.id_pncChildListDropdown, View.VISIBLE);
+            Utilities.SetVisibility(this, R.id.deleteLastPncButton, View.INVISIBLE); //always first set it to invisible until a child is selected
             Utilities.MakeVisible(this, R.id.id_pncChildListDropdown);
             //findViewById(R.id.id_pncChildListDropdown).setVisibility(View.VISIBLE);
             //getCheckbox(R.id.stimulation).setChecked(false);
@@ -759,13 +759,57 @@ pnc child history
         return new JSONObject(queryString);
     }
 
+    private void saveService(int saveButton, int cancelButton, int masterLayoutId, boolean saveButtonPressed, boolean isMother) {
+        if(saveButtonPressed) {
+            pncSaveClick++;
+            if(pncSaveClick == 2) {
+                if(isMother) {
+                    pncMotherSaveToJson();
+                } else {
+                    pncChildSaveToJson();
+                }
+                Toast.makeText(this, "Saving Entered Information", Toast.LENGTH_LONG).show();
+                pncSaveClick = 0;
+                Utilities.Enable(this, masterLayoutId);
+                Utilities.MakeInvisible(this, cancelButton);
+                getButton(saveButton).setText("Save");
+
+            } else if (pncSaveClick == 1) {
+
+                Utilities.Disable(this, masterLayoutId);
+                getButton(saveButton).setText("Confirm");
+                Utilities.Enable(this, cancelButton);
+                Utilities.Enable(this, saveButton);
+                Utilities.MakeVisible(this, cancelButton);
+                Toast toast = Toast.makeText(this, R.string.DeliverySavePrompt, Toast.LENGTH_LONG);
+                LinearLayout toastLayout = (LinearLayout) toast.getView();
+                TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                toastTV.setTextSize(20);
+                toast.show();
+            }
+        } else {
+            pncSaveClick = 0;
+            getButton(saveButton).setText("Save");
+            Utilities.Enable(this, masterLayoutId);
+            Utilities.MakeInvisible(this, cancelButton);
+        }
+    }
+
     public void savePnc(View view) {
 
         if(view.getId() == R.id.pncSaveButton) {
+            /// ---
+
+            saveService(R.id.pncSaveButton,
+                        R.id.pncCancelButton,
+                    R.id.pncMotherInfo,true, true);
+
+            /// ---
+            /*
             pncSaveClick++;
             if(pncSaveClick == 2) {
                 pncMotherSaveToJson();
-                Toast.makeText(this, "Saving Mother's Information", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Saving Entered Information", Toast.LENGTH_LONG).show();
                 pncSaveClick = 0;
                 Utilities.Enable(this, R.id.pncMotherInfo);
                 Utilities.MakeInvisible(this, R.id.pncCancelButton);
@@ -783,17 +827,27 @@ pnc child history
                 TextView toastTV = (TextView) toastLayout.getChildAt(0);
                 toastTV.setTextSize(20);
                 toast.show();
-            }
+            }*/
         } else if(view.getId() == R.id.pncCancelButton) {
-            pncSaveClick = 0;
+            /*pncSaveClick = 0;
             getButton(R.id.pncSaveButton).setText("Save");
             Utilities.Enable(this, R.id.pncMotherInfo);
-            Utilities.MakeInvisible(this, R.id.pncCancelButton);
+            Utilities.MakeInvisible(this, R.id.pncCancelButton);*/
+            saveService(R.id.pncSaveButton,
+                    R.id.pncCancelButton,
+                    R.id.pncMotherInfo, false, true);
         }
     }
 
     public void savePNCChild (View view){
-        pncChildSaveToJson();
+        if(view.getId() == R.id.pncChildSaveButton) {
+            saveService(R.id.pncChildSaveButton,
+                    R.id.pncChildCancelButton, R.id.pncChildInfo, true, false);
+        } else if(view.getId() == R.id.pncChildCancelButton) {
+            saveService(R.id.pncChildSaveButton,
+                    R.id.pncChildCancelButton, R.id.pncChildInfo, false, false);
+        }
+        //pncChildSaveToJson();
         Toast.makeText(this, "Saving Child's Information", Toast.LENGTH_LONG).show();
     }
 

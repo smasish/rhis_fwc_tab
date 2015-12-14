@@ -12,9 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -37,7 +35,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 public class ANCActivity extends ClinicalServiceActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener,
                                                                      CompoundButton.OnCheckedChangeListener{
@@ -131,34 +128,26 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        history_layout = (LinearLayout)(findViewById(R.id.history_lay));
+        history_layout = (LinearLayout)(findViewById(R.id.history_lay_anc));
 
 
         // Find the view whose visibility will change
         mANCLayout = findViewById(R.id.ancLayoutScrollview);
-      //  newanc = (Button)findViewById(R.id.newanc_id);
 
         OnClickListener mnewancVisibleListener = new OnClickListener() {
             public void onClick(View v) {
                 if(flag==false) {
                     mANCLayout.setVisibility(View.VISIBLE);
                     flag=true;
-                    listView.setVisibility(View.GONE);
-
                 }
                 else
                 {
                     mANCLayout.setVisibility(View.INVISIBLE);
                     flag=false;
-                    listView.setVisibility(View.GONE);
-
                 }
             }
         };
-  //      newanc.setOnClickListener(mnewancVisibleListener);
 
-
-        listView = (ListView)findViewById(R.id.list);
         // Find our buttons
         Button visibleButton = (Button) findViewById(R.id.ancLabelButton);
 
@@ -292,7 +281,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
        datePickerPair.put(R.id.Date_Picker_Button, (EditText)findViewById(R.id.ancServiceDateValue));
 
         //disable ANC entry if delivery info is present
-        if(mother.hasDeliveryInfo() == 1) {
+        if(mother.getDeliveryInfo() == 1) {
             Utilities.MakeInvisible(this, R.id.ancEntryMasterLayout);
             Toast.makeText(this, "Mother is not eligible for new ANC",Toast.LENGTH_LONG).show();
         } else {
@@ -357,7 +346,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
             jsonStr = new JSONObject(result);
             String key;
             lastAncVisit = jsonStr.length() -1 ; //each anc visit has 1 extra ket denoting current anc status
-            getTextView(R.id.ancVisitValue).setText(String.valueOf(lastAncVisit >= 0 ?lastAncVisit + 1 : 1));
+            getTextView(R.id.ancVisitValue).setText((String.valueOf(lastAncVisit >= 0 ? lastAncVisit + 1 : 1)));
             Log.d("ANC", "JSON Response:\n"+jsonStr.toString());
 
             //Check if eligible for new ANC
@@ -486,7 +475,7 @@ public class ANCActivity extends ClinicalServiceActivity implements AdapterView.
                                 for (String animal : animals) {
                                     System.out.println(animal);
                                     if(animal.length()>0)
-                                        temp = temp+"\n"+details[Integer.parseInt(animal)];
+                                        temp = temp+" "+details[Integer.parseInt(animal)];
                                 }
                                 list.add("" + mainlist[i-1] +temp );
 

@@ -33,6 +33,7 @@ public class PregWoman extends GeneralPerson implements Parcelable{
     private String historyComplicated;
     private String historyContent;
     private int hasDeliveryInfo;
+    private int hasAbortionInfo;
     private DateFormat df;
     private Calendar edd_cal;
     private Calendar lmp_cal;
@@ -69,7 +70,8 @@ public class PregWoman extends GeneralPerson implements Parcelable{
         dest.writeLong(getHealthId());
         dest.writeString(df.format(lmp));
         dest.writeInt(getPregNo());
-        dest.writeInt(hasDeliveryInfo());
+        dest.writeInt(getDeliveryInfo());
+        dest.writeInt(getAbortionInfo());
         if(actualDelivery!=null) {
             dest.writeString(df.format(actualDelivery));
         } else {
@@ -108,7 +110,9 @@ public class PregWoman extends GeneralPerson implements Parcelable{
         }
         lmp = getDate(data.readString());
         setPregNo(data.readInt()); //pregnancyNo
-        setHasDeliveryInfo(data.readInt()); //hasDeliveryInfo
+        setDeliveryInfo(data.readInt()); //hasDeliveryInfo
+        setAbortionInfo(data.readInt()); //hasAbortionInfo
+
         String deliveryDate = data.readString(); //actualDelivery
         if(!deliveryDate.equals("")) {
             actualDelivery = getDate(deliveryDate);
@@ -180,7 +184,8 @@ public class PregWoman extends GeneralPerson implements Parcelable{
                         clientInfo.getString("cBloodGroup"),
                         clientInfo.getString("cHistoryComplicated"),
                         clientInfo.getString("cHistoryComplicatedContent"),
-                        clientInfo.getString("hasDeliveryInformation")
+                        clientInfo.getString("hasDeliveryInformation"),
+                        clientInfo.getString("hasAbortionInformation")
                     );
         } catch (JSONException JSE) {
             System.out.println("JSON Exception:");
@@ -210,7 +215,8 @@ public class PregWoman extends GeneralPerson implements Parcelable{
                     String _bloodGroup,
                     String _historyComplicated,
                     String _historyContent,
-                    String _hasDeliveryInfo
+                    String _hasDeliveryInfo,
+                    String _hasAbortionInfo
                     ) {
         df = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -232,6 +238,7 @@ public class PregWoman extends GeneralPerson implements Parcelable{
         historyComplicated = _historyComplicated;
         historyContent = _historyContent;
         hasDeliveryInfo = (_hasDeliveryInfo.equals("Yes") ? 1: 0);
+        hasAbortionInfo =  _hasAbortionInfo.equals("Yes") ? 1: 0 ;
 
         this.pregNo = pregNo;
     }
@@ -291,7 +298,7 @@ public class PregWoman extends GeneralPerson implements Parcelable{
 
             case PNC:
                 //disable PNC entry if delivery info is present
-                eligible = ((hasDeliveryInfo() == 1 )? true: false);
+                eligible = ((getDeliveryInfo() == 1 )? true: false);
                 break;
             default:
                 eligible = false;
@@ -330,13 +337,23 @@ public class PregWoman extends GeneralPerson implements Parcelable{
         this.pregNo = pregNo;
     }
 
-    public int hasDeliveryInfo() {
+    public int getDeliveryInfo() {
         return hasDeliveryInfo;
     }
 
-    public void setHasDeliveryInfo(int hasDeliveryInfo) {
+    public void setDeliveryInfo(int hasDeliveryInfo) {
         this.hasDeliveryInfo = hasDeliveryInfo;
     }
+
+    public int getAbortionInfo() {
+        return hasAbortionInfo;
+    }
+
+    public void setAbortionInfo(int abortionInfo) {
+        this.hasAbortionInfo = abortionInfo;
+    }
+
+
 
     public String getHusbandName() {
         return husbandName;

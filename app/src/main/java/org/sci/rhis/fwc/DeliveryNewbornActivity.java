@@ -121,11 +121,13 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
         try {
             deliveryJsonObj = new JSONObject(str);
-            if(isImmature(mother, deliveryJsonObj.get("dDate").toString())){
+            /*if(isImmature(mother, deliveryJsonObj.get("dDate").toString())){
                 jsonTextViewsMap.get("immature").setVisibility(View.VISIBLE);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
+            }*/
+            checkSetMaturity();
+        } catch (JSONException jse) {
+            Log.e(LOGTAG, "JSON Error:\n\t\t");
+            Utilities.printTrace(jse.getStackTrace());
         }
 
         try {
@@ -151,8 +153,9 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
                 }
             }
 
-        } catch (JSONException JSE) {
-            JSE.printStackTrace();
+        } catch (JSONException jse) {
+            Log.e(LOGTAG, "JSON Error:\n\t\t");
+            Utilities.printTrace(jse.getStackTrace());
         }
     }
 
@@ -396,16 +399,16 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     public void setSpecialCases(JSONObject json) {
         //check if massarated
         try {
-        if(integerRecd == 3) {
-            if(json.has("gender") &&
-               json.getString("gender").equals("3")) {
-               getRadioButton(R.id.deliveryNewBornNotDetected).setChecked(true);
+            if(integerRecd == 3) {
+                if(json.has("gender") &&
+                   json.getString("gender").equals("3")) {
+                   getRadioButton(R.id.deliveryNewBornNotDetected).setChecked(true);
+                }
             }
-        }
         }  catch (JSONException jse) {
-
+            Log.e(LOGTAG, "JSON Error:\n\t\t");
+            Utilities.printTrace(jse.getStackTrace());
         }
-
     }
 
     private void showHideNewbornDeleteButton(JSONObject json) {
@@ -431,7 +434,8 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
            json.put("outcometime", deliveryJsonObj.getString("dTime"));
            json.put("outcometype", deliveryJsonObj.getInt("dType"));
         } catch (JSONException jse) {
-
+            Log.e(LOGTAG, "JSON Error:\n\t\t");
+            Utilities.printTrace(jse.getStackTrace());
         }
     }
 
@@ -449,6 +453,23 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
           //Log.e("Is there have Values?", queryString);
 
         return new JSONObject(queryString);
+    }
+
+    private void checkSetMaturity() {
+        try {
+            if (deliveryJsonObj.has("immatureBirth") && deliveryJsonObj.getInt("immatureBirth") == 1 ) {
+                jsonTextViewsMap.get("immature").setText(getString(R.string.premature_birth_before_37_weeks_full)
+                        + Utilities.ConvertNumberToBangla(deliveryJsonObj.getString("immatureBirthWeek"))
+                + getString(R.string.week));
+                Utilities.SetVisibility(this, R.id.deliveryNewBornMaturity, View.VISIBLE);
+            }
+        } catch (JSONException jse) {
+            Log.e(LOGTAG, "JSON Error:\n\t\t");
+            Utilities.printTrace(jse.getStackTrace());
+        } catch (NumberFormatException nfe) {
+            Log.e(LOGTAG, "Could nt convert Response to Bangla");
+            Utilities.printTrace(nfe.getStackTrace());
+        }
     }
 
     private boolean isImmature(PregWoman mother, String date) { // receive date in json format that is

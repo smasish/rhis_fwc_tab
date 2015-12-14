@@ -29,20 +29,24 @@
 
         <LinearLayout
             android:id="@+id/NewBorn"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
+            android:layout_marginTop="5sp"
             android:paddingBottom="20dp"
             android:orientation="vertical"
             android:layout_centerVertical="true"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF">
+            android:background="@drawable/fragmentborder">
             <LinearLayout
                 android:id="@+id/deliveryNewBornCondition"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginTop="5sp"
                 android:orientation="horizontal"
-                android:layout_centerVertical="true"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layoutbordersimple">
                 <TextView
                     android:id="@+id/deliveryNewBornLabel"
                     android:text="@string/child"
@@ -74,12 +78,19 @@
                     android:textColor="@color/text_color"
                     android:visibility="invisible"/>
             </LinearLayout>
-            <LinearLayout android:id="@+id/deliveryNewBorn" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+            <LinearLayout android:id="@+id/deliveryNewBorn"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginTop="5sp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layoutbordersimple" >
                 <RadioGroup
                     android:id="@+id/id_newBornSexRadioGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                     <RadioButton
                         android:id="@+id/deliveryNewBornSon"
                         android:text="@string/son"
@@ -111,11 +122,13 @@
             </LinearLayout>
 
             <LinearLayout android:id="@+id/deliveryWipe"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginTop="5sp"
                 android:orientation="horizontal"
-                android:layout_centerVertical="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layoutbordersimple">
                 <TextView android:id="@+id/deliveryWipeLabel"
                     android:text="@string/wipe_within_one_minute"
                     android:textSize="20dp"
@@ -142,14 +155,19 @@
                 </RadioGroup>
             </LinearLayout>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/id_newBornResasscitationMaster"
                 android:orientation="vertical">
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:id="@+id/deliveryResastation"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/deliveryResastation">
+                    android:background="@drawable/layoutbordersimple">
                     <TextView
                         android:id="@+id/deliveryResastationLabel"
                         android:text="@string/resastation"
@@ -211,7 +229,13 @@
                 android:id="@+id/layout_only_for_neborn"
                 android:orientation="vertical"
                 android:visibility="visible">
-                <LinearLayout android:id="@+id/deliveryWeight" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <LinearLayout android:id="@+id/deliveryWeight" android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/layoutbordersimple">
 
                     <TextView
                         android:id="@+id/deliveryNewBornWeightLabel"
@@ -232,10 +256,27 @@
 
                 </LinearLayout>
 
-                <LinearLayout android:id="@+id/deliveryPlacentaCutting" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
-                    <TextView android:id="@+id/deliveryPlacentaCuttingLabel" android:text="@string/placenta_cutting" android:textSize="20dp" android:layout_width="wrap_content" android:layout_height="50px" android:textColor="@color/text_color" />
+                <LinearLayout android:id="@+id/deliveryPlacentaCutting" android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/layoutbordersimple">
+                    <TextView android:id="@+id/deliveryPlacentaCuttingLabel"
+                        android:text="@string/placenta_cutting"
+                        android:textSize="18dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50px"
+                        android:textColor="@color/text_color" />
                 </LinearLayout>
-                <LinearLayout android:id="@+id/deliveryPlacentaCuttingValue" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <LinearLayout android:id="@+id/deliveryPlacentaCuttingValue" android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/layoutbordersimple" >
                     <RadioGroup
                         android:id="@+id/id_newBornChlorohexidineRadioGroup"
                         android:layout_width="wrap_content"
@@ -255,10 +296,22 @@
                             android:layout_height="50px"  />
                     </RadioGroup>
                 </LinearLayout>
-                <LinearLayout android:id="@+id/deliveryFittedWithMotherSkin" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <LinearLayout android:id="@+id/deliveryFittedWithMotherSkin" android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/layoutbordersimple">
                     <TextView android:id="@+id/deliveryFittedWithMotherSkinLabel" android:text="@string/fitted_with_mother_skin" android:textSize="20dp" android:layout_width="wrap_content" android:layout_height="50px" android:textColor="@color/text_color" />
                 </LinearLayout>
-                <LinearLayout android:id="@+id/deliveryFittedWithMotherSkinValue" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <LinearLayout android:id="@+id/deliveryFittedWithMotherSkinValue" android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/layoutbordersimple">
                     <RadioGroup
                         android:id="@+id/id_newBornChordCareRadioGroup"
                         android:layout_width="wrap_content"
@@ -278,10 +331,22 @@
                             android:layout_height="50px"  />
                     </RadioGroup>
                 </LinearLayout>
-                <LinearLayout android:id="@+id/deliveryBreastFeeding" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <LinearLayout android:id="@+id/deliveryBreastFeeding" android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/layoutbordersimple">
                     <TextView android:id="@+id/deliveryBreastFeedingLabel" android:text="@string/breast_feeding" android:textSize="20dp" android:layout_width="wrap_content" android:layout_height="50px" android:textColor="@color/text_color" />
                 </LinearLayout>
-                <LinearLayout android:id="@+id/deliveryBreastFeedingValue" android:layout_marginTop="10dp"  android:orientation="horizontal" android:layout_centerVertical="true" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+                <LinearLayout android:id="@+id/deliveryBreastFeedingValue" android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/layoutbordersimple">
                     <RadioGroup
                         android:id="@+id/id_newBornBreastFeedingRadioGroup"
                         android:layout_width="wrap_content"
@@ -303,11 +368,13 @@
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/deliveryChildRefer"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
                     android:orientation="horizontal"
-                    android:layout_centerVertical="true"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/layoutbordersimple">
                     <CheckBox
                         android:id="@+id/deliveryChildReferCheckBox"
                         android:text="@string/child_refer"
@@ -319,11 +386,13 @@
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/deliveryChildReferCenterName"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
                     android:orientation="horizontal"
-                    android:layout_centerVertical="true"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/layoutbordersimple" >
                     <TextView
                         android:id="@+id/deliveryChildReferCenterNameLabel"
                         android:text="@string/center_name"
@@ -346,11 +415,13 @@
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/deliveryChildReferReason"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginTop="5sp"
                     android:orientation="horizontal"
-                    android:layout_centerVertical="true"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/layoutbordersimple" >
                     <TextView
                         android:id="@+id/deliveryChildReferReasonLabel"
                         android:text="@string/reason"
@@ -373,10 +444,13 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/btn_save_child"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginTop="5sp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center">
+                android:background="@drawable/layoutbordersimple">
                 <Button
                     android:text="Save"
                     android:layout_width="wrap_content"

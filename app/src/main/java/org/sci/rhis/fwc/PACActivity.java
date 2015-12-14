@@ -2,6 +2,8 @@ package org.sci.rhis.fwc;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
@@ -22,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class PACActivity extends ClinicalServiceActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class PACActivity extends ClinicalServiceActivity  implements MinimumDeliveryInfoFragment.DeliverySavedListener{
 
     private CustomDatePickerDialog datePickerDialog;
     private HashMap<Integer, EditText> datePickerPair;
@@ -40,6 +43,9 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
 
     private  final String LOGTAG    = "FWC-PAC";
     private MultiSelectionSpinner multiSelectionSpinner;
+
+    private PregWoman woman = null;
+    private ProviderInfo provider = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +80,15 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
 
         mother = getIntent().getParcelableExtra("PregWoman");
         provider = getIntent().getParcelableExtra("Provider");
+        Intent intent = getIntent();
+
+        woman = intent.getParcelableExtra("PregWoman");
+        provider = intent.getParcelableExtra("Provider");
+
+        if( woman.getAbortionInfo() == 0) {
+            getAbortionInformation();
+        }
+    }
 
         //pacvisit
         lastPacVisit = 0;
@@ -81,6 +96,12 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
         initialize();
         //showHidePacDeleteButton();
     }
+    private void getAbortionInformation() {
+        //Disable PAC and History Layout first
+        // Utilities.Disable(this, R.id.pacEntryMasterLayout);
+        Utilities.MakeInvisible(this, R.id.historyFragmentLayout);
+        Utilities.MakeVisible(this, R.id.idPacAbortionInfo);
+        Utilities.Disable(this, R.id.pacEntryMasterLayout);
 
     public void pickDate(View view) {
         datePickerDialog.show(datePickerPair.get(view.getId()));
@@ -243,6 +264,24 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
             int visibility = isChecked? View.VISIBLE: View.GONE;
 
             if(!isChecked)
+    public void onClick(View v) {
+        Utilities.Reset(this, R.id.pacEntryMasterLayout);
+    }
+
+    private Activity getActivity() {
+        return this;
+    }
+
+    //Callback method of delivery Saved even notification
+    @Override
+    public void onDeliverySaved(String result) {
+        Log.d(LOGTAG, "Abortion Info saved response:\n\t\t" + result);
+        Utilities.MakeInvisible(this, R.id.idMinDeliveryFragmentHolder);
+        Utilities.MakeVisible(this, R.id.pacEntryMasterLayout);
+        Utilities.MakeVisible(this,R.id.historyFragmentLayout);
+        Utilities.Enable(this, R.id.historyFragmentLayout);
+        Utilities.Enable(this, R.id.pacEntryMasterLayout);
+    }
                 getSpinner(R.id.pacOtherCenterNameSpinner).setSelection(0);
             else
                 getSpinner(R.id.pacOtherCenterNameSpinner).setSelection(0);

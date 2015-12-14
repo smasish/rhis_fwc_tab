@@ -1,0 +1,137 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10sp"
+    tools:context="org.sci.rhis.fwc.ClientInfoFragment"
+    android:orientation="vertical"
+    android:background="@drawable/fragmentborder"
+    android:id = "@+id/client_info_layout"    >
+    <LinearLayout
+        android:id="@+id/idPacAbortionInfo"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/layoutbordersimple">
+
+        <LinearLayout
+            android:id="@+id/idAbortionPlaceDate"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
+            android:layout_marginTop="5sp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layoutbordersimple">
+
+            <TextView
+                android:id="@+id/delivery_place_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:text="@string/delivery_place"
+                android:textSize="20sp"
+                android:textColor="@color/text_color" />
+
+            <Spinner
+                android:id="@+id/idAbortionPlaceDropdown"
+                android:layout_width="150sp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="10sp"
+                android:entries="@array/FacilityPlace_DropDown"
+                android:prompt="@string/delivery_place"
+                android:background="@drawable/gradient_spinner"/>
+            <TextView
+                android:id="@+id/TextViewdelivery_date"
+                android:layout_width="140sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:layout_marginLeft="10sp"
+                android:text="@string/delivery_date"
+                android:textSize="20sp"
+                android:textColor="@color/text_color"/>
+
+            <EditText
+                android:id="@+id/id_delivery_date"
+                android:layout_width="120sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:paddingLeft="10sp"
+                android:background="@drawable/edittext_round"
+                android:inputType="date"
+                android:hint="dd/mm/yyyy"/>
+            <ImageButton
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:id="@+id/imageViewDeliveryDate"
+                android:src="@drawable/calendar_icon"
+                android:layout_marginTop="3sp"
+                android:tag="DateField"
+                android:onClick="pickDate"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/idAbortionFacility"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
+            android:layout_marginTop="5sp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layoutbordersimple">
+
+            <TextView
+                android:id="@+id/TaxtViewdscn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:text="@string/service_center_name"
+                android:textSize="20sp" android:textColor="@color/text_color" />
+
+            <Spinner
+                android:id="@+id/id_facility_name_Dropdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10sp"
+                android:entries="@array/FacilityType_DropDown"
+                android:layout_marginTop="5sp"
+                android:layout_marginBottom="2sp"
+                android:background="@drawable/gradient_spinner"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/id_facililties_section_layout"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
+            android:layout_marginTop="5sp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layoutbordersimple">
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/saveConfirmation"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
+            android:layout_marginTop="5sp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layoutbordersimple">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/idSaveAbobortion"
+                android:text="Save"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/idCancelAbobortion"
+                android:text="Cancel"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

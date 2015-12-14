@@ -204,7 +204,7 @@
 
                 <Spinner
                     android:id="@+id/id_facility_name_Dropdown"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200sp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10sp"
                     android:entries="@array/FacilityType_DropDown"

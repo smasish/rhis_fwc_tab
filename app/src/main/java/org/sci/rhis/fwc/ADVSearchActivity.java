@@ -153,15 +153,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
             //villageString = jsonBuilderVillage.toString();
 
             zillaString = LocationHolder.getZillaUpazillaUnionString();
-            villageString = LocationHolder.getVillageString();
-            try {
-                if(villJson == null) {
-                    villJson = LocationHolder.getVillageJson();
-                }
-            } catch (Exception jse) {
-                Log.e(LOGTAG, "JSON Exception in loading village");
-                Utilities.printTrace(jse.getStackTrace());
-            }
+            //villageString = LocationHolder.getVillageString();
 
             districtList.add(blanc);
             LocationHolder.loadListFromJson(zillaString, "nameEnglish", "nameBangla", "Upazila", districtList);
@@ -172,6 +164,14 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
             zillaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             //getSpinner(R.id.advSearchDistrict).setAdapter(zillaAdapter);
+            try {
+                if(villJson == null) {
+                    villJson = LocationHolder.getVillageJson();
+                }
+            } catch (Exception jse) {
+                Log.e(LOGTAG, "JSON Exception in loading village");
+                Utilities.printTrace(jse.getStackTrace());
+            }
 
         } catch (Exception ioe) {
             ioe.printStackTrace();
@@ -220,7 +220,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
 
         try{
             if(villJson == null) {
-                villJson = new JSONObject(villageString);
+                villJson = LocationHolder.getVillageJson();
             }
 
             if( union.equals("none") || upazila.equals("none") || zilla.equals("none") ||
