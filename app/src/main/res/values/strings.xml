@@ -368,8 +368,8 @@
     <string name="delevery_related_info">"প্রসব সংক্রান্ত তথ্য "</string>
     <string name="newborn_related_info">"নবজাতক সংক্রান্ত তথ্য "</string>
     <string name="child">"সন্তান: "</string>
-    <string name="son">"ছেলে "</string>
-    <string name="daughter">"মেয়ে "</string>
+    <string name="son">"ছেলে *"</string>
+    <string name="daughter">"মেয়ে *"</string>
     <string name="born_weight">"জন্ম ওজন (কেজি):"</string>
     <string name="premature_birth_before_37_weeks_full">"অপরিণত জন্ম: "</string>
     <string name="week"> " সপ্তাহ " </string>

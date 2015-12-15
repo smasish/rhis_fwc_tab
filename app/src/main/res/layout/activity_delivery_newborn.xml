@@ -462,7 +462,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="80px"
                     android:id="@+id/id_OkNewbornButton"
-                    android:onClick="onClick"/>
+                    android:onClick="onClick"
+                    android:visibility="invisible"/>
                 <Button
                     android:text="Delete"
                     android:layout_width="wrap_content"
