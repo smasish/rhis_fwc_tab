@@ -244,6 +244,7 @@ public class PACActivity extends ClinicalServiceActivity {
                // String edema = jsonRootObject.getString("edema");
                 String serviceId = jsonRootObject.getString("serviceId");
                 String hemoglobin = jsonRootObject.getString("hemoglobin");
+                String abdomen = jsonRootObject.getString("abdomen");
                 String FPMethod = jsonRootObject.getString("FPMethod");
                // String breastCondition = jsonRootObject.getString("breastCondition");
                 String advice = jsonRootObject.getString("advice");
@@ -278,6 +279,8 @@ public class PACActivity extends ClinicalServiceActivity {
 
 
                 list.add("" + getString(R.string.hemoglobin) + " " + hemoglobin+"%");
+
+                list.add("" + getString(R.string.abdomen) + " " + abdomen);
 
 
                 // for edema value
