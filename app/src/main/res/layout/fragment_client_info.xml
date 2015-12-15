@@ -672,6 +672,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10sp"
                 android:text="Save"
                 android:id="@+id/client_Save_Button"
                 android:paddingRight="10sp"
@@ -679,11 +680,21 @@
                 android:background="@drawable/button_style"
                 android:layout_gravity="center_horizontal"
                 android:onClick="onClickSaveClient"/>
-
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10sp"
+                android:layout_margin="10sp"
+                android:text="Cancel"
+                android:id="@+id/client_Cancel_Button"
+                android:paddingRight="10sp"
+                android:paddingLeft="10sp"
+                android:background="@drawable/button_style"
+                android:layout_gravity="center_horizontal"
+                android:onClick="onClickCancelClient"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
                 android:paddingRight="10sp"
                 android:paddingLeft="10sp"
                 android:text="Add new pregnancy info"
@@ -695,7 +706,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10sp"
+                android:layout_margin="10sp"
                 android:paddingRight="10sp"
                 android:paddingLeft="10sp"
                 android:text="Edit"
@@ -707,7 +718,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10sp"
+                android:layout_margin="10sp"
                 android:paddingRight="10sp"
                 android:paddingLeft="10sp"
                 android:text="Update"

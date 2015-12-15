@@ -365,7 +365,6 @@
                 android:layout_width="130sp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_color"/>
-
             <EditText
                 android:layout_marginTop="10sp"
                 android:ellipsize="start"
@@ -374,9 +373,16 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/edittext_round"
                 android:id="@+id/NrcClients_Mobile_no"
-                android:inputType="number"
                 android:paddingLeft="10sp"
+                style="@style/styleEdittext"
+                android:inputType="phone"
+                android:padding="5dp"
+                android:ems="10"
+                android:maxLength="11"
+                android:maxLines="1"
+                android:minLines="1"
                 />
+
             <Button
                 android:layout_marginLeft="10sp"
                 android:layout_marginTop="10sp"
@@ -400,7 +406,22 @@
                 android:paddingLeft="10sp"
                 android:ellipsize="start"
                 android:background="@drawable/button_style"
-                android:text="SAVE"/>
+                android:text="SAVE"
+                android:onClick="onClickSaveNRC"/>
+
+            <Button
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/nrcCancel"
+                android:paddingRight="10sp"
+                android:paddingLeft="10sp"
+                android:ellipsize="start"
+                android:background="@drawable/button_style"
+                android:visibility="invisible"
+                android:text="Cancel"
+                android:onClick="onClickCancelNRC"/>
         </LinearLayout>
 
     </LinearLayout>

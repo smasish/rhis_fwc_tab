@@ -388,9 +388,14 @@
         android:layout_height="wrap_content"
         android:background="@drawable/edittext_round"
         android:id="@+id/Clients_Mobile_no"
-        android:inputType="number"
         android:paddingLeft="10sp"
         style="@style/styleEdittext"
+        android:inputType="phone"
+        android:padding="5dp"
+        android:ems="10"
+        android:maxLength="11"
+        android:maxLines="1"
+        android:minLines="1"
        />
     </LinearLayout>
 
