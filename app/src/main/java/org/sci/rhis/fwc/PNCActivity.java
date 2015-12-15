@@ -1403,4 +1403,31 @@ pnc child history
 
         alertDialog.show();
     }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog alertDialog = new AlertDialog.Builder(PNCActivity.this).create();
+        alertDialog.setTitle("EXIT CONFIRMATION");
+        alertDialog.setMessage("আপনি কি প্রসবোত্তর সেবা ( PNC ) থেকে বের হয়ে যেতে চান? \nনিশ্চিত করতে OK চাপুন, ফিরে যেতে CANCEL চাপুন ");
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        //finish();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+        //alertDialog.s
+
+        alertDialog.show();
+        //finish();
+    }
+
 }
