@@ -19,6 +19,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -768,5 +769,13 @@ public class Utilities {
         }
 
         return banglaResponse;
+    }
+
+    public static void showBiggerToast(Context context, int stringId ) {
+        Toast toast = Toast.makeText(context, stringId, Toast.LENGTH_LONG);
+        LinearLayout toastLayout = (LinearLayout) toast.getView();
+        TextView toastTV = (TextView) toastLayout.getChildAt(0);
+        toastTV.setTextSize(20);
+        toast.show();
     }
 }

@@ -2,27 +2,30 @@
 package org.sci.rhis.fwc;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.sci.rhis.utilities.CustomDatePickerDialog;
 
 import java.math.BigInteger;
 import java.text.ParseException;
@@ -49,11 +52,13 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
     final private String SERVLET = "handlepregwomen";
     final private String ROOTKEY = "pregWomen";
     private  final String LOGTAG    = "FWC-INFO";
+    HashMap<String, String> lmp_edd = null;
 
     private BigInteger responseID = BigInteger.valueOf(0);
     EditText lmpEditText;
     EditText eddEditText;
     JSONObject client;
+    CustomDatePickerDialog datePicker = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -340,11 +345,15 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
     public void startDelivery(View view) {
         Intent intent = new Intent(this, DeliveryActivity.class);
 
-        if (checkClientInfo() && woman.isEligibleFor(PregWoman.PREG_SERVICE.DELIVERY)) {
+        /*if(!checkClientInfo()) {
+            return;
+        }*/
+
+        if ( woman != null && woman.isEligibleFor(PregWoman.PREG_SERVICE.DELIVERY)) {
             intent.putExtra("PregWoman", woman);
             intent.putExtra("Provider", ProviderInfo.getProvider());
             startActivityForResult(intent, ActivityResultCodes.DELIVERY_ACTIVITY);
-        } else if(woman.getAbortionInfo() == 1) {
+        } else if(woman != null && woman.getAbortionInfo() == 1) {
             askToStartPAC();
         } else {
             deliveryWithoutPregInfo();
@@ -362,11 +371,13 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
     public void startPAC(View view) {
         Intent intent = new Intent(this, PACActivity.class);
-
-        intent.putExtra("PregWoman", woman);
-        intent.putExtra("Provider", ProviderInfo.getProvider());
-        startActivity(intent);
-
+        if(woman != null && woman.isEligibleFor(PregWoman.PREG_SERVICE.PAC)) {
+            intent.putExtra("PregWoman", woman);
+            intent.putExtra("Provider", ProviderInfo.getProvider());
+            startActivity(intent);
+        } else {
+            Utilities.showBiggerToast(this, R.string.PACWarning);
+        }
     }
 
 
@@ -378,11 +389,12 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             startActivity(intent);
         } else {
 
-            Toast toast = Toast.makeText(this, R.string.PNCWarning, Toast.LENGTH_LONG);
+            /*Toast toast = Toast.makeText(this, R.string.PNCWarning, Toast.LENGTH_LONG);
             LinearLayout toastLayout = (LinearLayout) toast.getView();
             TextView toastTV = (TextView) toastLayout.getChildAt(0);
             toastTV.setTextSize(20);
-            toast.show();
+            toast.show();*/
+            Utilities.showBiggerToast(this, R.string.PNCWarning);
         }
     }
 
@@ -433,12 +445,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        saveClientToJson(new AsyncCallback() {
-                            @Override
-                            public void callbackAsyncTask(String result) {
-                                startDeliveryWithoutPregInfo(result);
-                            }
-                        }, false);
+                        handleDeliveryDatePopUp();
                     }
                 });
 
@@ -624,8 +631,9 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
             if(!storeLocalJson) {
                 //TODO - Prompt to Enter delivery date here, datePickerDialog
-                json.put("lmp", new SimpleDateFormat("yyyy-MM-dd").format(Utilities.addDateOffset(new Date(), -280)));
-                json.put("edd", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+
+                json.put("lmp", new SimpleDateFormat("yyyy-MM-dd").format(new SimpleDateFormat("dd/MM/yyyy").parseObject(lmp_edd.get("lmp"))));
+                json.put("edd", new SimpleDateFormat("yyyy-MM-dd").format(new SimpleDateFormat("dd/MM/yyyy").parseObject(lmp_edd.get("edd"))));
             }
             Utilities.getEditTexts(jsonEditTextMap, json);
             Utilities.getEditTextDates(jsonEditTextDateMapSave, json);
@@ -638,7 +646,10 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             //}
             clientInfoUpdateTask.execute(json.toString(), SERVLET, ROOTKEY);
         } catch (JSONException jse) {
-            Log.e("Pregwomen", "JSON Exception: " + jse.getMessage());
+            Log.e(LOGTAG, "JSON Exception: " + jse.getMessage());
+        } catch (ParseException pe) {
+            Log.e (LOGTAG, "Date parsing Exception");
+            Utilities.printTrace(pe.getStackTrace());
         }
     }
 
@@ -731,6 +742,92 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         if(woman != null) {
             woman = null;
             resetFields(view);
+        }
+    }
+
+    private HashMap<String, String> handleDeliveryDatePopUp() {
+        final Dialog dialog = new Dialog(this);
+
+        if(lmp_edd == null ) {
+            lmp_edd = new HashMap<>();
+        };
+
+        //Remove title bar
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        dialog.setContentView(R.layout.date_selector);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+
+
+        DisplayMetrics dm =new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+        int w=dm.widthPixels;
+        final int h=dm.heightPixels;
+
+
+
+        ((Button)dialog.findViewById(R.id.saveEstimatedDeliveryOk)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String deliveryDate = ((EditText)dialog.findViewById(R.id.id_delivery_date)).getText().toString();
+                String estimatedLmp = ((EditText)dialog.findViewById(R.id.estimatedLmpDate)).getText().toString();
+                //if()
+                lmp_edd.put("edd", deliveryDate);
+                lmp_edd.put("lmp", estimatedLmp);
+                handleDialogButtonClick(dialog, v);
+            }
+        });
+
+        ((Button)dialog.findViewById(R.id.saveEstimatedDeliveryCancel)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleDialogButtonClick(dialog, v);
+            }
+        });
+
+
+        int listenables [] = {R.id.Date_Picker_Button, R.id.imageViewDeliveryDate};
+
+        for (int i : listenables) {
+
+            dialog.findViewById(i).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pickDate(v, dialog);
+                }
+            });
+        }
+
+        return lmp_edd;
+    }
+
+    private void handleDialogButtonClick(Dialog dialog, View view) {
+        if(dialog != null) {
+            dialog.dismiss();
+        }
+        if(view.getId() == R.id.saveEstimatedDeliveryOk) {
+            saveClientToJson(new AsyncCallback() {
+                @Override
+                public void callbackAsyncTask(String result) {
+                    startDeliveryWithoutPregInfo(result);
+                }
+            }, false);
+        }
+    }
+
+    void pickDate(View view, Dialog dialog) {
+        if(datePicker == null) {
+            datePicker = new CustomDatePickerDialog(this, "dd/MM/yyyy");
+        }
+        switch(view.getId()) {
+            case R.id.imageViewDeliveryDate:
+                datePicker.show((EditText)dialog.findViewById(R.id.id_delivery_date));
+                break;
+            case R.id.Date_Picker_Button:
+                datePicker.show((EditText)dialog.findViewById(R.id.estimatedLmpDate));
+                break;
         }
     }
 

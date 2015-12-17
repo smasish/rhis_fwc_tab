@@ -95,6 +95,7 @@ public class ClientInfoFragment extends Fragment implements OnClickListener {
 
                             Utilities.SetVisibility(getActivity(), R.id.born_blood, (value == 0) ? View.GONE : View.VISIBLE);
                             Utilities.SetVisibility(getActivity(), R.id.age_lasr_child_height, (value == 0) ? View.GONE : View.VISIBLE);
+                            Utilities.SetVisibility(getActivity(), R.id.Previous_Delivery, (value == 0) ? View.GONE : View.VISIBLE);
                         }
 
                     } catch (NumberFormatException NFE) {
