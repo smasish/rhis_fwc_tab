@@ -293,6 +293,7 @@
     <string name="fetal_presentation">"ফিটাল প্রেজেনটেশন:"</string>
     <string name="anemia">"রক্তস্বল্পতা:"</string>
     <string name="hemoglobin">"হিমোগ্লোবিন:"</string>
+    <string name="abdomen">"পেট :"</string>
     <string name="jaundice">"জন্ডিস:"</string>
     <string name="urine_test_sugar">"প্রস্রাব পরীক্ষা: সুগার:"</string>
     <string name="urine_test_albumin">"প্রস্রাব পরীক্ষা: এলবুমিন:"</string>

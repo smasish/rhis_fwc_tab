@@ -131,7 +131,7 @@ public class ExpandableListAdapterforPAC extends BaseExpandableListAdapter {
 
 					String[] animals = str.split(" ");
 					String temp = "";
-					details = res1.getStringArray(R.array.PNC_Mother_Drawback_DropDown);
+					details = res1.getStringArray(R.array.PACProblemDropDown);
 					for (String animal : animals) {
 						System.out.println(animal);
 						if(animal.length()>0)
