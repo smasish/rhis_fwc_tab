@@ -13,7 +13,7 @@
         android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/client_info_title"
@@ -74,12 +74,12 @@
 
             <EditText
                 android:id="@+id/lmpDate"
-                android:layout_width="120sp"
+                android:layout_width="110sp"
                 android:layout_marginTop="10sp"
                 android:layout_marginLeft="5sp"
                 android:layout_height="wrap_content"
                 android:editable="false"
-                android:paddingLeft="10sp"
+                android:paddingLeft="5sp"
                 android:hint="dd/MM/yyyy"
                 android:background="@drawable/edittext_round"
                 android:inputType="date"
@@ -87,7 +87,7 @@
 
             <ImageButton
                 android:id="@+id/Date_Picker_Button"
-                android:layout_marginLeft="5sp"
+                android:layout_marginLeft="3sp"
                 android:layout_marginTop="5sp"
                 android:layout_width="40sp"
                 android:layout_height="40sp"
@@ -105,8 +105,8 @@
 
             <EditText
                 android:layout_marginTop="10sp"
-                android:layout_marginLeft="5sp"
-                android:layout_width="30sp"
+                android:layout_marginLeft="3sp"
+                android:layout_width="32sp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edittext_round"
                 android:id="@+id/para"
@@ -125,9 +125,9 @@
 
             <EditText
                 android:layout_marginTop="10sp"
-                android:layout_marginLeft="5sp"
+                android:layout_marginLeft="3sp"
                 android:layout_marginRight="10sp"
-                android:layout_width="30sp"
+                android:layout_width="32sp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edittext_round"
                 android:id="@+id/gravida"
@@ -156,14 +156,14 @@
 
 
             <EditText
-                android:layout_width="120sp"
+                android:layout_width="110sp"
                 android:layout_marginTop="10sp"
                 android:layout_marginLeft="5sp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edittext_round"
                 android:id="@+id/edd"
                 android:inputType="date"
-                android:paddingLeft="10sp"
+                android:paddingLeft="5sp"
                 style="@style/styleEdittext"
                 />
 
@@ -206,7 +206,7 @@
                 android:id="@+id/TextViewLive_son_Num"
                 android:text="@string/TextViewLive_child_Num"
                 android:textColor="@color/text_color"
-                android:layout_width="180sp"
+                android:layout_width="185sp"
                 android:layout_height="wrap_content" />
 
             <TextView
@@ -271,7 +271,7 @@
                 android:id="@+id/TextViewLast_Child_Age"
                 android:text="@string/TextViewLast_child_Age"
                 android:textColor="@color/text_color"
-                android:layout_width="230sp"
+                android:layout_width="235sp"
                 android:layout_height="wrap_content" />
 
 

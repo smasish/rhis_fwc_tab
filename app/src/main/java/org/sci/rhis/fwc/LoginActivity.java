@@ -97,7 +97,7 @@ public class LoginActivity extends FWCServiceActivity {
 
     public void startLogin(View view) {
         if(!fileLoaded) {
-            Toast.makeText(this, "দুঃখিত, দয়া করে ৫ সেকেন্ড অপেক্ষা করে আবার চেষ্টা করুণ", Toast.LENGTH_LONG).show();
+            Utilities.showBiggerToast(this, R.string.loginWaitRequest);
             return;
         }
         final EditText passwdText = (EditText)findViewById(R.id.providerPassword);

@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,22 +45,23 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
     private View mClientIntroLayout;
     private View mClientInfoLayout;
-    Boolean flag = false;
+
     private int countSaveClick=0;
 
-    AsyncClientInfoUpdate clientInfoQueryTask;
-    AsyncClientInfoUpdate clientInfoUpdateTask;
+    private AsyncClientInfoUpdate clientInfoQueryTask;
+    private AsyncClientInfoUpdate clientInfoUpdateTask;
 
     final private String SERVLET = "handlepregwomen";
     final private String ROOTKEY = "pregWomen";
     private  final String LOGTAG    = "FWC-INFO";
-    HashMap<String, String> lmp_edd = null;
+    private HashMap<String, String> lmp_edd = null;
 
     private BigInteger responseID = BigInteger.valueOf(0);
-    EditText lmpEditText;
-    EditText eddEditText;
-    JSONObject client;
-    CustomDatePickerDialog datePicker = null;
+    private EditText lmpEditText;
+    private EditText eddEditText;
+    private JSONObject client;
+    private CustomDatePickerDialog datePicker = null;
+    private String deliveryDate = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -145,7 +147,9 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
     public void startSearch(View view) {
         Spinner searchOptions = (Spinner) findViewById(R.id.ClientsIdentityDropdown);
         EditText searchableId = (EditText) findViewById(R.id.searchableTextId);
-        //TODO - remove
+        //TODO - review - is there a better way to send delivery date
+        deliveryDate = "";
+
         long index = (searchOptions.getSelectedItemId() + 1);
         String stringId = (String) searchOptions.getSelectedItem();
         long id;
@@ -173,11 +177,14 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         Utilities.Reset(this, R.id.clients_info_layout);
         retrieveClient.execute(queryString, servlet, jsonRootkey);
 
-        TextView mHealthIdLayout = (TextView) findViewById(R.id.health_id);
-        mHealthIdLayout.setVisibility(View.VISIBLE);
+        /*TextView mHealthIdLayout = (TextView) findViewById(R.id.health_id);
+        mHealthIdLayout.setVisibility(View.VISIBLE);*/
 
-        TextView healthId = (TextView) findViewById(R.id.health_id);
-        healthId.setText(String.valueOf(stringId) + ": " + String.valueOf(id));
+        Utilities.MakeVisible(this, R.id.health_id);
+
+        /*TextView healthId = (TextView) findViewById(R.id.health_id);
+        healthId.setText(String.valueOf(stringId) + ": " + String.valueOf(id));*/
+        getTextView(R.id.health_id).setText(String.valueOf(stringId) + ": " + String.valueOf(id));
 
     }
 
@@ -229,7 +236,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                 Date regD = sdf.parse(regDate);
                 String regSerial = json.getString("regSerialNo") + "/"
                         + json.getString("regDate").split("-")[0].substring(2);
-                regSerial += "\t" + new SimpleDateFormat("dd/MM/yyyy").format(regD);
+                regSerial += " \t " + new SimpleDateFormat("dd/MM/yyyy").format(regD);
                 getTextView(R.id.reg_NO).setText(Utilities.ConvertNumberToBangla(regSerial));
             }
 
@@ -432,7 +439,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
     private void deliveryWithoutPregInfo() {
         AlertDialog alertDialog = new AlertDialog.Builder(SecondActivity.this).create();
-        alertDialog.setTitle("LOGOUT CONFIRMATION");
+        alertDialog.setTitle("DELICVERY CONFIRMATION");
         alertDialog.setMessage(getString(R.string.DeliveryWithoutPregnancyPrompt));
 
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
@@ -456,6 +463,10 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
     private void startDeliveryWithoutPregInfo(String result) {
         Log.d(LOGTAG, "PSUDO PREG INFO RETURNED:\n\t" + result);
         callbackAsyncTask(result); //will create PregWoman
+        woman.setActualDelivery(lmp_edd.get("edd"),"dd/MM/yyyyy");
+        woman.setDeliveryInfo(1);
+        //in this case actual delivery date was the edd
+
         Intent intent = new Intent(this, DeliveryActivity.class);
         intent.putExtra("PregWoman", woman);
         intent.putExtra("Provider", ProviderInfo.getProvider());
@@ -521,24 +532,28 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             countSaveClick = 0;
 
         } else if(countSaveClick == 1) {
-            if(!hasTheRequiredFileds())
-            {countSaveClick = 0;
-                return;}
+            if(!hasTheRequiredFileds()) {
+                countSaveClick = 0;
+                return;
+            }
+
             Utilities.Disable(this, R.id.clients_info_layout);
             Utilities.DisableField(this, R.id.Clients_House_No);
             Utilities.DisableField(this, R.id.Clients_Mobile_no);
 
-
             getButton( R.id.client_Save_Button).setText("Confirm");
             Utilities.Enable(this, R.id.client_Cancel_Button);
             Utilities.Enable(this, R.id.client_Save_Button);
+            Utilities.MakeVisible(this, R.id.client_Save_Button);
             Utilities.MakeVisible(this, R.id.client_Cancel_Button);
 
-            Toast toast = Toast.makeText(this, R.string.DeliverySavePrompt, Toast.LENGTH_LONG);
+            Utilities.showBiggerToast(this, R.string.DeliverySavePrompt);
+
+            /*Toast toast = Toast.makeText(this, R.string.DeliverySavePrompt, Toast.LENGTH_LONG);
             LinearLayout toastLayout = (LinearLayout) toast.getView();
             TextView toastTV = (TextView) toastLayout.getChildAt(0);
             toastTV.setTextSize(20);
-            toast.show();
+            toast.show();*/
         }
     }
 
@@ -666,7 +681,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
     private void saveClientToJson(AsyncCallback callback, boolean storeLocalJson) {
         clientInfoUpdateTask = new AsyncClientInfoUpdate(callback);
         JSONObject json;
-        hasTheRequiredFileds();
+        //hasTheRequiredFileds();
         try {
             json = buildQueryHeader(false);
 
@@ -791,7 +806,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
         if(lmp_edd == null ) {
             lmp_edd = new HashMap<>();
-        };
+        }
 
         //Remove title bar
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -800,20 +815,51 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
 
+        //Guide lmp backcalculation
 
-        DisplayMetrics dm =new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        final EditText dDate = (EditText) dialog.findViewById(R.id.id_delivery_date);
 
-        int w=dm.widthPixels;
-        final int h=dm.heightPixels;
+        dDate.addTextChangedListener(
+                new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        SimpleDateFormat uiFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+                        try {
+                            EditText estLmp = (EditText)dialog.findViewById(R.id.estimatedLmpDate);
+                            if(!dDate.getText().toString().equals("")) {
+                                deliveryDate = dDate.getText().toString();
+                                Date d_date = Utilities.addDateOffset(uiFormat.parse(dDate.getText().toString()), -280);
+                                estLmp.setText(uiFormat.format(d_date));
+                            }
+
+                        } catch (NumberFormatException NFE) {
+                            Log.e(LOGTAG, NFE.getMessage());
+                            Utilities.printTrace(NFE.getStackTrace());
+                        } catch (ParseException pe) {
+                            Log.e(LOGTAG, pe.getMessage());
+                            Utilities.printTrace(pe.getStackTrace());
+                        }
+                    }
+                }
+        );
 
 
-
-        ((Button)dialog.findViewById(R.id.saveEstimatedDeliveryOk)).setOnClickListener(new View.OnClickListener() {
+        ((Button) dialog.findViewById(R.id.saveEstimatedDeliveryOk)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String deliveryDate = ((EditText)dialog.findViewById(R.id.id_delivery_date)).getText().toString();
-                String estimatedLmp = ((EditText)dialog.findViewById(R.id.estimatedLmpDate)).getText().toString();
+                String deliveryDate = ((EditText) dialog.findViewById(R.id.id_delivery_date)).getText().toString();
+                String estimatedLmp = ((EditText) dialog.findViewById(R.id.estimatedLmpDate)).getText().toString();
                 //if()
                 lmp_edd.put("edd", deliveryDate);
                 lmp_edd.put("lmp", estimatedLmp);
@@ -936,11 +982,22 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
     private boolean hasTheRequiredFileds() {
         String textFileds [] = {"para", "gravida", "boy", "girl",};
+        String minTextFields [] = {"para", "gravida"};
+
         String fields = "";
         boolean isEmpty = false;
+        boolean isParaZero = false;
 
-        for( int i = 0;i< textFileds.length && !isEmpty; ++i) {
-            fields = textFileds[i];
+        try {
+            isParaZero = (Integer.valueOf(jsonEditTextMap.get("para").getText().toString()) == 0);
+        } catch (NumberFormatException nfe) {
+            isParaZero = false;
+        }
+
+        String searchableFields [] = isParaZero ? minTextFields : textFileds;
+
+        for( int i = 0;i< searchableFields.length && !isEmpty; ++i) {
+            fields = searchableFields[i];
             if(jsonEditTextMap.get(fields).getText().toString().equals("")) {
                 isEmpty = true;
             }
@@ -957,17 +1014,14 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             }
         }
 
-        boolean lastchild =  getEditText(R.id.lastChildYear).getText().toString().equals("") ||
-                getEditText(R.id.lastChildMonth).getText().toString().equals("");
+        boolean lastchild =  (getEditText(R.id.lastChildYear).getText().toString().equals("") ||
+                getEditText(R.id.lastChildMonth).getText().toString().equals("")) & !isParaZero;
 
 
         //TODO - there may not exist a village
         if(isEmpty || lastchild || isEmptyFields) {
-            Toast toast = Toast.makeText(this, R.string.NRCSaveWarning, Toast.LENGTH_LONG);
-            LinearLayout toastLayout = (LinearLayout) toast.getView();
-            TextView toastTV = (TextView) toastLayout.getChildAt(0);
-            toastTV.setTextSize(20);
-            toast.show();
+
+            Utilities.showBiggerToast(this, R.string.NRCSaveWarning);
             return false;
         }
 

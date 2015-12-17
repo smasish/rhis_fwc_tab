@@ -72,6 +72,8 @@ public class ClientInfoFragment extends Fragment implements OnClickListener {
 
         final EditText para = (EditText)view.findViewById(R.id.para);
 
+        final int zeroInitList[] = {R.id.SonNum, R.id.DaughterNum, R.id.lastChildYear, R.id.lastChildMonth};
+
         para.addTextChangedListener(
             new TextWatcher() {
                 @Override
@@ -92,6 +94,10 @@ public class ClientInfoFragment extends Fragment implements OnClickListener {
                         String paraStr = para.getText().toString();
                         if(!paraStr.equals("")) {
                             int value = Integer.valueOf(paraStr);
+
+                            for (int id:zeroInitList) {
+                                ((EditText)view.findViewById(id)).setText(String.valueOf(0));
+                            }
 
                             Utilities.SetVisibility(getActivity(), R.id.born_blood, (value == 0) ? View.GONE : View.VISIBLE);
                             Utilities.SetVisibility(getActivity(), R.id.age_lasr_child_height, (value == 0) ? View.GONE : View.VISIBLE);
