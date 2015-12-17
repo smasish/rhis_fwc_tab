@@ -13,9 +13,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -48,6 +50,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     private int flag =0;
     private int integerRecd = 0;
     private int currentChildNo = 0;
+    private int countSaveClick=0;
 
     final private String SERVLET = "newborn";
     final private String ROOTKEY= "newbornInfo";
@@ -322,12 +325,43 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.id_saveNewbornButton) {
-            newbornSaveToJson();
-            Toast.makeText(this, "Newborn Saved Successfully", Toast.LENGTH_LONG).show();
-            Log.e("Newborn", "Saved Newborn Successfully?");
+            countSaveClick++;
+            if (countSaveClick == 2) {
+                newbornSaveToJson();
+                Toast.makeText(this, "Newborn Saved Successfully", Toast.LENGTH_LONG).show();
+                countSaveClick = 0;
+
+            } else if (countSaveClick == 1) {
+                if(!hasTheRequiredFileds()) {
+                    countSaveClick = 0;
+                    return;
+                }
+                Utilities.Disable(this, R.id.NewBorn);
+                Utilities.Enable(this, R.id.id_saveNewbornButton);
+                Utilities.Enable(this, R.id.id_OkNewbornButton);
+                Utilities.Enable(this, R.id.DeleteLastNewbornButton);
+
+                getButton(R.id.id_saveNewbornButton).setText("Confirm");
+                Utilities.MakeVisible(this, R.id.id_OkNewbornButton);
+
+                Toast toast = Toast.makeText(this, R.string.DeliverySavePrompt, Toast.LENGTH_LONG);
+                LinearLayout toastLayout = (LinearLayout) toast.getView();
+                TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                toastTV.setTextSize(20);
+                toast.show();
+            }
+
         } else if (v.getId() == R.id.id_OkNewbornButton) {
-            finishActivity(ActivityResultCodes.NEWBORN_ACTIVITY);
-            finish();
+            if(countSaveClick == 0) {
+                finishActivity(ActivityResultCodes.NEWBORN_ACTIVITY);
+                finish();
+            }
+
+            else if(countSaveClick == 1) {
+                countSaveClick = 0;
+                Utilities.Enable(this, R.id.NewBorn);
+                getButton(R.id.id_saveNewbornButton).setText("Save");
+            }
         } else if (v.getId() == R.id.DeleteLastNewbornButton) {
             deleteLastNewborn(v);
         }
@@ -526,5 +560,28 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
                 });
 
         alertDialog.show();
+    }
+
+    private boolean hasTheRequiredFileds() {
+
+        RadioButton boy,girl,notDetected;
+
+        boy = (RadioButton) findViewById(R.id.deliveryNewBornSon);
+        girl=(RadioButton) findViewById(R.id.deliveryNewBornDaughter);
+        notDetected=(RadioButton) findViewById(R.id.deliveryNewBornNotDetected);
+
+        boolean allSelected= boy.isChecked() || girl.isChecked() || notDetected.isChecked();
+
+        //TODO - there may not exist a village
+        if(!allSelected) {
+            Toast toast = Toast.makeText(this, R.string.NRCSaveWarning, Toast.LENGTH_LONG);
+            LinearLayout toastLayout = (LinearLayout) toast.getView();
+            TextView toastTV = (TextView) toastLayout.getChildAt(0);
+            toastTV.setTextSize(20);
+            toast.show();
+            return false;
+        }
+
+        return true;
     }
 }

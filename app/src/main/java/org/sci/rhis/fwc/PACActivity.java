@@ -695,4 +695,30 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
 
         alertDialog.show();
     }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog alertDialog = new AlertDialog.Builder(PACActivity.this).create();
+        alertDialog.setTitle("EXIT CONFIRMATION");
+        alertDialog.setMessage("আপনি কি গর্ভপাত পরবর্তী সেবা( PAC ) থেকে বের হয়ে যেতে চান? \nনিশ্চিত করতে OK চাপুন, ফিরে যেতে CANCEL চাপুন ");
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        //finish();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+        //alertDialog.s
+
+        alertDialog.show();
+        //finish();
+    }
 }

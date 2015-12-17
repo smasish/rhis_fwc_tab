@@ -45,6 +45,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
     private View mClientIntroLayout;
     private View mClientInfoLayout;
     Boolean flag = false;
+    private int countSaveClick=0;
 
     AsyncClientInfoUpdate clientInfoQueryTask;
     AsyncClientInfoUpdate clientInfoUpdateTask;
@@ -513,8 +514,47 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
     }
 
     public void onClickSaveClient(View view) {
-        saveClientToJson();
+        countSaveClick++;
+        if( countSaveClick == 2 ) {
+            saveClientToJson();
+            getButton(R.id.client_Save_Button).setText("Save");
+            countSaveClick = 0;
+
+        } else if(countSaveClick == 1) {
+            if(!hasTheRequiredFileds())
+            {countSaveClick = 0;
+                return;}
+            Utilities.Disable(this, R.id.clients_info_layout);
+            Utilities.DisableField(this, R.id.Clients_House_No);
+            Utilities.DisableField(this, R.id.Clients_Mobile_no);
+
+
+            getButton( R.id.client_Save_Button).setText("Confirm");
+            Utilities.Enable(this, R.id.client_Cancel_Button);
+            Utilities.Enable(this, R.id.client_Save_Button);
+            Utilities.MakeVisible(this, R.id.client_Cancel_Button);
+
+            Toast toast = Toast.makeText(this, R.string.DeliverySavePrompt, Toast.LENGTH_LONG);
+            LinearLayout toastLayout = (LinearLayout) toast.getView();
+            TextView toastTV = (TextView) toastLayout.getChildAt(0);
+            toastTV.setTextSize(20);
+            toast.show();
+        }
     }
+
+    public void onClickCancelClient(View view) {
+        if(countSaveClick == 1) {
+            countSaveClick = 0;
+            Utilities.Enable(this, R.id.clients_info_layout);
+            Utilities.EnableField(this, R.id.Clients_House_No,"edit");
+            Utilities.EnableField(this, R.id.Clients_Mobile_no,"edit");
+
+            getButton(R.id.client_Save_Button).setText("Save");
+            //TODO - Review
+            Utilities.MakeInvisible(this, R.id.client_Cancel_Button);
+        }
+    }
+
 
     ////for complication history
     private void initializeJsonManipulation() {
@@ -626,6 +666,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
     private void saveClientToJson(AsyncCallback callback, boolean storeLocalJson) {
         clientInfoUpdateTask = new AsyncClientInfoUpdate(callback);
         JSONObject json;
+        hasTheRequiredFileds();
         try {
             json = buildQueryHeader(false);
 
@@ -862,7 +903,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
         Utilities.MakeInvisible(this, R.id.client_Save_Button);
         Utilities.MakeInvisible(this, R.id.client_update_Button);
-        Utilities.MakeVisible(this, R.id.client_edit_Button);
+        Utilities.MakeVisible(this, R.id.client_Cancel_Button);
         Utilities.MakeVisible(this, R.id.client_New_preg_Button);
 
         Utilities.Enable(this, R.id.client_edit_Button);
@@ -876,9 +917,10 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
     private void getView_WomenWithOutPregInfo(){
         Utilities.EnableField(this, R.id.Clients_House_No, "edit");
         Utilities.EnableField(this, R.id.Clients_Mobile_no, "edit");
+        Utilities.Enable(this, R.id.client_Save_Button);
 
         Utilities.MakeVisible(this, R.id.client_Save_Button);
-        Utilities.MakeInvisible(this, R.id.client_update_Button);
+        Utilities.MakeInvisible(this, R.id.client_Cancel_Button);
         Utilities.MakeInvisible(this, R.id.client_edit_Button);
         Utilities.MakeInvisible(this, R.id.client_New_preg_Button);
 
@@ -890,5 +932,45 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         Utilities.InVisibleLayout(this, R.id.client_intro_layout);
         Utilities.InVisibleLayout(this, R.id.clients_info_layout);
         Utilities.InVisibleLayout(this, R.id.table_Layout);
+    }
+
+    private boolean hasTheRequiredFileds() {
+        String textFileds [] = {"para", "gravida", "boy", "girl",};
+        String fields = "";
+        boolean isEmpty = false;
+
+        for( int i = 0;i< textFileds.length && !isEmpty; ++i) {
+            fields = textFileds[i];
+            if(jsonEditTextMap.get(fields).getText().toString().equals("")) {
+                isEmpty = true;
+            }
+        }
+
+        String textFiledsDate [] = {"lmp", "edd"};
+        String fieldsDate = "";
+        boolean isEmptyFields = false;
+
+        for( int i = 0;i< textFiledsDate.length && !isEmptyFields; ++i) {
+            fieldsDate = textFiledsDate[i];
+            if(jsonEditTextDateMapSave.get(fieldsDate).getText().toString().equals("")) {
+                isEmptyFields = true;
+            }
+        }
+
+        boolean lastchild =  getEditText(R.id.lastChildYear).getText().toString().equals("") ||
+                getEditText(R.id.lastChildMonth).getText().toString().equals("");
+
+
+        //TODO - there may not exist a village
+        if(isEmpty || lastchild || isEmptyFields) {
+            Toast toast = Toast.makeText(this, R.string.NRCSaveWarning, Toast.LENGTH_LONG);
+            LinearLayout toastLayout = (LinearLayout) toast.getView();
+            TextView toastTV = (TextView) toastLayout.getChildAt(0);
+            toastTV.setTextSize(20);
+            toast.show();
+            return false;
+        }
+
+        return true;
     }
 }

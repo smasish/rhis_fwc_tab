@@ -63,7 +63,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
     private String ROOTKEY = "nonRegisteredClientGeneralInfo";
     private String LOGTAG = "FWC-REGISTRATION";
 
-    private EditText cName, cFatherName, cMotherName, cAge;
+    private EditText cName, cFatherName, cMotherName, cAge,cMobileNo;
 
     private String getString, md5Result, vilStringValue;
     private Button computeMD5;
@@ -73,6 +73,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
     ProviderInfo provider;
 
     private int divValue, distValue, upValue, unValue, vilValue, mouzaValue;
+    private int countSaveClick=0;
 
     private String zillaString = "";
     private String villageString = "";
@@ -111,6 +112,10 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         Log.d("ProviderCode", String.valueOf(provider.getProviderCode()));
 
         initialize();
+
+
+        cMobileNo = (EditText) findViewById(R.id.NrcClients_Mobile_no);
+        cMobileNo.setFilters(new InputFilter[] {new InputFilter.LengthFilter(11)});
 
         cName = (EditText) findViewById(R.id.Client_name);
         cFatherName = (EditText) findViewById(R.id.Clients_Father);
@@ -419,7 +424,8 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
 
     public void addListenerOnButton() {
 
-        Button proceedButton = (Button) findViewById(R.id.nrcProceed);
+       /* Old Save button function
+       Button proceedButton = (Button) findViewById(R.id.nrcProceed);
 
         proceedButton.setOnClickListener(new View.OnClickListener() {
 
@@ -434,7 +440,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
                 finishActivity(ActivityResultCodes.REGISTRATION_ACTIVITY);
                 finish();
             }
-        });
+        });*/
 
         computeMD5.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -617,4 +623,50 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
         villageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
     }
+
+    public void onClickSaveNRC(View view) {
+        countSaveClick++;
+        if( countSaveClick == 2 ) {
+            nrcSaveToJson();
+            getButton(R.id.nrcProceed).setText("Save");
+            countSaveClick = 0;
+            Intent intent = new Intent();
+            intent.putExtra("generatedId", computeMD5Hash(getString()));
+            setResult(RESULT_OK, intent);
+            finishActivity(ActivityResultCodes.REGISTRATION_ACTIVITY);
+            finish();
+        } else if(countSaveClick == 1) {
+            if(!hasTheRequiredFileds())
+                return;
+            Utilities.Disable(this, R.id.clients_intro_layout);
+            Utilities.Disable(this, R.id.Clients_House_No);
+            Utilities.Enable(this, R.id.nrcProceed);
+            Utilities.Enable(this, R.id.nrcCancel);
+
+
+            getButton( R.id.nrcProceed).setText("Confirm");
+            Utilities.MakeVisible(this, R.id.nrcCancel);
+
+            Toast toast = Toast.makeText(this, R.string.DeliverySavePrompt, Toast.LENGTH_LONG);
+            LinearLayout toastLayout = (LinearLayout) toast.getView();
+            TextView toastTV = (TextView) toastLayout.getChildAt(0);
+            toastTV.setTextSize(20);
+            toast.show();
+        }
+    }
+
+    public void onClickCancelNRC(View view) {
+        if(countSaveClick == 1) {
+            countSaveClick = 0;
+            Utilities.Enable(this, R.id.clients_intro_layout);
+            Utilities.Enable(this, R.id.Clients_House_No);
+
+            getButton(R.id.nrcProceed).setText("Save");
+            //TODO - Review
+            Utilities.MakeInvisible(this, R.id.nrcCancel);
+        }
+    }
+
+
+
 }

@@ -230,16 +230,6 @@
         android:background="@drawable/layoutbordersimple"
         android:gravity="center">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/cancelBtn"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
-            android:ellipsize="start"
-            android:background="@drawable/button_style"
-            android:text="CANCEL"/>
-
 
         <Button
             android:layout_marginLeft="10dp"
@@ -252,6 +242,19 @@
             android:ellipsize="start"
             android:background="@drawable/button_style"
             android:text="SEARCH"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cancelBtn"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:layout_marginLeft="10dp"
+            android:ellipsize="start"
+            android:background="@drawable/button_style"
+            android:text="CANCEL"/>
+
+
 
     </LinearLayout>
             </LinearLayout>

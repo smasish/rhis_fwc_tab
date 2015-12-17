@@ -1,5 +1,7 @@
 package org.sci.rhis.fwc;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -174,14 +176,34 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
     @Override
     public void onBackPressed() {
-        // your code.
-        Intent finishIntent = new Intent();
+        AlertDialog alertDialog = new AlertDialog.Builder(DeliveryActivity.this).create();
+        alertDialog.setTitle("EXIT CONFIRMATION");
+        alertDialog.setMessage("আপনি কি প্রসবকালীন সেবা ( Delivery ) থেকে বের হয়ে যেতে চান? \nনিশ্চিত করতে OK চাপুন, ফিরে যেতে CANCEL চাপুন ");
 
-        finishIntent.putExtra("hasDeliveryInformation", hasDeliveryInfo);
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        //finish();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent finishIntent = new Intent();
 
-        setResult(RESULT_OK, finishIntent);
-        finishActivity(ActivityResultCodes.DELIVERY_ACTIVITY);
-        finish();
+                        finishIntent.putExtra("hasDeliveryInformation", hasDeliveryInfo);
+
+                        setResult(RESULT_OK, finishIntent);
+                        finishActivity(ActivityResultCodes.DELIVERY_ACTIVITY);
+                        finish();
+                        dialog.dismiss();
+                    }
+                });
+        //alertDialog.s
+
+        alertDialog.show();
+        //finish();
     }
 
 
@@ -261,7 +283,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
             if(isChecked) {
                 getEditText(R.id.id_attendantName).setText(provider.getProviderName());
                 getSpinner(R.id.id_attendantTitleDropdown).setSelection(3);
-                Utilities.Disable(this,R.id.id_attendantName);
+                Utilities.Disable(this, R.id.id_attendantName);
                 Utilities.Disable(this, R.id.attendantTitleLayout);
             }
             else {
@@ -287,6 +309,10 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
                     countSaveClick = 0;
 
                 } else if (countSaveClick == 1) {
+                    if(!hasTheRequiredFileds()) {
+                        countSaveClick = 0;
+                        return;
+                    }
                     Utilities.Disable(this, R.id.delivery_info_layout);
                     Utilities.Enable(this, R.id.btn_save_add_child);
                     getButton(R.id.saveDeliveryButton).setText("Confirm");
@@ -725,5 +751,24 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean hasTheRequiredFileds() {
+
+        boolean allSelected =  getSpinner(R.id.delivery_placeDropdown).getSelectedItemPosition() != 0 &&
+                getSpinner(R.id.delivery_typeDropdown).getSelectedItemPosition() != 0  &&
+                !(getEditText(R.id.id_delivery_date).getText().toString().equals(""));
+
+        //TODO - there may not exist a village
+        if(!allSelected) {
+            Toast toast = Toast.makeText(this, R.string.NRCSaveWarning, Toast.LENGTH_LONG);
+            LinearLayout toastLayout = (LinearLayout) toast.getView();
+            TextView toastTV = (TextView) toastLayout.getChildAt(0);
+            toastTV.setTextSize(20);
+            toast.show();
+            return false;
+        }
+
+        return true;
     }
 }
