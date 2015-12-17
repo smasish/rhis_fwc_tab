@@ -57,18 +57,15 @@
             android:id="@+id/historyFragmentLayout"
             android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            >
+            android:layout_height="match_parent">
 
             <fragment xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:id="@+id/pachistory_fragment"
-                android:name="org.sci.rhis.fwc.MinimumDeliveryInfoFragment"
+                android:name="org.sci.rhis.fwc.PACHistory"
                 tools:layout="@layout/fragment_pachistory"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"/>
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
 

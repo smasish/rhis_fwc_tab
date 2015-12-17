@@ -13,19 +13,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import org.json.JSONObject;
+
 import org.sci.rhis.utilities.CustomDatePickerDialog;
 
 import java.util.Arrays;
@@ -38,7 +36,6 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
     private CustomDatePickerDialog datePickerDialog;
     private HashMap<Integer, EditText> datePickerPair;
 
-    private PregWoman mother;
     AsyncPACInfoUpdate pacInfoUpdateTask;
 
     private int lastPacVisit = 0;
@@ -52,15 +49,12 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
     private final String LOGTAG = "FWC-PAC";
     private MultiSelectionSpinner multiSelectionSpinner;
 
-    private PregWoman woman = null;
-    private ProviderInfo provider = null;
-
     private LinearLayout lay_pac;
 
     private Context con;
     private LinearLayout lay_frag_pac;
     private PregWoman mother;
-   // private ProviderInfo provider;
+    private ProviderInfo provider;
 
     private JSONObject jsonRespMother = null;
     ExpandableListView expListView;
@@ -83,9 +77,8 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
         setMultiSelectSpinners();
         con = this;
 
-        lay_frag_pac = (LinearLayout)findViewById(R.id.history_lay);
-        Intent intent = getIntent();
-        mother = getIntent().getParcelableExtra("PregWoman");
+        //lay_frag_pac = (LinearLayout)findViewById(R.id.historyFragmentLayout);
+
 
         //int name = intent.getIntExtra("PregWoman",0);
         //provider = getIntent().getParcelableExtra("Provider");
@@ -95,21 +88,6 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
 
         expListView = new ExpandableListView(this);
         ll.addView(expListView);
-
-        AsyncPNCInfoUpdate sendPostReqAsyncTask = new AsyncPNCInfoUpdate(PACActivity.this);
-
-        String queryString =   "{" +
-                "pregNo:" + mother.getPregNo() + "," +
-                "healthId:" + mother.getHealthId() + "," +
-                "pacLoad:" + "retrieve" +
-                "}";
-
-        String servlet = "pac";
-        String jsonRootkey = "PACInfo";
-        Log.d(LOGTAG, "Mother Part:\n" + queryString);
-        sendPostReqAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, queryString, servlet, jsonRootkey);
-
-
 
         getCheckbox(R.id.pacOtherCheckBox).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -128,27 +106,40 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
         datePickerDialog = new CustomDatePickerDialog(this, "dd/MM/yyyy");
         datePickerPair = new HashMap<Integer, EditText>();
         datePickerPair.put(R.id.Date_Picker_Button, (EditText) findViewById(R.id.pacServiceDateValue));
-
-        mother = getIntent().getParcelableExtra("PregWoman");
-        provider = getIntent().getParcelableExtra("Provider");
+        initialize();
+        //mother = getIntent().getParcelableExtra("PregWoman");
+        //
         Intent intent = getIntent();
 
-        woman = intent.getParcelableExtra("PregWoman");
+        mother = intent.getParcelableExtra("PregWoman");
         provider = intent.getParcelableExtra("Provider");
-
-        if (woman.getAbortionInfo() == 0) {
-            getAbortionInformation();
-        }
-
-
         //pacvisit
         lastPacVisit=0;
 
-        initialize();
+        if (mother.getAbortionInfo() == 0) {
+            showAbortionLayout();
+        } else {
+            getAbortionInformation();
+        }
         //showHidePacDeleteButton();
     }
 
     private void getAbortionInformation() {
+        AsyncPACInfoUpdate sendPostReqAsyncTask = new AsyncPACInfoUpdate(PACActivity.this);
+
+        String queryString =   "{" +
+                "pregNo:" + mother.getPregNo() + "," +
+                "healthId:" + mother.getHealthId() + "," +
+                "pacLoad:" + "retrieve" +
+                "}";
+
+        String servlet = "pac";
+        String jsonRootkey = "PACInfo";
+        Log.d(LOGTAG, "Mother Part:\n" + queryString);
+        sendPostReqAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, queryString, servlet, jsonRootkey);
+    }
+
+    private void showAbortionLayout() {
         //Disable PAC and History Layout first
         // Utilities.Disable(this, R.id.pacEntryMasterLayout);
         Utilities.MakeInvisible(this, R.id.historyFragmentLayout);
@@ -254,21 +245,23 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
             jsonResponse = new JSONObject(result);
             String key;
             Log.d(LOGTAG, "here:" + jsonResponse.toString());
-
             lastPacVisit = jsonResponse.getInt("count");
-            serviceProvider = jsonResponse.getJSONObject(String.valueOf(lastPacVisit)).getString("providerId");
+            if(lastPacVisit>0) {
+                serviceProvider = jsonResponse.getJSONObject(String.valueOf(lastPacVisit)).getString("providerId");
+                showHidePacDeleteButton();
+            }
             getTextView(R.id.pacVisitValue).setText(String.valueOf(lastPacVisit + 1)); //next visit
 
 
-            showHidePacDeleteButton();
+
 
             Log.d(LOGTAG, "PAC Response Received:\n\t" + result);
             //handleExistingChild(result);
 
-            JSONObject json = new JSONObject(result);
-            Utilities.setTextViews(jsonTextViewsMap, json);
+            //JSONObject json = new JSONObject(result);
+            Utilities.setTextViews(jsonTextViewsMap, jsonResponse);
         } catch (JSONException jse) {
-            Log.e(LOGTAG, "PAC Error:\n\t\t");
+            Log.e(LOGTAG, "PAC Error:\n\t\t" + result);
             Utilities.printTrace(jse.getStackTrace());
         }
         ll.removeAllViews();
@@ -299,7 +292,7 @@ public class PACActivity extends ClinicalServiceActivity implements View.OnClick
             int in=1;
 
             //DEBUG
-            Resources res = getResources();
+            //Resources res = getResources();
             int item=0;
             for (Iterator<String> ii = jsonRespMother.keys(); ii.hasNext(); ) {
                 key = ii.next();
