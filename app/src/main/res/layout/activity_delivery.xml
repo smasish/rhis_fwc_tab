@@ -25,7 +25,6 @@
             android:id="@+id/delivery_info_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingRight="10sp"
             android:paddingBottom="10sp"
             android:background="@drawable/fragmentborder"
             android:orientation="vertical">
@@ -69,7 +68,7 @@
                     android:layout_marginTop="10sp"
                     android:entries="@array/FacilityPlace_DropDown"
                     android:prompt="@string/delivery_place"
-                    android:background="@drawable/gradient_spinner"/>
+                    android:background="@drawable/gradient_spinner" />
 
                 <TextView
                     android:id="@+id/delivery_type"
@@ -79,7 +78,7 @@
                     android:layout_marginLeft="10sp"
                     android:text="@string/delivery_type"
                     android:textSize="20sp"
-                    android:textColor="@color/text_color"/>
+                    android:textColor="@color/text_color" />
 
                 <Spinner
                     android:id="@+id/delivery_typeDropdown"
@@ -89,7 +88,7 @@
                     android:layout_marginTop="10sp"
                     android:textSize="20sp"
                     android:entries="@array/DeliveryType_DropDown"
-                    android:background="@drawable/gradient_spinner"/>
+                    android:background="@drawable/gradient_spinner" />
 
             </LinearLayout>
 
@@ -324,7 +323,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:text="@string/live_born"
-                        android:textSize="20sp" android:textColor="@color/text_color"/>
+                        android:textSize="20sp" android:textColor="@color/text_color" />
 
                     <EditText
                         android:id="@+id/Live_born"
@@ -369,7 +368,7 @@
                         android:layout_marginTop="10sp"
                         android:layout_marginLeft="10sp"
                         android:text="@string/dead_born_macerated"
-                        android:textSize="20sp" android:textColor="@color/text_color"/>
+                        android:textSize="20sp" android:textColor="@color/text_color" />
 
                     <EditText
                         android:id="@+id/Dead_born_macerated"
@@ -398,7 +397,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:text="@string/child_sex"
-                        android:textSize="20sp" android:textColor="@color/text_color"/>
+                        android:textSize="20sp" android:textColor="@color/text_color" />
 
                     <TextView
                         android:id="@+id/textSon"
@@ -425,7 +424,7 @@
                         android:layout_marginTop="10sp"
                         android:layout_marginLeft="10sp"
                         android:text="@string/Client_Daughter_Num"
-                        android:textSize="20sp" android:textColor="@color/text_color"/>
+                        android:textSize="20sp" android:textColor="@color/text_color" />
 
                     <EditText
                         android:id="@+id/daughter"

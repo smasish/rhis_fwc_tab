@@ -50,7 +50,7 @@
         android:text="@string/providerLabel"
         android:typeface="normal"
         android:textColor="@color/text_color"
-        android:layout_width="wrap_content"
+        android:layout_width="110sp"
         android:layout_height="wrap_content" />
 
     <EditText
@@ -58,7 +58,6 @@
         android:layout_marginTop="30dp"
         android:layout_marginBottom="10dp"
         android:layout_marginRight="15dp"
-        android:paddingLeft="20dp"
         android:layout_centerVertical="true"
         android:ellipsize="start"
         android:inputType="text"
@@ -66,7 +65,7 @@
         android:layout_width="150sp"
         android:layout_height="wrap_content"
         android:id="@+id/providerId"
-         />
+        android:padding="3dp" />
 
 </LinearLayout>
 
@@ -84,21 +83,21 @@
         android:id="@+id/providerPasswordLabel"
         android:textColor="@color/text_color"
         android:text="@string/providerPassLabel"
-        android:layout_width="wrap_content"
+        android:layout_width="110sp"
         android:layout_height="wrap_content" />
     <EditText
         android:layout_marginLeft="10dp"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="15dp"
-        android:paddingLeft="20dp"
         android:layout_centerVertical="true"
         android:ellipsize="start"
         android:background="@drawable/edittext_round"
         android:id="@+id/providerPassword"
         android:layout_width="150sp"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"  />
+        android:inputType="textPassword"
+        android:padding="3dp" />
 </LinearLayout>
 
 <LinearLayout
@@ -114,7 +113,7 @@
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10sp"
+        android:layout_marginLeft="30sp"
         android:layout_gravity="center"
         android:id="@+id/loginbtn1"
         android:textColor="@color/text_color"
@@ -155,7 +154,7 @@
                 android:layout_height="30sp"
                 android:layout_column="0"
                 android:gravity="center"
-                android:text="©2015 RHIS (Version 0.20)"
+                android:text="©2015 RHIS (Version 0.80)"
                 android:textColor="#000000"
                 android:textSize="20sp"
                 android:layout_width="fill_parent" />
