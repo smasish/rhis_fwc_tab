@@ -27,6 +27,7 @@ import org.json.JSONObject;
 import org.sci.rhis.utilities.CustomDatePickerDialog;
 import org.sci.rhis.utilities.CustomTimePickerDialog;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -56,6 +57,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
     private  final String LOGTAG = "FWC-DELIVERY";
     private boolean hasDeliveryInfo = false;
     private int countSaveClick = 0;
+    final private SimpleDateFormat uiFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     AsyncDeliveryInfoUpdate deliveryInfoQueryTask;
     AsyncDeliveryInfoUpdate deliveryInfoUpdateTask;
@@ -116,6 +118,10 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
         //is deliveryInfo present
         hasDeliveryInfo = false;
+
+        if(mother.getDeliveryInfo() == 1) {
+            jsonEditTextDateMap.get("dDate").setText(uiFormat.format(mother.getActualDelivery()));
+        }
 
         getMotherInfo();
         getExistingChild();  //get child Info

@@ -400,7 +400,7 @@ pnc child history
                 String key;
 
                 lastPncVisit = jsonRespMother.getInt("count");
-                getTextView(R.id.pncVisitValue).setText(String.valueOf(lastPncVisit+1)); //next visit
+                getTextView(R.id.pncVisitValue).setText(Utilities.ConvertNumberToBangla(String.valueOf(lastPncVisit+1))); //next visit
 
                 //Check if eligible for new PNC
                 if(jsonRespMother.has("pncStatus") &&
@@ -411,9 +411,7 @@ pnc child history
                     //get outcome date and populate ideal pnc visit info
                     mother.setActualDelivery(jsonRespMother.getString("outcomeDate"), "yyyy-MM-dd");
                     setPncVisitAdvices();
-
-                        showHidePncDeleteButton(jsonRespMother, true);
-
+                    showHidePncDeleteButton(jsonRespMother, true);
                 }
                 //
 
@@ -996,13 +994,13 @@ pnc child history
                 return;
             }
 
-            getTextView(R.id.pncNewBornNumber).setText(String.valueOf(selected_child));
+            getTextView(R.id.pncNewBornNumber).setText(Utilities.ConvertNumberToBangla(String.valueOf(selected_child)));
             //Utilities.Disable(this, R.id.pncNewBornNumber);
 
             JSONObject childJson = jsonRespChild.getJSONObject(String.valueOf(selected_child));
 
             int serviceCount = childJson.getInt("serviceCount");
-            getTextView(R.id.pncChildVisitValue).setText(String.valueOf(serviceCount+1));
+            getTextView(R.id.pncChildVisitValue).setText(Utilities.ConvertNumberToBangla(String.valueOf(serviceCount+1)));
             if(serviceCount > 0) {
                 showHidePncDeleteButton(childJson, false);
 

@@ -1492,20 +1492,29 @@
 
                     <Button
                         android:id="@+id/pncChildSaveButton"
-                        android:layout_width="80sp"
-                        android:layout_height="wrap_content"
                         android:layout_marginLeft="220sp"
                         android:onClick="savePNCChild"
                         android:text="Save"
-                        android:textSize="10sp" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:padding="10sp"
+                        android:paddingBottom="10sp"
+                        android:textSize="20sp"
+                        android:visibility="invisible"/>
                     <Button
                         android:id="@+id/pncChildCancelButton"
-                        android:layout_width="80sp"
-                        android:layout_height="wrap_content"
                         android:layout_marginLeft="220sp"
                         android:onClick="savePNCChild"
                         android:text="Save"
-                        android:textSize="10sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:padding="10sp"
+                        android:paddingBottom="10sp"
+                        android:textSize="20sp"
                         android:visibility="invisible"/>
                 </LinearLayout>
             </LinearLayout>

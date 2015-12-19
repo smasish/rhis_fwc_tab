@@ -158,9 +158,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
             jsonBuilder = new StringBuilder();
             loadJsonFile("zilla.json", jsonBuilder);
             zillaString = jsonBuilder.toString();
-            jsonBuilderVillage = new StringBuilder();
-            loadJsonFile("vill.json", jsonBuilderVillage);
-            villageString = jsonBuilderVillage.toString();
+
             districtList.add(blanc);
             LocationHolder.loadListFromJson(zillaString, "nameEnglish", "nameBangla", "Upazila", districtList);
 
@@ -557,7 +555,8 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
 
         try {
             if(villJson == null) {
-                villJson = new JSONObject(villageString);
+                //villJson = new JSONObject(villageString);
+                villJson = LocationHolder.getVillageJson();
             }
 
             if( union.equals("none") || upazila.equals("none") || zilla.equals("none") ||
