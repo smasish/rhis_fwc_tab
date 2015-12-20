@@ -57,9 +57,11 @@ public class SendPostRequestAsyncTask extends AsyncTask<String, Void, String> {
         URL url;
         try {
             //url = new URL("http://10.12.6.123:8080/rhis/"+servlet);
+            url = new URL//("http://119.148.6.215:8080/RHIS_DEV/"+servlet);
             //("http://192.168.2.14:8080/rhis/"+servlet);
             url = new URL("http://119.148.6.215:8080/RHIS_DEV/"+servlet);
-            //("http://10.12.0.32:8080/RHIS_BETA/"+servlet);
+            //("http://119.148.6.215:8080/RHIS_BETA/"+servlet);
+            ("http://10.12.6.138:8080/RHIS_WEB_Armaan/"+servlet);
             //("http://119.148.6.215:8080/RHISv2/"+servlet);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
