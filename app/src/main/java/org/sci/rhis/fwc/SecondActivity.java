@@ -949,8 +949,9 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
         Utilities.MakeInvisible(this, R.id.client_Save_Button);
         Utilities.MakeInvisible(this, R.id.client_update_Button);
-        Utilities.MakeVisible(this, R.id.client_Cancel_Button);
+        Utilities.MakeInvisible(this, R.id.client_Cancel_Button);
         Utilities.MakeVisible(this, R.id.client_New_preg_Button);
+        Utilities.MakeVisible(this, R.id.client_edit_Button);
 
         Utilities.Enable(this, R.id.client_edit_Button);
         Utilities.Enable(this, R.id.client_New_preg_Button);
