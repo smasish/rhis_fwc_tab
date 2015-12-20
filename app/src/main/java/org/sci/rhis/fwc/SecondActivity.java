@@ -697,7 +697,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             if(!storeLocalJson) {
 
                 json.put("lmp", new SimpleDateFormat("yyyy-MM-dd").format(new SimpleDateFormat("dd/MM/yyyy").parse(lmp_edd.get("lmp"))));
-                json.put("edd", new SimpleDateFormat("yyyy-MM-dd").format(Utilities.addDateOffset(new SimpleDateFormat("dd/MM/yyyy").parse(lmp_edd.get("lmp")), PregWoman.PREG_PERIOD )));
+                json.put("edd", new SimpleDateFormat("yyyy-MM-dd").format(Utilities.addDateOffset(new SimpleDateFormat("dd/MM/yyyy").parse(lmp_edd.get("lmp")), PregWoman.PREG_PERIOD)));
                 //edd - always calculated from lmp , actual delivery date is saved inside pregwoman object through setActualDelivery
             }
             Utilities.getEditTexts(jsonEditTextMap, json);
@@ -977,6 +977,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
         Utilities.MakeVisible(this, R.id.client_Save_Button);
         Utilities.MakeInvisible(this, R.id.client_Cancel_Button);
+        Utilities.MakeInvisible(this, R.id.client_update_Button);
         Utilities.MakeInvisible(this, R.id.client_edit_Button);
         Utilities.MakeInvisible(this, R.id.client_New_preg_Button);
 
