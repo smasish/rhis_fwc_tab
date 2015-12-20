@@ -5,8 +5,8 @@
         <!-- Customize your theme here. -->
     </style>
     <style name="rowHeading">
-        <item name="android:paddingTop">5sp</item>
-        <item name="android:paddingBottom">5sp</item>
+        <item name="android:paddingTop">3sp</item>
+        <item name="android:paddingBottom">3sp</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
         <item name="android:background">#00B7FB</item>
@@ -25,8 +25,8 @@
         <item name="android:paddingLeft">10sp</item>
     </style>
     <style name="rowStyle1">
-        <item name="android:paddingTop">10sp</item>
-        <item name="android:paddingBottom">10sp</item>
+        <item name="android:paddingTop">2sp</item>
+        <item name="android:paddingBottom">2sp</item>
         <item name="android:background">#C2E0EC</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
