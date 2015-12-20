@@ -30,6 +30,7 @@ import org.sci.rhis.utilities.CustomTimePickerDialog;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -112,15 +113,20 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         //custom time picker
         timePickerDialog = new CustomTimePickerDialog(this);
 
+        Intent intent = getIntent();
+
         //create the mother and hte provider
-        mother = getIntent().getParcelableExtra("PregWoman");
-        provider = getIntent().getParcelableExtra("Provider");
+        mother = intent.getParcelableExtra("PregWoman");
+        provider = intent.getParcelableExtra("Provider");
 
         //is deliveryInfo present
         hasDeliveryInfo = false;
 
-        if(mother.getDeliveryInfo() == 1) {
-            jsonEditTextDateMap.get("dDate").setText(uiFormat.format(mother.getActualDelivery()));
+        if(mother.getDeliveryInfo() == 1 &&
+            intent.hasExtra("getactualDeliveryDateAvailable") &&
+            intent.getBooleanExtra("getactualDeliveryDateAvailable", false)) {
+            Date tempDate = mother.getActualDelivery();
+            jsonEditTextDateMap.get("dDate").setText( tempDate != null ? uiFormat.format(mother.getActualDelivery()): "");
         }
 
         getMotherInfo();
