@@ -147,13 +147,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
 
         try {
 
-            //LocationHolder.loadJsonFile("zilla.json", jsonBuilder, getAssets());
-            //zillaString = jsonBuilder.toString();
-            //LocationHolder.loadJsonFile ("vill.json", jsonBuilderVillage, getAssets());
-            //villageString = jsonBuilderVillage.toString();
-
             zillaString = LocationHolder.getZillaUpazillaUnionString();
-            //villageString = LocationHolder.getVillageString();
 
             districtList.add(blanc);
             LocationHolder.loadListFromJson(zillaString, "nameEnglish", "nameBangla", "Upazila", districtList);
@@ -163,7 +157,6 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
                     this, android.R.layout.simple_spinner_item, districtList);
             zillaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-            //getSpinner(R.id.advSearchDistrict).setAdapter(zillaAdapter);
             try {
                 if(villJson == null) {
                     villJson = LocationHolder.getVillageJson();
@@ -243,7 +236,6 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
                                 code+"_"+mouza,
                                 mouzaJson.getString(code),
                                 mouzaJson.getString(code),
-                                //subobject.getJSONObject(keySublocation),
                                 ""));
 
                 }
@@ -310,9 +302,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
         try {
             json = buildQueryHeader();
             Utilities.getEditTexts(jsonEditTextMap, json);
-            //Utilities.getSpinners(jsonSpinnerMap, json);      // for sex Spinner
             getSpecialCases(json);
-            //Utilities.getSpinnerValues(jsonSpinnerMap, json); // for upz, union Spinner
 
             Log.d("ADVSearch JSON 2SERVLET", json.toString());
 
@@ -340,6 +330,7 @@ public class ADVSearchActivity extends ClinicalServiceActivity implements Adapte
 
                 Intent intent = new Intent(context, SecondActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 

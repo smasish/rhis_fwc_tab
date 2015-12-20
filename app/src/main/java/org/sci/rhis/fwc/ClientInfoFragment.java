@@ -71,6 +71,7 @@ public class ClientInfoFragment extends Fragment implements OnClickListener {
     private void setListeners(final View view) {
 
         final EditText para = (EditText)view.findViewById(R.id.para);
+        final EditText gravida = (EditText)view.findViewById(R.id.gravida);
 
         final int zeroInitList[] = {R.id.SonNum, R.id.DaughterNum, R.id.lastChildYear, R.id.lastChildMonth};
 
@@ -101,7 +102,7 @@ public class ClientInfoFragment extends Fragment implements OnClickListener {
 
                             Utilities.SetVisibility(getActivity(), R.id.born_blood, (value == 0) ? View.GONE : View.VISIBLE);
                             Utilities.SetVisibility(getActivity(), R.id.age_lasr_child_height, (value == 0) ? View.GONE : View.VISIBLE);
-                            Utilities.SetVisibility(getActivity(), R.id.Previous_Delivery, (value == 0) ? View.GONE : View.VISIBLE);
+                            //Utilities.SetVisibility(getActivity(), R.id.Previous_Delivery, (value == 0) ? View.GONE : View.VISIBLE);
                         }
 
                     } catch (NumberFormatException NFE) {
@@ -111,6 +112,39 @@ public class ClientInfoFragment extends Fragment implements OnClickListener {
                 }
             }
         );
+
+        gravida.addTextChangedListener(
+                new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+
+                        try {
+                            String gravidaStr = gravida.getText().toString();
+                            if (!gravidaStr.equals("")) {
+                                int value = Integer.valueOf(gravidaStr);
+                                Utilities.SetVisibility(getActivity(), R.id.Previous_Delivery, (value > 1) ? View.VISIBLE: View.GONE);
+                            }
+
+                        } catch (NumberFormatException NFE) {
+                            Log.e(LOGTAG, NFE.getMessage());
+                            Utilities.printTrace(NFE.getStackTrace());
+                        }
+                    }
+                }
+        );
+
+
     }
 
     @Override

@@ -771,6 +771,29 @@ public class Utilities {
         return banglaResponse;
     }
 
+
+    public static String ConvertNumberToEnglish(String givenNumber) {
+
+        char[] numberMap = {'0','1','2','3','4','5','6','7','8','9'}; //first 40 byte is wastage but its acceptable
+
+        String englishResponse = "";
+
+        for(int i = 0; i< givenNumber.length(); i++) {
+            try {
+                englishResponse += numberMap[givenNumber.charAt(i) - 2534];
+            } catch (ArrayIndexOutOfBoundsException aiob) {
+                if(givenNumber.charAt(i) > 2543 || givenNumber.charAt(i) < 2534) {
+                    englishResponse += givenNumber.charAt(i);
+                } else {
+                    Log.e(LOGTAG, "Number out of range:" + givenNumber);
+                }
+            }
+        }
+
+        return englishResponse;
+    }
+
+
     public static void showBiggerToast(Context context, int stringId ) {
         Toast toast = Toast.makeText(context, stringId, Toast.LENGTH_LONG);
         LinearLayout toastLayout = (LinearLayout) toast.getView();

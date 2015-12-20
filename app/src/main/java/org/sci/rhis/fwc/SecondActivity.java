@@ -379,6 +379,14 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
     public void startPAC(View view) {
         Intent intent = new Intent(this, PACActivity.class);
+        //TODO - Remove
+        if(true) {
+            Utilities.showBiggerToast(this, R.string.PACWarning);
+            return;
+        }
+        //
+
+
         if(woman != null && woman.isEligibleFor(PregWoman.PREG_SERVICE.PAC)) {
             intent.putExtra("PregWoman", woman);
             intent.putExtra("Provider", ProviderInfo.getProvider());
@@ -463,13 +471,14 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
     private void startDeliveryWithoutPregInfo(String result) {
         Log.d(LOGTAG, "PSUDO PREG INFO RETURNED:\n\t" + result);
         callbackAsyncTask(result); //will create PregWoman
-        woman.setActualDelivery(lmp_edd.get("edd"),"dd/MM/yyyyy");
+        woman.setActualDelivery(lmp_edd.get("edd"), "dd/MM/yyyyy");
         woman.setDeliveryInfo(1);
         //in this case actual delivery date was the edd
 
         Intent intent = new Intent(this, DeliveryActivity.class);
         intent.putExtra("PregWoman", woman);
         intent.putExtra("Provider", ProviderInfo.getProvider());
+        intent.putExtra("actualDeliveryDateAvailable", true);
         startActivityForResult(intent, ActivityResultCodes.DELIVERY_ACTIVITY);
     }
 
@@ -686,10 +695,10 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             json = buildQueryHeader(false);
 
             if(!storeLocalJson) {
-                //TODO - Prompt to Enter delivery date here, datePickerDialog
 
-                json.put("lmp", new SimpleDateFormat("yyyy-MM-dd").format(new SimpleDateFormat("dd/MM/yyyy").parseObject(lmp_edd.get("lmp"))));
-                json.put("edd", new SimpleDateFormat("yyyy-MM-dd").format(new SimpleDateFormat("dd/MM/yyyy").parseObject(lmp_edd.get("edd"))));
+                json.put("lmp", new SimpleDateFormat("yyyy-MM-dd").format(new SimpleDateFormat("dd/MM/yyyy").parse(lmp_edd.get("lmp"))));
+                json.put("edd", new SimpleDateFormat("yyyy-MM-dd").format(Utilities.addDateOffset(new SimpleDateFormat("dd/MM/yyyy").parse(lmp_edd.get("lmp")), PregWoman.PREG_PERIOD )));
+                //edd - always calculated from lmp , actual delivery date is saved inside pregwoman object through setActualDelivery
             }
             Utilities.getEditTexts(jsonEditTextMap, json);
             Utilities.getEditTextDates(jsonEditTextDateMapSave, json);

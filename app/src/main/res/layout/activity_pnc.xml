@@ -280,7 +280,6 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/pncInfo_mother"
                     android:textColor="@color/text_color"
@@ -995,7 +994,7 @@
                 android:background="#FFFFFF"
                 android:orientation="vertical"
                 android:paddingBottom="20sp"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <Button
                     android:id="@+id/pncInfoChildLabel"
@@ -1492,26 +1491,20 @@
 
                     <Button
                         android:id="@+id/pncChildSaveButton"
-                        android:layout_marginLeft="220sp"
                         android:onClick="savePNCChild"
                         android:text="Save"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
                         android:padding="10sp"
                         android:paddingBottom="10sp"
                         android:textSize="20sp"
-                        android:visibility="invisible"/>
+                        android:visibility="visible"/>
                     <Button
                         android:id="@+id/pncChildCancelButton"
-                        android:layout_marginLeft="220sp"
                         android:onClick="savePNCChild"
-                        android:text="Save"
+                        android:text="Cancel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
                         android:padding="10sp"
                         android:paddingBottom="10sp"
                         android:textSize="20sp"

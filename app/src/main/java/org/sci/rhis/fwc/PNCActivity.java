@@ -331,7 +331,7 @@ pnc child history
             Utilities.MakeInvisible(this, R.id.id_pncChildListDropdown);
             /*try {
                 if(lastPncVisit> 0) {*/
-                    showHidePncDeleteButton(jsonRespMother, true);
+            showHidePncDeleteButton(jsonRespMother, true);
                /* } else { //no visit means nothing to show
 
                 }
@@ -348,6 +348,10 @@ pnc child history
         } else if (checkedId == R.id.pncChildSelector) {
             Utilities.SetVisibility(this, R.id.deleteLastPncButton, View.INVISIBLE); //always first set it to invisible until a child is selected
             Utilities.MakeVisible(this, R.id.id_pncChildListDropdown);
+            // -- -- -- -
+            lay_frag_mother.setVisibility(View.INVISIBLE);
+            pnclay_mother.setVisibility(View.INVISIBLE);
+            // -- -- -- -
             //findViewById(R.id.id_pncChildListDropdown).setVisibility(View.VISIBLE);
             //getCheckbox(R.id.stimulation).setChecked(false);
             //getCheckbox(R.id.bag_n_mask).setChecked(false);
@@ -727,7 +731,7 @@ pnc child history
         for (String key: keyMap.keySet()) {
             try {
                 //keyMap.get(key).setText(json.getString(key));
-                json.put(key, (keyMap.get(key).getText()));
+                json.put(key, (Utilities.ConvertNumberToEnglish(keyMap.get(key).getText().toString()))); //converted any number back to english
             } catch (JSONException jse) {
                 Log.e(LOGTAG, "The JSON key: '" + key + "' does not exist\n\t" + jse.getStackTrace());
                 Utilities.printTrace(jse.getStackTrace());
