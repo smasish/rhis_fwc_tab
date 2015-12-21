@@ -556,12 +556,6 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             Utilities.MakeVisible(this, R.id.client_Cancel_Button);
 
             Utilities.showBiggerToast(this, R.string.DeliverySavePrompt);
-
-            /*Toast toast = Toast.makeText(this, R.string.DeliverySavePrompt, Toast.LENGTH_LONG);
-            LinearLayout toastLayout = (LinearLayout) toast.getView();
-            TextView toastTV = (TextView) toastLayout.getChildAt(0);
-            toastTV.setTextSize(20);
-            toast.show();*/
         }
     }
 
@@ -847,7 +841,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                             EditText estLmp = (EditText)dialog.findViewById(R.id.estimatedLmpDate);
                             if(!dDate.getText().toString().equals("")) {
                                 deliveryDate = dDate.getText().toString();
-                                Date d_date = Utilities.addDateOffset(uiFormat.parse(dDate.getText().toString()), -280);
+                                Date d_date = Utilities.addDateOffset(uiFormat.parse(dDate.getText().toString()), -PregWoman.PREG_PERIOD);
                                 estLmp.setText(uiFormat.format(d_date));
                             }
 
@@ -868,10 +862,13 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             public void onClick(View v) {
                 String deliveryDate = ((EditText) dialog.findViewById(R.id.id_delivery_date)).getText().toString();
                 String estimatedLmp = ((EditText) dialog.findViewById(R.id.estimatedLmpDate)).getText().toString();
-                //if()
-                lmp_edd.put("edd", deliveryDate);
-                lmp_edd.put("lmp", estimatedLmp);
-                handleDialogButtonClick(dialog, v);
+                if( !deliveryDate.equals("") && !estimatedLmp.equals("")) {
+                    lmp_edd.put("edd", deliveryDate);
+                    lmp_edd.put("lmp", estimatedLmp);
+                    handleDialogButtonClick(dialog, v);
+                } else {
+                    Utilities.showBiggerToast(SecondActivity.this, R.string.GeneralSaveWarning);
+                }
             }
         });
 
@@ -1031,7 +1028,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         //TODO - there may not exist a village
         if(isEmpty || lastchild || isEmptyFields) {
 
-            Utilities.showBiggerToast(this, R.string.NRCSaveWarning);
+            Utilities.showBiggerToast(this, R.string.GeneralSaveWarning);
             return false;
         }
 

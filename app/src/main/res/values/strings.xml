@@ -82,7 +82,7 @@
     <string name = "ANCWarning">গর্ভকালীন সেবা প্রযোজ্য নয়</string>
     <string name = "PNCWarning">প্রসবের তথ্য অনুপস্থিত। অনুগ্রহ করে \nপ্রসবোত্তর সেবার পূর্বে প্রসবের তথ্য নিন। </string>
     <string name = "PACWarning">গর্ভপাত পরবর্তী সেবা প্রযোজ্য নয়  </string>
-    <string name = "NRCSaveWarning">দয়া করে তারকা (*) চিহ্নিত ঘর গুলি পূরণ করে পুনরায় save চাপুন </string>
+    <string name = "GeneralSaveWarning">দয়া করে তারকা (*) চিহ্নিত ঘর গুলি পূরণ করে পুনরায় save চাপুন </string>
     <string name = "DeliverySavePrompt">দয়া করে সংগৃহিত তথ্য যাচাই করুন, নিশ্চিত করে CONFIRM চাপুন</string>
     <string name = "DeliveryWithoutPregnancyPrompt">গর্ভ সংক্রান্ত তথ্য অনুপস্থিত।\n তথ্য ব্যতীত সেবা দিতে OK চাপুন ফেরত যেতে CANCEL চাপুন</string>
     <string name = "ServiceDeletionWarning">সাবধান!  সেবা গ্রহনের তথ্য DELETE করতে \n OK চাপুন ফেরত যেতে CANCEL চাপুন</string>

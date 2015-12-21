@@ -123,8 +123,8 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
         hasDeliveryInfo = false;
 
         if(mother.getDeliveryInfo() == 1 &&
-            intent.hasExtra("getactualDeliveryDateAvailable") &&
-            intent.getBooleanExtra("getactualDeliveryDateAvailable", false)) {
+            intent.hasExtra("actualDeliveryDateAvailable") &&
+            intent.getBooleanExtra("actualDeliveryDateAvailable", false)) {
             Date tempDate = mother.getActualDelivery();
             jsonEditTextDateMap.get("dDate").setText( tempDate != null ? uiFormat.format(mother.getActualDelivery()): "");
         }
@@ -773,7 +773,7 @@ public class DeliveryActivity extends ClinicalServiceActivity implements Adapter
 
         //TODO - there may not exist a village
         if(!allSelected) {
-            Toast toast = Toast.makeText(this, R.string.NRCSaveWarning, Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(this, R.string.GeneralSaveWarning, Toast.LENGTH_LONG);
             LinearLayout toastLayout = (LinearLayout) toast.getView();
             TextView toastTV = (TextView) toastLayout.getChildAt(0);
             toastTV.setTextSize(20);
