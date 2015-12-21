@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
@@ -19,7 +18,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -340,12 +338,17 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
     public void startANC(View view) {
         Intent intent = new Intent(this, ANCActivity.class);
-        if (checkClientInfo() && woman.isEligibleFor(PregWoman.PREG_SERVICE.ANC)) {
+
+        if (!checkClientInfo(true)) {
+            return;
+        }
+
+        if(woman.isEligibleFor(PregWoman.PREG_SERVICE.ANC)) {
             intent.putExtra("PregWoman", woman);
             intent.putExtra("Provider", ProviderInfo.getProvider());
             startActivity(intent);
         } else {
-            Toast.makeText(this, "Too Late for ANC, verify ...", Toast.LENGTH_LONG).show();
+            Utilities.showBiggerToast(this, R.string.ANCWarning);
         }
 
     }
@@ -396,27 +399,23 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         }
     }
 
-
     public void startPNC(View view) {
         Intent intent = new Intent(this, PNCActivity.class);
-        if (checkClientInfo() && woman.isEligibleFor(PregWoman.PREG_SERVICE.PNC)) {
+
+        if( checkClientInfo(false) && woman.isEligibleFor(PregWoman.PREG_SERVICE.PNC)) {
             intent.putExtra("PregWoman", woman);
             intent.putExtra("Provider", ProviderInfo.getProvider());
             startActivity(intent);
         } else {
-
-            /*Toast toast = Toast.makeText(this, R.string.PNCWarning, Toast.LENGTH_LONG);
-            LinearLayout toastLayout = (LinearLayout) toast.getView();
-            TextView toastTV = (TextView) toastLayout.getChildAt(0);
-            toastTV.setTextSize(20);
-            toast.show();*/
             Utilities.showBiggerToast(this, R.string.PNCWarning);
         }
     }
 
-    private boolean checkClientInfo() {
+    private boolean checkClientInfo(boolean showMessage) {
         if (woman == null) {
-            Toast.makeText(this, "No Client, Get Client Information first ...", Toast.LENGTH_LONG).show();
+            if(showMessage) {
+                Utilities.showBiggerToast(this, R.string.clientInfoMissing);
+            }
             return false;
         }
         return true;
@@ -447,7 +446,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
     private void deliveryWithoutPregInfo() {
         AlertDialog alertDialog = new AlertDialog.Builder(SecondActivity.this).create();
-        alertDialog.setTitle("DELICVERY CONFIRMATION");
+        alertDialog.setTitle("DELIVERY CONFIRMATION");
         alertDialog.setMessage(getString(R.string.DeliveryWithoutPregnancyPrompt));
 
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
