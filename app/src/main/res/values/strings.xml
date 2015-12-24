@@ -92,6 +92,7 @@
     <string name = "expressDeliveryBanner">প্রসবের তারিখ দিন </string>
     <string name = "lmpOptionalDailog">যদি শেষ মাসিকের তারিখ জানা যায় </string>
     <string name = "loginWaitRequest">দুঃখিত, দয়া করে ৫ সেকেন্ড অপেক্ষা করে আবার চেষ্টা করুণ </string>
+    <string name = "passwordResetRequest">পাসওয়ার্ড নতুন করে নিতে আপনার উর্ধত্বন কর্তৃপক্ষের সাথে যোগাযোগ করুন। </string>
 
 
 
