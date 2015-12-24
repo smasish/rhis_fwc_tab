@@ -1071,7 +1071,14 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             String keyParseTT = "R.id.Clients_TT_Tika" + i;
             if (i < (maxTT + 2)) {
                 Utilities.MakeVisible(act, TTcheckboxMap.get(keyParseTT));
-            } else {
+
+                if(i < maxTT){
+                    Utilities.Disable(act,TTcheckboxMap.get(keyParseTT));
+                }
+                else
+                    Utilities.Enable(act,TTcheckboxMap.get(keyParseTT));
+            }
+            else {
                 Utilities.MakeInvisible(act, TTcheckboxMap.get(keyParseTT));
             }
         }
