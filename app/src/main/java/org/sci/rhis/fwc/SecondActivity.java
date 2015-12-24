@@ -360,7 +360,9 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             return;
         }*/
 
-        if ( woman != null && woman.isEligibleFor(PregWoman.PREG_SERVICE.DELIVERY)) {
+        if ( woman != null && (
+                (woman.isEligibleFor(PregWoman.PREG_SERVICE.DELIVERY)) ||
+                (woman.getDeliveryInfo() == 1)) ){
             intent.putExtra("PregWoman", woman);
             intent.putExtra("Provider", ProviderInfo.getProvider());
             startActivityForResult(intent, ActivityResultCodes.DELIVERY_ACTIVITY);
@@ -537,6 +539,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         if( countSaveClick == 2 ) {
             saveClientToJson();
             getButton(R.id.client_Save_Button).setText("Save");
+            Utilities.MakeInvisible(this, R.id.client_Save_Button);
             countSaveClick = 0;
 
         } else if(countSaveClick == 1) {
