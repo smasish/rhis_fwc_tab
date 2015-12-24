@@ -635,8 +635,10 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
             finishActivity(ActivityResultCodes.REGISTRATION_ACTIVITY);
             finish();
         } else if(countSaveClick == 1) {
-            if(!hasTheRequiredFileds())
+            if(!hasTheRequiredFileds()) {
+                countSaveClick = 0;
                 return;
+            }
             Utilities.Disable(this, R.id.clients_intro_layout);
             Utilities.Disable(this, R.id.Clients_House_No);
             Utilities.Enable(this, R.id.nrcProceed);
