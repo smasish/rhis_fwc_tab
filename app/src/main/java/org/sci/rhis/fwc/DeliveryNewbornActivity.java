@@ -30,7 +30,6 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -574,7 +573,7 @@ public class DeliveryNewbornActivity extends ClinicalServiceActivity implements 
 
         //TODO - there may not exist a village
         if(!allSelected) {
-            Toast toast = Toast.makeText(this, R.string.NRCSaveWarning, Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(this, R.string.GeneralSaveWarning, Toast.LENGTH_LONG);
             LinearLayout toastLayout = (LinearLayout) toast.getView();
             TextView toastTV = (TextView) toastLayout.getChildAt(0);
             toastTV.setTextSize(20);

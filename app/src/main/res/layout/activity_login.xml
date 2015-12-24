@@ -132,8 +132,7 @@
         android:textColor="@color/text_color"
         android:text="Forgot password?"
         android:layout_width="138dp"
-        android:layout_height="match_parent"
-        android:onClick="showTextForgotPass"/>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
     <TableLayout

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.text.InputFilter;
 import android.util.Log;
-import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +17,6 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +28,6 @@ import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -380,7 +377,7 @@ public class NRCActivity extends ClinicalServiceActivity implements AdapterView.
 
         //TODO - there may not exist a village
         if(isEmpty || !allSelected) {
-            Toast toast = Toast.makeText(this, R.string.NRCSaveWarning, Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(this, R.string.GeneralSaveWarning, Toast.LENGTH_LONG);
             LinearLayout toastLayout = (LinearLayout) toast.getView();
             TextView toastTV = (TextView) toastLayout.getChildAt(0);
             toastTV.setTextSize(20);

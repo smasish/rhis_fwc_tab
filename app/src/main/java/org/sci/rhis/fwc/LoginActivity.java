@@ -3,6 +3,7 @@ package org.sci.rhis.fwc;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -14,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -27,6 +29,7 @@ public class LoginActivity extends FWCServiceActivity {
     private Button button;
     private int placeIndex=0;
     private String placeName="";
+    TextView forgetPassword = null;
     private static boolean fileLoaded = false;
 
 
@@ -93,6 +96,20 @@ public class LoginActivity extends FWCServiceActivity {
         DatabaseFieldMapping.InitializeClientInformation();
         loader = new FileLoader(this);
         loader.execute();
+
+        forgetPassword= getTextView(R.id.forgotPasswordLabel);
+        forgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utilities.showBiggerToast(LoginActivity.this, R.string.passwordResetRequest);
+                forgetPassword.setTextColor(getResources().getColor(R.color.warning_color));
+                EditText id = getEditText(R.id.providerId);
+                //id.setBackgroundColor(Color.argb(50, 200, 4, 4));
+            }
+        });
+
+
+
     }
 
     public void startLogin(View view) {
