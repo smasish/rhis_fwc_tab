@@ -96,9 +96,9 @@ public class ClientInfoFragment extends Fragment implements OnClickListener {
                         if(!paraStr.equals("")) {
                             int value = Integer.valueOf(paraStr);
 
-                            for (int id:zeroInitList) {
+                            /*for (int id:zeroInitList) {
                                 ((EditText)view.findViewById(id)).setText(String.valueOf(0));
-                            }
+                            }*/
 
                             Utilities.SetVisibility(getActivity(), R.id.born_blood, (value == 0) ? View.GONE : View.VISIBLE);
                             Utilities.SetVisibility(getActivity(), R.id.age_lasr_child_height, (value == 0) ? View.GONE : View.VISIBLE);
