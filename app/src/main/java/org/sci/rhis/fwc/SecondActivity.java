@@ -1,8 +1,10 @@
 
 package org.sci.rhis.fwc;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -45,7 +48,6 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
     private View mClientInfoLayout;
 
     private int countSaveClick=0;
-
     private AsyncClientInfoUpdate clientInfoQueryTask;
     private AsyncClientInfoUpdate clientInfoUpdateTask;
 
@@ -53,6 +55,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
     final private String ROOTKEY = "pregWomen";
     private  final String LOGTAG    = "FWC-INFO";
     private HashMap<String, String> lmp_edd = null;
+    private static HashMap<String, Integer> TTcheckboxMap = new HashMap<>();
 
     private BigInteger responseID = BigInteger.valueOf(0);
     private EditText lmpEditText;
@@ -60,6 +63,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
     private JSONObject client;
     private CustomDatePickerDialog datePicker = null;
     private String deliveryDate = null;
+    private static SecondActivity act;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -140,6 +144,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         );
 
         addListenerOnButton();
+        act=this;
     }
 
     public void startSearch(View view) {
@@ -279,9 +284,11 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                         if (woman != null) {//Elco Women with pregInfo
                             manipulateJson(json);
                             populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
+                            setTT_UI();
                             getView_WomenWithPregInfo();
                         } else { //Elco Women without pregInfo
                             getView_WomenWithOutPregInfo();
+                            setTT_UI();
                         }
                     } else {//Men & Not-Elco Women
                         Toast.makeText(this, "Male or Not Eligible Women for Pregnancy", Toast.LENGTH_LONG).show();
@@ -311,6 +318,8 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                     responseID = new BigInteger(client.get("cHealthID").toString());
 
                     getView_WomenWithPregInfo();
+                    setTT_UI();
+
                 }
                 else{
                     Toast.makeText(this, "Provided information is not valid! Please try again", Toast.LENGTH_LONG).show();
@@ -1037,4 +1046,69 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
 
         return true;
     }
+
+    private static void initiateTTcheckboxMap() {
+        TTcheckboxMap.put("R.id.Clients_TT_Tika1", R.id.Clients_TT_Tika1);
+        TTcheckboxMap.put("R.id.Clients_TT_Tika2", R.id.Clients_TT_Tika2);
+        TTcheckboxMap.put("R.id.Clients_TT_Tika3", R.id.Clients_TT_Tika3);
+        TTcheckboxMap.put("R.id.Clients_TT_Tika4", R.id.Clients_TT_Tika4);
+        TTcheckboxMap.put("R.id.Clients_TT_Tika5", R.id.Clients_TT_Tika5);
+    }
+
+    public void setTT_UI() {
+        int maxTT=checkMaxTTfromJSON();
+        initiateTTcheckboxMap();
+
+        for (int i = 1; i <= maxTT; i++) {
+            String keyParseTT = "R.id.Clients_TT_Tika" + i;
+            Utilities.Disable(this, TTcheckboxMap.get(keyParseTT));
+        }
+        show_TT_UI(maxTT);
+    }
+
+    public static void show_TT_UI(int maxTT) {
+        for (int i = 1; i <= 5; i++) {
+            String keyParseTT = "R.id.Clients_TT_Tika" + i;
+            if (i < (maxTT + 2)) {
+                Utilities.MakeVisible(act, TTcheckboxMap.get(keyParseTT));
+            } else {
+                Utilities.MakeInvisible(act, TTcheckboxMap.get(keyParseTT));
+            }
+        }
+    }
+
+    public int checkMaxTTfromJSON() {
+        //  cTT1Date cTT1
+        int maxTT=0;
+
+        for (int i = 5; i >= 1; i--) {
+            String keyParseTT = "cTT" + i;
+            try {
+                if (client.getString(keyParseTT).equals("1")) {
+                    maxTT = i;
+                    break;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return maxTT;
+    }
+
+    public static int checkMaxTTfromUI(){
+        int maxChecked=0;
+        String keyParseTT;
+
+        for (int i = 5; i >= 1; i--) {
+            keyParseTT = "R.id.Clients_TT_Tika" + i;
+            CheckBox box = (CheckBox) act.findViewById(TTcheckboxMap.get(keyParseTT));
+            if (box.isChecked()) {
+                maxChecked = i;
+                break;
+            }
+        }
+
+        return maxChecked;
+    }
+
 }

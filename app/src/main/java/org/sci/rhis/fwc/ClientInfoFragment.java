@@ -39,6 +39,7 @@ public class ClientInfoFragment extends Fragment implements OnClickListener {
         ib = (ImageButton) view.findViewById(R.id.Date_Picker_Button);
         ib.setOnClickListener(this);
 
+
         datePickerDialog = new CustomDatePickerDialog(getActivity(), new SimpleDateFormat("dd/MM/yyyy"));
         datePickerPair = new HashMap<Integer, EditText>();
 
@@ -153,6 +154,7 @@ public class ClientInfoFragment extends Fragment implements OnClickListener {
             datePickerDialog.show(datePickerPair.get(v.getId()));
 
         } else if(v.getTag() != null && v.getTag().equals("TT")) {
+            SecondActivity.show_TT_UI(SecondActivity.checkMaxTTfromUI());
             if (datePickerPair.containsKey(v.getId()) ) {
                 if(getCheckbox(v, v.getId()).isChecked()) {
                     datePickerDialog.show(datePickerPair.get(v.getId()));
