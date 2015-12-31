@@ -801,4 +801,45 @@
     <string name="title_activity_death">DeathActivity</string>
     <string name="title_activity_pac">গর্ভপাত পরবর্তী সেবা</string>
     <string name="title_activity_advsearch">ADVSearchActivity</string>
+
+    <string name="title_activity_pc">গর্ভ নিরোধক খাবার বড়ি , কনডম সেবা</string>
+    <string name="pillLabel"> খাবার বড়ির নাম :</string>
+    <string name="leftReasonLabel"> ছেড়ে দেবার কারন :</string>
+    <string name="pcOtherLabel"> অন্য পদ্ধতি :</string>
+    <string name="amount"> পরিমাণ :</string>
+    <string name="pillUnit"> চক্র</string>
+    <string name="condomUnit"> পিস</string>
+
+    <string-array name="pcMethod_Dropdown">
+        <item></item>
+        <item> খাবার বড়ি ‘ব‘</item>
+        <item> কনডম ‘ক‘</item>
+        <item> ছেড়ে দিয়েছেন ‘ছে‘</item>
+        <item> অন্য পদ্ধতি নিয়েছেন ‘অ‘</item>
+    </string-array>
+
+    <string-array name="pill_Dropdown">
+        <item></item>
+        <item> সুখী ‘ব(সু)‘</item>
+        <item> আপন ‘ব(আ)‘</item>
+    </string-array>
+
+    <string-array name="left_Dropdown">
+        <item></item>
+        <item> পার্শ্ব প্রতিক্রিয়ার জন্য ‘ছে(প)‘</item>
+        <item> সন্তান নিবে ‘ছে(স)‘</item>
+        <item> মজুদ সংকট/ সরবরাহ নাই ‘ছে(ম)‘</item>
+        <item> স্বামী বিদেশে / কাছে নাই ‘ছে(সম)‘</item>
+    </string-array>
+
+    <string-array name="pcOther_Dropdown">
+        <item></item>
+        <item> ইনজেকটেবলস ‘অ(ই)‘</item>
+        <item> আইইউডি ‘অ(টি)‘</item>
+        <item> ইমপ্ল্যান্ট  ‘অ(ইম)‘</item>
+        <item> স্থায়ী পদ্ধতি ( পুরুষ ) ‘অ(পু)‘</item>
+        <item> স্থায়ী পদ্ধতি ( মহিলা ) ‘অ(ম)‘</item>
+        <item> অন্য যে কোন অবস্থা ‘অ(যে)‘</item>
+    </string-array>
+
 </resources>

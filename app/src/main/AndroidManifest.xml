@@ -62,6 +62,10 @@
             android:label="@string/title_activity_advsearch" >
         </activity>
         <activity
+            android:name=".PillCondomActivity"
+            android:label="@string/title_activity_pc" >
+        </activity>
+        <activity
             android:name=".PopUp"
             android:label="@string/title_confirmation"
             android:theme="@style/AppTheme.popUpTheme">
