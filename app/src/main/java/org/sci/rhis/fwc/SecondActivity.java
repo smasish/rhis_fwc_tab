@@ -64,6 +64,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
     private CustomDatePickerDialog datePicker = null;
     private String deliveryDate = null;
     private static SecondActivity act;
+    private boolean pregInfoExists=false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -178,6 +179,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         //      need better alternative eventually, getting messy
         Utilities.Reset(this, R.id.clients_intro_layout);
         Utilities.Reset(this, R.id.clients_info_layout);
+        Utilities.Reset(this, R.id.fp_client_info_layout);
         retrieveClient.execute(queryString, servlet, jsonRootkey);
 
         /*TextView mHealthIdLayout = (TextView) findViewById(R.id.health_id);
@@ -272,33 +274,35 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
                 client = json;
                 if (json.getString("False").equals("")) { //Client exists
                     populateClientDetails(json, DatabaseFieldMapping.CLIENT_INTRO);
-                    //Utilities.VisibleLayout(this, R.id.client_intro_layout);
+                    getView_NoClient();
                     Utilities.MakeVisible(this, R.id.client_intro_layout);
                     Utilities.Disable(this, R.id.client_intro_layout);
+                    Utilities.MakeVisible(this, R.id.Type_table_Layout);
 
                     if (json.getString("cSex").equals("2") && Integer.parseInt(json.getString("cAge")) >= 15 && Integer.parseInt(json.getString("cAge")) <= 49) {
                         //Elco Women
                         Log.d(LOGTAG, "CREATING PREGNANCY REMOTE" + client.toString());
-                        woman = PregWoman.CreatePregWoman(json);
+                        woman = PregWoman.CreatePregWoman(json); //Creating pregWomen Object
                         responseID = new BigInteger(json.get("cHealthID").toString());
                         if (woman != null) {//Elco Women with pregInfo
                             manipulateJson(json);
                             populateClientDetails(json, DatabaseFieldMapping.CLIENT_INFO);
                             setTT_UI();
-                            getView_WomenWithPregInfo();
+                            pregInfoExists=true;
+
                         } else { //Elco Women without pregInfo
-                            getView_WomenWithOutPregInfo();
+                            pregInfoExists=false;
                             setTT_UI();
                         }
                     } else {//Men & Not-Elco Women
                         Toast.makeText(this, "Male or Not Eligible Women for Pregnancy", Toast.LENGTH_LONG).show();
-                        getView_NoClient();
-                        //Utilities.VisibleLayout(this, R.id.client_intro_layout);
+                      /*  getView_NoClient();
                         Utilities.MakeVisible(this, R.id.client_intro_layout);
+                        Utilities.Disable(this, R.id.client_intro_layout);*/
                     }
                 } else {//Client doesn't exist
                     Toast.makeText(this, "Provided information is not valid! Please try again....", Toast.LENGTH_LONG).show();
-                    getView_NoClient();
+                   // getView_NoClient();
                 }
             }
 
@@ -389,6 +393,16 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
             intent.putExtra("Provider", ProviderInfo.getProvider());
             startActivity(intent);
 
+    }
+
+    public void startPillCondom(View view) {
+        Intent intent = new Intent(this, PillCondomActivity.class);
+        intent.putExtra("Provider", ProviderInfo.getProvider());
+        startActivity(intent);
+    }
+
+    public void NotReadyYet(View view) {
+        Utilities.showBiggerToast(this, R.string.NotReadyYet);
     }
 
     public void startPAC(View view) {
@@ -957,7 +971,7 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         Utilities.Enable(this, R.id.client_Save_Button);
     }
 
-    private void getView_WomenWithPregInfo() {
+    public void getView_WomenWithPregInfo() {
         woman.UpdateUIField(this);
 
         Utilities.Disable(this, R.id.clients_info_layout);
@@ -974,11 +988,12 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         Utilities.Enable(this, R.id.client_New_preg_Button);
 
         Utilities.VisibleLayout(this, R.id.table_Layout);
-        Utilities.VisibleLayout(this, R.id.client_intro_layout);
+        Utilities.InVisibleLayout(this, R.id.fp_table_Layout);
         Utilities.VisibleLayout(this, R.id.clients_info_layout);
+        Utilities.InVisibleLayout(this, R.id.fp_clients_info_layout);
     }
 
-    private void getView_WomenWithOutPregInfo(){
+    public void getView_WomenWithOutPregInfo(){
         Utilities.EnableField(this, R.id.Clients_House_No, "edit");
         Utilities.EnableField(this, R.id.Clients_Mobile_no, "edit");
         Utilities.Enable(this, R.id.client_Save_Button);
@@ -989,14 +1004,45 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         Utilities.MakeInvisible(this, R.id.client_edit_Button);
         Utilities.MakeInvisible(this, R.id.client_New_preg_Button);
 
-        Utilities.VisibleLayout(this, R.id.table_Layout);
+        Utilities.InVisibleLayout(this, R.id.table_Layout);
+        Utilities.InVisibleLayout(this, R.id.fp_table_Layout);
         Utilities.VisibleLayout(this, R.id.clients_info_layout);
-        Utilities.VisibleLayout(this, R.id.client_intro_layout);
+        Utilities.InVisibleLayout(this, R.id.fp_clients_info_layout);
     }
-    private void getView_NoClient(){
+
+    public void getView_WomenWithOutFPInfo(){
+        Utilities.EnableField(this, R.id.Clients_House_No, "edit");
+        Utilities.EnableField(this, R.id.Clients_Mobile_no, "edit");
+        Utilities.Enable(this, R.id.FPclient_Save_Button);
+
+        Utilities.MakeVisible(this, R.id.FPclient_Save_Button);
+        Utilities.MakeInvisible(this, R.id.FPclient_Cancel_Button);
+        Utilities.MakeInvisible(this, R.id.FPclient_edit_Button);
+
+        Utilities.InVisibleLayout(this, R.id.table_Layout);
+        Utilities.InVisibleLayout(this, R.id.fp_table_Layout);
+        Utilities.InVisibleLayout(this, R.id.clients_info_layout);
+        Utilities.VisibleLayout(this, R.id.fp_clients_info_layout);
+    }
+
+    public void getView_WomenWithFPInfo() {
+        Utilities.DisableField(this, R.id.Clients_House_No);
+        Utilities.DisableField(this, R.id.Clients_Mobile_no);
+
+        Utilities.InVisibleLayout(this, R.id.table_Layout);
+        Utilities.InVisibleLayout(this, R.id.clients_info_layout);
+        Utilities.VisibleLayout(this, R.id.fp_table_Layout);
+        Utilities.VisibleLayout(this, R.id.fp_clients_info_layout);
+    }
+
+    public void getView_NoClient(){
         Utilities.InVisibleLayout(this, R.id.client_intro_layout);
         Utilities.InVisibleLayout(this, R.id.clients_info_layout);
+        Utilities.InVisibleLayout(this, R.id.fp_clients_info_layout);
         Utilities.InVisibleLayout(this, R.id.table_Layout);
+        Utilities.InVisibleLayout(this, R.id.fp_table_Layout);
+        Utilities.InVisibleLayout(this, R.id.Type_table_Layout);
+
     }
 
     private boolean hasTheRequiredFileds() {
@@ -1118,4 +1164,18 @@ public class SecondActivity extends ClinicalServiceActivity implements ArrayInde
         return maxChecked;
     }
 
+    public void showMNCH(View view){
+        if(pregInfoExists)
+            getView_WomenWithPregInfo();
+        else
+            getView_WomenWithOutPregInfo();
+    }
+
+    public void showFP(View view){
+        getView_WomenWithOutFPInfo();
+    }
+
+    public void SaveFPClient(View view){
+        getView_WomenWithFPInfo();
+    }
 }

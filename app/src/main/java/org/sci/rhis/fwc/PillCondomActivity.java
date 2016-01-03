@@ -1,6 +1,8 @@
 package org.sci.rhis.fwc;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
@@ -29,8 +31,8 @@ public class PillCondomActivity extends ClinicalServiceActivity implements Adapt
 
     private ProviderInfo provider;
     private Date today;
-    private int lastVisit;
     private Context con;
+    private int lastPCVisit=0;
 
     private Spinner spinners[] = new Spinner[4];
     private LinearLayout layouts[] = new LinearLayout[5];
@@ -43,7 +45,7 @@ public class PillCondomActivity extends ClinicalServiceActivity implements Adapt
         super.onCreate(savedInstanceState);
 
         today = new Date();
-        lastVisit = 0;
+        lastPCVisit=0;
 
         setContentView(R.layout.activity_pill_condom);
 
@@ -73,6 +75,8 @@ public class PillCondomActivity extends ClinicalServiceActivity implements Adapt
         datePickerDialog = new CustomDatePickerDialog(this, "dd/MM/yyyy");
         datePickerPair = new HashMap<>();
         datePickerPair.put(R.id.pac_Date_Picker_Button, (EditText)findViewById(R.id.pcServiceDateValue));
+
+        getTextView(R.id.pcVisitValue).setText(Utilities.ConvertNumberToBangla(String.valueOf(lastPCVisit >= 0 ? lastPCVisit + 1 : 1)));
 
     }
 
@@ -163,5 +167,31 @@ public class PillCondomActivity extends ClinicalServiceActivity implements Adapt
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog alertDialog = new AlertDialog.Builder(PillCondomActivity.this).create();
+        alertDialog.setTitle("EXIT CONFIRMATION");
+        alertDialog.setMessage("আপনি কি গর্ভ নিরোধক খাবার বড়ি , কনডম সেবা  থেকে বের হয়ে যেতে চান? \nনিশ্চিত করতে OK চাপুন, ফিরে যেতে CANCEL চাপুন ");
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        //finish();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+        //alertDialog.s
+
+        alertDialog.show();
+        //finish();
     }
 }

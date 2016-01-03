@@ -318,7 +318,7 @@
 
     <string name="perineum">"পেরিনিয়াম:"</string>
     <string name="family_planning_methods">"পরিবার পরিকল্পনা পদ্ধতি\n(পরামর্শ / পদ্ধতি প্রদান):"</string>
-
+    <string name="family_planning_methods_2">"পরিবার পরিকল্পনা পদ্ধতি "</string>
     <string name="cervix">"জরায়ুমুখ:"</string>
     <string name="pac_uterus_height">"জরায়ুর উচ্চতা :"</string>
 
@@ -803,12 +803,19 @@
     <string name="title_activity_advsearch">ADVSearchActivity</string>
 
     <string name="title_activity_pc">গর্ভ নিরোধক খাবার বড়ি , কনডম সেবা</string>
+    <string name="title_pc">পিল, কনডম সেবা</string>
+    <string name="title_IUD"> আই.ইউ.ডি (IUD) সেবা</string>
+    <string name="title_injectables">ইঞ্জেকটেবলস সেবা</string>
+    <string name="NotReadyYet">সামনের সংস্করণ থেকে পাওয়া যাবে</string>
     <string name="pillLabel"> খাবার বড়ির নাম :</string>
     <string name="leftReasonLabel"> ছেড়ে দেবার কারন :</string>
     <string name="pcOtherLabel"> অন্য পদ্ধতি :</string>
     <string name="amount"> পরিমাণ :</string>
     <string name="pillUnit"> চক্র</string>
     <string name="condomUnit"> পিস</string>
+    <string name="screening">বাছাইকরণ উপযুক্ততা যাচাই</string>
+    <string name="MNCHservice"> মা, নবজাতক ও শিশু সেবা </string>
+    <string name="FPservice"> পরিবার পরিকল্পনা সেবা</string>
 
     <string-array name="pcMethod_Dropdown">
         <item></item>

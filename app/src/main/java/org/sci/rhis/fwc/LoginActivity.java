@@ -102,7 +102,7 @@ public class LoginActivity extends FWCServiceActivity {
             @Override
             public void onClick(View v) {
                 Utilities.showBiggerToast(LoginActivity.this, R.string.passwordResetRequest);
-                forgetPassword.setTextColor(getResources().getColor(R.color.warning_color));
+                forgetPassword.setTextColor(getResources().getColor(R.color.test_color));
                 EditText id = getEditText(R.id.providerId);
                 //id.setBackgroundColor(Color.argb(50, 200, 4, 4));
             }

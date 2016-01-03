@@ -1,0 +1,224 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10sp"
+    tools:context="org.sci.rhis.fwc.FPClientInfoFragment"
+    android:orientation="vertical"
+    android:background="@drawable/fragmentborder"
+    android:id = "@+id/fp_client_info_layout">
+
+    <LinearLayout
+        android:id="@+id/fp_clients_info_layout"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/fp_client_info_title"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            style="@style/rowHeading">
+
+            <TextView
+                android:id="@+id/RegLabel"
+                android:gravity="start"
+                android:text="@string/reg_no"
+                android:layout_width="0sp"
+                android:textColor="#FFFFFF"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_weight="1" />
+            <TextView
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:id="@+id/reg_NO"
+                android:textColor="#FFFFFF"
+                android:paddingLeft="1sp"
+                android:textSize="20sp"
+                android:layout_weight="2" />
+
+            <TextView
+                android:id="@+id/TextViewFPClient_info_tab"
+                android:gravity="center"
+                android:text="@string/ClientsInfoFragment"
+                android:layout_width="0sp"
+                android:textColor="#FFFFFF"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_weight="2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/born_blood"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
+            android:layout_marginTop="1sp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layoutbordersimple">
+
+            <TextView
+                android:textSize="20sp"
+                android:layout_marginTop="10sp"
+                android:id="@+id/TextViewLive_son_Num"
+                android:text="@string/TextViewLive_child_Num"
+                android:textColor="@color/text_color"
+                android:layout_width="185sp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:textSize="20sp"
+                android:layout_marginTop="10sp"
+                android:id="@+id/TextViewClient_Son_Num"
+                android:text="@string/Client_Son_Num"
+                android:textColor="@color/text_color"
+                android:layout_width="50sp"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:layout_marginTop="10sp"
+                android:layout_marginLeft="10sp"
+                android:layout_width="40sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_round"
+                android:id="@+id/FPSonNum"
+                android:paddingLeft="10sp"
+                android:inputType="number"
+                style="@style/styleEdittext"
+                />
+
+            <TextView
+                android:textSize="20sp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="10sp"
+                android:id="@+id/TextViewClient_Daughter_Num"
+                android:text="@string/Client_Daughter_Num"
+                android:textColor="@color/text_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:layout_marginTop="10sp"
+                android:layout_marginLeft="10sp"
+                android:layout_width="40sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_round"
+                android:id="@+id/FPDaughterNum"
+                android:paddingLeft="10sp"
+                android:inputType="number"
+                style="@style/styleEdittext"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lmpLayout"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
+            android:layout_marginTop="1sp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layoutbordersimple">
+
+            <TextView
+                android:textSize="20sp"
+                android:layout_marginTop="10sp"
+                android:id="@+id/TextViewLMPDate"
+                android:text="@string/LMPDate"
+                android:textColor="@color/text_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/fp_lmpDate"
+                android:layout_width="110sp"
+                android:layout_marginTop="10sp"
+                android:layout_marginLeft="5sp"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:paddingLeft="5sp"
+                android:hint="dd/MM/yyyy"
+                android:background="@drawable/edittext_round"
+                android:inputType="date"
+                style="@style/styleEdittext"/>
+
+            <ImageButton
+                android:id="@+id/Date_Picker_Button"
+                android:layout_marginLeft="3sp"
+                android:layout_marginTop="5sp"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:src="@drawable/calendar_icon"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/screeningLayout"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
+            android:layout_marginTop="1sp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layoutbordersimple">
+            <CheckBox
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/screening"
+                android:id="@+id/screeningCheckBox"
+                style="@style/styleEdittext"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="10sp"
+            android:layout_marginBottom="10sp"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:text="Save"
+                android:id="@+id/FPclient_Save_Button"
+                android:paddingRight="10sp"
+                android:paddingLeft="10sp"
+                android:background="@drawable/button_style"
+                android:layout_gravity="center_horizontal"
+                android:onClick="SaveFPClient"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:text="Cancel"
+                android:id="@+id/FPclient_Cancel_Button"
+                android:paddingRight="10sp"
+                android:paddingLeft="10sp"
+                android:background="@drawable/button_style"
+                android:layout_gravity="center_horizontal"
+                android:onClick="onClickCancelClient"
+                android:visibility="gone"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:paddingRight="10sp"
+                android:paddingLeft="10sp"
+                android:text="Edit"
+                android:background="@drawable/button_style"
+                android:id="@+id/FPclient_edit_Button"
+                android:layout_gravity="center_horizontal"
+                android:onClick="editFields"
+                android:visibility="gone"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
